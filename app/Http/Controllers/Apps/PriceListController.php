@@ -70,6 +70,7 @@ class PriceListController extends Controller
     public function destroy(PriceList $priceList)
     {
         $priceList->delete();
+
         return back()->with('success', __('Price list deleted.'));
     }
 
@@ -91,6 +92,7 @@ class PriceListController extends Controller
     public function destroyItem(PriceList $priceList, $productId)
     {
         $priceList->items()->where('product_id', $productId)->delete();
+
         return back()->with('success', __('Item removed from price list.'));
     }
 }

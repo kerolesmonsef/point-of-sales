@@ -37,14 +37,14 @@ export default function Edit({ category }) {
     const submit = (e) => {
         e.preventDefault();
         post(route("categories.update", category.id), {
-            onSuccess: () => toast.success("Kategori berhasil diperbarui"),
-            onError: () => toast.error("Gagal memperbarui kategori"),
+            onSuccess: () => toast.success(__("Category updated successfully")),
+            onError: () => toast.error(__("Failed to update category")),
         });
     };
 
     return (
         <>
-            <Head title="Edit Kategori" />
+            <Head title={__("Edit Category")} />
 
             <div className="mb-6">
                 <Link
@@ -95,8 +95,8 @@ export default function Edit({ category }) {
                             <div className="space-y-4">
                                 <Input
                                     type="text"
-                                    label="Nama Kategori"
-                                    placeholder="Masukkan nama"
+                                    label={__("Category Name")}
+                                    placeholder={__("Enter name")}
                                     errors={errors.name}
                                     onChange={(e) =>
                                         setData("name", e.target.value)
@@ -105,7 +105,7 @@ export default function Edit({ category }) {
                                 />
                                 <Textarea
                                     label="Deskripsi"
-                                    placeholder="Deskripsi kategori"
+                                    placeholder={__("Category description")}
                                     errors={errors.description}
                                     onChange={(e) =>
                                         setData("description", e.target.value)
@@ -130,8 +130,8 @@ export default function Edit({ category }) {
                             >
                                 <IconDeviceFloppy size={18} />
                                 {processing
-                                    ? "Menyimpan..."
-                                    : "Simpan Perubahan"}
+                                    ? __("Saving...")
+                                    : __("Save Changes")}
                             </button>
                         </div>
                     </div>

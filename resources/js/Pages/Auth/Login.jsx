@@ -202,7 +202,7 @@ export default function Login({ status, canResetPassword, canRegister, botGuard 
                                         {__("Processing...")}
                                     </>
                                 ) : (
-                                    {__("Sign In")}
+                                    __("Sign In")
                                 )}
                             </button>
 

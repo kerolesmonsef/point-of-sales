@@ -284,7 +284,7 @@ export default function Register({ botGuard }) {
                                         {__("Processing...")}
                                     </>
                                 ) : (
-                                    {__("Register Now")}
+                                    __("Register Now")
                                 )}
                             </button>
 

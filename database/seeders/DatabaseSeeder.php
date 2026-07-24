@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Product;
 use App\Models\Warehouse;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\PermissionRegistrar;
 
 class DatabaseSeeder extends Seeder
@@ -42,12 +42,12 @@ class DatabaseSeeder extends Seeder
             'sort_order' => 0,
         ]);
 
-        \Illuminate\Support\Facades\DB::table('product_warehouse')->insertUsing([
+        DB::table('product_warehouse')->insertUsing([
             'product_id', 'warehouse_id', 'stock', 'created_at', 'updated_at',
-        ], \Illuminate\Support\Facades\DB::table('products')->select([
-            'id', \Illuminate\Support\Facades\DB::raw("{$pusat->id} as warehouse_id"), 'stock',
-            \Illuminate\Support\Facades\DB::raw("datetime('now') as created_at"),
-            \Illuminate\Support\Facades\DB::raw("datetime('now') as updated_at"),
+        ], DB::table('products')->select([
+            'id', DB::raw("{$pusat->id} as warehouse_id"), 'stock',
+            DB::raw("datetime('now') as created_at"),
+            DB::raw("datetime('now') as updated_at"),
         ]));
     }
 }

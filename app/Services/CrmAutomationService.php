@@ -6,9 +6,8 @@ use App\Models\Customer;
 use App\Models\CustomerCampaign;
 use App\Models\CustomerCampaignLog;
 use App\Models\Receivable;
-use App\Models\Transaction;
 use App\Models\Setting;
-use App\Services\WhatsAppService;
+use App\Models\Transaction;
 use Carbon\CarbonInterface;
 use Illuminate\Support\Collection;
 
@@ -23,20 +22,20 @@ class CrmAutomationService
     {
         return [
             'customer_types' => [
-                ['value' => 'all', 'label' => __("All Customers")],
-                ['value' => 'member', 'label' => __("Loyalty Member")],
-                ['value' => 'non_member', 'label' => __("Non Member")],
+                ['value' => 'all', 'label' => __('All Customers')],
+                ['value' => 'member', 'label' => __('Loyalty Member')],
+                ['value' => 'non_member', 'label' => __('Non Member')],
             ],
             'receivable_statuses' => [
-                ['value' => 'all', 'label' => __("All Receivable Status")],
-                ['value' => 'has_receivable', 'label' => __("Has Receivable")],
-                ['value' => 'overdue', 'label' => __("Overdue Receivable")],
-                ['value' => 'due_soon', 'label' => __("Due in 3 Days")],
+                ['value' => 'all', 'label' => __('All Receivable Status')],
+                ['value' => 'has_receivable', 'label' => __('Has Receivable')],
+                ['value' => 'overdue', 'label' => __('Overdue Receivable')],
+                ['value' => 'due_soon', 'label' => __('Due in 3 Days')],
             ],
             'voucher_filters' => [
-                ['value' => 'all', 'label' => __("All Customers")],
-                ['value' => 'has_active_voucher', 'label' => __("Has Active Voucher")],
-                ['value' => 'no_active_voucher', 'label' => __("No Active Voucher")],
+                ['value' => 'all', 'label' => __('All Customers')],
+                ['value' => 'has_active_voucher', 'label' => __('Has Active Voucher')],
+                ['value' => 'no_active_voucher', 'label' => __('No Active Voucher')],
             ],
             'segment_options' => $this->segmentationService->segmentOptions(),
         ];
@@ -201,7 +200,7 @@ class CrmAutomationService
         $campaign = CustomerCampaign::query()->firstOrCreate(
             ['context_key' => 'invoice-share-transaction-'.$transaction->id],
             [
-                'name' => __("Share Invoice ").$transaction->invoice,
+                'name' => __('Share Invoice ').$transaction->invoice,
                 'type' => CustomerCampaign::TYPE_INVOICE_SHARE,
                 'status' => CustomerCampaign::STATUS_READY,
                 'channel' => CustomerCampaign::CHANNEL_WHATSAPP_LINK,
@@ -211,7 +210,7 @@ class CrmAutomationService
                     'transaction_id' => $transaction->id,
                     'invoice' => $transaction->invoice,
                 ]],
-                'message_template' => __("Invoice {{invoice}}: {{url}}"),
+                'message_template' => __('Invoice {{invoice}}: {{url}}'),
                 'processed_at' => now(),
                 'created_by' => $userId,
             ]
@@ -226,8 +225,8 @@ class CrmAutomationService
                 'channel' => CustomerCampaign::CHANNEL_WHATSAPP_LINK,
                 'status' => CustomerCampaignLog::STATUS_READY_TO_SEND,
                 'payload' => [
-                    'message' => __("Invoice ").$transaction->invoice.': '.route('transactions.public', $transaction->invoice, true),
-                    'whatsapp_url' => 'https://wa.me/?text='.urlencode(__("Invoice ").$transaction->invoice.': '.route('transactions.public', $transaction->invoice, true)),
+                    'message' => __('Invoice ').$transaction->invoice.': '.route('transactions.public', $transaction->invoice, true),
+                    'whatsapp_url' => 'https://wa.me/?text='.urlencode(__('Invoice ').$transaction->invoice.': '.route('transactions.public', $transaction->invoice, true)),
                     'invoice' => $transaction->invoice,
                 ],
             ]
@@ -241,7 +240,7 @@ class CrmAutomationService
         $campaign = CustomerCampaign::query()->firstOrCreate(
             ['context_key' => 'invoice-share-receivable-'.$receivable->id],
             [
-                'name' => __("Share Receivable ").$receivable->invoice,
+                'name' => __('Share Receivable ').$receivable->invoice,
                 'type' => CustomerCampaign::TYPE_INVOICE_SHARE,
                 'status' => CustomerCampaign::STATUS_READY,
                 'channel' => CustomerCampaign::CHANNEL_WHATSAPP_LINK,
@@ -251,14 +250,14 @@ class CrmAutomationService
                     'receivable_id' => $receivable->id,
                     'invoice' => $receivable->invoice,
                 ]],
-                'message_template' => __("Invoice {{invoice}} total {{remaining}} due {{due_date}}"),
+                'message_template' => __('Invoice {{invoice}} total {{remaining}} due {{due_date}}'),
                 'processed_at' => now(),
                 'created_by' => $userId,
             ]
         );
 
         $shareText = sprintf(
-            __("Receivable reminder %s. Remaining balance Rp %s. Due date: %s"),
+            __('Receivable reminder %s. Remaining balance Rp %s. Due date: %s'),
             $receivable->invoice,
             number_format($receivable->remaining, 0, ',', '.'),
             optional($receivable->due_date)?->format('d/m/Y') ?? '-'
@@ -313,12 +312,12 @@ class CrmAutomationService
         $campaign = CustomerCampaign::query()->firstOrCreate(
             ['context_key' => $contextKey],
             [
-                'name' => __("Due Date Reminder H-3 ").$at->format('d M Y'),
+                'name' => __('Due Date Reminder H-3 ').$at->format('d M Y'),
                 'type' => CustomerCampaign::TYPE_DUE_DATE_REMINDER,
                 'status' => CustomerCampaign::STATUS_READY,
                 'channel' => CustomerCampaign::CHANNEL_INTERNAL,
                 'audience_filters' => ['receivable_status' => 'due_soon'],
-                'message_template' => __("Reminder: invoice {{invoice}} due {{due_date}}"),
+                'message_template' => __('Reminder: invoice {{invoice}} due {{due_date}}'),
                 'processed_at' => $at,
             ]
         );
@@ -340,12 +339,12 @@ class CrmAutomationService
         $campaign = CustomerCampaign::query()->firstOrCreate(
             ['context_key' => $contextKey],
             [
-                'name' => __("Overdue Receivable Reminder ").$at->format('d M Y'),
+                'name' => __('Overdue Receivable Reminder ').$at->format('d M Y'),
                 'type' => CustomerCampaign::TYPE_DUE_DATE_REMINDER,
                 'status' => CustomerCampaign::STATUS_READY,
                 'channel' => CustomerCampaign::CHANNEL_INTERNAL,
                 'audience_filters' => ['receivable_status' => 'overdue'],
-                'message_template' => __("Receivable {{invoice}} has been overdue since {{due_date}}"),
+                'message_template' => __('Receivable {{invoice}} has been overdue since {{due_date}}'),
                 'processed_at' => $at,
             ]
         );
@@ -367,12 +366,12 @@ class CrmAutomationService
         $campaign = CustomerCampaign::query()->firstOrCreate(
             ['context_key' => $contextKey],
             [
-                'name' => __("Repeat Order Reminder ").$at->format('d M Y'),
+                'name' => __('Repeat Order Reminder ').$at->format('d M Y'),
                 'type' => CustomerCampaign::TYPE_REPEAT_ORDER_REMINDER,
                 'status' => CustomerCampaign::STATUS_READY,
                 'channel' => CustomerCampaign::CHANNEL_INTERNAL,
                 'audience_filters' => ['segment_slugs' => ['inactive_customer']],
-                'message_template' => __("Has not shopped for a while. Invite customer to transact again."),
+                'message_template' => __('Has not shopped for a while. Invite customer to transact again.'),
                 'processed_at' => $at,
             ]
         );
@@ -388,7 +387,7 @@ class CrmAutomationService
                 ->get();
 
             foreach ($customers as $customer) {
-                $message = __("Hello ").$customer->name.__(", we miss your visit. Come shop again today.");
+                $message = __('Hello ').$customer->name.__(', we miss your visit. Come shop again today.');
 
                 $campaign->logs()->create([
                     'customer_id' => $customer->id,
@@ -416,7 +415,7 @@ class CrmAutomationService
     {
         foreach ($receivables as $receivable) {
             $message = sprintf(
-                __("Reminder %s for invoice %s. Remaining balance Rp %s. Due date %s."),
+                __('Reminder %s for invoice %s. Remaining balance Rp %s. Due date %s.'),
                 $reason,
                 $receivable->invoice,
                 number_format($receivable->remaining, 0, ',', '.'),
@@ -450,7 +449,7 @@ class CrmAutomationService
 
     private function buildCustomerPayload(CustomerCampaign $campaign, Customer $customer): array
     {
-        $template = $campaign->message_template ?: __("Hello {{name}}, there is a special promo for you.");
+        $template = $campaign->message_template ?: __('Hello {{name}}, there is a special promo for you.');
         $message = str_replace(
             ['{{name}}', '{{phone}}'],
             [$customer->name, $customer->no_telp],

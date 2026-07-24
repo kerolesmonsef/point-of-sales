@@ -33,14 +33,14 @@ export default function Create() {
     const submit = (e) => {
         e.preventDefault();
         post(route("categories.store"), {
-            onSuccess: () => toast.success("Kategori berhasil ditambahkan"),
-            onError: () => toast.error("Gagal menyimpan kategori"),
+            onSuccess: () => toast.success(__("Category added successfully")),
+            onError: () => toast.error(__("Failed to save category")),
         });
     };
 
     return (
         <>
-            <Head title="Tambah Kategori" />
+            <Head title={__("Add Category")} />
 
             <div className="mb-6">
                 <Link
@@ -92,8 +92,8 @@ export default function Create() {
                             <div className="space-y-4">
                                 <Input
                                     type="text"
-                                    label="Nama Kategori"
-                                    placeholder="Masukkan nama"
+                                    label={__("Category Name")}
+                                    placeholder={__("Enter name")}
                                     errors={errors.name}
                                     onChange={(e) =>
                                         setData("name", e.target.value)
@@ -102,7 +102,7 @@ export default function Create() {
                                 />
                                 <Textarea
                                     label="Deskripsi"
-                                    placeholder="Deskripsi kategori"
+                                    placeholder={__("Category description")}
                                     errors={errors.description}
                                     onChange={(e) =>
                                         setData("description", e.target.value)
@@ -126,7 +126,7 @@ export default function Create() {
                                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-medium transition-colors disabled:opacity-50"
                             >
                                 <IconDeviceFloppy size={18} />
-                                {processing ? "Menyimpan..." : "Simpan"}
+                                {processing ? __("Saving...") : __("Save")}
                             </button>
                         </div>
                     </div>

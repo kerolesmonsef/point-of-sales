@@ -77,7 +77,7 @@ export default function Show({
                                     <IconCrown size={14} />
                                     {customer.is_loyalty_member
                                         ? customer.loyalty_tier
-                                        : "non-member"}
+                                        : __("non-member")}
                                 </span>
                             </div>
                             <p className="text-sm text-slate-500 dark:text-slate-400">
@@ -313,7 +313,7 @@ export default function Show({
                                     <p className="mt-1 font-semibold text-slate-900 dark:text-white">
                                         {customer.is_loyalty_member
                                             ? customer.loyalty_tier
-                                            : "Belum menjadi member"}
+                                            : __("Not a member yet")}
                                     </p>
                                 </div>
                                 <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800">
@@ -402,8 +402,8 @@ export default function Show({
                                         className="inline-flex items-center justify-center rounded-xl bg-primary-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary-600 disabled:cursor-not-allowed disabled:opacity-60"
                                     >
                                         {segmentForm.processing
-                                            ? "Menyimpan..."
-                                            : "Simpan Segment"}
+                                            ? __("Saving...")
+                                            : __("Save Segment")}
                                     </button>
                                 </form>
                             ) : (

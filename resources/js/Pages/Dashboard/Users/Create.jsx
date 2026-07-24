@@ -39,14 +39,14 @@ export default function Create() {
     const submit = (e) => {
         e.preventDefault();
         post(route("users.store"), {
-            onSuccess: () => toast.success("Pengguna berhasil ditambahkan"),
-            onError: () => toast.error("Gagal menyimpan pengguna"),
+            onSuccess: () => toast.success(__("User added successfully")),
+            onError: () => toast.error(__("Failed to save user")),
         });
     };
 
     return (
         <>
-            <Head title="Tambah Pengguna" />
+            <Head title={__("Add User")} />
 
             <div className="mb-6">
                 <Link
@@ -54,11 +54,11 @@ export default function Create() {
                     className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-primary-600 mb-3"
                 >
                     <IconArrowLeft size={16} />
-                    Kembali ke Pengguna
+                    {__("Back to Users")}
                 </Link>
                 <h1 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <IconUserPlus size={28} className="text-primary-500" />
-                    Tambah Pengguna Baru
+                    {__("Add New User")}
                 </h1>
             </div>
 
@@ -67,12 +67,12 @@ export default function Create() {
                     {/* Account Info */}
                     <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6">
                         <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4">
-                            Informasi Akun
+                            {__("Account Information")}
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="md:col-span-2">
                                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                                    Avatar
+                                    {__("Avatar")}
                                 </label>
                                 <div className="flex items-center gap-3">
                                     <div className="w-14 h-14 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden flex items-center justify-center text-slate-600 font-semibold">
@@ -110,8 +110,8 @@ export default function Create() {
                             </div>
                             <Input
                                 type="text"
-                                label="Nama Lengkap"
-                                placeholder="Masukkan nama"
+                                label={__("Full Name")}
+                                placeholder={__("Enter name")}
                                 value={data.name}
                                 onChange={(e) =>
                                     setData("name", e.target.value)
@@ -120,7 +120,7 @@ export default function Create() {
                             />
                             <Input
                                 type="email"
-                                label="Email"
+                                label={__("Email")}
                                 placeholder="email@example.com"
                                 value={data.email}
                                 onChange={(e) =>
@@ -130,8 +130,8 @@ export default function Create() {
                             />
                             <Input
                                 type="password"
-                                label="Kata Sandi"
-                                placeholder="Minimal 8 karakter"
+                                label={__("Password")}
+                                placeholder={__("Minimum 8 characters")}
                                 value={data.password}
                                 onChange={(e) =>
                                     setData("password", e.target.value)
@@ -140,8 +140,8 @@ export default function Create() {
                             />
                             <Input
                                 type="password"
-                                label="Konfirmasi Kata Sandi"
-                                placeholder="Ulangi kata sandi"
+                                label={__("Confirm Password")}
+                                placeholder={__("Repeat password")}
                                 value={data.password_confirmation}
                                 onChange={(e) =>
                                     setData(
@@ -158,7 +158,7 @@ export default function Create() {
                     <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6">
                         <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4 flex items-center gap-2">
                             <IconShield size={16} />
-                            Akses Group
+                            {__("Access Group")}
                         </h3>
                         <div className="flex flex-wrap gap-4">
                             {roles.map((role, i) => (
@@ -196,7 +196,7 @@ export default function Create() {
                             href={route("users.index")}
                             className="px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 font-medium transition-colors"
                         >
-                            Batal
+                            {__("Cancel")}
                         </Link>
                         <button
                             type="submit"
@@ -204,7 +204,7 @@ export default function Create() {
                             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-medium transition-colors disabled:opacity-50"
                         >
                             <IconDeviceFloppy size={18} />
-                            {processing ? "Menyimpan..." : "Simpan"}
+                            {processing ? __("Saving...") : __("Save")}
                         </button>
                     </div>
                 </div>

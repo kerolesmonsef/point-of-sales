@@ -129,7 +129,7 @@ function ProductCard({
             <div className="p-3 sm:p-4">
                 <div className="flex items-start justify-between gap-2 mb-2">
                     <span className="px-2 py-0.5 text-xs font-medium bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-400 rounded-md truncate">
-                        {product.category?.name || "Kategori"}
+                        {product.category?.name || __("Category")}
                     </span>
                 </div>
                 <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 line-clamp-2 mb-1">
@@ -229,7 +229,7 @@ export default function Index({ products }) {
 
     return (
         <>
-            <Head title="Produk" />
+            <Head title={__("Products")} />
 
             {/* Header */}
             <div className="mb-6">
@@ -291,7 +291,7 @@ export default function Index({ products }) {
                                 className={
                                     "bg-primary-500 hover:bg-primary-600 text-white shadow-lg shadow-primary-500/30 w-full sm:w-auto justify-center"
                                 }
-                                label={"Tambah Produk"}
+                                label={__("Add Product")}
                                 href={route("products.create")}
                             />
                         )}
@@ -305,7 +305,7 @@ export default function Index({ products }) {
                     <div className="w-full sm:w-80">
                         <Search
                             url={route("products.index")}
-                            placeholder="Cari produk..."
+                            placeholder={__("Search products...")}
                         />
                     </div>
                     {/* Select All Checkbox */}
@@ -343,7 +343,7 @@ export default function Index({ products }) {
                                 ? "bg-primary-100 text-primary-600 dark:bg-primary-900/50 dark:text-primary-400"
                                 : "text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                         }`}
-                        title="Grid View"
+                        title={__("Grid View")}
                     >
                         <IconLayoutGrid size={20} />
                     </button>
@@ -354,7 +354,7 @@ export default function Index({ products }) {
                                 ? "bg-primary-100 text-primary-600 dark:bg-primary-900/50 dark:text-primary-400"
                                 : "text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                         }`}
-                        title="List View"
+                        title={__("List View")}
                     >
                         <IconList size={20} />
                     </button>
@@ -382,7 +382,7 @@ export default function Index({ products }) {
                     </div>
                 ) : (
                     /* List View */
-                    <Table.Card title={"Data Produk"}>
+                    <Table.Card title={__("Product Data")}>
                         <Table>
                             <Table.Thead>
                                 <tr>
@@ -536,7 +536,7 @@ export default function Index({ products }) {
                             className={
                                 "bg-primary-500 hover:bg-primary-600 text-white"
                             }
-                            label={"Tambah Produk"}
+                            label={__("Add Product")}
                             href={route("products.create")}
                         />
                     )}

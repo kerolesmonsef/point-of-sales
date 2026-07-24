@@ -32,7 +32,7 @@ function KeyValueTable({ data }) {
     if (entries.length === 0) {
         return (
             <div className="rounded-2xl border border-dashed border-slate-200 p-4 text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400">
-                Tidak ada data.
+                {__("No data.")}
             </div>
         );
     }
@@ -62,17 +62,17 @@ function KeyValueTable({ data }) {
 export default function Show({ auditLog }) {
     return (
         <>
-            <Head title={`Audit Log ${auditLog.id}`} />
+            <Head title={`${__("Audit Log")} ${auditLog.id}`} />
 
             <div className="space-y-6">
                 <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                     <div>
                         <h1 className="flex items-center gap-2 text-2xl font-bold text-slate-900 dark:text-white">
                             <IconHistory size={28} className="text-primary-500" />
-                            Detail Audit Log
+                            {__("Audit Log Detail")}
                         </h1>
                         <p className="text-sm text-slate-500 dark:text-slate-400">
-                            Event {auditLog.event} pada modul {auditLog.module}.
+                            {__("Event")} {auditLog.event} {__("on module")} {auditLog.module}.
                         </p>
                     </div>
                     <Link
@@ -80,14 +80,14 @@ export default function Show({ auditLog }) {
                         className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
                     >
                         <IconArrowLeft size={18} />
-                        Kembali
+                        {__("Back")}
                     </Link>
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                     <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
                         <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                            Waktu
+                            {__("Time")}
                         </p>
                         <p className="mt-2 text-sm font-semibold text-slate-900 dark:text-white">
                             {formatDateTime(auditLog.created_at)}
@@ -96,7 +96,7 @@ export default function Show({ auditLog }) {
                     <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
                         <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                             <IconUser size={14} />
-                            Aktor
+                            {__("Actor")}
                         </p>
                         <p className="mt-2 text-sm font-semibold text-slate-900 dark:text-white">
                             {auditLog.user?.name || "System"}
@@ -107,7 +107,7 @@ export default function Show({ auditLog }) {
                     </div>
                     <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
                         <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                            Target
+                            {__("Target")}
                         </p>
                         <p className="mt-2 text-sm font-semibold text-slate-900 dark:text-white">
                             {auditLog.target_label || "-"}
@@ -132,7 +132,7 @@ export default function Show({ auditLog }) {
 
                 <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
                     <p className="text-sm font-semibold text-slate-900 dark:text-white">
-                        Deskripsi
+                        {__("Description")}
                     </p>
                     <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
                         {auditLog.description}
@@ -142,13 +142,13 @@ export default function Show({ auditLog }) {
                 <div className="grid gap-6 xl:grid-cols-2">
                     <div className="space-y-3">
                         <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
-                            Before
+                            {__("Before")}
                         </h2>
                         <KeyValueTable data={auditLog.before || {}} />
                     </div>
                     <div className="space-y-3">
                         <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
-                            After
+                            {__("After")}
                         </h2>
                         <KeyValueTable data={auditLog.after || {}} />
                     </div>
@@ -156,7 +156,7 @@ export default function Show({ auditLog }) {
 
                 <div className="space-y-3">
                     <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
-                        Meta
+                        {__("Meta")}
                     </h2>
                     <KeyValueTable data={auditLog.meta || {}} />
                 </div>

@@ -88,14 +88,14 @@ export default function Create() {
     const submit = (e) => {
         e.preventDefault();
         post(route("customers.store"), {
-            onSuccess: () => toast.success("Pelanggan berhasil ditambahkan"),
-            onError: () => toast.error("Gagal menyimpan pelanggan"),
+            onSuccess: () => toast.success(__("Customer added successfully")),
+            onError: () => toast.error(__("Failed to save customer")),
         });
     };
 
     return (
         <>
-            <Head title="Tambah Pelanggan" />
+            <Head title={__("Add Customer")} />
 
             <div className="mb-6">
                 <Link
@@ -117,15 +117,15 @@ export default function Create() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <Input
                                 type="text"
-                                label="Nama Pelanggan"
-                                placeholder="Masukkan nama lengkap"
+                                label={__("Customer Name")}
+                                placeholder={__("Enter full name")}
                                 errors={errors.name}
                                 onChange={(e) => setData("name", e.target.value)}
                                 value={data.name}
                             />
                             <Input
                                 type="text"
-                                label="No. Handphone"
+                                label={__("Phone Number")}
                                 placeholder="08xxxxxxxxxx"
                                 errors={errors.no_telp}
                                 onChange={(e) =>
@@ -293,8 +293,8 @@ export default function Create() {
                         </div>
 
                         <Textarea
-                            label="Alamat Detail"
-                            placeholder="Alamat lengkap pelanggan"
+                            label={__("Detailed Address")}
+                            placeholder={__("Customer full address")}
                             errors={errors.address}
                             onChange={(e) => setData("address", e.target.value)}
                             value={data.address}
@@ -315,7 +315,7 @@ export default function Create() {
                             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-medium transition-colors disabled:opacity-50"
                         >
                             <IconDeviceFloppy size={18} />
-                            {processing ? "Menyimpan..." : "Simpan"}
+                            {processing ? __("Saving...") : "Simpan"}
                         </button>
                     </div>
                 </div>

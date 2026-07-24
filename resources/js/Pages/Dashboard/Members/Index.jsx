@@ -37,42 +37,42 @@ export default function Index({ members, filters, tierOptions, summary }) {
 
     const summaryCards = [
         {
-            label: "Total Member",
+            label: __("Total Members"),
             value: summary?.total_members || 0,
-            helper: "Seluruh member yang pernah terdaftar",
+            helper: __("All registered members"),
         },
         {
-            label: "Member Aktif",
+            label: __("Active Members"),
             value: summary?.active_members || 0,
-            helper: "Masih menerima benefit member",
+            helper: __("Still receiving member benefits"),
         },
         {
-            label: "Omzet Member",
+            label: __("Member Revenue"),
             value: formatCurrency(summary?.member_revenue || 0),
-            helper: "Kontribusi transaksi dari member",
+            helper: __("Transaction contribution from members"),
         },
         {
-            label: "Repeat Rate",
+            label: __("Repeat Rate"),
             value: `${summary?.repeat_rate || 0}%`,
             helper:
                 summary?.top_member?.name
-                    ? `Top member: ${summary.top_member.name}`
-                    : "Belum ada top member",
+                    ? `${__("Top member")}: ${summary.top_member.name}`
+                    : __("No top member yet"),
         },
     ];
 
     return (
         <>
-            <Head title="Member" />
+            <Head title={__("Members")} />
 
             <div className="w-full">
                 <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                         <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-                            Member
+                            {__("Members")}
                         </h1>
                         <p className="text-sm text-slate-500 dark:text-slate-400">
-                            Kelola pendaftaran, status, dan performa member tanpa memisahkan data dari customer inti.
+                            {__("Manage member registration, status, and performance without separating data from core customers.")}
                         </p>
                     </div>
                     <Link
@@ -80,7 +80,7 @@ export default function Index({ members, filters, tierOptions, summary }) {
                         className="inline-flex items-center gap-2 rounded-xl bg-primary-500 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition hover:bg-primary-600"
                     >
                         <IconCirclePlus size={18} />
-                        Daftarkan Member
+                        {__("Register Member")}
                     </Link>
                 </div>
 
@@ -112,7 +112,7 @@ export default function Index({ members, filters, tierOptions, summary }) {
                                 onChange={(event) =>
                                     handleFilterChange("search", event.target.value)
                                 }
-                                placeholder="Cari nama member atau nomor anggota..."
+                                placeholder={__("Search member name or member number...")}
                                 className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 pr-11 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                             />
                             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
@@ -127,7 +127,7 @@ export default function Index({ members, filters, tierOptions, summary }) {
                             }
                             className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                         >
-                            <option value="">Semua Tier</option>
+                            <option value="">{__("All Tiers")}</option>
                             {tierOptions.map((tier) => (
                                 <option key={tier.value} value={tier.value}>
                                     {tier.label}
@@ -142,25 +142,25 @@ export default function Index({ members, filters, tierOptions, summary }) {
                             }
                             className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                         >
-                            <option value="active">Member Aktif</option>
-                            <option value="inactive">Member Nonaktif</option>
-                            <option value="all">Semua Status</option>
+                            <option value="active">{__("Active Members")}</option>
+                            <option value="inactive">{__("Inactive Members")}</option>
+                            <option value="all">{__("All Statuses")}</option>
                         </select>
                     </div>
                 </div>
 
-                <Table.Card title="Daftar Member">
+                <Table.Card title={__("Member List")}>
                     <Table>
                         <Table.Thead>
                             <tr>
-                                <Table.Th>Member</Table.Th>
+                                <Table.Th>{__("Member")}</Table.Th>
                                 <Table.Th>Tier</Table.Th>
-                                <Table.Th>Poin</Table.Th>
-                                <Table.Th>Total Belanja</Table.Th>
-                                <Table.Th>Transaksi</Table.Th>
-                                <Table.Th>Terakhir Belanja</Table.Th>
+                                <Table.Th>{__("Points")}</Table.Th>
+                                <Table.Th>{__("Total Spent")}</Table.Th>
+                                <Table.Th>{__("Transactions")}</Table.Th>
+                                <Table.Th>{__("Last Purchase")}</Table.Th>
                                 <Table.Th className="w-28 text-center">
-                                    Aksi
+                                    {__("Action")}
                                 </Table.Th>
                             </tr>
                         </Table.Thead>
@@ -176,7 +176,7 @@ export default function Index({ members, filters, tierOptions, summary }) {
                                                 {member.name}
                                             </Link>
                                             <p className="text-xs text-slate-500 dark:text-slate-400">
-                                                {member.member_code || "Belum ada nomor anggota"}
+                                                {member.member_code || __("No member number yet")}
                                             </p>
                                             <p className="text-xs text-slate-500 dark:text-slate-400">
                                                 {member.no_telp || "-"}
@@ -188,8 +188,8 @@ export default function Index({ members, filters, tierOptions, summary }) {
                                             </span>
                                             <p className="mt-2 text-[11px] text-slate-500 dark:text-slate-400">
                                                 {member.is_loyalty_member
-                                                    ? "Aktif"
-                                                    : "Nonaktif"}
+                                                    ? __("Active")
+                                                    : __("Inactive")}
                                             </p>
                                         </Table.Td>
                                         <Table.Td>{member.loyalty_points || 0}</Table.Td>
@@ -217,7 +217,7 @@ export default function Index({ members, filters, tierOptions, summary }) {
                             ) : (
                                 <Table.Empty
                                     colSpan={7}
-                                    message="Belum ada member yang sesuai dengan filter."
+                                    message={__("No members match the filter.")}
                                 >
                                     <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800">
                                         <IconUsers size={28} className="text-slate-400" />
@@ -236,7 +236,7 @@ export default function Index({ members, filters, tierOptions, summary }) {
                             </div>
                             <div>
                                 <p className="text-sm font-semibold text-slate-900 dark:text-white">
-                                    Top Member by Spending
+                                    {__("Top Member by Spending")}
                                 </p>
                                 <p className="text-xs text-slate-500 dark:text-slate-400">
                                     {summary.top_member.name} • {formatCurrency(summary.top_member.total_spent)}
@@ -255,10 +255,10 @@ export default function Index({ members, filters, tierOptions, summary }) {
                         </div>
                         <div>
                             <p className="text-sm font-semibold text-slate-900 dark:text-white">
-                                Bantuan cepat
+                                {__("Quick Help")}
                             </p>
                             <p className="mt-1 text-xs leading-6 text-slate-500 dark:text-slate-400">
-                                Daftarkan member baru dari halaman ini atau langsung dari POS. Untuk upgrade pelanggan biasa menjadi member, gunakan tombol upgrade di detail pelanggan atau picker pelanggan di POS.
+                                {__("Register new members from this page or directly from POS. To upgrade regular customers to members, use the upgrade button in customer detail or the customer picker in POS.")}
                             </p>
                         </div>
                     </div>

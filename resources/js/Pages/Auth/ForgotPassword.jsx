@@ -111,7 +111,7 @@ export default function ForgotPassword({ status, botGuard }) {
                                             {__("Sending...")}
                                         </>
                                     ) : (
-                                        {__("Send Reset Link")}
+                                        __("Send Reset Link")
                                     )}
                                 </button>
                             </div>

@@ -11,22 +11,22 @@ import {
 } from "@tabler/icons-react";
 
 const targetOptions = [
-    { value: "all", label: "Semua Produk" },
-    { value: "product", label: "Produk Tertentu" },
-    { value: "category", label: "Kategori Tertentu" },
+    { value: "all", label: __("All Products") },
+    { value: "product", label: __("Specific Product") },
+    { value: "category", label: __("Specific Category") },
 ];
 
 const customerScopeOptions = [
-    { value: "all", label: "Semua Pelanggan" },
-    { value: "walk_in", label: "Tanpa Pelanggan / Umum" },
-    { value: "registered", label: "Pelanggan Terdaftar" },
-    { value: "member", label: "Member Loyalty" },
+    { value: "all", label: __("All Customers") },
+    { value: "walk_in", label: __("Walk-in / General") },
+    { value: "registered", label: __("Registered Customers") },
+    { value: "member", label: __("Loyalty Member") },
 ];
 
 const discountTypeOptions = [
-    { value: "percentage", label: "Persentase (%)" },
-    { value: "fixed_amount", label: "Potongan Nominal" },
-    { value: "fixed_price", label: "Harga Final" },
+    { value: "percentage", label: `${__("Percentage")} (%)` },
+    { value: "fixed_amount", label: __("Fixed Amount") },
+    { value: "fixed_price", label: __("Final Price") },
 ];
 
 function InputError({ message }) {
@@ -162,7 +162,7 @@ export default function Form({
 
     return (
         <>
-            <Head title={isEdit ? "Edit Promo Harga" : "Buat Promo Harga"} />
+            <Head title={isEdit ? __("Edit Pricing Promo") : __("Create Pricing Promo")} />
 
             <div className="w-full">
                 <div className="mb-6">
@@ -171,25 +171,25 @@ export default function Form({
                         href={route("pricing-rules.index")}
                         icon={<IconArrowLeft size={18} />}
                         className="mb-3 border-none bg-transparent px-0 text-slate-500 shadow-none hover:bg-transparent hover:text-primary-600 dark:text-slate-400"
-                        label="Kembali ke promo harga"
+                        label={__("Back to pricing promo")}
                     />
                     <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-                        {isEdit ? "Edit Promo Harga" : "Buat Promo Harga"}
+                        {isEdit ? __("Edit Pricing Promo") : __("Create Pricing Promo")}
                     </h1>
                     <p className="text-sm text-slate-500 dark:text-slate-400">
-                        Kelola promo standar, grosir, bundle, dan buy x get y dalam satu engine.
+                        {__("Manage standard, wholesale, bundle, and buy x get y promos in one engine.")}
                     </p>
                 </div>
 
                 <form onSubmit={submit} className="space-y-6">
                     <CardSection
-                        title="Informasi Rule"
-                        description="Identitas dasar rule, jenis promo, dan prioritas penerapan."
+                        title={__("Rule Info")}
+                        description={__("Basic rule identity, promo type, and application priority.")}
                     >
                         <div className="grid gap-4 md:grid-cols-2">
                             <div>
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Nama Rule
+                                    {__("Rule Name")}
                                 </label>
                                 <input
                                     type="text"
@@ -203,7 +203,7 @@ export default function Form({
                             </div>
                             <div>
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Jenis Rule
+                                    {__("Rule Type")}
                                 </label>
                                 <select
                                     value={data.kind}
@@ -222,7 +222,7 @@ export default function Form({
                             </div>
                             <div>
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Priority
+                                    {__("Priority")}
                                 </label>
                                 <input
                                     type="number"
@@ -236,7 +236,7 @@ export default function Form({
                             </div>
                             <div>
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Qty Preview POS
+                                    {__("POS Preview Qty")}
                                 </label>
                                 <input
                                     type="number"
@@ -255,13 +255,13 @@ export default function Form({
                     </CardSection>
 
                     <CardSection
-                        title="Target & Scope"
-                        description="Tentukan produk/kategori yang terkena promo dan siapa yang berhak."
+                        title={__("Target & Scope")}
+                        description={__("Determine the products/categories affected by the promo and who is eligible.")}
                     >
                         <div className="grid gap-4 md:grid-cols-2">
                             <div>
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Target Rule
+                                    {__("Target Rule")}
                                 </label>
                                 <select
                                     value={data.target_type}
@@ -279,7 +279,7 @@ export default function Form({
                             </div>
                             <div>
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Scope Pelanggan
+                                    {__("Customer Scope")}
                                 </label>
                                 <select
                                     value={data.customer_scope}
@@ -298,7 +298,7 @@ export default function Form({
                             {data.target_type === "product" && (
                                 <div className="md:col-span-2">
                                     <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                        Produk
+                                        {__("Product")}
                                     </label>
                                     <select
                                         value={data.product_id}
@@ -307,7 +307,7 @@ export default function Form({
                                         }
                                         className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                     >
-                                        <option value="">Pilih produk</option>
+                                        <option value="">{__("Select product")}</option>
                                         {products.map((product) => (
                                             <option key={product.id} value={product.id}>
                                                 {product.title}
@@ -320,7 +320,7 @@ export default function Form({
                             {data.target_type === "category" && (
                                 <div className="md:col-span-2">
                                     <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                        Kategori
+                                        {__("Category")}
                                     </label>
                                     <select
                                         value={data.category_id}
@@ -329,7 +329,7 @@ export default function Form({
                                         }
                                         className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                     >
-                                        <option value="">Pilih kategori</option>
+                                        <option value="">{__("Select category")}</option>
                                         {categories.map((category) => (
                                             <option key={category.id} value={category.id}>
                                                 {category.name}
@@ -342,7 +342,7 @@ export default function Form({
                             {data.customer_scope === "member" && (
                                 <div className="md:col-span-2">
                                     <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                        Tier Member yang Berhak
+                                        {__("Eligible Member Tiers")}
                                     </label>
                                     <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
                                         {tierOptions.map((tier) => {
@@ -388,13 +388,13 @@ export default function Form({
                     {(data.kind === "standard_discount" ||
                         data.kind === "qty_break") && (
                         <CardSection
-                            title="Diskon Rule"
-                            description="Tentukan tipe diskon yang dipakai rule ini."
+                            title={__("Discount Rule")}
+                            description={__("Set the discount type used by this rule.")}
                         >
                             <div className="grid gap-4 md:grid-cols-2">
                                 <div>
                                     <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                        Tipe Diskon
+                                        {__("Discount Type")}
                                     </label>
                                     <select
                                         value={data.discount_type}
@@ -412,7 +412,7 @@ export default function Form({
                                 </div>
                                 <div>
                                     <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                        Nilai Diskon
+                                        {__("Discount Value")}
                                     </label>
                                     <input
                                         type="number"
@@ -432,8 +432,8 @@ export default function Form({
 
                     {data.kind === "qty_break" && (
                         <CardSection
-                            title="Qty Break / Grosir"
-                            description="Satu rule bisa memiliki beberapa breakpoint quantity."
+                            title={__("Qty Break / Wholesale")}
+                            description={__("A single rule can have multiple quantity breakpoints.")}
                         >
                             <div className="space-y-3">
                                 {data.qty_breaks.map((row, index) => (
@@ -454,7 +454,7 @@ export default function Form({
                                                 )
                                             }
                                             className="h-11 rounded-xl border border-slate-200 bg-white px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
-                                            placeholder="Min qty"
+                                            placeholder={__("Min qty")}
                                         />
                                         <select
                                             value={row.discount_type}
@@ -488,7 +488,7 @@ export default function Form({
                                                 )
                                             }
                                             className="h-11 rounded-xl border border-slate-200 bg-white px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
-                                            placeholder="Nilai"
+                                            placeholder={__("Value")}
                                         />
                                         <button
                                             type="button"
@@ -512,7 +512,7 @@ export default function Form({
                                     className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 dark:border-slate-700 dark:text-slate-200"
                                 >
                                     <IconPlus size={16} />
-                                    Tambah Break
+                                    {__("Add Break")}
                                 </button>
                                 <InputError message={errors.qty_breaks} />
                             </div>
@@ -522,11 +522,11 @@ export default function Form({
                     {data.kind === "bundle_price" && (
                         <CardSection
                             title="Bundle Price"
-                            description="Pilih kombinasi produk dan harga paket final."
+                            description={__("Select product combinations and final package price.")}
                         >
                             <div className="mb-4">
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Harga Bundle
+                                    {__("Bundle Price")}
                                 </label>
                                 <input
                                     type="number"
@@ -556,7 +556,7 @@ export default function Form({
                                             }
                                             className="h-11 rounded-xl border border-slate-200 bg-white px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
                                         >
-                                            <option value="">Pilih produk</option>
+                                            <option value="">{__("Select product")}</option>
                                             {products.map((product) => (
                                                 <option key={product.id} value={product.id}>
                                                     {product.title}
@@ -599,7 +599,7 @@ export default function Form({
                                     className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 dark:border-slate-700 dark:text-slate-200"
                                 >
                                     <IconPlus size={16} />
-                                    Tambah Item Bundle
+                                    {__("Add Bundle Item")}
                                 </button>
                             </div>
                         </CardSection>
@@ -608,7 +608,7 @@ export default function Form({
                     {data.kind === "buy_x_get_y" && (
                         <CardSection
                             title="Buy X Get Y"
-                            description="Atur item pembelian (buy) dan item hadiah/diskon (get)."
+                            description={__("Set purchase items (buy) and gift/discount items (get).")}
                         >
                             <div className="space-y-3">
                                 {data.buy_get_items.map((row, index) => (
@@ -643,7 +643,7 @@ export default function Form({
                                             }
                                             className="h-11 rounded-xl border border-slate-200 bg-white px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
                                         >
-                                            <option value="">Pilih produk</option>
+                                            <option value="">{__("Select product")}</option>
                                             {products.map((product) => (
                                                 <option key={product.id} value={product.id}>
                                                     {product.title}
@@ -686,20 +686,20 @@ export default function Form({
                                     className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 dark:border-slate-700 dark:text-slate-200"
                                 >
                                     <IconPlus size={16} />
-                                    Tambah Item Buy/Get
+                                    {__("Add Buy/Get Item")}
                                 </button>
                             </div>
                         </CardSection>
                     )}
 
                     <CardSection
-                        title="Jadwal & Catatan"
-                        description="Gunakan jadwal bila promo hanya aktif pada periode tertentu."
+                        title={__("Schedule & Notes")}
+                        description={__("Use schedule if the promo is only active for a specific period.")}
                     >
                         <div className="grid gap-4 md:grid-cols-2">
                             <div>
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Mulai
+                                    {__("Start")}
                                 </label>
                                 <input
                                     type="datetime-local"
@@ -712,7 +712,7 @@ export default function Form({
                             </div>
                             <div>
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Berakhir
+                                    {__("End")}
                                 </label>
                                 <input
                                     type="datetime-local"
@@ -725,7 +725,7 @@ export default function Form({
                             </div>
                             <div className="md:col-span-2">
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Catatan
+                                    {__("Notes")}
                                 </label>
                                 <textarea
                                     rows="3"
@@ -744,14 +744,14 @@ export default function Form({
                                         setData("is_active", event.target.checked)
                                     }
                                 />
-                                Aktifkan rule ini
+                                {__("Activate this rule")}
                             </label>
                         </div>
                     </CardSection>
 
                     <CardSection
-                        title="Preview Draft"
-                        description="Simulasikan rule ini terhadap contoh produk sebelum disimpan."
+                        title={__("Preview Draft")}
+                        description={__("Simulate this rule against sample products before saving.")}
                     >
                         <div className="mb-4 flex flex-wrap gap-3">
                             <button
@@ -761,8 +761,8 @@ export default function Form({
                             >
                                 <IconChartInfographic size={16} />
                                 {previewState.loading
-                                    ? "Memuat preview..."
-                                    : "Jalankan Preview"}
+                                    ? __("Loading preview...")
+                                    : __("Run Preview")}
                             </button>
                         </div>
 
@@ -771,7 +771,7 @@ export default function Form({
                                 <div className="grid gap-3 md:grid-cols-3">
                                     <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800">
                                         <p className="text-xs uppercase tracking-wide text-slate-500">
-                                            Base subtotal
+                                            {__("Base subtotal")}
                                         </p>
                                         <p className="mt-1 text-lg font-semibold text-slate-900 dark:text-white">
                                             Rp {Number(previewState.data.summary.base_subtotal || 0).toLocaleString("id-ID")}
@@ -779,7 +779,7 @@ export default function Form({
                                     </div>
                                     <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800">
                                         <p className="text-xs uppercase tracking-wide text-slate-500">
-                                            Promo discount
+                                            {__("Promo discount")}
                                         </p>
                                         <p className="mt-1 text-lg font-semibold text-rose-600 dark:text-rose-300">
                                             Rp {Number(previewState.data.summary.promo_discount_total || 0).toLocaleString("id-ID")}
@@ -787,7 +787,7 @@ export default function Form({
                                     </div>
                                     <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800">
                                         <p className="text-xs uppercase tracking-wide text-slate-500">
-                                            After promo
+                                            {__("After promo")}
                                         </p>
                                         <p className="mt-1 text-lg font-semibold text-slate-900 dark:text-white">
                                             Rp {Number(previewState.data.summary.subtotal_after_promo || 0).toLocaleString("id-ID")}
@@ -826,7 +826,7 @@ export default function Form({
                             type="link"
                             href={route("pricing-rules.index")}
                             className="border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
-                            label="Batal"
+                            label={__("Cancel")}
                         />
                         <button
                             type="submit"
@@ -834,7 +834,7 @@ export default function Form({
                             className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary-500 px-5 py-2.5 font-medium text-white hover:bg-primary-600 disabled:opacity-50"
                         >
                             <IconDeviceFloppy size={18} />
-                            {processing ? "Menyimpan..." : "Simpan Rule"}
+                            {processing ? __("Saving...") : __("Save Rule")}
                         </button>
                     </div>
                 </form>

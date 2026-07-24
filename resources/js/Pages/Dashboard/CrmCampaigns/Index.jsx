@@ -15,7 +15,7 @@ const statusBadge = (status) => {
         cancelled: "bg-rose-100 text-rose-700 dark:bg-rose-950/30 dark:text-rose-300",
     };
 
-    return <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${classes[status] || classes.draft}`}>{status}</span>;
+    return <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${classes[status] || classes.draft}`}>{__(status)}</span>;
 };
 
 export default function Index({ campaigns, filters }) {
@@ -26,13 +26,13 @@ export default function Index({ campaigns, filters }) {
 
     return (
         <>
-            <Head title="CRM Campaigns" />
+            <Head title={__("CRM Campaigns")} />
             <div className="w-full">
                 <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">CRM Campaigns</h1>
+                        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{__("CRM Campaigns")}</h1>
                         <p className="text-sm text-slate-500 dark:text-slate-400">
-                            Kelola promo broadcast, reminder, dan share invoice berbasis audience CRM.
+                            {__("Manage promo broadcasts, reminders, and invoice sharing based on CRM audience.")}
                         </p>
                     </div>
                     {can("crm-campaigns-create") && (
@@ -41,7 +41,7 @@ export default function Index({ campaigns, filters }) {
                             href={route("crm-campaigns.create")}
                             icon={<IconCirclePlus size={18} />}
                             className="bg-primary-500 text-white hover:bg-primary-600 shadow-lg shadow-primary-500/30"
-                            label="Buat Campaign"
+                            label={__("Create Campaign")}
                         />
                     )}
                 </div>
@@ -53,35 +53,35 @@ export default function Index({ campaigns, filters }) {
                             onChange={(event) => handleFilterChange("type", event.target.value)}
                             className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                         >
-                            <option value="">Semua Tipe</option>
-                            <option value="promo_broadcast">Promo Broadcast</option>
-                            <option value="invoice_share">Invoice Share</option>
-                            <option value="due_date_reminder">Due Date Reminder</option>
-                            <option value="repeat_order_reminder">Repeat Order Reminder</option>
+                            <option value="">{__("All Types")}</option>
+                            <option value="promo_broadcast">{__("Promo Broadcast")}</option>
+                            <option value="invoice_share">{__("Invoice Share")}</option>
+                            <option value="due_date_reminder">{__("Due Date Reminder")}</option>
+                            <option value="repeat_order_reminder">{__("Repeat Order Reminder")}</option>
                         </select>
                         <select
                             value={filters.status || ""}
                             onChange={(event) => handleFilterChange("status", event.target.value)}
                             className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                         >
-                            <option value="">Semua Status</option>
-                            <option value="draft">Draft</option>
-                            <option value="ready">Ready</option>
-                            <option value="processed">Processed</option>
-                            <option value="cancelled">Cancelled</option>
+                            <option value="">{__("All Status")}</option>
+                            <option value="draft">{__("Draft")}</option>
+                            <option value="ready">{__("Ready")}</option>
+                            <option value="processed">{__("Processed")}</option>
+                            <option value="cancelled">{__("Cancelled")}</option>
                         </select>
                     </div>
                 </div>
 
-                <Table.Card title="Daftar CRM Campaign">
+                <Table.Card title={__("CRM Campaign List")}>
                     <Table>
                         <Table.Thead>
                             <tr>
-                                <Table.Th>Campaign</Table.Th>
-                                <Table.Th>Tipe</Table.Th>
-                                <Table.Th>Status</Table.Th>
-                                <Table.Th>Log</Table.Th>
-                                <Table.Th className="w-36 text-center">Aksi</Table.Th>
+                                <Table.Th>{__("Campaign")}</Table.Th>
+                                <Table.Th>{__("Type")}</Table.Th>
+                                <Table.Th>{__("Status")}</Table.Th>
+                                <Table.Th>{__("Log")}</Table.Th>
+                                <Table.Th className="w-36 text-center">{__("Action")}</Table.Th>
                             </tr>
                         </Table.Thead>
                         <Table.Tbody>
@@ -93,7 +93,7 @@ export default function Index({ campaigns, filters }) {
                                                 {campaign.name}
                                             </Link>
                                             <p className="text-xs text-slate-500 dark:text-slate-400">
-                                                Dibuat oleh {campaign.creator?.name || "-"}
+                                                {__("Created by")} {campaign.creator?.name || "-"}
                                             </p>
                                         </Table.Td>
                                         <Table.Td>{campaign.type}</Table.Td>
@@ -122,7 +122,7 @@ export default function Index({ campaigns, filters }) {
                                     </tr>
                                 ))
                             ) : (
-                                <Table.Empty colSpan={5} message="Belum ada campaign CRM.">
+                                <Table.Empty colSpan={5} message={__("No CRM campaigns yet.")}>
                                     <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800">
                                         <IconBroadcast size={28} className="text-slate-400" />
                                     </div>

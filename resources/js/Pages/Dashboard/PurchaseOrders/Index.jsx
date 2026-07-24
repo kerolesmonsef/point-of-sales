@@ -30,11 +30,11 @@ const statusBadge = (status) => {
         cancelled: "bg-rose-100 text-rose-700 dark:bg-rose-950/30 dark:text-rose-400",
     };
     const labels = {
-        draft: "Draft",
-        ordered: "Dipesan",
-        partial_received: "Sebagian Diterima",
-        completed: "Selesai",
-        cancelled: "Dibatalkan",
+        draft: __("Draft"),
+        ordered: __("Ordered"),
+        partial_received: __("Partially Received"),
+        completed: __("Completed"),
+        cancelled: __("Cancelled"),
     };
     return <span className={`${base} ${map[status] || map.draft}`}>{labels[status] || status}</span>;
 };
@@ -52,7 +52,7 @@ export default function Index({ orders, filters, suppliers }) {
 
     return (
         <>
-            <Head title="Purchase Orders" />
+            <Head title={__("Purchase Orders")} />
             <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                     <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
@@ -68,7 +68,7 @@ export default function Index({ orders, filters, suppliers }) {
                         href={route("purchase-orders.create")}
                         icon={<IconCirclePlus size={18} />}
                         className="bg-primary-500 hover:bg-primary-600 text-white shadow-lg shadow-primary-500/30"
-                        label="Buat PO"
+                        label={__("Create PO")}
                     />
                 )}
             </div>
@@ -79,7 +79,7 @@ export default function Index({ orders, filters, suppliers }) {
                         type="text"
                         value={filters.search || ""}
                         onChange={(e) => handleFilterChange("search", e.target.value)}
-                        placeholder="Cari nomor dokumen..."
+                        placeholder={__("Search document number...")}
                         className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 pr-11 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                     />
                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
@@ -110,7 +110,7 @@ export default function Index({ orders, filters, suppliers }) {
                 </select>
             </div>
 
-            <Table.Card title="Daftar Purchase Order">
+            <Table.Card title={__("Purchase Order List")}>
                 <Table>
                     <Table.Thead>
                         <tr>

@@ -15,16 +15,16 @@ export default function Show({ campaign }) {
     const processCampaign = () => {
         router.post(route("crm-campaigns.process", campaign.id), {}, {
             preserveScroll: true,
-            onSuccess: () => toast.success("Campaign berhasil diproses"),
-            onError: () => toast.error("Gagal memproses campaign"),
+            onSuccess: () => toast.success(__("Campaign processed successfully")),
+            onError: () => toast.error(__("Failed to process campaign")),
         });
     };
 
     const cancelCampaign = () => {
         router.post(route("crm-campaigns.cancel", campaign.id), {}, {
             preserveScroll: true,
-            onSuccess: () => toast.success("Campaign dibatalkan"),
-            onError: () => toast.error("Gagal membatalkan campaign"),
+            onSuccess: () => toast.success(__("Campaign cancelled")),
+            onError: () => toast.error(__("Failed to cancel campaign")),
         });
     };
 
@@ -34,13 +34,13 @@ export default function Show({ campaign }) {
             <div className="mb-6">
                 <Link href={route("crm-campaigns.index")} className="mb-3 inline-flex items-center gap-2 text-sm text-slate-500 hover:text-primary-600">
                     <IconArrowLeft size={16} />
-                    Kembali ke CRM campaigns
+                    {__("Back to CRM campaigns")}
                 </Link>
                 <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                     <div>
                         <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{campaign.name}</h1>
                         <p className="text-sm text-slate-500 dark:text-slate-400">
-                            {campaign.type} • status {campaign.status} • diproses {formatDateTime(campaign.processed_at)}
+                            {campaign.type} • {__("Status")} {campaign.status} • {__("Processed")} {formatDateTime(campaign.processed_at)}
                         </p>
                     </div>
                     <div className="flex gap-2">
@@ -51,7 +51,7 @@ export default function Show({ campaign }) {
                                 className="inline-flex items-center gap-2 rounded-xl bg-primary-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-primary-600"
                             >
                                 <IconPlayerPlay size={16} />
-                                Proses Audience
+                                {__("Process Audience")}
                             </button>
                         )}
                         {campaign.status !== "cancelled" && campaign.status !== "processed" && (
@@ -61,7 +61,7 @@ export default function Show({ campaign }) {
                                 className="inline-flex items-center gap-2 rounded-xl bg-rose-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-rose-600"
                             >
                                 <IconPlayerStop size={16} />
-                                Batalkan
+                                {__("Cancel")}
                             </button>
                         )}
                     </div>
@@ -71,14 +71,14 @@ export default function Show({ campaign }) {
             <div className="grid gap-6 xl:grid-cols-[1.7fr_1fr]">
                 <div className="space-y-6">
                     <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
-                        <h2 className="mb-4 text-lg font-semibold text-slate-900 dark:text-white">Delivery Logs</h2>
+                        <h2 className="mb-4 text-lg font-semibold text-slate-900 dark:text-white">{__("Delivery Logs")}</h2>
                         <Table>
                             <Table.Thead>
                                 <tr>
-                                    <Table.Th>Customer</Table.Th>
-                                    <Table.Th>Status</Table.Th>
-                                    <Table.Th>Payload</Table.Th>
-                                    <Table.Th className="w-36 text-center">Aksi</Table.Th>
+                                    <Table.Th>{__("Customer")}</Table.Th>
+                                    <Table.Th>{__("Status")}</Table.Th>
+                                    <Table.Th>{__("Payload")}</Table.Th>
+                                    <Table.Th className="w-36 text-center">{__("Action")}</Table.Th>
                                 </tr>
                             </Table.Thead>
                             <Table.Tbody>
@@ -87,7 +87,7 @@ export default function Show({ campaign }) {
                                         <tr key={log.id}>
                                             <Table.Td>
                                                 <Link href={log.customer ? route("customers.show", log.customer.id) : "#"} className="font-semibold text-slate-800 hover:text-primary-600 dark:text-slate-100">
-                                                    {log.customer?.name || "Tanpa customer"}
+                                                    {log.customer?.name || __("No customer")}
                                                 </Link>
                                                 <p className="text-xs text-slate-500 dark:text-slate-400">{log.customer?.no_telp || "-"}</p>
                                             </Table.Td>
@@ -121,7 +121,7 @@ export default function Show({ campaign }) {
                                         </tr>
                                     ))
                                 ) : (
-                                    <Table.Empty colSpan={4} message="Belum ada delivery log untuk campaign ini." />
+                                    <Table.Empty colSpan={4} message={__("No delivery logs for this campaign yet.")} />
                                 )}
                             </Table.Tbody>
                         </Table>
@@ -130,7 +130,7 @@ export default function Show({ campaign }) {
 
                 <div className="space-y-6">
                     <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
-                        <h2 className="mb-4 text-lg font-semibold text-slate-900 dark:text-white">Audience Snapshot</h2>
+                        <h2 className="mb-4 text-lg font-semibold text-slate-900 dark:text-white">{__("Audience Snapshot")}</h2>
                         <div className="rounded-2xl bg-slate-50 p-4 dark:bg-slate-800/60">
                             <pre className="overflow-x-auto whitespace-pre-wrap text-xs text-slate-600 dark:text-slate-300">
                                 {JSON.stringify(campaign.audience_snapshot || [], null, 2)}
@@ -139,7 +139,7 @@ export default function Show({ campaign }) {
                     </div>
 
                     <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
-                        <h2 className="mb-4 text-lg font-semibold text-slate-900 dark:text-white">Template Pesan</h2>
+                        <h2 className="mb-4 text-lg font-semibold text-slate-900 dark:text-white">{__("Message Template")}</h2>
                         <p className="whitespace-pre-wrap text-sm text-slate-600 dark:text-slate-300">
                             {campaign.message_template || "-"}
                         </p>

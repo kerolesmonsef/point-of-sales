@@ -112,6 +112,10 @@ PermissionSeeder → RoleSeeder → UserSeeder → PaymentSettingSeeder → Samp
 4. Merge `release/X.Y.Z` back to `development`
 5. GitHub Release created from tag
 
+## Workflow
+
+- **Before implementing any new feature, search online for best UI/UX patterns** — look for how established apps (Shopify, WooCommerce, modern admin dashboards) handle the same pattern. Don't guess, learn from proven designs.
+
 ## Frontend
 
 - **Icons**: `@tabler/icons-react`

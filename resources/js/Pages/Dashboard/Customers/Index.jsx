@@ -52,7 +52,7 @@ function CustomerCard({ customer, canUpdate, canDelete }) {
                             <span className="inline-flex rounded-full bg-primary-100 px-2 py-0.5 text-[11px] font-semibold text-primary-700 dark:bg-primary-950/40 dark:text-primary-300">
                                 {customer.is_loyalty_member
                                     ? customer.loyalty_tier
-                                    : "non-member"}
+                                    : __("non-member")}
                             </span>
                             <span className="inline-flex rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
                                 {customer.loyalty_points || 0} poin
@@ -119,7 +119,7 @@ export default function Index({ customers }) {
 
     return (
         <>
-            <Head title="Pelanggan" />
+            <Head title={__("Customers")} />
 
             {/* Header */}
             <div className="mb-6">
@@ -167,7 +167,7 @@ export default function Index({ customers }) {
                             className={
                                 "bg-primary-500 hover:bg-primary-600 text-white shadow-lg shadow-primary-500/30"
                             }
-                            label={"Tambah Pelanggan"}
+                            label={__("Add Customer")}
                             href={route("customers.create")}
                         />
                         </div>
@@ -180,7 +180,7 @@ export default function Index({ customers }) {
                 <div className="w-full sm:w-80">
                     <Search
                         url={route("customers.index")}
-                        placeholder="Cari pelanggan..."
+                        placeholder={__("Search customers...")}
                     />
                 </div>
                 <div className="flex items-center gap-2">
@@ -191,7 +191,7 @@ export default function Index({ customers }) {
                                 ? "bg-primary-100 text-primary-600 dark:bg-primary-900/50 dark:text-primary-400"
                                 : "text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                         }`}
-                        title="Grid View"
+                        title={__("Grid View")}
                     >
                         <IconLayoutGrid size={20} />
                     </button>
@@ -202,7 +202,7 @@ export default function Index({ customers }) {
                                 ? "bg-primary-100 text-primary-600 dark:bg-primary-900/50 dark:text-primary-400"
                                 : "text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                         }`}
-                        title="List View"
+                        title={__("List View")}
                     >
                         <IconList size={20} />
                     </button>
@@ -225,7 +225,7 @@ export default function Index({ customers }) {
                     </div>
                 ) : (
                     /* List View */
-                    <Table.Card title={"Data Pelanggan"}>
+                    <Table.Card title={__("Customer Data")}>
                         <Table>
                             <Table.Thead>
                                 <tr>
@@ -281,7 +281,7 @@ export default function Index({ customers }) {
                                                 <span className="text-xs font-semibold text-primary-600 dark:text-primary-300">
                                                     {customer.is_loyalty_member
                                                         ? customer.loyalty_tier
-                                                        : "non-member"}
+                                                        : __("non-member")}
                                                 </span>
                                                 <span className="text-xs text-slate-500 dark:text-slate-400">
                                                     {customer.loyalty_points ||
@@ -372,7 +372,7 @@ export default function Index({ customers }) {
                         className={
                             "bg-primary-500 hover:bg-primary-600 text-white"
                         }
-                        label={"Tambah Pelanggan"}
+                        label={__("Add Customer")}
                         href={route("customers.create")}
                     />
                 </div>

@@ -67,7 +67,7 @@ export default function Create({ suppliers, goodsReceivings, products }) {
             {
                 goods_receiving_item_id: grItem.id,
                 product_id: grItem.product_id,
-                product_title: grItem.product?.title || "Produk #" + grItem.product_id,
+                product_title: grItem.product?.title || __("Product #") + grItem.product_id,
                 product_sku: grItem.product?.sku || "-",
                 qty_returned: 1,
                 unit_price: Number(grItem.purchase_order_item?.unit_price) || 0,

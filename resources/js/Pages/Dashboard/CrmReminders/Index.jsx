@@ -12,12 +12,12 @@ export default function Index({ campaigns, filters }) {
 
     return (
         <>
-            <Head title="CRM Reminders" />
+            <Head title={__("CRM Reminders")} />
             <div className="w-full">
                 <div className="mb-6">
-                    <h1 className="text-2xl font-bold text-slate-900 dark:text-white">CRM Reminders</h1>
+                    <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{__("CRM Reminders")}</h1>
                     <p className="text-sm text-slate-500 dark:text-slate-400">
-                        Queue reminder internal untuk piutang, repeat order, invoice share, dan promo broadcast.
+                        {__("Internal reminder queue for receivables, repeat orders, invoice sharing, and promo broadcasts.")}
                     </p>
                 </div>
 
@@ -28,34 +28,34 @@ export default function Index({ campaigns, filters }) {
                             onChange={(event) => handleFilterChange("type", event.target.value)}
                             className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                         >
-                            <option value="">Semua Tipe</option>
-                            <option value="promo_broadcast">Promo Broadcast</option>
-                            <option value="invoice_share">Invoice Share</option>
-                            <option value="due_date_reminder">Due Date Reminder</option>
-                            <option value="repeat_order_reminder">Repeat Order Reminder</option>
+                            <option value="">{__("All Types")}</option>
+                            <option value="promo_broadcast">{__("Promo Broadcast")}</option>
+                            <option value="invoice_share">{__("Invoice Share")}</option>
+                            <option value="due_date_reminder">{__("Due Date Reminder")}</option>
+                            <option value="repeat_order_reminder">{__("Repeat Order Reminder")}</option>
                         </select>
                         <select
                             value={filters.status || ""}
                             onChange={(event) => handleFilterChange("status", event.target.value)}
                             className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                         >
-                            <option value="">Semua Status</option>
-                            <option value="draft">Draft</option>
-                            <option value="ready">Ready</option>
-                            <option value="processed">Processed</option>
-                            <option value="cancelled">Cancelled</option>
+                            <option value="">{__("All Status")}</option>
+                            <option value="draft">{__("Draft")}</option>
+                            <option value="ready">{__("Ready")}</option>
+                            <option value="processed">{__("Processed")}</option>
+                            <option value="cancelled">{__("Cancelled")}</option>
                         </select>
                     </div>
                 </div>
 
-                <Table.Card title="Reminder & Campaign Queue">
+                <Table.Card title={__("Reminder & Campaign Queue")}>
                     <Table>
                         <Table.Thead>
                             <tr>
-                                <Table.Th>Campaign</Table.Th>
-                                <Table.Th>Status</Table.Th>
-                                <Table.Th>Target</Table.Th>
-                                <Table.Th>Aksi Cepat</Table.Th>
+                                <Table.Th>{__("Campaign")}</Table.Th>
+                                <Table.Th>{__("Status")}</Table.Th>
+                                <Table.Th>{__("Target")}</Table.Th>
+                                <Table.Th>{__("Quick Action")}</Table.Th>
                             </tr>
                         </Table.Thead>
                         <Table.Tbody>
@@ -69,7 +69,7 @@ export default function Index({ campaigns, filters }) {
                                             <p className="text-xs text-slate-500 dark:text-slate-400">{campaign.type}</p>
                                         </Table.Td>
                                         <Table.Td>{campaign.status}</Table.Td>
-                                        <Table.Td>{campaign.logs?.length || 0} target</Table.Td>
+                                        <Table.Td>{campaign.logs?.length || 0} {__("targets")}</Table.Td>
                                         <Table.Td>
                                             <div className="flex flex-wrap gap-2">
                                                 {campaign.logs?.slice(0, 2).map((log) =>
@@ -82,7 +82,7 @@ export default function Index({ campaigns, filters }) {
                                                             className="inline-flex items-center gap-2 rounded-lg bg-green-50 px-3 py-2 text-xs font-semibold text-green-700 hover:bg-green-100 dark:bg-green-900/30 dark:text-green-300"
                                                         >
                                                             <IconBrandWhatsapp size={14} />
-                                                            {log.customer?.name || "WhatsApp"}
+                                                            {log.customer?.name || __("WhatsApp")}
                                                         </a>
                                                     ) : null
                                                 )}
@@ -91,7 +91,7 @@ export default function Index({ campaigns, filters }) {
                                     </tr>
                                 ))
                             ) : (
-                                <Table.Empty colSpan={4} message="Belum ada reminder atau campaign queue.">
+                                <Table.Empty colSpan={4} message={__("No reminders or campaign queue yet.")}>
                                     <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800">
                                         <IconBellRinging size={28} className="text-slate-400" />
                                     </div>

@@ -51,13 +51,13 @@ export default function SuppliersIndex({ suppliers = [] }) {
     };
 
     const remove = (id) => {
-        if (!confirm("Hapus supplier ini?")) return;
+        if (!confirm(__("Delete this supplier?"))) return;
         destroy(route("suppliers.destroy", id));
     };
 
     return (
         <>
-            <Head title="Supplier" />
+            <Head title={__("Suppliers")} />
             <div className="space-y-6">
                 <div className="flex items-center justify-between">
                     <div>
@@ -134,7 +134,7 @@ export default function SuppliersIndex({ suppliers = [] }) {
                             disabled={processing}
                             className="px-4 py-2 rounded-xl bg-primary-500 text-white text-sm font-semibold"
                         >
-                            {editing ? "Update" : "Simpan"}
+                            {editing ? __("Update") : __("Save")}
                         </button>
                         {editing && (
                             <button

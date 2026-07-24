@@ -51,7 +51,7 @@ export default function Form({ mode = "create", voucher = null, customers = [] }
         <>
             <Head
                 title={
-                    isEdit ? "Edit Voucher Customer" : "Buat Voucher Customer"
+                    isEdit ? __("Edit Customer Voucher") : __("Create Customer Voucher")
                 }
             />
 
@@ -62,15 +62,15 @@ export default function Form({ mode = "create", voucher = null, customers = [] }
                         href={route("customer-vouchers.index")}
                         icon={<IconArrowLeft size={18} />}
                         className="mb-3 border-none bg-transparent px-0 text-slate-500 shadow-none hover:bg-transparent hover:text-primary-600 dark:text-slate-400"
-                        label="Kembali ke voucher customer"
+                        label={__("Back to customer vouchers")}
                     />
                     <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
                         {isEdit
-                            ? "Edit Voucher Customer"
-                            : "Buat Voucher Customer"}
+                            ? __("Edit Customer Voucher")
+                            : __("Create Customer Voucher")}
                     </h1>
                     <p className="text-sm text-slate-500 dark:text-slate-400">
-                        Distribusikan voucher promosi untuk pelanggan tertentu.
+                        {__("Distribute promotional vouchers for specific customers.")}
                     </p>
                 </div>
 
@@ -82,10 +82,10 @@ export default function Form({ mode = "create", voucher = null, customers = [] }
                             </div>
                             <div>
                                 <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
-                                    Informasi Voucher
+                                    {__("Voucher Information")}
                                 </h2>
                                 <p className="text-sm text-slate-500 dark:text-slate-400">
-                                    Tentukan pelanggan, kode, dan identitas voucher personal.
+                                    {__("Set customer, code, and personal voucher identity.")}
                                 </p>
                             </div>
                         </div>
@@ -93,7 +93,7 @@ export default function Form({ mode = "create", voucher = null, customers = [] }
                         <div className="grid gap-4 md:grid-cols-2">
                             <div className="md:col-span-2">
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Pelanggan
+                                    {__("Customer")}
                                 </label>
                                 <select
                                     value={data.customer_id}
@@ -102,13 +102,13 @@ export default function Form({ mode = "create", voucher = null, customers = [] }
                                     }
                                     className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
-                                    <option value="">Pilih pelanggan</option>
+                                    <option value="">{__("Select customer")}</option>
                                     {customers.map((customer) => (
                                         <option key={customer.id} value={customer.id}>
                                             {customer.name} | {customer.no_telp || "-"} |{" "}
                                             {customer.is_loyalty_member
-                                                ? `${customer.loyalty_tier} / ${customer.loyalty_points} poin`
-                                                : "non-member"}
+                                                ? `${customer.loyalty_tier} / ${customer.loyalty_points} ${__("points")}`
+                                                : __("non-member")}
                                         </option>
                                     ))}
                                 </select>
@@ -117,7 +117,7 @@ export default function Form({ mode = "create", voucher = null, customers = [] }
 
                             <div>
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Kode Voucher
+                                    {__("Voucher Code")}
                                 </label>
                                 <input
                                     type="text"
@@ -128,7 +128,7 @@ export default function Form({ mode = "create", voucher = null, customers = [] }
                                             event.target.value.toUpperCase()
                                         )
                                     }
-                                    placeholder="Kosongkan untuk generate otomatis"
+                                    placeholder={__("Leave empty for auto-generate")}
                                     className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 />
                                 <InputError message={errors.code} />
@@ -136,7 +136,7 @@ export default function Form({ mode = "create", voucher = null, customers = [] }
 
                             <div>
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Nama Voucher
+                                    {__("Voucher Name")}
                                 </label>
                                 <input
                                     type="text"
@@ -144,7 +144,7 @@ export default function Form({ mode = "create", voucher = null, customers = [] }
                                     onChange={(event) =>
                                         setData("name", event.target.value)
                                     }
-                                    placeholder="Contoh: Voucher Member Mei"
+                                    placeholder={__("Example: May Member Voucher")}
                                     className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 />
                                 <InputError message={errors.name} />
@@ -154,13 +154,13 @@ export default function Form({ mode = "create", voucher = null, customers = [] }
 
                     <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
                         <h2 className="mb-4 text-lg font-semibold text-slate-900 dark:text-white">
-                            Benefit & Periode
+                            {__("Benefit & Period")}
                         </h2>
 
                         <div className="grid gap-4 md:grid-cols-2">
                             <div>
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Tipe Diskon
+                                    {__("Discount Type")}
                                 </label>
                                 <select
                                     value={data.discount_type}
@@ -169,15 +169,15 @@ export default function Form({ mode = "create", voucher = null, customers = [] }
                                     }
                                     className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
-                                    <option value="fixed_amount">Potongan Nominal</option>
-                                    <option value="percentage">Persentase (%)</option>
+                                    <option value="fixed_amount">{__("Fixed Amount")}</option>
+                                    <option value="percentage">{__("Percentage (%)")}</option>
                                 </select>
                                 <InputError message={errors.discount_type} />
                             </div>
 
                             <div>
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Nilai Diskon
+                                    {__("Discount Value")}
                                 </label>
                                 <input
                                     type="number"
@@ -194,7 +194,7 @@ export default function Form({ mode = "create", voucher = null, customers = [] }
 
                             <div>
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Minimum Belanja
+                                    {__("Minimum Purchase")}
                                 </label>
                                 <input
                                     type="number"
@@ -219,14 +219,14 @@ export default function Form({ mode = "create", voucher = null, customers = [] }
                                         className="h-4 w-4 rounded border-slate-300 text-primary-500 focus:ring-primary-500/20"
                                     />
                                     <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                        Voucher aktif
+                                        {__("Active voucher")}
                                     </span>
                                 </label>
                             </div>
 
                             <div>
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Mulai Berlaku
+                                    {__("Start Date")}
                                 </label>
                                 <input
                                     type="datetime-local"
@@ -241,7 +241,7 @@ export default function Form({ mode = "create", voucher = null, customers = [] }
 
                             <div>
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Berakhir Pada
+                                    {__("End Date")}
                                 </label>
                                 <input
                                     type="datetime-local"
@@ -256,7 +256,7 @@ export default function Form({ mode = "create", voucher = null, customers = [] }
 
                             <div className="md:col-span-2">
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Catatan
+                                    {__("Notes")}
                                 </label>
                                 <textarea
                                     rows="4"
@@ -276,14 +276,14 @@ export default function Form({ mode = "create", voucher = null, customers = [] }
                             type="link"
                             href={route("customer-vouchers.index")}
                             className="border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
-                            label="Batal"
+                            label={__("Cancel")}
                         />
                         <Button
                             type="submit"
                             disabled={processing}
                             icon={<IconDeviceFloppy size={18} />}
                             className="bg-primary-500 text-white hover:bg-primary-600 disabled:opacity-60"
-                            label={processing ? "Menyimpan..." : "Simpan"}
+                            label={processing ? __("Saving...") : __("Save")}
                         />
                     </div>
                 </form>

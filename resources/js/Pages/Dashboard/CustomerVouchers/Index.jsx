@@ -24,7 +24,7 @@ const formatPrice = (value = 0) =>
 const statusBadge = (voucher) => {
     if (voucher.is_used) {
         return {
-            label: "Sudah Dipakai",
+            label: __("Used"),
             className:
                 "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
         };
@@ -36,7 +36,7 @@ const statusBadge = (voucher) => {
 
     if (!voucher.is_active) {
         return {
-            label: "Nonaktif",
+            label: __("Inactive"),
             className:
                 "bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300",
         };
@@ -44,7 +44,7 @@ const statusBadge = (voucher) => {
 
     if (startsAt && startsAt > now) {
         return {
-            label: "Terjadwal",
+            label: __("Scheduled"),
             className:
                 "bg-amber-100 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300",
         };
@@ -52,14 +52,14 @@ const statusBadge = (voucher) => {
 
     if (expiresAt && expiresAt < now) {
         return {
-            label: "Expired",
+            label: __("Expired"),
             className:
                 "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
         };
     }
 
     return {
-        label: "Aktif",
+        label: __("Active"),
         className:
             "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300",
     };
@@ -79,16 +79,16 @@ export default function Index({ vouchers, filters = {} }) {
 
     return (
         <>
-            <Head title="Voucher Customer" />
+            <Head title={__("Customer Voucher")} />
 
             <div className="w-full">
                 <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                         <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-                            Voucher Customer
+                            {__("Customer Vouchers")}
                         </h1>
                         <p className="text-sm text-slate-500 dark:text-slate-400">
-                            Voucher personal untuk promosi retensi dan reward pelanggan.
+                            {__("Personal vouchers for retention promotions and customer rewards.")}
                         </p>
                     </div>
                     {can("customer-vouchers-create") && (
@@ -97,7 +97,7 @@ export default function Index({ vouchers, filters = {} }) {
                             href={route("customer-vouchers.create")}
                             icon={<IconCirclePlus size={18} />}
                             className="bg-primary-500 text-white hover:bg-primary-600 shadow-lg shadow-primary-500/30"
-                            label="Buat Voucher"
+                            label={__("Create Voucher")}
                         />
                     )}
                 </div>
@@ -106,7 +106,7 @@ export default function Index({ vouchers, filters = {} }) {
                     <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_220px]">
                         <Search
                             url={route("customer-vouchers.index")}
-                            placeholder="Cari kode, voucher, pelanggan..."
+                            placeholder={__("Search code, voucher, customer...")}
                             query={filters.search || ""}
                         />
                         <select
@@ -116,26 +116,26 @@ export default function Index({ vouchers, filters = {} }) {
                             }
                             className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                         >
-                            <option value="">Semua Status</option>
-                            <option value="active">Aktif</option>
-                            <option value="scheduled">Terjadwal</option>
-                            <option value="expired">Expired</option>
-                            <option value="used">Sudah Dipakai</option>
-                            <option value="inactive">Nonaktif</option>
+                            <option value="">{__("All Status")}</option>
+                            <option value="active">{__("Active")}</option>
+                            <option value="scheduled">{__("Scheduled")}</option>
+                            <option value="expired">{__("Expired")}</option>
+                            <option value="used">{__("Used")}</option>
+                            <option value="inactive">{__("Inactive")}</option>
                         </select>
                     </div>
                 </div>
 
-                <Table.Card title="Daftar Voucher">
+                <Table.Card title={__("Voucher List")}>
                     <Table>
                         <Table.Thead>
                             <tr>
-                                <Table.Th>Kode</Table.Th>
-                                <Table.Th>Pelanggan</Table.Th>
-                                <Table.Th>Benefit</Table.Th>
-                                <Table.Th>Status</Table.Th>
-                                <Table.Th>Kedaluwarsa</Table.Th>
-                                <Table.Th className="w-28 text-center">Aksi</Table.Th>
+                                <Table.Th>{__("Code")}</Table.Th>
+                                <Table.Th>{__("Customer")}</Table.Th>
+                                <Table.Th>{__("Benefit")}</Table.Th>
+                                <Table.Th>{__("Status")}</Table.Th>
+                                <Table.Th>{__("Expiration")}</Table.Th>
+                                <Table.Th className="w-28 text-center">{__("Action")}</Table.Th>
                             </tr>
                         </Table.Thead>
                         <Table.Tbody>
@@ -177,7 +177,7 @@ export default function Index({ vouchers, filters = {} }) {
                                                     : formatPrice(voucher.discount_value)}
                                             </p>
                                             <p className="text-xs text-slate-500 dark:text-slate-400">
-                                                Min. {formatPrice(voucher.minimum_order)}
+                                                {__("Min.")} {formatPrice(voucher.minimum_order)}
                                             </p>
                                         </Table.Td>
                                         <Table.Td>
@@ -223,7 +223,7 @@ export default function Index({ vouchers, filters = {} }) {
                                     </tr>
                                 ))
                             ) : (
-                                <Table.Empty colSpan={6} message="Belum ada voucher customer.">
+                                <Table.Empty colSpan={6} message={__("No customer vouchers yet.")}>
                                     <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800">
                                         <IconDatabaseOff
                                             size={28}

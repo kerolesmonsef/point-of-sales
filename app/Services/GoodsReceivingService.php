@@ -6,6 +6,7 @@ use App\Models\GoodsReceiving;
 use App\Models\GoodsReceivingItem;
 use App\Models\Payable;
 use App\Models\ProductBatch;
+use App\Models\ProductWarehouse;
 use App\Models\PurchaseOrder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -61,7 +62,7 @@ class GoodsReceivingService
                 $product->decrement('stock', $qtyReceived);
                 // Increment warehouse pivot stock
                 if ($order->warehouse_id) {
-                    \App\Models\ProductWarehouse::where([
+                    ProductWarehouse::where([
                         'product_id' => $product->id,
                         'warehouse_id' => $order->warehouse_id,
                     ])->increment('stock', $qtyReceived);
@@ -85,7 +86,7 @@ class GoodsReceivingService
                     qty: $qtyReceived,
                     stockBefore: (int) $product->stock + $qtyReceived,
                     stockAfter: (int) $product->stock,
-                    notes: __("Receiving from PO ").$order->document_number,
+                    notes: __('Receiving from PO ').$order->document_number,
                     userId: $userId,
                 );
             }
@@ -100,7 +101,7 @@ class GoodsReceivingService
                 event: 'goods_receiving.created',
                 module: 'purchase',
                 auditable: $receiving,
-                description: __("Goods received from PO ").$order->document_number,
+                description: __('Goods received from PO ').$order->document_number,
                 after: [
                     'document_number' => $receiving->document_number,
                     'purchase_order_id' => $order->id,
@@ -144,7 +145,7 @@ class GoodsReceivingService
                 'paid' => 0,
                 'due_date' => now()->addDays(30),
                 'status' => 'unpaid',
-                'note' => __("Auto from PO receiving ").$order->document_number,
+                'note' => __('Auto from PO receiving ').$order->document_number,
             ]
         );
 
@@ -153,7 +154,7 @@ class GoodsReceivingService
                 event: 'payable.created_from_receiving',
                 module: 'payable',
                 auditable: $payable,
-                description: __("Payable auto from PO receiving ").$order->document_number,
+                description: __('Payable auto from PO receiving ').$order->document_number,
                 after: [
                     'payable_id' => $payable->id,
                     'supplier_id' => $payable->supplier_id,

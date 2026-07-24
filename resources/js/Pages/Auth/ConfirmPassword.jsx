@@ -108,7 +108,7 @@ export default function ConfirmPassword({ challenge = null }) {
                                         {__("Verifying...")}
                                     </>
                                 ) : (
-                                    {__("Continue")}
+                                    __("Continue")
                                 )}
                             </button>
                         </form>

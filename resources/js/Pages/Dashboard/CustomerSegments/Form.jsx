@@ -47,7 +47,7 @@ export default function Form({ mode = "create", segment = null }) {
 
     return (
         <>
-            <Head title={isEdit ? "Edit Segment Customer" : "Buat Segment Customer"} />
+            <Head title={isEdit ? __("Edit Customer Segment") : __("Create Customer Segment")} />
 
             <div className="w-full">
                 <div className="mb-6">
@@ -56,13 +56,13 @@ export default function Form({ mode = "create", segment = null }) {
                         href={route("customer-segments.index")}
                         icon={<IconArrowLeft size={18} />}
                         className="mb-3 border-none bg-transparent px-0 text-slate-500 shadow-none hover:bg-transparent hover:text-primary-600 dark:text-slate-400"
-                        label="Kembali ke segment customer"
+                        label={__("Back to customer segments")}
                     />
                     <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-                        {isEdit ? "Edit Segment Customer" : "Buat Segment Customer"}
+                        {isEdit ? __("Edit Customer Segment") : __("Create Customer Segment")}
                     </h1>
                     <p className="text-sm text-slate-500 dark:text-slate-400">
-                        Kelompokkan customer secara manual atau otomatis berdasarkan perilaku bisnis.
+                        {__("Group customers manually or automatically based on business behavior.")}
                     </p>
                 </div>
 
@@ -74,10 +74,10 @@ export default function Form({ mode = "create", segment = null }) {
                             </div>
                             <div>
                                 <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
-                                    Informasi Segment
+                                    {__("Segment Information")}
                                 </h2>
                                 <p className="text-sm text-slate-500 dark:text-slate-400">
-                                    Segment manual bisa diatur per customer, segment otomatis dihitung oleh sistem.
+                                    {__("Manual segments can be set per customer, auto segments are calculated by the system.")}
                                 </p>
                             </div>
                         </div>
@@ -85,7 +85,7 @@ export default function Form({ mode = "create", segment = null }) {
                         <div className="grid gap-4 md:grid-cols-2">
                             <div>
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Nama Segment
+                                    {__("Segment Name")}
                                 </label>
                                 <input
                                     type="text"
@@ -97,20 +97,20 @@ export default function Form({ mode = "create", segment = null }) {
                             </div>
                             <div>
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Tipe Segment
+                                    {__("Segment Type")}
                                 </label>
                                 <select
                                     value={data.type}
                                     onChange={(event) => setData("type", event.target.value)}
                                     className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
-                                    <option value="manual">Manual Tag</option>
-                                    <option value="auto">Auto Segment</option>
+                                    <option value="manual">{__("Manual Tag")}</option>
+                                    <option value="auto">{__("Auto Segment")}</option>
                                 </select>
                             </div>
                             <div className="md:col-span-2">
                                 <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Deskripsi
+                                    {__("Description")}
                                 </label>
                                 <textarea
                                     rows="3"
@@ -126,7 +126,7 @@ export default function Form({ mode = "create", segment = null }) {
                                     onChange={(event) => setData("is_active", event.target.checked)}
                                 />
                                 <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Segment aktif
+                                    {__("Active segment")}
                                 </span>
                             </label>
                         </div>
@@ -135,28 +135,28 @@ export default function Form({ mode = "create", segment = null }) {
                     {data.type === "auto" && (
                         <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
                             <h2 className="mb-4 text-lg font-semibold text-slate-900 dark:text-white">
-                                Rule Auto Segment
+                                {__("Auto Segment Rule")}
                             </h2>
                             <div className="grid gap-4 md:grid-cols-2">
                                 <div>
                                     <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                        Rule Type
+                                        {__("Rule Type")}
                                     </label>
                                     <select
                                         value={data.auto_rule_type}
                                         onChange={(event) => setData("auto_rule_type", event.target.value)}
                                         className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                     >
-                                        <option value="spending">Spending</option>
-                                        <option value="purchase_frequency">Purchase Frequency</option>
-                                        <option value="receivable_behavior">Receivable Behavior</option>
+                                        <option value="spending">{__("Spending")}</option>
+                                        <option value="purchase_frequency">{__("Purchase Frequency")}</option>
+                                        <option value="receivable_behavior">{__("Receivable Behavior")}</option>
                                     </select>
                                 </div>
 
                                 {data.auto_rule_type === "spending" && (
                                     <div>
                                         <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                            Minimum Total Belanja
+                                            {__("Minimum Total Spending")}
                                         </label>
                                         <input
                                             type="number"
@@ -172,7 +172,7 @@ export default function Form({ mode = "create", segment = null }) {
                                     <>
                                         <div>
                                             <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                                Minimum Jumlah Transaksi
+                                                {__("Minimum Transaction Count")}
                                             </label>
                                             <input
                                                 type="number"
@@ -184,7 +184,7 @@ export default function Form({ mode = "create", segment = null }) {
                                         </div>
                                         <div>
                                             <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                                Recent Days / Inactivity Days
+                                                {__("Recent Days / Inactivity Days")}
                                             </label>
                                             <input
                                                 type="number"
@@ -217,7 +217,7 @@ export default function Form({ mode = "create", segment = null }) {
                                                 onChange={(event) => setRuleConfig("require_outstanding_receivable", event.target.checked)}
                                             />
                                             <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                                Harus punya piutang outstanding
+                                                {__("Must have outstanding receivable")}
                                             </span>
                                         </label>
                                         <label className="inline-flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-700 dark:bg-slate-800">
@@ -227,7 +227,7 @@ export default function Form({ mode = "create", segment = null }) {
                                                 onChange={(event) => setRuleConfig("overdue_only", event.target.checked)}
                                             />
                                             <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                                Hanya piutang overdue
+                                                {__("Overdue receivable only")}
                                             </span>
                                         </label>
                                     </div>
@@ -241,7 +241,7 @@ export default function Form({ mode = "create", segment = null }) {
                             type="link"
                             href={route("customer-segments.index")}
                             className="border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
-                            label="Batal"
+                            label={__("Cancel")}
                         />
                         <button
                             type="submit"
@@ -249,7 +249,7 @@ export default function Form({ mode = "create", segment = null }) {
                             className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary-500 px-5 py-2.5 font-medium text-white hover:bg-primary-600 disabled:opacity-50"
                         >
                             <IconDeviceFloppy size={18} />
-                            {processing ? "Menyimpan..." : "Simpan Segment"}
+                            {processing ? __("Saving...") : __("Save Segment")}
                         </button>
                     </div>
                 </form>

@@ -5,6 +5,7 @@ import Button from "@/Components/Dashboard/Button";
 import Input from "@/Components/Dashboard/Input";
 import Textarea from "@/Components/Dashboard/TextArea";
 import InputSelect from "@/Components/Dashboard/InputSelect";
+import UnitsSection from "@/Components/Products/UnitsSection";
 import toast from "react-hot-toast";
 import {
     IconPackage,
@@ -15,7 +16,7 @@ import {
     IconCurrencyDollar,
 } from "@tabler/icons-react";
 
-export default function Create({ categories }) {
+export default function Create({ categories, units: unitOptions = [] }) {
     const { errors } = usePage().props;
 
     const { data, setData, post, processing } = useForm({
@@ -28,6 +29,7 @@ export default function Create({ categories }) {
         buy_price: "",
         sell_price: "",
         stock: "",
+        units: [],
     });
 
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -49,14 +51,14 @@ export default function Create({ categories }) {
     const submit = (e) => {
         e.preventDefault();
         post(route("products.store"), {
-            onSuccess: () => toast.success("Produk berhasil ditambahkan"),
-            onError: () => toast.error("Gagal menyimpan produk"),
+            onSuccess: () => toast.success(__("Product added successfully")),
+            onError: () => toast.error(__("Failed to save product")),
         });
     };
 
     return (
         <>
-            <Head title="Tambah Produk" />
+            <Head title={__("Add Product")} />
 
             {/* Header */}
             <div className="mb-6">
@@ -103,7 +105,7 @@ export default function Create({ categories }) {
                             </div>
                             <Input
                                 type="file"
-                                label="Upload Gambar"
+                                label={__("Upload Image")}
                                 onChange={handleImageChange}
                                 errors={errors.image}
                                 accept="image/*"
@@ -122,11 +124,11 @@ export default function Create({ categories }) {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="md:col-span-2">
                                     <InputSelect
-                                        label="Kategori"
+                                        label={__("Category")}
                                         data={categories}
                                         selected={selectedCategory}
                                         setSelected={setSelectedCategoryHandler}
-                                        placeholder="Pilih kategori"
+                                        placeholder={__("Select category")}
                                         errors={errors.category_id}
                                         searchable={true}
                                         displayKey="name"
@@ -134,36 +136,36 @@ export default function Create({ categories }) {
                                 </div>
                                 <Input
                                     type="text"
-                                    label="Barcode"
+                                    label={__("Barcode")}
                                     value={data.barcode}
                                     onChange={(e) =>
                                         setData("barcode", e.target.value)
                                     }
                                     errors={errors.barcode}
-                                    placeholder="Masukkan kode produk"
+                                    placeholder={__("Enter product code")}
                                 />
                                 <Input
                                     type="text"
-                                    label="SKU"
+                                    label={__("SKU")}
                                     value={data.sku}
                                     onChange={(e) => setData("sku", e.target.value)}
                                     errors={errors.sku}
-                                    placeholder="Masukkan SKU unik"
+                                    placeholder={__("Enter unique SKU")}
                                 />
                                 <Input
                                     type="text"
-                                    label="Nama Produk"
+                                    label={__("Product Name")}
                                     value={data.title}
                                     onChange={(e) =>
                                         setData("title", e.target.value)
                                     }
                                     errors={errors.title}
-                                    placeholder="Masukkan nama produk"
+                                    placeholder={__("Enter product name")}
                                 />
                                 <div className="md:col-span-2">
                                     <Textarea
-                                        label="Deskripsi"
-                                        placeholder="Deskripsi produk (opsional)"
+                                        label={__("Description")}
+                                        placeholder={__("Product description (optional)")}
                                         errors={errors.description}
                                         onChange={(e) =>
                                             setData(
@@ -187,7 +189,7 @@ export default function Create({ categories }) {
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <Input
                                     type="number"
-                                    label="Harga Beli"
+                                    label={__("Buy Price")}
                                     value={data.buy_price}
                                     onChange={(e) =>
                                         setData("buy_price", e.target.value)
@@ -197,7 +199,7 @@ export default function Create({ categories }) {
                                 />
                                 <Input
                                     type="number"
-                                    label="Harga Jual"
+                                    label={__("Sell Price")}
                                     value={data.sell_price}
                                     onChange={(e) =>
                                         setData("sell_price", e.target.value)
@@ -207,7 +209,7 @@ export default function Create({ categories }) {
                                 />
                                 <Input
                                     type="number"
-                                    label="Stok"
+                                    label={__("Stock")}
                                     value={data.stock}
                                     onChange={(e) =>
                                         setData("stock", e.target.value)
@@ -252,6 +254,13 @@ export default function Create({ categories }) {
                             )}
                         </div>
 
+                        {/* Units Section */}
+                        <UnitsSection
+                            units={data.units}
+                            onChange={(units) => setData("units", units)}
+                            unitOptions={unitOptions}
+                        />
+
                         {/* Submit */}
                         <div className="flex justify-end gap-3">
                             <Link
@@ -266,7 +275,7 @@ export default function Create({ categories }) {
                                 className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-medium transition-colors disabled:opacity-50"
                             >
                                 <IconDeviceFloppy size={18} />
-                                {processing ? "Menyimpan..." : "Simpan Produk"}
+                                {processing ? __("Saving...") : __("Save Product")}
                             </button>
                         </div>
                     </div>

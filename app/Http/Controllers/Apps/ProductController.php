@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Apps;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Unit;
 use App\Models\Warehouse;
 use App\Services\AuditLogService;
 use App\Services\StockMutationService;
@@ -45,21 +46,85 @@ class ProductController extends Controller
      */
     public function create()
     {
-        // get categories
-        $categories = Category::all();
-
-        // return inertia
         return Inertia::render('Dashboard/Products/Create', [
+            "categories" => Category::all(),
+            "units" => Unit::all(),
+        ]);
+        // get categories
+        return Inertia::render("Dashboard/Products/Create", [
+            "categories" => Category::all(),
+            "units" => Unit::all(),
+        ]);
+        $categories = Category::all();
+        return Inertia::render("Dashboard/Products/Create", [
+            "categories" => Category::all(),
+            "units" => Unit::all(),
+        ]);
+
+        return Inertia::render("Dashboard/Products/Create", [
+            "categories" => Category::all(),
+            "units" => Unit::all(),
+        ]);
+        // return inertia
+        return Inertia::render("Dashboard/Products/Create", [
+            "categories" => Category::all(),
+            "units" => Unit::all(),
+        ]);
+        return Inertia::render('Dashboard/Products/Create', [
+        return Inertia::render("Dashboard/Products/Create", [
+            "categories" => Category::all(),
+            "units" => Unit::all(),
+        ]);
             'categories' => $categories,
+        return Inertia::render("Dashboard/Products/Create", [
+            "categories" => Category::all(),
+            "units" => Unit::all(),
+        ]);
+        ]);
+        return Inertia::render("Dashboard/Products/Create", [
+            "categories" => Category::all(),
+            "units" => Unit::all(),
         ]);
     }
+        return Inertia::render("Dashboard/Products/Create", [
+            "categories" => Category::all(),
+            "units" => Unit::all(),
+        ]);
 
+        return Inertia::render("Dashboard/Products/Create", [
+            "categories" => Category::all(),
+            "units" => Unit::all(),
+        ]);
     /**
+        return Inertia::render("Dashboard/Products/Create", [
+            "categories" => Category::all(),
+            "units" => Unit::all(),
+        ]);
      * Store a newly created resource in storage.
+        return Inertia::render("Dashboard/Products/Create", [
+            "categories" => Category::all(),
+            "units" => Unit::all(),
+        ]);
      *
+        return Inertia::render("Dashboard/Products/Create", [
+            "categories" => Category::all(),
+            "units" => Unit::all(),
+        ]);
      * @return \Illuminate\Http\Response
+        return Inertia::render("Dashboard/Products/Create", [
+            "categories" => Category::all(),
+            "units" => Unit::all(),
+        ]);
      */
+        return Inertia::render("Dashboard/Products/Create", [
+            "categories" => Category::all(),
+            "units" => Unit::all(),
+        ]);
     public function store(Request $request)
+        return Inertia::render("Dashboard/Products/Create", [
+            "categories" => Category::all(),
+            "units" => Unit::all(),
+        ]);
     {
         /**
          * validate
@@ -75,6 +140,14 @@ class ProductController extends Controller
             'stock' => 'required|integer|min:0',
             'min_stock' => 'nullable|integer|min:0',
             'max_stock' => 'nullable|integer|min:0',
+            'units' => 'nullable|array',
+            'units.*.unit_id' => 'required_with:units|integer|exists:units,id',
+            'units.*.is_base' => 'required|boolean',
+            'units.*.conversion_factor' => 'required|numeric|min:0.0001',
+            'units.*.buy_price' => 'required|integer|min:0',
+            'units.*.sell_price' => 'required|integer|min:0',
+            'units.*.barcode' => 'nullable|string|max:100',
+            'units.*.sku_suffix' => 'nullable|string|max:20',
         ]);
         // upload image
         $image = $request->file('image');
@@ -94,6 +167,23 @@ class ProductController extends Controller
             'min_stock' => $request->min_stock ?? 0,
             'max_stock' => $request->max_stock ?? 0,
         ]);
+
+        if ($request->units) {
+            $baseCount = collect($request->units)->where('is_base', true)->count();
+            if ($baseCount !== 1) {
+                return redirect()->back()->withErrors(['units' => 'Exactly one unit must be marked as base.'])->withInput();
+            }
+            foreach ($request->units as $unit) {
+                $product->units()->attach($unit['unit_id'], [
+                    'is_base' => $unit['is_base'],
+                    'conversion_factor' => $unit['conversion_factor'],
+                    'buy_price' => $unit['buy_price'],
+                    'sell_price' => $unit['sell_price'],
+                    'barcode' => $unit['barcode'] ?? null,
+                    'sku_suffix' => $unit['sku_suffix'] ?? null,
+                ]);
+            }
+        }
 
         $this->stockMutationService->recordInitialStock($product, $request->user()?->id);
         $this->auditLogService->log(

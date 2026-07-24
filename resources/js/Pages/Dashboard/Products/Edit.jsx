@@ -59,14 +59,14 @@ export default function Edit({ categories, product }) {
     const submit = (e) => {
         e.preventDefault();
         post(route("products.update", product.id), {
-            onSuccess: () => toast.success("Produk berhasil diperbarui"),
-            onError: () => toast.error("Gagal memperbarui produk"),
+            onSuccess: () => toast.success(__("Product updated successfully")),
+            onError: () => toast.error(__("Failed to update product")),
         });
     };
 
     return (
         <>
-            <Head title="Edit Produk" />
+            <Head title={__("Edit Product")} />
 
             <div className="mb-6">
                 <Link
@@ -113,7 +113,7 @@ export default function Edit({ categories, product }) {
                             </div>
                             <Input
                                 type="file"
-                                label="Ganti Gambar"
+                                label={__("Change Image")}
                                 onChange={handleImageChange}
                                 errors={errors.image}
                                 accept="image/*"
@@ -131,11 +131,11 @@ export default function Edit({ categories, product }) {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="md:col-span-2">
                                     <InputSelect
-                                        label="Kategori"
+                                        label={__("Category")}
                                         data={categories}
                                         selected={selectedCategory}
                                         setSelected={setSelectedCategoryHandler}
-                                        placeholder="Pilih kategori"
+                                        placeholder={__("Select category")}
                                         errors={errors.category_id}
                                         searchable={true}
                                         displayKey="name"
@@ -149,7 +149,7 @@ export default function Edit({ categories, product }) {
                                         setData("barcode", e.target.value)
                                     }
                                     errors={errors.barcode}
-                                    placeholder="Kode produk"
+                                    placeholder={__("Product code")}
                                 />
                                 <Input
                                     type="text"
@@ -157,7 +157,7 @@ export default function Edit({ categories, product }) {
                                     value={data.sku}
                                     onChange={(e) => setData("sku", e.target.value)}
                                     errors={errors.sku}
-                                    placeholder="SKU unik"
+                                    placeholder={__("Unique SKU")}
                                 />
                                 <Input
                                     type="text"
@@ -167,12 +167,12 @@ export default function Edit({ categories, product }) {
                                         setData("title", e.target.value)
                                     }
                                     errors={errors.title}
-                                    placeholder="Nama produk"
+                                    placeholder={__("Product name")}
                                 />
                                 <div className="md:col-span-2">
                                     <Textarea
                                         label="Deskripsi"
-                                        placeholder="Deskripsi produk"
+                                        placeholder={__("Product description")}
                                         errors={errors.description}
                                         onChange={(e) =>
                                             setData(
@@ -276,8 +276,8 @@ export default function Edit({ categories, product }) {
                             >
                                 <IconDeviceFloppy size={18} />
                                 {processing
-                                    ? "Menyimpan..."
-                                    : "Simpan Perubahan"}
+                                    ? __("Saving...")
+                                    : __("Save Changes")}
                             </button>
                         </div>
                     </div>

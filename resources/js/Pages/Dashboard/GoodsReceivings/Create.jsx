@@ -29,7 +29,7 @@ export default function Create({ orders }) {
                 })
                 .map((item) => ({
                     purchase_order_item_id: item.id,
-                    product_title: item.product?.title || "Produk #" + item.product_id,
+                    product_title: item.product?.title || __("Product #") + item.product_id,
                     product_sku: item.product?.sku || "-",
                     qty_ordered: item.qty_ordered,
                     qty_received_already: item.qty_received || 0,

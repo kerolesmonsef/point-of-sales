@@ -21,23 +21,23 @@ export default function Target({ settings }) {
         e.preventDefault();
         post(route("settings.target.update"), {
             preserveScroll: true,
-            onSuccess: () => toast.success("Target berhasil disimpan"),
-            onError: () => toast.error("Gagal menyimpan target"),
+            onSuccess: () => toast.success(__("Target saved successfully")),
+            onError: () => toast.error(__("Failed to save target")),
         });
     };
 
     return (
         <>
-            <Head title="Target Penjualan" />
+            <Head title={__("Sales Target")} />
 
             <div className="space-y-6">
                 {/* Header */}
                 <div>
                     <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-                        Target Penjualan
+                        {__("Sales Target")}
                     </h1>
                     <p className="text-sm text-slate-500 dark:text-slate-400">
-                        Atur target penjualan bulanan untuk bisnis Anda
+                        {__("Set monthly sales target for your business")}
                     </p>
                 </div>
 
@@ -53,7 +53,7 @@ export default function Target({ settings }) {
                             </div>
                             <div className="flex-1">
                                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                                    Target Penjualan Bulanan
+                                    {__("Monthly Sales Target")}
                                 </label>
                                 <div className="relative">
                                     <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
@@ -68,13 +68,13 @@ export default function Target({ settings }) {
                                                 e.target.value
                                             )
                                         }
-                                        placeholder="Contoh: 50000000"
+                                        placeholder={__("Example: 50000000")}
                                         className="w-full h-12 pl-12 pr-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:border-primary-500 focus:ring-4 focus:ring-primary-500/20 transition-all"
                                     />
                                 </div>
                                 {data.monthly_sales_target > 0 && (
                                     <p className="mt-2 text-sm text-slate-500">
-                                        Target:{" "}
+                                        {__("Target:")}{" "}
                                         {formatCurrency(
                                             data.monthly_sales_target
                                         )}
@@ -96,7 +96,7 @@ export default function Target({ settings }) {
                                 className="flex items-center gap-2"
                             >
                                 <IconDeviceFloppy size={18} />
-                                {processing ? "Menyimpan..." : "Simpan Target"}
+                                {processing ? __("Saving...") : __("Save Target")}
                             </Button>
                         </div>
                     </form>
@@ -105,9 +105,8 @@ export default function Target({ settings }) {
                 {/* Info */}
                 <div className="bg-primary-50 dark:bg-primary-950/30 rounded-xl p-4 border border-primary-200 dark:border-primary-900">
                     <p className="text-sm text-primary-700 dark:text-primary-300">
-                        <strong>Tip:</strong> Target penjualan akan ditampilkan
-                        di Dashboard sebagai progress bar untuk memantau
-                        pencapaian bulanan Anda.
+                        <strong>{__("Tip:")}</strong>{" "}
+                        {__("Sales target will be shown on Dashboard as a progress bar to track your monthly achievement.")}
                     </p>
                 </div>
             </div>

@@ -68,7 +68,7 @@ export default function Print({ transaction }) {
 
     const store = useMemo(
         () => ({
-            name: storeProfile?.name || "Toko Anda",
+            name: storeProfile?.name || __("Your Store"),
             logo: storeProfile?.logo || null,
             address: storeProfile?.address || "",
             phone: storeProfile?.phone || "",
@@ -79,29 +79,29 @@ export default function Print({ transaction }) {
     );
 
     const paymentLabels = {
-        cash: "Tunai",
-        bank_transfer: "Transfer Bank",
+        cash: __("Cash"),
+        bank_transfer: __("Bank Transfer"),
         midtrans: "Midtrans",
         xendit: "Xendit",
-        pay_later: "Piutang",
+        pay_later: __("Receivable"),
     };
     const paymentMethodKey = (
         transaction?.payment_method || "cash"
     ).toLowerCase();
-    const paymentMethodLabel = paymentLabels[paymentMethodKey] ?? "Tunai";
+    const paymentMethodLabel = paymentLabels[paymentMethodKey] ?? __("Cash");
 
     const paymentStatuses = {
-        paid: "Lunas",
-        pending: transaction?.payment_method === "pay_later" ? "Belum Lunas" : "Menunggu",
-        failed: "Gagal",
-        expired: "Kedaluwarsa",
-        unpaid: "Belum Lunas",
-        partial: "Parsial",
+        paid: __("Paid"),
+        pending: transaction?.payment_method === "pay_later" ? __("Unpaid") : __("Pending"),
+        failed: __("Failed"),
+        expired: __("Expired"),
+        unpaid: __("Unpaid"),
+        partial: __("Partial"),
     };
     const paymentStatusKey = (transaction?.payment_status || "").toLowerCase();
     const paymentStatusLabel =
         paymentStatuses[paymentStatusKey] ??
-        (paymentMethodKey === "cash" ? "Lunas" : "Menunggu");
+        (paymentMethodKey === "cash" ? __("Paid") : __("Pending"));
 
     const statusColors = {
         paid: "bg-success-100 text-success-700 dark:bg-success-900/50 dark:text-success-400",
@@ -152,7 +152,7 @@ export default function Print({ transaction }) {
 
     return (
         <>
-            <Head title="Invoice Penjualan" />
+            <Head title={__("Sales Invoice")} />
 
             <div className="min-h-screen bg-slate-100 dark:bg-slate-950 py-8 px-4 print:bg-white print:p-0">
                 <div className="max-w-4xl mx-auto space-y-6">
@@ -163,7 +163,7 @@ export default function Print({ transaction }) {
                             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                         >
                             <IconArrowLeft size={18} />
-                            Kembali ke kasir
+                            {__("Back to register")}
                         </Link>
 
                         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
@@ -195,7 +195,7 @@ export default function Print({ transaction }) {
                                         size={16}
                                         className="inline mr-1"
                                     />
-                                    Struk 80mm
+                                    {__("Receipt 80mm")}
                                 </button>
                                 <button
                                     onClick={() => setPrintMode("thermal58")}
@@ -209,7 +209,7 @@ export default function Print({ transaction }) {
                                         size={16}
                                         className="inline mr-1"
                                     />
-                                    Struk 58mm
+                                    {__("Receipt 58mm")}
                                 </button>
                                 <button
                                     onClick={() => setPrintMode("shipping")}
@@ -237,7 +237,7 @@ export default function Print({ transaction }) {
                                         const url = URL.createObjectURL(blob);
                                         window.open(url, "_blank", "width=400,height=600");
                                     } catch (e) {
-                                        alert("Gagal cetak thermal: " + e.message);
+                                        alert(__("Failed to print thermal: ") + e.message);
                                     }
                                 }}
                                 className="inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors w-full sm:w-auto"
@@ -254,7 +254,7 @@ export default function Print({ transaction }) {
                                     className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-primary-200 dark:border-primary-800 text-sm font-semibold text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-950/50 transition-colors w-full sm:w-auto"
                                 >
                                     <IconExternalLink size={18} />
-                                    Pembayaran
+                                    {__("Payment")}
                                 </a>
                             )}
 
@@ -263,7 +263,7 @@ export default function Print({ transaction }) {
                                 onClick={() => {
                                     const url = route("portal.transaction", [transaction.invoice, { token: transaction.access_token }]);
                                     navigator.clipboard?.writeText(window.location.origin + "/" + url.replace(/^\/+/, ""));
-                                    alert("Link invoice disalin");
+                                    alert(__("Invoice link copied"));
                                 }}
                                 className="inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors w-full sm:w-auto"
                             >
@@ -282,7 +282,7 @@ export default function Print({ transaction }) {
                                         className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-success-500 hover:bg-success-600 text-sm font-semibold text-white transition-colors w-full sm:w-auto"
                                     >
                                         <IconCheck size={18} />
-                                        Konfirmasi Bayar
+                                        {__("Confirm Payment")}
                                     </button>
                                 )}
 
@@ -294,7 +294,7 @@ export default function Print({ transaction }) {
                                     className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition-colors w-full sm:w-auto"
                                 >
                                     <IconPrinter size={18} />
-                                    PDF Invoice
+                                        {__("PDF Invoice")}
                                 </a>
                             )}
 
@@ -321,7 +321,7 @@ export default function Print({ transaction }) {
                                     className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-sm font-semibold text-white transition-colors w-full sm:w-auto"
                                 >
                                     <IconPrinter size={18} />
-                                    PDF Resi
+                                            {__("PDF Receipt")}
                                 </a>
                             )}
                         </div>
@@ -441,10 +441,10 @@ export default function Print({ transaction }) {
                             <div className="grid md:grid-cols-2 gap-4 sm:gap-6 px-4 sm:px-6 py-4 sm:py-6 border-b border-slate-100 dark:border-slate-800">
                                 <div className="bg-slate-50/60 dark:bg-slate-800/40 rounded-xl p-3 sm:p-4">
                                     <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">
-                                        Pelanggan
+                                        {__("Customer")}
                                     </p>
                                     <p className="text-base font-semibold text-slate-900 dark:text-white">
-                                        {transaction.customer?.name ?? "Umum"}
+                                        {transaction.customer?.name ?? __("General")}
                                     </p>
                                     {transaction.customer?.address && (
                                         <p className="text-sm text-slate-600 dark:text-slate-400">
@@ -459,7 +459,7 @@ export default function Print({ transaction }) {
                                 </div>
                                 <div className="bg-slate-50/60 dark:bg-slate-800/40 rounded-xl p-3 sm:p-4">
                                     <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">
-                                        Kasir
+                                        {__("Cashier")}
                                     </p>
                                     <div className="flex items-start justify-between gap-3">
                                         <p className="text-base font-semibold text-slate-900 dark:text-white">
@@ -478,7 +478,7 @@ export default function Print({ transaction }) {
                                                 "pay_later" &&
                                                 transaction.receivable && (
                                                     <span className="inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">
-                                                        Jatuh tempo:{" "}
+                                                        {__("Due date:")}{" "}
                                                         {transaction.receivable
                                                             ?.due_date || "-"}
                                                     </span>
@@ -574,7 +574,7 @@ export default function Print({ transaction }) {
                                                                 <p className="text-xs font-medium text-rose-500 dark:text-rose-400">
                                                                     {item.pricing_group_label ||
                                                                         item.pricing_rule_name ||
-                                                                        "Promo aktif"}
+                                                                        __("Active promo")}
                                                                 </p>
                                                             )}
                                                             {item.product

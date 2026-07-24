@@ -89,7 +89,7 @@ export default function Index({ categories }) {
 
     return (
         <>
-            <Head title="Kategori" />
+            <Head title={__("Categories")} />
 
             {/* Header */}
             <div className="mb-6">
@@ -115,7 +115,7 @@ export default function Index({ categories }) {
                             className={
                                 "bg-primary-500 hover:bg-primary-600 text-white shadow-lg shadow-primary-500/30"
                             }
-                            label={"Tambah Kategori"}
+                            label={__("Add Category")}
                             href={route("categories.create")}
                         />
                     )}
@@ -127,7 +127,7 @@ export default function Index({ categories }) {
                 <div className="w-full sm:w-80">
                     <Search
                         url={route("categories.index")}
-                        placeholder="Cari kategori..."
+                        placeholder={__("Search categories...")}
                     />
                 </div>
                 <div className="flex items-center gap-2">
@@ -138,7 +138,7 @@ export default function Index({ categories }) {
                                 ? "bg-primary-100 text-primary-600 dark:bg-primary-900/50 dark:text-primary-400"
                                 : "text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                         }`}
-                        title="Grid View"
+                        title={__("Grid View")}
                     >
                         <IconLayoutGrid size={20} />
                     </button>
@@ -149,7 +149,7 @@ export default function Index({ categories }) {
                                 ? "bg-primary-100 text-primary-600 dark:bg-primary-900/50 dark:text-primary-400"
                                 : "text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                         }`}
-                        title="List View"
+                        title={__("List View")}
                     >
                         <IconList size={20} />
                     </button>
@@ -172,7 +172,7 @@ export default function Index({ categories }) {
                     </div>
                 ) : (
                     /* List View */
-                    <Table.Card title={"Data Kategori"}>
+                    <Table.Card title={__("Category Data")}>
                         <Table>
                             <Table.Thead>
                                 <tr>
@@ -293,7 +293,7 @@ export default function Index({ categories }) {
                         className={
                             "bg-primary-500 hover:bg-primary-600 text-white"
                         }
-                        label={"Tambah Kategori"}
+                        label={__("Add Category")}
                         href={route("categories.create")}
                     />
                 </div>

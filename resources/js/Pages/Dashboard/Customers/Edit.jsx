@@ -124,14 +124,14 @@ export default function Edit({ customer }) {
     const submit = (e) => {
         e.preventDefault();
         post(route("customers.update", customer.id), {
-            onSuccess: () => toast.success("Pelanggan berhasil diperbarui"),
-            onError: () => toast.error("Gagal memperbarui pelanggan"),
+            onSuccess: () => toast.success(__("Customer updated successfully")),
+            onError: () => toast.error(__("Failed to update customer")),
         });
     };
 
     return (
         <>
-            <Head title="Edit Pelanggan" />
+            <Head title={__("Edit Customer")} />
 
             <div className="mb-6">
                 <Link
@@ -154,15 +154,15 @@ export default function Edit({ customer }) {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <Input
                                 type="text"
-                                label="Nama Pelanggan"
-                                placeholder="Nama lengkap"
+                                label={__("Customer Name")}
+                                placeholder={__("Full name")}
                                 errors={errors.name}
                                 onChange={(e) => setData("name", e.target.value)}
                                 value={data.name}
                             />
                             <Input
                                 type="text"
-                                label="No. Handphone"
+                                label={__("Phone Number")}
                                 placeholder="08xxxxxxxxxx"
                                 errors={errors.no_telp}
                                 onChange={(e) => setData("no_telp", e.target.value)}
@@ -330,8 +330,8 @@ export default function Edit({ customer }) {
                             </div>
                         </div>
                         <Textarea
-                            label="Alamat Detail"
-                            placeholder="Alamat lengkap"
+                            label={__("Detailed Address")}
+                            placeholder={__("Full address")}
                             errors={errors.address}
                             onChange={(e) => setData("address", e.target.value)}
                             value={data.address}
@@ -352,7 +352,7 @@ export default function Edit({ customer }) {
                             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-medium transition-colors disabled:opacity-50"
                         >
                             <IconDeviceFloppy size={18} />
-                            {processing ? "Menyimpan..." : "Simpan Perubahan"}
+                            {processing ? __("Saving...") : __("Save Changes")}
                         </button>
                     </div>
                 </div>

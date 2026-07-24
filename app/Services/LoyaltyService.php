@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Customer;
 use App\Models\CustomerVoucher;
 use App\Models\LoyaltyPointHistory;
+use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Transaction;
 use Carbon\CarbonInterface;
@@ -89,35 +90,35 @@ class LoyaltyService
         Setting::setMany([
             'loyalty_enable_earn' => [
                 'value' => $payload['enable_earn'] ? '1' : '0',
-                'description' => __("Enable loyalty point earning"),
+                'description' => __('Enable loyalty point earning'),
             ],
             'loyalty_enable_redeem' => [
                 'value' => $payload['enable_redeem'] ? '1' : '0',
-                'description' => __("Enable loyalty point redemption"),
+                'description' => __('Enable loyalty point redemption'),
             ],
             'loyalty_earn_rate_amount' => [
                 'value' => (string) $payload['earn_rate_amount'],
-                'description' => __("Spending amount to earn 1 point"),
+                'description' => __('Spending amount to earn 1 point'),
             ],
             'loyalty_redeem_point_value' => [
                 'value' => (string) $payload['redeem_point_value'],
-                'description' => __("Rupiah value for 1 redeem point"),
+                'description' => __('Rupiah value for 1 redeem point'),
             ],
             'loyalty_tier_regular_threshold' => [
                 'value' => (string) $payload['tiers'][self::TIER_REGULAR],
-                'description' => __("Total spending threshold for Regular tier"),
+                'description' => __('Total spending threshold for Regular tier'),
             ],
             'loyalty_tier_silver_threshold' => [
                 'value' => (string) $payload['tiers'][self::TIER_SILVER],
-                'description' => __("Total spending threshold for Silver tier"),
+                'description' => __('Total spending threshold for Silver tier'),
             ],
             'loyalty_tier_gold_threshold' => [
                 'value' => (string) $payload['tiers'][self::TIER_GOLD],
-                'description' => __("Total spending threshold for Gold tier"),
+                'description' => __('Total spending threshold for Gold tier'),
             ],
             'loyalty_tier_platinum_threshold' => [
                 'value' => (string) $payload['tiers'][self::TIER_PLATINUM],
-                'description' => __("Total spending threshold for Platinum tier"),
+                'description' => __('Total spending threshold for Platinum tier'),
             ],
         ]);
     }
@@ -205,8 +206,8 @@ class LoyaltyService
         $taxService = app(TaxService::class);
         $items = data_get($pricingPreview, 'items', []);
         $productIds = collect($items)->pluck('product_id')->filter()->unique()->values();
-        $productTaxes = \App\Models\Product::whereIn('id', $productIds)->pluck('tax_rate', 'id');
-        $productTaxTypes = \App\Models\Product::whereIn('id', $productIds)->pluck('tax_type', 'id');
+        $productTaxes = Product::whereIn('id', $productIds)->pluck('tax_rate', 'id');
+        $productTaxTypes = Product::whereIn('id', $productIds)->pluck('tax_type', 'id');
 
         $effectiveRate = 0;
         $taxTotal = 0;
@@ -336,7 +337,7 @@ class LoyaltyService
                 LoyaltyPointHistory::TYPE_REDEEM,
                 -$redeemedPoints,
                 (int) ($transaction->loyalty_discount_total ?? 0),
-                __("Points redeemed on transaction ").$transaction->invoice
+                __('Points redeemed on transaction ').$transaction->invoice
             );
         }
 
@@ -353,7 +354,7 @@ class LoyaltyService
                 LoyaltyPointHistory::TYPE_VOUCHER,
                 0,
                 (int) ($transaction->customer_voucher_discount ?? 0),
-                __("Voucher ").$voucher->code.__(" used")
+                __('Voucher ').$voucher->code.__(' used')
             );
         }
 
@@ -381,7 +382,7 @@ class LoyaltyService
                 LoyaltyPointHistory::TYPE_EARN,
                 $earnedPoints,
                 (int) $transaction->grand_total,
-                __("Transaction points ").$transaction->invoice
+                __('Transaction points ').$transaction->invoice
             );
         }
 

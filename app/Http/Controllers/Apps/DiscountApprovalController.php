@@ -80,10 +80,10 @@ class DiscountApprovalController extends Controller
         });
 
         $this->auditLogService->log(
-            event: 'discount_approval.' . $status,
+            event: 'discount_approval.'.$status,
             module: 'transactions',
             auditable: $transaction,
-            description: __('Discount for transaction :invoice', ['invoice' => $transaction->invoice]) . ' ' . ($status === 'approved' ? __('approved') : __('denied')),
+            description: __('Discount for transaction :invoice', ['invoice' => $transaction->invoice]).' '.($status === 'approved' ? __('approved') : __('denied')),
             after: ['discount_approval_status' => $status],
         );
     }
