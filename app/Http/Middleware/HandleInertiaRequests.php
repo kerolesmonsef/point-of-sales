@@ -158,6 +158,7 @@ class HandleInertiaRequests extends Middleware
 
         return [
             ...parent::share($request),
+            'translations' => json_decode(file_get_contents(lang_path('en.json')), true),
             'auth' => [
                 'user' => $request->user(),
                 'permissions' => $request->user() ? $request->user()->getPermissions() : [],

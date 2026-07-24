@@ -4,10 +4,12 @@ import { IconLayoutGrid } from "@tabler/icons-react";
 import LinkItem from "@/Components/Dashboard/LinkItem";
 import LinkItemDropdown from "@/Components/Dashboard/LinkItemDropdown";
 import Menu from "@/Utils/Menu";
+import { useTranslations } from "@/Utils/Translations";
 
 export default function Sidebar({ sidebarOpen }) {
     const { auth, storeProfile, appVersion } = usePage().props;
-    const menuNavigation = Menu();
+    const __ = useTranslations();
+    const menuNavigation = Menu(__);
 
     const storeName = storeProfile?.name || "KASIR";
     const storeLogo = storeProfile?.logo || null;

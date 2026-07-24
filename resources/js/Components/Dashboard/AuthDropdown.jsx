@@ -6,7 +6,9 @@ import { useForm } from "@inertiajs/react";
 import MenuLink from "@/Utils/Menu";
 import LinkItem from "./LinkItem";
 import LinkItemDropdown from "./LinkItemDropdown";
+import { useTranslations } from "@/Utils/Translations";
 export default function AuthDropdown({ auth, isMobile }) {
+    const __ = useTranslations();
     // define usefrom
     const { post } = useForm();
     // define url from usepage
@@ -30,7 +32,7 @@ export default function AuthDropdown({ auth, isMobile }) {
     };
 
     // get menu from utils
-    const menuNavigation = MenuLink();
+    const menuNavigation = MenuLink(__);
 
     // define useEffect
     useEffect(() => {

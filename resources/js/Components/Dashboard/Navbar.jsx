@@ -4,10 +4,12 @@ import { IconMenu2, IconMoon, IconSun, IconSearch } from "@tabler/icons-react";
 import AuthDropdown from "@/Components/Dashboard/AuthDropdown";
 import Menu from "@/Utils/Menu";
 import Notification from "@/Components/Dashboard/Notification";
+import { useTranslations } from "@/Utils/Translations";
 
 export default function Navbar({ toggleSidebar, themeSwitcher, darkMode }) {
     const { auth } = usePage().props;
-    const menuNavigation = Menu();
+    const __ = useTranslations();
+    const menuNavigation = Menu(__);
 
     // Get current page title
     const links = menuNavigation.flatMap((item) => item.details);
