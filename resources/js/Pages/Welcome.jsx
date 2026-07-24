@@ -17,33 +17,33 @@ export default function Welcome() {
     const features = [
         {
             icon: IconShoppingCart,
-            title: "Transaksi Cepat",
-            desc: "Proses jual beli dalam hitungan detik",
+            title: __("Quick Transactions"),
+            desc: __("Process sales in seconds"),
         },
         {
             icon: IconReceipt,
-            title: "Cetak Struk",
-            desc: "Print thermal 58mm, 80mm, dan invoice",
+            title: __("Print Receipt"),
+            desc: __("Print thermal 58mm, 80mm, and invoice"),
         },
         {
             icon: IconUsers,
-            title: "Pelanggan & History",
-            desc: "Kelola data pelanggan dan riwayat",
+            title: __("Customers & History"),
+            desc: __("Manage customer data and history"),
         },
         {
             icon: IconBox,
-            title: "Inventori Produk",
-            desc: "Stok, kategori, dan barcode scanner",
+            title: __("Product Inventory"),
+            desc: __("Stock, categories, and barcode scanner"),
         },
         {
             icon: IconChartBar,
-            title: "Laporan Lengkap",
-            desc: "Penjualan, keuntungan, dan grafik",
+            title: __("Complete Reports"),
+            desc: __("Sales, profits, and charts"),
         },
         {
             icon: IconReportMoney,
-            title: "Multi Payment",
-            desc: "Tunai, QRIS, dan Midtrans",
+            title: __("Multi Payment"),
+            desc: __("Cash, QRIS, and Midtrans"),
         },
     ];
 
@@ -57,7 +57,7 @@ export default function Welcome() {
 
     return (
         <>
-            <Head title="Aplikasi Kasir - Point of Sale Modern" />
+            <Head title={__("POS Application - Modern Point of Sale")} />
 
             <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
                 {/* Navbar */}
@@ -71,29 +71,29 @@ export default function Welcome() {
                                 />
                             </div>
                             <span className="text-xl font-bold text-slate-900 dark:text-white">
-                                Aplikasi Kasir
-                            </span>
-                        </div>
+                            {__("POS Application")}
+                        </span>
+                    </div>
 
-                        <div className="hidden md:flex items-center gap-8">
-                            <a
-                                href="#features"
-                                className="text-sm text-slate-600 dark:text-slate-400 hover:text-primary-500 transition-colors"
-                            >
-                                Fitur
-                            </a>
-                            <a
-                                href="#tech"
-                                className="text-sm text-slate-600 dark:text-slate-400 hover:text-primary-500 transition-colors"
-                            >
-                                Teknologi
-                            </a>
-                            <a
-                                href="#install"
-                                className="text-sm text-slate-600 dark:text-slate-400 hover:text-primary-500 transition-colors"
-                            >
-                                Instalasi
-                            </a>
+                    <div className="hidden md:flex items-center gap-8">
+                        <a
+                            href="#features"
+                            className="text-sm text-slate-600 dark:text-slate-400 hover:text-primary-500 transition-colors"
+                        >
+                            {__("Features")}
+                        </a>
+                        <a
+                            href="#tech"
+                            className="text-sm text-slate-600 dark:text-slate-400 hover:text-primary-500 transition-colors"
+                        >
+                            {__("Technology")}
+                        </a>
+                        <a
+                            href="#install"
+                            className="text-sm text-slate-600 dark:text-slate-400 hover:text-primary-500 transition-colors"
+                        >
+                            {__("Installation")}
+                        </a>
                         </div>
 
                         <div className="flex items-center gap-3">
@@ -101,13 +101,13 @@ export default function Welcome() {
                                 href="/login"
                                 className="px-5 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary-500 transition-colors"
                             >
-                                Masuk
+                                {__("Login")}
                             </Link>
                             <Link
                                 href="/register"
                                 className="px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-primary-500 to-primary-600 rounded-xl hover:from-primary-600 hover:to-primary-700 shadow-lg shadow-primary-500/25 transition-all"
                             >
-                                Daftar Gratis
+                                {__("Sign Up Free")}
                             </Link>
                         </div>
                     </div>
@@ -119,21 +119,18 @@ export default function Welcome() {
                         <div className="text-center max-w-4xl mx-auto">
                             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-50 dark:bg-primary-950/50 text-primary-600 dark:text-primary-400 text-sm font-medium mb-6">
                                 <IconDeviceMobile size={16} />
-                                Responsive & Mobile-Friendly
+                                {__("Responsive & Mobile-Friendly")}
                             </div>
 
                             <h1 className="text-5xl md:text-6xl font-extrabold text-slate-900 dark:text-white leading-tight">
-                                Sistem Point of Sale
-                                <span className="block mt-2 bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent">
-                                    Modern & Mudah Digunakan
+                            {__("Point of Sale System")}
+                            <span className="block mt-2 bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent">
+                                {__("Modern & Easy to Use")}
                                 </span>
                             </h1>
 
                             <p className="mt-6 text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                                Aplikasi kasir berbasis web untuk warung & toko
-                                kecil–menengah. Mendukung pencatatan transaksi,
-                                laporan, manajemen produk, pelanggan, dan banyak
-                                lagi.
+                                {__("Web-based POS application for small-medium shops and stores. Supports transaction recording, reports, product management, customers, and much more.")}
                             </p>
 
                             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -141,7 +138,7 @@ export default function Welcome() {
                                     href="/register"
                                     className="w-full sm:w-auto px-8 py-4 text-base font-semibold text-white bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl hover:from-primary-600 hover:to-primary-700 shadow-xl shadow-primary-500/30 transition-all flex items-center justify-center gap-2"
                                 >
-                                    Mulai Sekarang
+                                    {__("Start Now")}
                                     <IconArrowRight size={20} />
                                 </Link>
                                 <a
@@ -188,11 +185,10 @@ export default function Welcome() {
                                 Before & After
                             </div>
                             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
-                                Perjalanan Evolusi
+                                {__("Evolution Journey")}
                             </h2>
                             <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                                Dari versi pertama hingga redesign modern dengan
-                                UI/UX yang lebih baik
+                                {__("From the first version to a modern redesign with better UI/UX")}
                             </p>
                         </div>
 
@@ -255,11 +251,10 @@ export default function Welcome() {
                     <div className="max-w-7xl mx-auto">
                         <div className="text-center mb-16">
                             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
-                                Fitur Lengkap
+                                {__("Complete Features")}
                             </h2>
                             <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                                Semua yang Anda butuhkan untuk mengelola bisnis
-                                retail dalam satu aplikasi
+                                {__("Everything you need to manage your retail business in one application")}
                             </p>
                         </div>
 
@@ -291,11 +286,10 @@ export default function Welcome() {
                 <section id="tech" className="py-20 px-6">
                     <div className="max-w-7xl mx-auto text-center">
                         <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-                            Tech Stack
+                            {__("Tech Stack")}
                         </h2>
                         <p className="text-slate-600 dark:text-slate-400 mb-12">
-                            Dibangun dengan teknologi modern yang cepat dan
-                            stabil
+                            {__("Built with modern technology that is fast and stable")}
                         </p>
 
                         <div className="flex flex-wrap justify-center gap-4">
@@ -324,11 +318,10 @@ export default function Welcome() {
                     <div className="max-w-4xl mx-auto">
                         <div className="text-center mb-12">
                             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
-                                Panduan Instalasi
+                                {__("Installation Guide")}
                             </h2>
                             <p className="mt-4 text-slate-600 dark:text-slate-400">
-                                Clone repository dan jalankan dalam hitungan
-                                menit
+                                {__("Clone repository and run in minutes")}
                             </p>
                         </div>
 
@@ -357,17 +350,16 @@ php artisan serve`}
                     <div className="max-w-4xl mx-auto text-center">
                         <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-3xl p-12 text-white">
                             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                                Siap Memulai?
+                                {__("Ready to Start?")}
                             </h2>
                             <p className="text-lg opacity-90 mb-8">
-                                Daftarkan bisnis Anda sekarang dan rasakan
-                                kemudahannya
+                                {__("Register your business now and experience the convenience")}
                             </p>
                             <Link
                                 href="/register"
                                 className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary-600 font-semibold rounded-2xl hover:bg-slate-50 transition-colors"
                             >
-                                Daftar Gratis Sekarang
+                                {__("Sign Up Free Now")}
                                 <IconArrowRight size={20} />
                             </Link>
                         </div>
@@ -385,12 +377,11 @@ php artisan serve`}
                                 />
                             </div>
                             <span className="font-semibold text-slate-700 dark:text-slate-300">
-                                Aplikasi Kasir
+                                {__("POS Application")}
                             </span>
                         </div>
                         <p className="text-sm text-slate-500">
-                            © {new Date().getFullYear()} Dibuat oleh Arya Dwi
-                            Putra
+                            © {new Date().getFullYear()} {__("Made by Arya Dwi Putra")}
                         </p>
                     </div>
                 </footer>

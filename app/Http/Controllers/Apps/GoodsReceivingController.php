@@ -75,11 +75,11 @@ class GoodsReceivingController extends Controller
         foreach ($data['items'] as $item) {
             $poItem = $order->items->firstWhere('id', $item['purchase_order_item_id']);
             if (! $poItem) {
-                return back()->with('error', 'Item tidak ditemukan di PO.');
+                return back()->with('error', __('Item not found in PO.'));
             }
             $outstanding = $poItem->qty_ordered - $poItem->qty_received;
             if ($item['qty_received'] > $outstanding) {
-                return back()->with('error', "Qty diterima melebihi sisa item {$poItem->product_id}.");
+                return back()->with('error', __("Received qty exceeds remaining item for product #{$poItem->product_id}."));
             }
         }
 
@@ -92,7 +92,7 @@ class GoodsReceivingController extends Controller
 
         return redirect()
             ->route('goods-receivings.show', $receiving)
-            ->with('success', 'Penerimaan barang berhasil dicatat.');
+            ->with('success', __('Goods receiving recorded successfully.'));
     }
 
     public function show(GoodsReceiving $goodsReceiving)

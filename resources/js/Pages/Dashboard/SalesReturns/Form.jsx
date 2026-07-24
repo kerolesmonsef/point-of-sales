@@ -165,10 +165,10 @@ export default function SalesReturnForm({
         form[submitMethod](submitRoute, {
             preserveScroll: true,
             onSuccess: () =>
-                toast.success(
-                    salesReturn ? "Draft retur diperbarui" : "Draft retur dibuat"
-                ),
-            onError: () => toast.error("Gagal menyimpan draft retur"),
+                    toast.success(
+                        salesReturn ? __("Return draft updated") : __("Return draft created")
+                    ),
+                onError: () => toast.error(__("Failed to save return draft")),
         });
     };
 
@@ -178,8 +178,8 @@ export default function SalesReturnForm({
             {},
             {
                 preserveScroll: true,
-                onSuccess: () => toast.success("Retur penjualan diselesaikan"),
-                onError: () => toast.error("Gagal menyelesaikan retur"),
+                onSuccess: () => toast.success(__("Sales return completed")),
+                onError: () => toast.error(__("Failed to complete return")),
             }
         );
     };
@@ -201,8 +201,8 @@ export default function SalesReturnForm({
                         >
                             <IconArrowLeft size={16} />
                             {salesReturn
-                                ? "Kembali ke daftar retur"
-                                : "Kembali ke riwayat transaksi"}
+                                ? __("Back to return list")
+                                : __("Back to transaction history")}
                         </Link>
                         <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
                             {title}
@@ -222,9 +222,9 @@ export default function SalesReturnForm({
                                         : "bg-warning-100 text-warning-700 dark:bg-warning-950/30 dark:text-warning-400"
                                 }`}
                             >
-                                {salesReturn.status === "completed"
-                                    ? "Completed"
-                                    : "Draft"}
+                                    {salesReturn.status === "completed"
+                                        ? __("Completed")
+                                        : __("Draft")}
                             </span>
                             {salesReturn.completed_at && (
                                 <span className="text-xs text-slate-500 dark:text-slate-400">
@@ -237,21 +237,21 @@ export default function SalesReturnForm({
 
                 <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                     <InfoCard
-                        label="Pelanggan"
-                        value={transaction.customer?.name || "Umum"}
+                        label={__("Customer")}
+                        value={transaction.customer?.name || __("General")}
                     />
                     <InfoCard
-                        label="Metode Bayar"
+                        label={__("Payment Method")}
                         value={transaction.payment_method
                             ?.replaceAll("_", " ")
                             .toUpperCase()}
                     />
                     <InfoCard
-                        label="Total Transaksi"
+                        label={__("Transaction Total")}
                         value={formatCurrency(transaction.grand_total)}
                     />
                     <InfoCard
-                        label="Nominal Retur"
+                        label={__("Return Amount")}
                         value={formatCurrency(summary.totalAmount)}
                     />
                 </div>
@@ -263,14 +263,14 @@ export default function SalesReturnForm({
                     <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
                         <div className="mb-4 flex items-center justify-between">
                             <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
-                                Item Retur
+                                {__("Return Items")}
                             </h2>
                             {canEdit && (
                                 <Button
                                     type="submit"
                                     icon={<IconDeviceFloppy size={18} />}
                                     className="bg-primary-500 text-white hover:bg-primary-600"
-                                    label={salesReturn ? "Simpan Draft" : "Buat Draft"}
+                                    label={salesReturn ? __("Save Draft") : __("Create Draft")}
                                     disabled={form.processing}
                                 />
                             )}
@@ -279,14 +279,14 @@ export default function SalesReturnForm({
                         <Table>
                             <Table.Thead>
                                 <tr>
-                                    <Table.Th>Produk</Table.Th>
-                                    <Table.Th>Qty Beli</Table.Th>
-                                    <Table.Th>Sudah Retur</Table.Th>
-                                    <Table.Th>Sisa</Table.Th>
-                                    <Table.Th>Qty Retur</Table.Th>
-                                    <Table.Th>Alasan</Table.Th>
-                                    <Table.Th>Restock</Table.Th>
-                                    <Table.Th>Subtotal</Table.Th>
+                                    <Table.Th>{__("Product")}</Table.Th>
+                                    <Table.Th>{__("Qty Purchased")}</Table.Th>
+                                    <Table.Th>{__("Already Returned")}</Table.Th>
+                                    <Table.Th>{__("Remaining")}</Table.Th>
+                                    <Table.Th>{__("Qty Returned")}</Table.Th>
+                                    <Table.Th>{__("Reason")}</Table.Th>
+                                    <Table.Th>{__("Restock")}</Table.Th>
+                                    <Table.Th>{__("Subtotal")}</Table.Th>
                                 </tr>
                             </Table.Thead>
                             <Table.Tbody>
@@ -338,7 +338,7 @@ export default function SalesReturnForm({
                                                         event.target.value
                                                     )
                                                 }
-                                                placeholder="Alasan retur"
+                                                placeholder={__("Return reason")}
                                                 className="h-10 min-w-48 rounded-lg border border-slate-200 bg-slate-50 px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                             />
                                         </Table.Td>
@@ -375,14 +375,14 @@ export default function SalesReturnForm({
                     <div className="space-y-6">
                         <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
                             <h2 className="mb-4 text-lg font-semibold text-slate-900 dark:text-white">
-                                Penyelesaian Retur
+                                {__("Return Settlement")}
                             </h2>
 
                             <div className="space-y-4">
                                 <div>
-                                    <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                        Metode Penyelesaian
-                                    </label>
+                                        <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                                            {__("Settlement Method")}
+                                        </label>
                                     <select
                                         value={form.data.return_type}
                                         disabled={!canEdit || !transaction.customer}
@@ -395,26 +395,25 @@ export default function SalesReturnForm({
                                         className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                     >
                                         <option value="refund_cash">
-                                            Refund Tunai
+                                            {__("Cash Refund")}
                                         </option>
                                         {transaction.customer && (
                                             <option value="store_credit">
-                                                Saldo Toko / Credit
+                                                {__("Store Credit / Credit")}
                                             </option>
                                         )}
                                     </select>
                                     {!transaction.customer && (
                                         <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
-                                            Transaksi tanpa pelanggan hanya
-                                            dapat memakai refund tunai.
+                                            {__("Transaction without customer can only use cash refund.")}
                                         </p>
                                     )}
                                 </div>
 
                                 <div>
-                                    <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                                        Catatan
-                                    </label>
+                                        <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                                            {__("Notes")}
+                                        </label>
                                     <textarea
                                         rows={4}
                                         value={form.data.notes}
@@ -426,7 +425,7 @@ export default function SalesReturnForm({
                                             )
                                         }
                                         className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
-                                        placeholder="Catatan retur"
+                                        placeholder={__("Return notes")}
                                     />
                                 </div>
                             </div>
@@ -434,53 +433,53 @@ export default function SalesReturnForm({
 
                         <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
                             <h2 className="mb-4 text-lg font-semibold text-slate-900 dark:text-white">
-                                Preview Dampak
+                                {__("Impact Preview")}
                             </h2>
 
                             <div className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
-                                <PreviewRow
-                                    label="Item dipilih"
-                                    value={`${summary.selectedItemsCount} produk`}
-                                />
-                                <PreviewRow
-                                    label="Total qty retur"
-                                    value={`${summary.totalItems} item`}
-                                />
-                                <PreviewRow
-                                    label="Stok kembali"
-                                    value={`${summary.restockQty} item`}
-                                />
-                                <PreviewRow
-                                    label="Refund"
-                                    value={formatCurrency(summary.refundAmount)}
-                                />
-                                <PreviewRow
-                                    label="Saldo toko"
-                                    value={formatCurrency(
-                                        summary.creditedAmount
+                                    <PreviewRow
+                                        label={__("Items selected")}
+                                        value={`${summary.selectedItemsCount} ${__("products")}`}
+                                    />
+                                    <PreviewRow
+                                        label={__("Total return qty")}
+                                        value={`${summary.totalItems} ${__("items")}`}
+                                    />
+                                    <PreviewRow
+                                        label={__("Restocked")}
+                                        value={`${summary.restockQty} ${__("items")}`}
+                                    />
+                                    <PreviewRow
+                                        label={__("Refund")}
+                                        value={formatCurrency(summary.refundAmount)}
+                                    />
+                                    <PreviewRow
+                                        label={__("Store credit")}
+                                        value={formatCurrency(
+                                            summary.creditedAmount
+                                        )}
+                                    />
+                                    {transaction.receivable && (
+                                        <>
+                                            <PreviewRow
+                                                label={__("Current receivable")}
+                                                value={formatCurrency(
+                                                    transaction.receivable.total
+                                                )}
+                                            />
+                                            <PreviewRow
+                                                label={__("Receivable after return")}
+                                                value={formatCurrency(
+                                                    summary.receivableAfter ?? 0
+                                                )}
+                                            />
+                                        </>
                                     )}
-                                />
-                                {transaction.receivable && (
-                                    <>
-                                        <PreviewRow
-                                            label="Piutang saat ini"
-                                            value={formatCurrency(
-                                                transaction.receivable.total
-                                            )}
-                                        />
-                                        <PreviewRow
-                                            label="Piutang setelah retur"
-                                            value={formatCurrency(
-                                                summary.receivableAfter ?? 0
-                                            )}
-                                        />
-                                    </>
-                                )}
-                                <PreviewRow
-                                    label="Nominal retur"
-                                    value={formatCurrency(summary.totalAmount)}
-                                    strong
-                                />
+                                    <PreviewRow
+                                        label={__("Return amount")}
+                                        value={formatCurrency(summary.totalAmount)}
+                                        strong
+                                    />
                             </div>
 
                             {canComplete && (
@@ -489,7 +488,7 @@ export default function SalesReturnForm({
                                         type="button"
                                         icon={<IconCheck size={18} />}
                                         className="w-full bg-success-500 text-white hover:bg-success-600 disabled:opacity-50"
-                                        label="Selesaikan Retur"
+                                        label={__("Complete Return")}
                                         onClick={complete}
                                         disabled={
                                             !summary.hasSelectedItems ||
@@ -499,8 +498,7 @@ export default function SalesReturnForm({
                                     />
                                     {form.isDirty && (
                                         <p className="mt-2 text-xs text-warning-600">
-                                            Simpan draft terlebih dulu sebelum
-                                            menyelesaikan retur.
+                                            {__("Save the draft first before completing the return.")}
                                         </p>
                                     )}
                                 </div>

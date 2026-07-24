@@ -89,35 +89,35 @@ class LoyaltyService
         Setting::setMany([
             'loyalty_enable_earn' => [
                 'value' => $payload['enable_earn'] ? '1' : '0',
-                'description' => 'Aktifkan perolehan poin loyalty',
+                'description' => __("Enable loyalty point earning"),
             ],
             'loyalty_enable_redeem' => [
                 'value' => $payload['enable_redeem'] ? '1' : '0',
-                'description' => 'Aktifkan redeem poin loyalty',
+                'description' => __("Enable loyalty point redemption"),
             ],
             'loyalty_earn_rate_amount' => [
                 'value' => (string) $payload['earn_rate_amount'],
-                'description' => 'Nominal belanja untuk mendapatkan 1 poin',
+                'description' => __("Spending amount to earn 1 point"),
             ],
             'loyalty_redeem_point_value' => [
                 'value' => (string) $payload['redeem_point_value'],
-                'description' => 'Nilai rupiah untuk 1 poin redeem',
+                'description' => __("Rupiah value for 1 redeem point"),
             ],
             'loyalty_tier_regular_threshold' => [
                 'value' => (string) $payload['tiers'][self::TIER_REGULAR],
-                'description' => 'Ambang total belanja tier Regular',
+                'description' => __("Total spending threshold for Regular tier"),
             ],
             'loyalty_tier_silver_threshold' => [
                 'value' => (string) $payload['tiers'][self::TIER_SILVER],
-                'description' => 'Ambang total belanja tier Silver',
+                'description' => __("Total spending threshold for Silver tier"),
             ],
             'loyalty_tier_gold_threshold' => [
                 'value' => (string) $payload['tiers'][self::TIER_GOLD],
-                'description' => 'Ambang total belanja tier Gold',
+                'description' => __("Total spending threshold for Gold tier"),
             ],
             'loyalty_tier_platinum_threshold' => [
                 'value' => (string) $payload['tiers'][self::TIER_PLATINUM],
-                'description' => 'Ambang total belanja tier Platinum',
+                'description' => __("Total spending threshold for Platinum tier"),
             ],
         ]);
     }
@@ -336,7 +336,7 @@ class LoyaltyService
                 LoyaltyPointHistory::TYPE_REDEEM,
                 -$redeemedPoints,
                 (int) ($transaction->loyalty_discount_total ?? 0),
-                'Redeem poin pada transaksi '.$transaction->invoice
+                __("Points redeemed on transaction ").$transaction->invoice
             );
         }
 
@@ -353,7 +353,7 @@ class LoyaltyService
                 LoyaltyPointHistory::TYPE_VOUCHER,
                 0,
                 (int) ($transaction->customer_voucher_discount ?? 0),
-                'Voucher '.$voucher->code.' digunakan'
+                __("Voucher ").$voucher->code.__(" used")
             );
         }
 
@@ -381,7 +381,7 @@ class LoyaltyService
                 LoyaltyPointHistory::TYPE_EARN,
                 $earnedPoints,
                 (int) $transaction->grand_total,
-                'Poin transaksi '.$transaction->invoice
+                __("Transaction points ").$transaction->invoice
             );
         }
 

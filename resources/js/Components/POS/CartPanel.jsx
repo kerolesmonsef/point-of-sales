@@ -53,7 +53,7 @@ function CartItem({ item, onUpdateQty, onRemove, isRemoving }) {
             {/* Product Info */}
             <div className="flex-1 min-w-0">
                 <h4 className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">
-                    {item.product?.title || "Produk"}
+                    {item.product?.title || __("Product")}
                 </h4>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                     {formatPrice(unitPrice)} × {item.qty}
@@ -111,10 +111,10 @@ function EmptyCart() {
                 />
             </div>
             <h3 className="text-base font-medium text-slate-600 dark:text-slate-400">
-                Keranjang Kosong
+                {__("Cart is Empty")}
             </h3>
             <p className="text-sm text-slate-400 dark:text-slate-500 mt-1">
-                Klik produk untuk menambahkan
+                {__("Click a product to add")}
             </p>
         </div>
     );
@@ -142,12 +142,12 @@ export default function CartPanel({
                         className="text-slate-600 dark:text-slate-400"
                     />
                     <h2 className="text-base font-semibold text-slate-800 dark:text-white">
-                        Keranjang
+                        {__("Cart")}
                     </h2>
                 </div>
                 {totalItems > 0 && (
                     <span className="px-2.5 py-0.5 text-xs font-bold bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-300 rounded-full">
-                        {totalItems} item
+                        {totalItems} {__("items")}
                     </span>
                 )}
             </div>
@@ -177,7 +177,7 @@ export default function CartPanel({
                 <div className="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                     <div className="flex items-center justify-between">
                         <span className="text-sm text-slate-600 dark:text-slate-400">
-                            Subtotal
+                            {__("Subtotal")}
                         </span>
                         <span className="text-lg font-bold text-slate-900 dark:text-white">
                             {formatPrice(subtotal)}

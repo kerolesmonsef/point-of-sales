@@ -47,7 +47,7 @@ class PriceListController extends Controller
 
         PriceList::create($validated);
 
-        return back()->with('success', 'Price list berhasil dibuat.');
+        return back()->with('success', __('Price list created.'));
     }
 
     public function update(Request $request, PriceList $priceList)
@@ -64,13 +64,13 @@ class PriceListController extends Controller
 
         $priceList->update($validated);
 
-        return back()->with('success', 'Price list diperbarui.');
+        return back()->with('success', __('Price list updated.'));
     }
 
     public function destroy(PriceList $priceList)
     {
         $priceList->delete();
-        return back()->with('success', 'Price list dihapus.');
+        return back()->with('success', __('Price list deleted.'));
     }
 
     public function updateItem(Request $request, PriceList $priceList)
@@ -85,12 +85,12 @@ class PriceListController extends Controller
             ['price' => $request->price]
         );
 
-        return back()->with('success', 'Harga produk diperbarui.');
+        return back()->with('success', __('Product price updated.'));
     }
 
     public function destroyItem(PriceList $priceList, $productId)
     {
         $priceList->items()->where('product_id', $productId)->delete();
-        return back()->with('success', 'Item dihapus dari price list.');
+        return back()->with('success', __('Item removed from price list.'));
     }
 }

@@ -13,43 +13,43 @@ import hasAnyPermission from "@/Utils/Permission";
 
 const cards = [
     {
-        title: "Transaksi",
-        desc: "Mulai transaksi kasir",
+        title: __("Transactions"),
+        desc: __("Start cashier transaction"),
         icon: <IconShoppingCart size={22} />,
         route: "transactions.index",
         perms: ["transactions-access"],
     },
     {
-        title: "Pelanggan",
-        desc: "Kelola data pelanggan",
+        title: __("Customers"),
+        desc: __("Manage customer data"),
         icon: <IconUsers size={22} />,
         route: "customers.index",
         perms: ["customers-access"],
     },
     {
-        title: "Piutang",
-        desc: "Nota barang pelanggan",
+        title: __("Receivables"),
+        desc: __("Customer goods notes"),
         icon: <IconFileInvoice size={22} />,
         route: "receivables.index",
         perms: ["receivables-access"],
     },
     {
-        title: "Hutang",
-        desc: "Catat hutang supplier",
+        title: __("Payables"),
+        desc: __("Record supplier payables"),
         icon: <IconCurrencyDollar size={22} />,
         route: "payables.index",
         perms: ["payables-access"],
     },
     {
-        title: "Supplier",
-        desc: "Kelola data supplier",
+        title: __("Suppliers"),
+        desc: __("Manage supplier data"),
         icon: <IconBuildingWarehouse size={22} />,
         route: "suppliers.index",
         perms: ["suppliers-access"],
     },
     {
-        title: "Laporan",
-        desc: "Lihat laporan penjualan",
+        title: __("Reports"),
+        desc: __("View sales reports"),
         icon: <IconChartArrowsVertical size={22} />,
         route: "reports.sales.index",
         perms: ["reports-access"],
@@ -65,15 +65,14 @@ function AccessPage() {
 
     return (
         <>
-            <Head title="Akses" />
+            <Head title={__("Access")} />
             <div className="space-y-6">
                 <div>
                     <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-                        Pilih Akses
+                        {__("Select Access")}
                     </h1>
                     <p className="text-sm text-slate-500 dark:text-slate-400">
-                        Halaman ini muncul ketika Anda tidak memiliki akses
-                        dashboard.
+                        {__("This page appears when you don't have dashboard access.")}
                     </p>
                 </div>
 
@@ -100,7 +99,7 @@ function AccessPage() {
                         ))
                     ) : (
                         <div className="col-span-full text-slate-500 dark:text-slate-400">
-                            Tidak ada akses tersedia. Hubungi admin.
+                            {__("No access available. Contact admin.")}
                         </div>
                     )}
                 </div>

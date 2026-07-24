@@ -93,7 +93,7 @@ class SupplierReturnController extends Controller
 
         return redirect()
             ->route('supplier-returns.show', $return)
-            ->with('success', 'Retur supplier berhasil dibuat.');
+            ->with('success', __('Supplier return created successfully.'));
     }
 
     public function show(SupplierReturn $supplierReturn)
@@ -115,26 +115,26 @@ class SupplierReturnController extends Controller
     public function complete(Request $request, SupplierReturn $supplierReturn)
     {
         if ($supplierReturn->status !== 'draft') {
-            return back()->with('error', 'Hanya retur dengan status draft yang bisa diselesaikan.');
+            return back()->with('error', __('Only draft returns can be completed.'));
         }
 
         $this->supplierReturnService->complete($supplierReturn);
 
         return redirect()
             ->route('supplier-returns.show', $supplierReturn)
-            ->with('success', 'Retur supplier berhasil diselesaikan.');
+            ->with('success', __('Supplier return completed successfully.'));
     }
 
     public function cancel(Request $request, SupplierReturn $supplierReturn)
     {
         if (! in_array($supplierReturn->status, ['draft'])) {
-            return back()->with('error', 'Retur tidak dapat dibatalkan.');
+            return back()->with('error', __('Return cannot be cancelled.'));
         }
 
         $this->supplierReturnService->cancel($supplierReturn);
 
         return redirect()
             ->route('supplier-returns.index')
-            ->with('success', 'Retur supplier dibatalkan.');
+            ->with('success', __('Supplier return cancelled.'));
     }
 }

@@ -17,7 +17,7 @@ export default function SearchBar({
     onSelect,
     suggestions = [],
     isSearching = false,
-    placeholder = "Cari produk atau scan barcode...",
+    placeholder = __("Search products or scan barcode..."),
     autoFocus = false,
 }) {
     const [isFocused, setIsFocused] = useState(false);
@@ -131,7 +131,7 @@ export default function SearchBar({
                         type="button"
                         onClick={() => setShowScanner(true)}
                         className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                        title="Scan barcode"
+                        title={__("Scan barcode")}
                     >
                         <IconCamera size={20} className="text-slate-500 dark:text-slate-400" />
                     </button>
@@ -201,7 +201,7 @@ export default function SearchBar({
                                             {product.title}
                                         </p>
                                         <p className="text-xs text-slate-500 dark:text-slate-400">
-                                            {product.barcode} • Stok:{" "}
+                                            {product.barcode} • {__("Stock:")}{" "}
                                             {product.stock}
                                         </p>
                                     </div>
@@ -213,7 +213,7 @@ export default function SearchBar({
                                         </p>
                                         {product.stock <= 0 && (
                                             <span className="text-xs text-danger-500 font-medium">
-                                                Habis
+                                                {__("Out of stock")}
                                             </span>
                                         )}
                                     </div>

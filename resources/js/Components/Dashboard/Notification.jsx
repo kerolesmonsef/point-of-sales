@@ -43,8 +43,8 @@ export default function Notification() {
                 ...n,
                 id: `stock-${n.id}`,
                 originalId: n.id,
-                title: `Stok habis: ${n.title}`,
-                subtitle: `Stok: ${n.stock}`,
+                title: `${__("Out of stock")}: ${n.title}`,
+                subtitle: `${__("Stock")}: ${n.stock}`,
                 type: "stock",
             }))
         ),
@@ -123,7 +123,7 @@ export default function Notification() {
         <div className="flex flex-col gap-3 items-start max-h-80 overflow-y-auto pr-1">
             {badgeCount === 0 && (
                 <div className="text-sm text-gray-500 dark:text-gray-400">
-                    Tidak ada notifikasi
+                    {__("No notifications")}
                 </div>
             )}
             {data.map((item) => (
@@ -147,7 +147,7 @@ export default function Notification() {
                         className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold text-primary-600 hover:bg-primary-50 dark:text-primary-300 dark:hover:bg-primary-900/30 border border-transparent hover:border-primary-200 dark:hover:border-primary-800"
                     >
                         <IconCircleCheck size={16} />
-                        Dibaca
+                        {__("Mark as read")}
                     </button>
                 </div>
             ))}
@@ -179,7 +179,7 @@ export default function Notification() {
                         <Menu.Items className="absolute rounded-2xl w-[600px] max-w-[94vw] border md:right-0 z-[100] bg-white dark:bg-gray-950 dark:border-gray-900 shadow-2xl">
                             <div className="flex justify-between items-center gap-2 p-4 border-b dark:border-gray-900">
                                 <div className="text-xl font-bold text-gray-700 dark:text-gray-200 flex items-center gap-2">
-                                    Notifikasi
+                                    {__("Notifications")}
                                 </div>
                                 <div className="flex items-center gap-2">
                                     {badgeCount > 0 && (
@@ -187,7 +187,7 @@ export default function Notification() {
                                             onClick={handleMarkAllRead}
                                             className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                                         >
-                                            Tandai dibaca
+                                            {__("Mark all as read")}
                                         </button>
                                     )}
                                     <IconDots className="text-gray-500 dark:text-gray-200" size={24} />

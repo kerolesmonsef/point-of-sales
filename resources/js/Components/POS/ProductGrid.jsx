@@ -60,7 +60,7 @@ function ProductCard({ product, onAddToCart, isAdding }) {
                 {/* Stock Badge */}
                 {lowStock && (
                     <span className="absolute top-2 right-2 px-2 py-0.5 text-xs font-medium bg-warning-100 text-warning-700 dark:bg-warning-900/50 dark:text-warning-400 rounded-full">
-                        Sisa {product.stock}
+                        {__("Remaining")} {product.stock}
                     </span>
                 )}
 
@@ -74,7 +74,7 @@ function ProductCard({ product, onAddToCart, isAdding }) {
                 {!hasStock && (
                     <div className="absolute inset-0 bg-slate-900/60 flex items-center justify-center">
                         <span className="px-3 py-1 bg-danger-500 text-white text-xs font-semibold rounded-full">
-                            Habis
+                            {__("Out of stock")}
                         </span>
                     </div>
                 )}
@@ -83,7 +83,7 @@ function ProductCard({ product, onAddToCart, isAdding }) {
                 {hasStock && (
                     <div className="absolute inset-0 bg-primary-500/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center justify-center">
                         <div className="bg-primary-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                            + Tambah
+                            + {__("Add")}
                         </div>
                     </div>
                 )}
@@ -105,7 +105,7 @@ function ProductCard({ product, onAddToCart, isAdding }) {
                     </p>
                     {showBadge && !showPromo && (
                         <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
-                            Promo tersedia
+                            {__("Promo available")}
                         </p>
                     )}
                 </div>
@@ -154,7 +154,7 @@ function SearchInput({
                 onKeyDown={(e) => e.key === "Enter" && onSearch?.()}
                 placeholder={
                     placeholder ||
-                    "Cari produk atau scan barcode... (/ untuk fokus)"
+                    __("Search products or scan barcode... (/ to focus)")
                 }
                 className="w-full h-12 pl-4 pr-12 rounded-xl border border-slate-200 dark:border-slate-700
                     bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200
@@ -212,7 +212,7 @@ export default function ProductGrid({
                     onChange={onSearchChange}
                     onSearch={onSearch}
                     isSearching={isSearching}
-                    placeholder="Cari produk atau scan barcode... (tekan / untuk fokus)"
+                    placeholder={__("Search products or scan barcode... (press / to focus)")}
                     inputRef={searchInputRef}
                 />
             </div>
@@ -221,7 +221,7 @@ export default function ProductGrid({
             <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-800 overflow-x-auto scrollbar-hide">
                 <div className="flex gap-2">
                     <CategoryTab
-                        category={{ id: null, name: "Semua" }}
+                        category={{ id: null, name: __("All") }}
                         isActive={normalizedSelectedCategory === null}
                         onClick={() => onCategoryChange(null)}
                     />
@@ -261,8 +261,8 @@ export default function ProductGrid({
                         />
                         <p className="text-sm">
                             {searchQuery
-                                ? "Produk tidak ditemukan"
-                                : "Tidak ada produk"}
+                                ? __("Product not found")
+                                : __("No products")}
                         </p>
                     </div>
                 )}

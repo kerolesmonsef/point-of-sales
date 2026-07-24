@@ -138,7 +138,7 @@ export default function POSLayout({ children }) {
                             className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 transition-colors"
                         >
                             <IconHistory size={18} />
-                            <span>Riwayat</span>
+                            <span>{__("History")}</span>
                         </Link>
                     </nav>
 
@@ -159,7 +159,7 @@ export default function POSLayout({ children }) {
                     <button
                         onClick={toggleFullscreen}
                         className="p-2.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors min-w-touch min-h-touch flex items-center justify-center"
-                        title={isFullscreen ? "Keluar Fullscreen" : "Fullscreen"}
+                        title={isFullscreen ? __("Exit Fullscreen") : __("Fullscreen")}
                     >
                         {isFullscreen ? (
                             <IconArrowsMinimize size={20} className="text-slate-500" />
@@ -222,7 +222,7 @@ export default function POSLayout({ children }) {
 
             {!isOnline && (
                 <div className="bg-amber-500 text-white text-center text-xs font-medium py-1 px-4">
-                    Transaksi disimpan offline — akan dikirim saat online kembali
+                    {__("Transactions saved offline — will be sent when back online")}
                 </div>
             )}
 
@@ -249,16 +249,16 @@ export default function POSLayout({ children }) {
                                 className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors"
                             >
                                 <IconHistory size={20} />
-                                <span className="font-medium">
-                                    Riwayat Transaksi
-                                </span>
+                                    <span className="font-medium">
+                                        {__("Transaction History")}
+                                    </span>
                             </Link>
                             <Link
                                 href={route("profile.edit")}
                                 className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors"
                             >
                                 <IconUser size={20} />
-                                <span className="font-medium">Profil</span>
+                                <span className="font-medium">{__("Profile")}</span>
                             </Link>
                             <hr className="border-slate-200 dark:border-slate-700" />
                             <Link
@@ -268,7 +268,7 @@ export default function POSLayout({ children }) {
                                 className="flex items-center gap-3 px-4 py-3 rounded-xl text-danger-600 hover:bg-danger-50 dark:hover:bg-danger-950/50 transition-colors w-full"
                             >
                                 <IconLogout size={20} />
-                                <span className="font-medium">Keluar</span>
+                                <span className="font-medium">{__("Logout")}</span>
                             </Link>
                         </nav>
                     </div>

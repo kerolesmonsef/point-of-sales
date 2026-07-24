@@ -155,7 +155,7 @@ class CustomerController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Pelanggan berhasil ditambahkan',
+                'message' => __('Customer added successfully'),
                 'customer' => [
                     'id' => $customer->id,
                     'name' => $customer->name,
@@ -170,7 +170,7 @@ class CustomerController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal menambahkan pelanggan',
+                'message' => __('Failed to add customer'),
                 'errors' => [],
             ], 500);
         }
@@ -308,7 +308,7 @@ class CustomerController extends Controller
 
         $this->segmentationService->syncManualSegments($customer, $validated['segment_ids'] ?? []);
 
-        return back()->with('success', 'Segment manual customer berhasil diperbarui.');
+        return back()->with('success', __('Manual customer segments updated successfully.'));
     }
 
     /**
@@ -403,7 +403,7 @@ class CustomerController extends Controller
         if ($request->expectsJson()) {
             return response()->json([
                 'success' => true,
-                'message' => 'Pelanggan berhasil di-upgrade menjadi member.',
+                'message' => __('Customer upgraded to member successfully.'),
                 'customer' => [
                     'id' => $customer->id,
                     'name' => $customer->name,
@@ -417,7 +417,7 @@ class CustomerController extends Controller
             ]);
         }
 
-        return back()->with('success', 'Pelanggan berhasil di-upgrade menjadi member.');
+        return back()->with('success', __('Customer upgraded to member successfully.'));
     }
 
     private function resolveLoyaltyPayload(Request $request, ?Customer $customer = null): array

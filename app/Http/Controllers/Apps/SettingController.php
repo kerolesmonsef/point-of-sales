@@ -45,10 +45,10 @@ class SettingController extends Controller
         Setting::set(
             'monthly_sales_target',
             $request->monthly_sales_target,
-            'Target penjualan bulanan'
+            __('Monthly sales target')
         );
 
-        return back()->with('success', 'Target berhasil disimpan');
+        return back()->with('success', __('Target saved successfully'));
     }
 
     /**
@@ -113,22 +113,22 @@ class SettingController extends Controller
             $logoChanged = true;
         }
 
-        Setting::set('store_name', $request->store_name, 'Nama toko');
-        Setting::set('store_address', $request->store_address, 'Alamat toko');
-        Setting::set('store_phone', $request->store_phone, 'Telepon toko');
-        Setting::set('store_email', $request->store_email, 'Email toko');
-        Setting::set('store_website', $request->store_website, 'Website toko');
-        Setting::set('store_city', $request->store_city, 'Kota/Kabupaten toko');
-        Setting::set('store_logo', $logoPath, 'Logo toko');
-        Setting::set('store_npwp', $request->store_npwp, 'NPWP Toko');
-        Setting::set('store_nib', $request->store_nib, 'NIB Toko');
-        Setting::set('tax_default_rate', $request->tax_default_rate, 'Default tarif PPN (%)');
+        Setting::set('store_name', $request->store_name, __('Store name'));
+        Setting::set('store_address', $request->store_address, __('Store address'));
+        Setting::set('store_phone', $request->store_phone, __('Store phone'));
+        Setting::set('store_email', $request->store_email, __('Store email'));
+        Setting::set('store_website', $request->store_website, __('Store website'));
+        Setting::set('store_city', $request->store_city, __('Store city/district'));
+        Setting::set('store_logo', $logoPath, __('Store logo'));
+        Setting::set('store_npwp', $request->store_npwp, __('Store NPWP'));
+        Setting::set('store_nib', $request->store_nib, __('Store NIB'));
+        Setting::set('tax_default_rate', $request->tax_default_rate, __('Default VAT rate (%)'));
 
         $this->auditLogService->log(
             event: 'store.setting.updated',
             module: 'store_settings',
             auditable: ['target_label' => 'Store Profile'],
-            description: 'Profil toko diperbarui.',
+            description: __('Store profile updated.'),
             before: $before,
             after: [
                 'store_name' => $request->store_name,
@@ -143,7 +143,7 @@ class SettingController extends Controller
             ],
         );
 
-        return back()->with('success', 'Profil toko berhasil diperbarui');
+        return back()->with('success', __('Store profile updated successfully'));
     }
 
     public function printer()
@@ -163,10 +163,10 @@ class SettingController extends Controller
             'printer_paper_size' => ['required', 'in:80mm,58mm'],
         ]);
 
-        Setting::set('printer_auto_print', $validated['printer_auto_print'] ? '1' : '0', 'Auto-print receipt setelah transaksi');
-        Setting::set('printer_paper_size', $validated['printer_paper_size'], 'Ukuran kertas printer thermal');
+        Setting::set('printer_auto_print', $validated['printer_auto_print'] ? '1' : '0', __('Auto-print receipt after transaction'));
+        Setting::set('printer_paper_size', $validated['printer_paper_size'], __('Thermal printer paper size'));
 
-        return back()->with('success', 'Pengaturan printer disimpan.');
+        return back()->with('success', __('Printer settings saved.'));
     }
 
     public function loyalty()
@@ -204,7 +204,7 @@ class SettingController extends Controller
         ) {
             return back()
                 ->withErrors([
-                    'tiers' => 'Threshold tier harus berurutan dari Regular ke Platinum.',
+                    'tiers' => __('Tier thresholds must be sequential from Regular to Platinum.'),
                 ])
                 ->withInput();
         }
@@ -220,12 +220,12 @@ class SettingController extends Controller
             event: 'loyalty.setting.updated',
             module: 'loyalty_settings',
             auditable: ['target_label' => 'Loyalty Settings'],
-            description: 'Pengaturan loyalty diperbarui.',
+            description: __('Loyalty settings updated.'),
             before: $before,
             after: $this->loyaltyService->settingsPayload()
         );
 
-        return back()->with('success', 'Pengaturan loyalty berhasil disimpan');
+        return back()->with('success', __('Loyalty settings saved successfully'));
     }
 
     public function whatsapp()
@@ -259,12 +259,12 @@ class SettingController extends Controller
             'wa_auto_invoice' => ['boolean'],
         ]);
 
-        Setting::set('wa_service_url', $validated['wa_service_url'] ?? '', 'URL service WhatsApp');
-        Setting::set('wa_enabled', ($validated['wa_enabled'] ?? false) ? '1' : '0', 'WhatsApp gateway aktif');
-        Setting::set('wa_auto_reminder', ($validated['wa_auto_reminder'] ?? false) ? '1' : '0', 'Auto-kirim reminder via WA');
-        Setting::set('wa_auto_invoice', ($validated['wa_auto_invoice'] ?? false) ? '1' : '0', 'Auto-kirim invoice via WA');
+        Setting::set('wa_service_url', $validated['wa_service_url'] ?? '', __('WhatsApp service URL'));
+        Setting::set('wa_enabled', ($validated['wa_enabled'] ?? false) ? '1' : '0', __('WhatsApp gateway active'));
+        Setting::set('wa_auto_reminder', ($validated['wa_auto_reminder'] ?? false) ? '1' : '0', __('Auto-send reminder via WA'));
+        Setting::set('wa_auto_invoice', ($validated['wa_auto_invoice'] ?? false) ? '1' : '0', __('Auto-send invoice via WA'));
 
-        return back()->with('success', 'Pengaturan WhatsApp disimpan.');
+        return back()->with('success', __('WhatsApp settings saved.'));
     }
 
     public function testWhatsapp(Request $request)

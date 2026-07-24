@@ -40,7 +40,7 @@ export default function Create({ suppliers, goodsReceivings, products }) {
 
     const addItemFromProduct = (product) => {
         if (data.items.some((i) => i.product_id === product.id)) {
-            toast.error("Produk sudah ada di daftar.");
+            toast.error(__("Product already in list."));
             return;
         }
         setData("items", [
@@ -59,7 +59,7 @@ export default function Create({ suppliers, goodsReceivings, products }) {
 
     const addItemFromGr = (grItem) => {
         if (data.items.some((i) => i.goods_receiving_item_id === grItem.id)) {
-            toast.error("Item sudah ada di daftar.");
+            toast.error(__("Item already in list."));
             return;
         }
         setData("items", [
@@ -96,15 +96,15 @@ export default function Create({ suppliers, goodsReceivings, products }) {
     const submit = (e) => {
         e.preventDefault();
         if (data.items.length === 0) {
-            toast.error("Tambahkan minimal satu item.");
+            toast.error(__("Add at least one item."));
             return;
         }
         if (!data.supplier_id) {
-            toast.error("Pilih supplier.");
+            toast.error(__("Select a supplier."));
             return;
         }
         post(route("supplier-returns.store"), {
-            onError: () => toast.error("Gagal membuat retur supplier"),
+            onError: () => toast.error(__("Failed to create supplier return")),
         });
     };
 
@@ -112,28 +112,28 @@ export default function Create({ suppliers, goodsReceivings, products }) {
 
     return (
         <>
-            <Head title="Buat Retur Supplier" />
+            <Head title={__("Create Supplier Return")} />
             <div className="mb-6">
                 <Link
                     href={route("supplier-returns.index")}
                     className="mb-3 inline-flex items-center gap-2 text-sm text-slate-500 hover:text-primary-600"
                 >
                     <IconArrowLeft size={16} />
-                    Kembali ke daftar retur
+                    {__("Back to return list")}
                 </Link>
                 <h1 className="flex items-center gap-2 text-2xl font-bold text-slate-900 dark:text-white">
                     <IconTruckReturn size={28} className="text-primary-500" />
-                    Buat Retur Supplier
+                    {__("Create Supplier Return")}
                 </h1>
             </div>
 
             <form onSubmit={submit} className="max-w-5xl">
                 <div className="space-y-6">
                     <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
-                        <h2 className="mb-4 text-lg font-semibold text-slate-900 dark:text-white">Informasi Retur</h2>
+                        <h2 className="mb-4 text-lg font-semibold text-slate-900 dark:text-white">{__("Return Information")}</h2>
                         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                             <div>
-                                <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">Supplier</label>
+                                <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{__("Supplier")}</label>
                                 <select
                                     value={data.supplier_id}
                                     onChange={(e) => {
@@ -142,7 +142,7 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                                     }}
                                     className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
-                                    <option value="">Pilih Supplier</option>
+                                    <option value="">{__("Select supplier")}</option>
                                     {suppliers.map((s) => (
                                         <option key={s.id} value={s.id}>{s.name}</option>
                                     ))}
@@ -150,7 +150,7 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                             </div>
                             <div>
                                 <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">
-                                    Penerimaan Barang (Opsional)
+                                    {__("Goods Receiving (Optional)")}
                                 </label>
                                 <select
                                     value={selectedGrId}
@@ -161,21 +161,21 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                                     disabled={!data.supplier_id}
                                     className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 disabled:opacity-50"
                                 >
-                                    <option value="">Tidak terkait GR</option>
+                                    <option value="">{__("Not related to GR")}</option>
                                     {goodsReceivings.map((gr) => (
                                         <option key={gr.id} value={gr.id}>
-                                            {gr.document_number} ({gr.items?.length || 0} item)
+                                            {gr.document_number} ({gr.items?.length || 0} {__("items")})
                                         </option>
                                     ))}
                                 </select>
                             </div>
                             <div>
-                                <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">Catatan</label>
+                                <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{__("Notes")}</label>
                                 <input
                                     type="text"
                                     value={data.notes}
                                     onChange={(e) => setData("notes", e.target.value)}
-                                    placeholder="Catatan retur"
+                                    placeholder={__("Return notes")}
                                     className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 />
                             </div>
@@ -183,12 +183,12 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                     </div>
 
                     <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
-                        <h2 className="mb-4 text-lg font-semibold text-slate-900 dark:text-white">Item Retur</h2>
+                        <h2 className="mb-4 text-lg font-semibold text-slate-900 dark:text-white">{__("Return Items")}</h2>
 
                         {selectedGr && (
                             <div className="mb-4">
                                 <p className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
-                                    Item dari GR {selectedGr.document_number}
+                                    {__("Items from GR")} {selectedGr.document_number}
                                 </p>
                                 <div className="max-h-48 space-y-2 overflow-y-auto rounded-xl border border-slate-100 p-3 dark:border-slate-700">
                                     {selectedGr.items?.map((grItem) => {
@@ -202,13 +202,13 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                                             >
                                                 <div>
                                                     <p className="font-medium text-slate-800 dark:text-slate-200">
-                                                        {grItem.product?.title || "Produk #" + grItem.product_id}
+                                                        {grItem.product?.title || __("Product #") + grItem.product_id}
                                                     </p>
                                                     <p className="text-xs text-slate-500">
-                                                        {grItem.product?.sku || "-"} &bull; Harga: {formatCurrency(grItem.purchase_order_item?.unit_price || 0)}
+                                                        {grItem.product?.sku || "-"} &bull; {__("Price:")} {formatCurrency(grItem.purchase_order_item?.unit_price || 0)}
                                                     </p>
                                                 </div>
-                                                <span className="text-xs text-primary-600">+ Tambah</span>
+                                                <span className="text-xs text-primary-600">+ {__("Add")}</span>
                                             </button>
                                         ) : null;
                                     })}
@@ -221,7 +221,7 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                                 type="text"
                                 value={searchProduct}
                                 onChange={(e) => setSearchProduct(e.target.value)}
-                                placeholder="Cari produk untuk ditambahkan..."
+                                placeholder={__("Search products to add...")}
                                 className="h-11 flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                             />
                         </div>
@@ -249,11 +249,11 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                                 <table className="w-full text-sm">
                                     <thead>
                                         <tr className="border-b border-slate-200 dark:border-slate-700">
-                                            <th className="px-3 py-2 text-left font-semibold text-slate-700 dark:text-slate-200">Produk</th>
-                                            <th className="px-3 py-2 text-right font-semibold text-slate-700 dark:text-slate-200">Qty</th>
-                                            <th className="px-3 py-2 text-right font-semibold text-slate-700 dark:text-slate-200">Harga</th>
-                                            <th className="px-3 py-2 text-right font-semibold text-slate-700 dark:text-slate-200">Subtotal</th>
-                                            <th className="px-3 py-2 text-left font-semibold text-slate-700 dark:text-slate-200">Alasan</th>
+                                            <th className="px-3 py-2 text-left font-semibold text-slate-700 dark:text-slate-200">{__("Product")}</th>
+                                            <th className="px-3 py-2 text-right font-semibold text-slate-700 dark:text-slate-200">{__("Qty")}</th>
+                                            <th className="px-3 py-2 text-right font-semibold text-slate-700 dark:text-slate-200">{__("Price")}</th>
+                                            <th className="px-3 py-2 text-right font-semibold text-slate-700 dark:text-slate-200">{__("Subtotal")}</th>
+                                            <th className="px-3 py-2 text-left font-semibold text-slate-700 dark:text-slate-200">{__("Reason")}</th>
                                             <th className="w-16 px-3 py-2"></th>
                                         </tr>
                                     </thead>
@@ -291,7 +291,7 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                                                         type="text"
                                                         value={item.reason || ""}
                                                         onChange={(e) => updateItem(index, "reason", e.target.value)}
-                                                        placeholder="Alasan retur"
+                                                        placeholder={__("Return reason")}
                                                         className="h-10 w-full rounded-lg border border-slate-200 bg-slate-50 px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                                     />
                                                 </td>
@@ -309,7 +309,7 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                                     </tbody>
                                     <tfoot>
                                         <tr className="border-t-2 border-slate-200 dark:border-slate-700">
-                                            <td colSpan={3} className="px-3 py-3 text-right font-bold text-slate-800 dark:text-slate-200">Total</td>
+                                            <td colSpan={3} className="px-3 py-3 text-right font-bold text-slate-800 dark:text-slate-200">{__("Total")}</td>
                                             <td className="px-3 py-3 text-right font-bold text-danger-600">{formatCurrency(total)}</td>
                                             <td colSpan={2}></td>
                                         </tr>
@@ -319,7 +319,7 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                         ) : (
                             <div className="rounded-xl border border-dashed border-slate-200 p-8 text-center dark:border-slate-700">
                                 <p className="text-sm text-slate-500 dark:text-slate-400">
-                                    Pilih supplier, lalu tambahkan item dari GR atau cari produk di atas.
+                                    {__("Select a supplier, then add items from GR or search products above.")}
                                 </p>
                             </div>
                         )}
@@ -330,13 +330,13 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                             href={route("supplier-returns.index")}
                             className="flex h-11 items-center rounded-xl border border-slate-200 bg-white px-6 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
                         >
-                            Batal
+                            {__("Cancel")}
                         </Link>
                         <Button
                             type="submit"
                             icon={<IconPlus size={18} />}
                             className="bg-primary-500 hover:bg-primary-600 text-white shadow-lg shadow-primary-500/30"
-                            label={processing ? "Menyimpan..." : "Simpan Retur"}
+                            label={processing ? __("Saving...") : __("Save Return")}
                             disabled={processing}
                         />
                     </div>

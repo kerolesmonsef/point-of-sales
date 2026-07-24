@@ -231,7 +231,7 @@ class TransactionController extends Controller
         $product = Product::whereId($request->product_id)->first();
 
         if (! $product) {
-            return redirect()->back()->with('error', 'Product not found.');
+            return redirect()->back()->with('error', __('Product not found.'));
         }
 
         // Composite: check component stock
@@ -242,7 +242,7 @@ class TransactionController extends Controller
                 $whProduct = $component->warehouses()->where('warehouse_id', $warehouseId)->first();
                 $avail = $whProduct?->pivot->stock ?? 0;
                 if ($avail < $needed) {
-                    return redirect()->back()->with('error', "Stok {$component->title} tidak mencukupi.");
+                    return redirect()->back()->with('error', __("Insufficient stock for {$component->title}."));
                 }
             }
             // Composite price = sum component prices
@@ -257,7 +257,7 @@ class TransactionController extends Controller
                 : (int) $product->stock;
 
             if ($availableStock < $baseQty) {
-                return redirect()->back()->with('error', 'Stok tidak mencukupi.');
+                return redirect()->back()->with('error', __('Insufficient stock.'));
             }
 
             $sellPrice = $unitConversion->getSellPrice($product, $unitId);
@@ -290,7 +290,7 @@ class TransactionController extends Controller
             ]);
         }
 
-        return redirect()->route('transactions.index')->with('success', 'Product Added Successfully!.');
+        return redirect()->route('transactions.index')->with('success', __('Product added successfully!'));
     }
 
     /**
@@ -349,7 +349,7 @@ class TransactionController extends Controller
         if ($availableStock < $request->qty) {
             return response()->json([
                 'success' => false,
-                'message' => 'Stok tidak mencukupi. Tersedia: '.$availableStock,
+                'message' => __('Insufficient stock. Available: ').$availableStock,
             ], 422);
         }
 
@@ -358,7 +358,7 @@ class TransactionController extends Controller
         $cart->price = $cart->product->sell_price * $request->qty;
         $cart->save();
 
-        return back()->with('success', 'Quantity updated successfully');
+        return back()->with('success', __('Quantity updated successfully'));
     }
 
     /**
@@ -382,7 +382,7 @@ class TransactionController extends Controller
         if ($activeCarts->isEmpty()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Keranjang kosong, tidak ada yang bisa ditahan',
+                'message' => __('Cart is empty, nothing to hold'),
             ], 422);
         }
 
@@ -399,7 +399,7 @@ class TransactionController extends Controller
                 'held_at' => now(),
             ]);
 
-        return back()->with('success', 'Transaksi ditahan: '.$label);
+        return back()->with('success', __('Transaction held: ').$label);
     }
 
     /**
@@ -420,7 +420,7 @@ class TransactionController extends Controller
         if ($activeCarts > 0) {
             return response()->json([
                 'success' => false,
-                'message' => 'Selesaikan atau tahan transaksi aktif terlebih dahulu',
+                'message' => __('Complete or hold the active transaction first'),
             ], 422);
         }
 
@@ -445,7 +445,7 @@ class TransactionController extends Controller
                 'held_at' => null,
             ]);
 
-        return back()->with('success', 'Transaksi dilanjutkan');
+        return back()->with('success', __('Transaction resumed.'));
     }
 
     /**
@@ -466,19 +466,19 @@ class TransactionController extends Controller
             return request()->wantsJson()
                 ? response()->json([
                     'success' => false,
-                    'message' => 'Transaksi ditahan tidak ditemukan',
+                'message' => __('Held transaction not found'),
                 ], 404)
-                : back()->with('error', 'Transaksi ditahan tidak ditemukan');
+                : back()->with('error', __('Held transaction not found'));
         }
 
         if (request()->wantsJson()) {
             return response()->json([
                 'success' => true,
-                'message' => 'Transaksi ditahan berhasil dihapus',
+                'message' => __('Held transaction deleted successfully'),
             ]);
         }
 
-        return back()->with('success', 'Transaksi ditahan berhasil dihapus');
+        return back()->with('success', __('Held transaction deleted successfully'));
     }
 
     /**
@@ -538,7 +538,7 @@ class TransactionController extends Controller
         if ($isPayLater && ! $request->filled('due_date')) {
             return redirect()
                 ->route('transactions.index')
-                ->with('error', 'Tanggal jatuh tempo wajib diisi untuk nota barang.');
+                ->with('error', __('Due date is required for pay later.'));
         }
 
         if ($paymentGateway) {
@@ -547,7 +547,7 @@ class TransactionController extends Controller
             if (! $paymentSetting || ! $paymentSetting->isGatewayReady($paymentGateway)) {
                 return redirect()
                     ->route('transactions.index')
-                    ->with('error', 'Gateway pembayaran belum dikonfigurasi.');
+                    ->with('error', __('Payment gateway not configured.'));
             }
         }
 
@@ -594,7 +594,7 @@ class TransactionController extends Controller
                 ->get();
 
             if ($carts->isEmpty()) {
-                abort(422, 'Keranjang kosong.');
+                abort(422, __('Cart is empty.'));
             }
 
             $pricingPreview = $this->pricingService->previewCart($carts, $customer);
@@ -728,7 +728,7 @@ class TransactionController extends Controller
 
             return redirect()
                 ->route('transactions.print', $transaction->invoice)
-                ->with('info', 'Transaksi menunggu approval supervisor.');
+                ->with('info', __('Transaction awaiting supervisor approval.'));
         }
 
         if ($paymentGateway) {
@@ -853,7 +853,7 @@ class TransactionController extends Controller
         if ($transaction->payment_status === 'paid') {
             return redirect()
                 ->back()
-                ->with('error', 'Transaksi sudah dibayar.');
+                ->with('error', __('Transaction already paid.'));
         }
 
         $beforeStatus = $transaction->payment_status;
@@ -865,7 +865,7 @@ class TransactionController extends Controller
             event: 'transaction.payment_confirmed',
             module: 'transactions',
             auditable: $transaction,
-            description: "Pembayaran untuk invoice {$transaction->invoice} dikonfirmasi.",
+            description: __("Payment for invoice {$transaction->invoice} confirmed."),
             before: [
                 'invoice' => $transaction->invoice,
                 'payment_method' => $transaction->payment_method,
@@ -886,6 +886,6 @@ class TransactionController extends Controller
 
         return redirect()
             ->back()
-            ->with('success', "Pembayaran untuk invoice {$transaction->invoice} berhasil dikonfirmasi.");
+            ->with('success', __("Payment for invoice {$transaction->invoice} confirmed successfully."));
     }
 }

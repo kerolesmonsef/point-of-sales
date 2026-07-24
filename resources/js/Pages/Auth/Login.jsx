@@ -34,7 +34,7 @@ export default function Login({ status, canResetPassword, canRegister, botGuard 
 
     return (
         <>
-            <Head title="Masuk" />
+            <Head title={__("Sign In")} />
 
             <div className="min-h-screen flex bg-slate-50 dark:bg-slate-950">
                 {/* Left - Form */}
@@ -53,14 +53,14 @@ export default function Login({ status, canResetPassword, canRegister, botGuard 
                                     />
                                 </div>
                                 <span className="text-2xl font-bold text-slate-900 dark:text-white">
-                                    Aplikasi Kasir
+                                    {__("POS Application")}
                                 </span>
                             </Link>
                             <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
-                                Selamat Datang Kembali
+                                {__("Welcome Back")}
                             </h1>
                             <p className="mt-2 text-slate-600 dark:text-slate-400">
-                                Masuk untuk mengakses dashboard Anda
+                                {__("Sign in to access your dashboard")}
                             </p>
                         </div>
 
@@ -86,7 +86,7 @@ export default function Login({ status, canResetPassword, canRegister, botGuard 
                             {/* Email */}
                             <div>
                                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                                    Email
+                                    {__("Email")}
                                 </label>
                                 <div className="relative">
                                     <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
@@ -98,7 +98,7 @@ export default function Login({ status, canResetPassword, canRegister, botGuard 
                                         onChange={(e) =>
                                             setData("email", e.target.value)
                                         }
-                                        placeholder="nama@email.com"
+                                        placeholder={__("name@email.com")}
                                         className={`w-full h-12 pl-12 pr-4 rounded-xl border-2 ${
                                             errors.email
                                                 ? "border-danger-500 focus:border-danger-500"
@@ -116,7 +116,7 @@ export default function Login({ status, canResetPassword, canRegister, botGuard 
                             {/* Password */}
                             <div>
                                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                                    Password
+                                    {__("Password")}
                                 </label>
                                 <div className="relative">
                                     <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
@@ -173,7 +173,7 @@ export default function Login({ status, canResetPassword, canRegister, botGuard 
                                         className="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary-500 focus:ring-primary-500"
                                     />
                                     <span className="text-sm text-slate-600 dark:text-slate-400">
-                                        Ingat saya
+                                        {__("Remember me")}
                                     </span>
                                 </label>
 
@@ -182,7 +182,7 @@ export default function Login({ status, canResetPassword, canRegister, botGuard 
                                         href={route("password.request")}
                                         className="text-sm text-primary-500 hover:text-primary-600 font-medium"
                                     >
-                                        Lupa Password?
+                                        {__("Forgot Password?")}
                                     </Link>
                                 )}
                             </div>
@@ -199,22 +199,22 @@ export default function Login({ status, canResetPassword, canRegister, botGuard 
                                             size={20}
                                             className="animate-spin"
                                         />
-                                        Memproses...
+                                        {__("Processing...")}
                                     </>
                                 ) : (
-                                    "Masuk"
+                                    {__("Sign In")}
                                 )}
                             </button>
 
                             {/* Register Link */}
                             {canRegister && (
                                 <p className="text-center text-sm text-slate-600 dark:text-slate-400">
-                                    Belum punya akun?{" "}
+                                    {__("Don't have an account?")}{" "}
                                     <Link
                                         href="/register"
                                         className="text-primary-500 hover:text-primary-600 font-semibold"
                                     >
-                                        Daftar Sekarang
+                                        {__("Register Now")}
                                     </Link>
                                 </p>
                             )}
@@ -229,18 +229,16 @@ export default function Login({ status, canResetPassword, canRegister, botGuard 
                             <IconShoppingCart size={48} />
                         </div>
                         <h2 className="text-3xl font-bold mb-4">
-                            Kelola Bisnis Anda dengan Mudah
+                            {__("Manage Your Business Easily")}
                         </h2>
                         <p className="text-lg opacity-90">
-                            Sistem Point of Sale modern yang membantu Anda
-                            mengelola transaksi, inventori, dan laporan keuangan
-                            dengan efisien.
+                            {__("Modern Point of Sale system that helps you manage transactions, inventory, and financial reports efficiently.")}
                         </p>
                         <div className="mt-8 flex flex-wrap justify-center gap-3">
                             {[
-                                "Transaksi Cepat",
-                                "Laporan Real-time",
-                                "Multi User",
+                                __("Fast Transactions"),
+                                __("Real-time Reports"),
+                                __("Multi User"),
                             ].map((feature, i) => (
                                 <span
                                     key={i}

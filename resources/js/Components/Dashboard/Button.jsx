@@ -18,21 +18,21 @@ export default function Button({
 
     const deleteData = async (url) => {
         Swal.fire({
-            title: "Hapus Data?",
-            text: "Data yang dihapus tidak dapat dikembalikan!",
+            title: __("Delete Data?"),
+            text: __("Deleted data cannot be restored!"),
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#6366f1",
             cancelButtonColor: "#64748b",
-            confirmButtonText: "Ya, Hapus!",
-            cancelButtonText: "Batal",
+            confirmButtonText: __("Yes, Delete!"),
+            cancelButtonText: __("Cancel"),
         }).then((result) => {
             if (result.isConfirmed) {
                 destroy(url);
 
                 Swal.fire({
-                    title: "Berhasil!",
-                    text: "Data berhasil dihapus!",
+                    title: __("Success!"),
+                    text: __("Data deleted successfully!"),
                     icon: "success",
                     showConfirmButton: false,
                     timer: 1500,

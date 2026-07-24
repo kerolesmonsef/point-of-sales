@@ -9,25 +9,25 @@ class ThermalPrintService
 {
     public function generateReceiptText(Transaction $transaction, string $paperSize = '80mm'): string
     {
-        $storeName = Setting::get('store_name', 'Toko Anda');
+        $storeName = Setting::get('store_name', __("Your Store"));
         $storeAddress = Setting::get('store_address', '');
         $storePhone = Setting::get('store_phone', '');
         $maxWidth = $paperSize === '58mm' ? 32 : 48;
 
         $lines = [];
         $lines[] = '';
-        $lines[] = $this->center(strtoupper($storeName ?? 'TOKO ANDA'), $maxWidth);
+        $lines[] = $this->center(strtoupper($storeName ?? __("YOUR STORE")), $maxWidth);
         if ($storeAddress) $lines[] = $this->center($storeAddress, $maxWidth);
-        if ($storePhone) $lines[] = $this->center('Telp: '.$storePhone, $maxWidth);
+        if ($storePhone) $lines[] = $this->center(__("Phone: ").$storePhone, $maxWidth);
         $lines[] = $this->line($maxWidth);
-        $lines[] = $this->left('No: '.($transaction->invoice ?? ''), $maxWidth);
-        $lines[] = $this->left('Tgl: '.($transaction->created_at?->format('d/m/Y H:i') ?? ''), $maxWidth);
-        $lines[] = $this->left('Kasir: '.($transaction->cashier?->name ?? '-'), $maxWidth);
-        $lines[] = $this->left('Pelanggan: '.($transaction->customer?->name ?? 'Umum'), $maxWidth);
+        $lines[] = $this->left(__("No: ").($transaction->invoice ?? ''), $maxWidth);
+        $lines[] = $this->left(__("Date: ").($transaction->created_at?->format('d/m/Y H:i') ?? ''), $maxWidth);
+        $lines[] = $this->left(__("Cashier: ").($transaction->cashier?->name ?? '-'), $maxWidth);
+        $lines[] = $this->left(__("Customer: ").($transaction->customer?->name ?? __("General")), $maxWidth);
         $lines[] = $this->line($maxWidth);
 
         foreach ($transaction->details as $detail) {
-            $title = mb_substr($detail->product?->title ?? 'Produk', 0, $maxWidth - 10);
+            $title = mb_substr($detail->product?->title ?? __("Product"), 0, $maxWidth - 10);
             $linePrice = number_format((int) $detail->price, 0, ',', '.');
             $lineTotal = "{$detail->qty}x @ ".number_format((int) ($detail->unit_price ?: $detail->price / max(1, $detail->qty)), 0, ',', '.');
             $lines[] = $this->left($title, $maxWidth);
@@ -36,22 +36,22 @@ class ThermalPrintService
 
         $lines[] = $this->line($maxWidth);
         $subtotal = ($transaction->grand_total ?? 0) + ($transaction->discount ?? 0) - ($transaction->shipping_cost ?? 0) - ($transaction->tax_total ?? 0);
-        $lines[] = $this->leftRight('Subtotal', number_format($subtotal, 0, ',', '.'), $maxWidth);
-        if (($transaction->discount ?? 0) > 0) $lines[] = $this->leftRight('Diskon', '-'.number_format((int) $transaction->discount, 0, ',', '.'), $maxWidth);
-        if (($transaction->tax_total ?? 0) > 0) $lines[] = $this->leftRight('PPN', number_format((int) $transaction->tax_total, 0, ',', '.'), $maxWidth);
-        if (($transaction->shipping_cost ?? 0) > 0) $lines[] = $this->leftRight('Ongkir', number_format((int) $transaction->shipping_cost, 0, ',', '.'), $maxWidth);
+        $lines[] = $this->leftRight(__("Subtotal"), number_format($subtotal, 0, ',', '.'), $maxWidth);
+        if (($transaction->discount ?? 0) > 0) $lines[] = $this->leftRight(__("Discount"), '-'.number_format((int) $transaction->discount, 0, ',', '.'), $maxWidth);
+        if (($transaction->tax_total ?? 0) > 0) $lines[] = $this->leftRight(__("VAT"), number_format((int) $transaction->tax_total, 0, ',', '.'), $maxWidth);
+        if (($transaction->shipping_cost ?? 0) > 0) $lines[] = $this->leftRight(__("Shipping"), number_format((int) $transaction->shipping_cost, 0, ',', '.'), $maxWidth);
         $lines[] = $this->line($maxWidth);
-        $lines[] = $this->leftRight('TOTAL', number_format((int) $transaction->grand_total, 0, ',', '.'), $maxWidth);
+        $lines[] = $this->leftRight(__("TOTAL"), number_format((int) $transaction->grand_total, 0, ',', '.'), $maxWidth);
 
         if ($transaction->payment_method === 'cash' && $transaction->cash > 0) {
-            $lines[] = $this->leftRight('Tunai', number_format((int) $transaction->cash, 0, ',', '.'), $maxWidth);
-            if (($transaction->change ?? 0) > 0) $lines[] = $this->leftRight('Kembali', number_format((int) $transaction->change, 0, ',', '.'), $maxWidth);
+            $lines[] = $this->leftRight(__("Cash"), number_format((int) $transaction->cash, 0, ',', '.'), $maxWidth);
+            if (($transaction->change ?? 0) > 0) $lines[] = $this->leftRight(__("Change"), number_format((int) $transaction->change, 0, ',', '.'), $maxWidth);
         }
 
         $lines[] = $this->line($maxWidth);
-        $lines[] = $this->center('Terima kasih', $maxWidth);
-        $lines[] = $this->center('Barang yang sudah dibeli', $maxWidth);
-        $lines[] = $this->center('tidak dapat ditukar/dikembalikan', $maxWidth);
+        $lines[] = $this->center(__("Thank you"), $maxWidth);
+        $lines[] = $this->center(__("Purchased items"), $maxWidth);
+        $lines[] = $this->center(__("cannot be exchanged/returned"), $maxWidth);
         $lines[] = '';
         $lines[] = '';
 

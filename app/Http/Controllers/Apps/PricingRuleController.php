@@ -127,13 +127,13 @@ class PricingRuleController extends Controller
             event: 'pricing_rule.created',
             module: 'pricing_rules',
             auditable: $rule,
-            description: 'Rule promo/harga dibuat.',
+            description: __('Promo/pricing rule created.'),
             after: $this->auditPayload($rule->fresh(['qtyBreaks', 'bundleItems', 'buyGetItems']))
         );
 
         return redirect()
             ->route('pricing-rules.index')
-            ->with('success', 'Rule promo berhasil dibuat.');
+            ->with('success', __('Promo rule created successfully.'));
     }
 
     public function edit(PricingRule $pricingRule)
@@ -180,14 +180,14 @@ class PricingRuleController extends Controller
             event: 'pricing_rule.updated',
             module: 'pricing_rules',
             auditable: $pricingRule,
-            description: 'Rule promo/harga diperbarui.',
+            description: __('Promo/pricing rule updated.'),
             before: $before,
             after: $this->auditPayload($pricingRule->fresh(['qtyBreaks', 'bundleItems', 'buyGetItems']))
         );
 
         return redirect()
             ->route('pricing-rules.index')
-            ->with('success', 'Rule promo berhasil diperbarui.');
+            ->with('success', __('Promo rule updated successfully.'));
     }
 
     public function destroy(PricingRule $pricingRule)
@@ -199,11 +199,11 @@ class PricingRuleController extends Controller
             event: 'pricing_rule.deleted',
             module: 'pricing_rules',
             auditable: $pricingRule,
-            description: 'Rule promo/harga dihapus.',
+            description: __('Promo/pricing rule deleted.'),
             before: $before
         );
 
-        return back()->with('success', 'Rule promo berhasil dihapus.');
+        return back()->with('success', __('Promo rule deleted successfully.'));
     }
 
     public function preview(Request $request)
@@ -232,10 +232,10 @@ class PricingRuleController extends Controller
             'categories' => Category::orderBy('name')->get(['id', 'name']),
             'tierOptions' => $this->loyaltyService->tierOptions(),
             'kindOptions' => [
-                ['value' => PricingRule::KIND_STANDARD_DISCOUNT, 'label' => 'Diskon Standar'],
-                ['value' => PricingRule::KIND_QTY_BREAK, 'label' => 'Harga Grosir / Qty Break'],
-                ['value' => PricingRule::KIND_BUNDLE_PRICE, 'label' => 'Bundle Price'],
-                ['value' => PricingRule::KIND_BUY_X_GET_Y, 'label' => 'Buy X Get Y'],
+                ['value' => PricingRule::KIND_STANDARD_DISCOUNT, 'label' => __('Standard Discount')],
+                ['value' => PricingRule::KIND_QTY_BREAK, 'label' => __('Wholesale / Qty Break')],
+                ['value' => PricingRule::KIND_BUNDLE_PRICE, 'label' => __('Bundle Price')],
+                ['value' => PricingRule::KIND_BUY_X_GET_Y, 'label' => __('Buy X Get Y')],
             ],
         ];
     }

@@ -103,10 +103,10 @@ export default function BarcodePrintModal({
                     <div className="flex items-center gap-2">
                         <IconBarcode size={24} className="text-primary-500" />
                         <h2 className="text-lg font-bold text-slate-800 dark:text-white">
-                            Cetak Barcode
+                            {__("Print Barcode")}
                         </h2>
                         <span className="px-2 py-0.5 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 text-xs font-medium rounded-full">
-                            {productsToPrint.length} produk
+                            {productsToPrint.length} {__("products")}
                         </span>
                     </div>
                     <button
@@ -123,7 +123,7 @@ export default function BarcodePrintModal({
                         {/* Size */}
                         <div>
                             <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
-                                Ukuran Label
+                                {__("Label Size")}
                             </label>
                             <select
                                 value={size}
@@ -139,7 +139,7 @@ export default function BarcodePrintModal({
                         {/* Copies */}
                         <div>
                             <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
-                                Jumlah per Produk
+                                {__("Quantity per Product")}
                             </label>
                             <input
                                 type="number"
@@ -166,7 +166,7 @@ export default function BarcodePrintModal({
                                 htmlFor="showPrice"
                                 className="text-sm text-slate-700 dark:text-slate-300"
                             >
-                                Tampilkan Harga
+                                {__("Show Price")}
                             </label>
                         </div>
 
@@ -185,7 +185,7 @@ export default function BarcodePrintModal({
                                 htmlFor="showOngkir"
                                 className="text-sm text-slate-700 dark:text-slate-300"
                             >
-                                Tampilkan Ongkir
+                                {__("Show Shipping Cost")}
                             </label>
                         </div>
                     </div>
@@ -195,7 +195,7 @@ export default function BarcodePrintModal({
                         <div className="mt-3">
                             <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
                                 <IconTruck size={14} className="inline mr-1" />
-                                Nominal Ongkir
+                                {__("Shipping Amount")}
                             </label>
                             <input
                                 type="number"
@@ -204,7 +204,7 @@ export default function BarcodePrintModal({
                                 onChange={(e) =>
                                     setOngkirAmount(Number(e.target.value))
                                 }
-                                placeholder="Contoh: 15000"
+                                placeholder={__("Example: 15000")}
                                 className="w-48 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm"
                             />
                         </div>
@@ -216,7 +216,7 @@ export default function BarcodePrintModal({
                     className="p-4 overflow-auto"
                     style={{ maxHeight: "400px" }}
                 >
-                    <p className="text-xs text-slate-500 mb-3">Preview:</p>
+                    <p className="text-xs text-slate-500 mb-3">{__("Preview:")}</p>
                     <div
                         ref={printRef}
                         className="bg-white p-4 border border-dashed border-slate-300 rounded-lg"
@@ -238,14 +238,14 @@ export default function BarcodePrintModal({
                         onClick={onClose}
                         className="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-medium transition-colors"
                     >
-                        Batal
+                        {__("Cancel")}
                     </button>
                     <button
                         onClick={handlePrint}
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-500 hover:bg-primary-600 text-white text-sm font-medium transition-colors"
                     >
                         <IconPrinter size={18} />
-                        Cetak
+                        {__("Print")}
                     </button>
                 </div>
             </div>

@@ -27,13 +27,13 @@ class PaymentSettingController extends Controller
         $webhookWarnings = [];
 
         if (blank($appUrl)) {
-            $webhookWarnings[] = 'APP_URL belum diatur. Webhook URL yang dihasilkan bisa tidak valid untuk Midtrans/Xendit.';
+            $webhookWarnings[] = __('APP_URL is not set. The generated webhook URL may be invalid for Midtrans/Xendit.');
         } elseif ($this->isLocalAppUrl($appUrl)) {
-            $webhookWarnings[] = 'APP_URL masih mengarah ke localhost atau 127.0.0.1. Payment gateway membutuhkan URL publik yang bisa diakses dari internet.';
+            $webhookWarnings[] = __('APP_URL still points to localhost or 127.0.0.1. Payment gateway requires a public URL accessible from the internet.');
         }
 
         if ($setting->xendit_enabled && ! $setting->secretConfigured('xendit_callback_token')) {
-            $webhookWarnings[] = 'Xendit aktif tetapi callback token belum diisi. Webhook Xendit akan ditolak sampai token tersedia.';
+            $webhookWarnings[] = __('Xendit is active but callback token is not set. Xendit webhooks will be rejected until a token is available.');
         }
 
         if (collect($setting->paymentSettingSources())->contains(fn (array $source) => $source['source'] === 'env')) {
@@ -41,7 +41,7 @@ class PaymentSettingController extends Controller
                 event: 'security.payment_secret_source_overridden',
                 module: 'security',
                 auditable: $setting,
-                description: 'Konfigurasi payment memakai env override untuk secret sensitif.',
+                description: __('Payment configuration uses env override for sensitive secrets.'),
                 meta: [
                     'severity' => 'info',
                     'sources' => collect($setting->paymentSettingSources())
@@ -66,8 +66,8 @@ class PaymentSettingController extends Controller
             ],
             'paymentSettingSources' => $setting->paymentSettingSources(),
             'supportedGateways' => [
-                ['value' => 'cash', 'label' => 'Tunai'],
-                ['value' => PaymentSetting::GATEWAY_BANK_TRANSFER, 'label' => 'Transfer Bank'],
+                ['value' => 'cash', 'label' => __('Cash')],
+                ['value' => PaymentSetting::GATEWAY_BANK_TRANSFER, 'label' => __('Bank Transfer')],
                 ['value' => PaymentSetting::GATEWAY_MIDTRANS, 'label' => 'Midtrans'],
                 ['value' => PaymentSetting::GATEWAY_XENDIT, 'label' => 'Xendit'],
             ],
@@ -117,19 +117,19 @@ class PaymentSettingController extends Controller
 
         if ($midtransEnabled && (blank($resolvedMidtransServerKey) || empty($data['midtrans_client_key']))) {
             return back()->withErrors([
-                'midtrans_server_key' => 'Server key dan Client key Midtrans wajib diisi saat mengaktifkan Midtrans.',
+                'midtrans_server_key' => __('Midtrans server key and client key are required when enabling Midtrans.'),
             ])->withInput();
         }
 
         if ($xenditEnabled && blank($resolvedXenditSecretKey)) {
             return back()->withErrors([
-                'xendit_secret_key' => 'Secret key Xendit wajib diisi saat mengaktifkan Xendit.',
+                'xendit_secret_key' => __('Xendit secret key is required when enabling Xendit.'),
             ])->withInput();
         }
 
         if ($xenditEnabled && blank($resolvedXenditCallbackToken)) {
             return back()->withErrors([
-                'xendit_callback_token' => 'Callback token Xendit wajib diisi saat mengaktifkan Xendit.',
+                'xendit_callback_token' => __('Xendit callback token is required when enabling Xendit.'),
             ])->withInput();
         }
 
@@ -139,7 +139,7 @@ class PaymentSettingController extends Controller
                 || ($data['default_gateway'] === PaymentSetting::GATEWAY_XENDIT && $xenditEnabled))
         ) {
             return back()->withErrors([
-                'default_gateway' => 'Gateway default harus dalam kondisi aktif.',
+                'default_gateway' => __('Default gateway must be active.'),
             ])->withInput();
         }
 
@@ -167,7 +167,7 @@ class PaymentSettingController extends Controller
             event: 'payment.setting.updated',
             module: 'payment_settings',
             auditable: $setting,
-            description: 'Konfigurasi payment gateway diperbarui.',
+            description: __('Payment gateway configuration updated.'),
             before: [
                 'default_gateway' => $beforeState->default_gateway,
                 'bank_transfer_enabled' => (bool) $beforeState->bank_transfer_enabled,
@@ -201,7 +201,7 @@ class PaymentSettingController extends Controller
                 event: 'security.payment_secret_source_overridden',
                 module: 'security',
                 auditable: $setting,
-                description: 'Perubahan payment settings tetap tunduk pada env override untuk secret sensitif.',
+                description: __('Payment settings changes are still subject to env override for sensitive secrets.'),
                 meta: [
                     'severity' => 'info',
                     'sources' => collect($setting->paymentSettingSources())
@@ -215,7 +215,7 @@ class PaymentSettingController extends Controller
 
         return redirect()
             ->route('settings.payments.edit')
-            ->with('success', 'Konfigurasi payment gateway berhasil disimpan.');
+            ->with('success', __('Payment gateway configuration saved successfully.'));
     }
 
     private function isLocalAppUrl(string $appUrl): bool

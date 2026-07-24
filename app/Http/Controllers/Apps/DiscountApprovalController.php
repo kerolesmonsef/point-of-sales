@@ -25,7 +25,7 @@ class DiscountApprovalController extends Controller
                 'id' => $t->id,
                 'invoice' => $t->invoice,
                 'cashier' => $t->cashier?->name,
-                'customer' => $t->customer?->name ?? 'Umum',
+                'customer' => $t->customer?->name ?? __('General'),
                 'discount' => (int) $t->discount,
                 'grand_total' => (int) $t->grand_total,
                 'created_at' => $t->created_at?->toISOString(),
@@ -42,7 +42,7 @@ class DiscountApprovalController extends Controller
 
         $this->logAndUpdate($transaction, 'approved');
 
-        return back()->with('success', 'Diskon disetujui.');
+        return back()->with('success', __('Discount approved.'));
     }
 
     public function deny(Request $request, Transaction $transaction)
@@ -51,7 +51,7 @@ class DiscountApprovalController extends Controller
 
         $this->logAndUpdate($transaction, 'denied', $request->notes);
 
-        return back()->with('success', 'Diskon ditolak.');
+        return back()->with('success', __('Discount denied.'));
     }
 
     private function logAndUpdate(Transaction $transaction, string $status, ?string $notes = null): void
@@ -83,7 +83,7 @@ class DiscountApprovalController extends Controller
             event: 'discount_approval.' . $status,
             module: 'transactions',
             auditable: $transaction,
-            description: "Diskon transaksi {$transaction->invoice} di" . ($status === 'approved' ? 'setujui' : 'tolak'),
+            description: __('Discount for transaction :invoice', ['invoice' => $transaction->invoice]) . ' ' . ($status === 'approved' ? __('approved') : __('denied')),
             after: ['discount_approval_status' => $status],
         );
     }

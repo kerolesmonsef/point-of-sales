@@ -32,7 +32,7 @@ class StockMutationService
             'qty' => $initialStock,
             'stock_before' => 0,
             'stock_after' => $initialStock,
-            'notes' => 'Initial stock saat produk dibuat.',
+            'notes' => __("Initial stock when product is created."),
             'created_by' => $userId,
         ]);
 
@@ -40,7 +40,7 @@ class StockMutationService
             event: 'stock.adjusted',
             module: 'stock',
             auditable: $product,
-            description: 'Initial stock produk dicatat.',
+            description: __("Initial stock recorded."),
             before: [
                 'product_id' => $product->id,
                 'stock_before' => 0,
@@ -89,7 +89,7 @@ class StockMutationService
             'qty' => abs($stockAfter - $stockBefore),
             'stock_before' => $stockBefore,
             'stock_after' => $stockAfter,
-            'notes' => $reason ?: 'Adjustment dari stock opname.',
+            'notes' => $reason ?: __("Adjustment from stock opname."),
             'created_by' => $userId,
         ]);
 
@@ -97,7 +97,7 @@ class StockMutationService
             event: 'stock.adjusted',
             module: 'stock',
             auditable: $product,
-            description: 'Stok produk disesuaikan melalui stock opname.',
+            description: __("Stock adjusted via stock opname."),
             before: [
                 'product_id' => $product->id,
                 'stock_before' => $stockBefore,
@@ -146,7 +146,7 @@ class StockMutationService
             'qty' => abs($stockAfter - $stockBefore),
             'stock_before' => $stockBefore,
             'stock_after' => $stockAfter,
-            'notes' => $reason ?: 'Restock dari retur penjualan.',
+            'notes' => $reason ?: __("Restock from sales return."),
             'created_by' => $userId,
         ]);
 
@@ -154,7 +154,7 @@ class StockMutationService
             event: 'stock.adjusted',
             module: 'stock',
             auditable: $product,
-            description: 'Stok produk bertambah dari restock retur penjualan.',
+            description: __("Stock increased from sales return restock."),
             before: [
                 'product_id' => $product->id,
                 'stock_before' => $stockBefore,
@@ -200,7 +200,7 @@ class StockMutationService
             'qty' => $qty,
             'stock_before' => $stockBefore,
             'stock_after' => $stockAfter,
-            'notes' => $notes ?: 'Stok masuk dari penerimaan barang.',
+            'notes' => $notes ?: __("Stock inbound from goods receiving."),
             'created_by' => $userId,
         ]);
 
@@ -208,7 +208,7 @@ class StockMutationService
             event: 'stock.adjusted',
             module: 'stock',
             auditable: $product,
-            description: 'Stok masuk dari penerimaan barang '.$goodsReceiving->document_number,
+            description: __("Stock inbound from goods receiving ").$goodsReceiving->document_number,
             before: [
                 'product_id' => $product->id,
                 'stock_before' => $stockBefore,
@@ -252,7 +252,7 @@ class StockMutationService
             'qty' => $qty,
             'stock_before' => $stockBefore,
             'stock_after' => $stockAfter,
-            'notes' => $notes ?: 'Retur barang ke supplier.',
+            'notes' => $notes ?: __("Return goods to supplier."),
             'created_by' => $userId,
         ]);
 
@@ -260,7 +260,7 @@ class StockMutationService
             event: 'stock.adjusted',
             module: 'stock',
             auditable: $product,
-            description: 'Stok keluar dari retur supplier '.$supplierReturn->document_number,
+            description: __("Stock out from supplier return ").$supplierReturn->document_number,
             before: [
                 'product_id' => $product->id,
                 'stock_before' => $stockBefore,

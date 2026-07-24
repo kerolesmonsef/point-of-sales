@@ -77,13 +77,13 @@ class BankAccountController extends Controller
             event: 'bank_account.created',
             module: 'bank_accounts',
             auditable: $bankAccount,
-            description: 'Rekening bank ditambahkan.',
+            description: __('Bank account added.'),
             after: $this->bankAccountPayload($bankAccount)
         );
 
         return redirect()
             ->route('settings.bank-accounts.index')
-            ->with('success', 'Rekening bank berhasil ditambahkan.');
+            ->with('success', __('Bank account added successfully.'));
     }
 
     /**
@@ -120,14 +120,14 @@ class BankAccountController extends Controller
             event: 'bank_account.updated',
             module: 'bank_accounts',
             auditable: $bankAccount,
-            description: 'Rekening bank diperbarui.',
+            description: __('Bank account updated.'),
             before: $before,
             after: $this->bankAccountPayload($bankAccount->fresh())
         );
 
         return redirect()
             ->route('settings.bank-accounts.index')
-            ->with('success', 'Rekening bank berhasil diupdate.');
+            ->with('success', __('Bank account updated successfully.'));
     }
 
     /**
@@ -141,7 +141,7 @@ class BankAccountController extends Controller
         if ($bankAccount->transactions()->exists()) {
             return redirect()
                 ->route('settings.bank-accounts.index')
-                ->with('error', 'Rekening bank tidak bisa dihapus karena sudah digunakan di transaksi.');
+                ->with('error', __('Bank account cannot be deleted because it is used in transactions.'));
         }
 
         // Delete logo
@@ -155,13 +155,13 @@ class BankAccountController extends Controller
             event: 'bank_account.deleted',
             module: 'bank_accounts',
             auditable: $bankAccount,
-            description: 'Rekening bank dihapus.',
+            description: __('Bank account deleted.'),
             before: $before
         );
 
         return redirect()
             ->route('settings.bank-accounts.index')
-            ->with('success', 'Rekening bank berhasil dihapus.');
+            ->with('success', __('Bank account deleted successfully.'));
     }
 
     /**
@@ -175,20 +175,20 @@ class BankAccountController extends Controller
             'is_active' => ! $bankAccount->is_active,
         ]);
 
-        $status = $bankAccount->is_active ? 'diaktifkan' : 'dinonaktifkan';
+        $status = $bankAccount->is_active ? 'activated' : 'deactivated';
 
         $this->auditLogService->log(
             event: 'bank_account.toggled',
             module: 'bank_accounts',
             auditable: $bankAccount,
-            description: "Status rekening bank {$status}.",
+            description: __("Bank account status {$status}."),
             before: $before,
             after: $this->bankAccountPayload($bankAccount->fresh())
         );
 
         return redirect()
             ->route('settings.bank-accounts.index')
-            ->with('success', "Rekening {$bankAccount->bank_name} berhasil {$status}.");
+            ->with('success', __("Bank account {$bankAccount->bank_name} {$status} successfully."));
     }
 
     /**
@@ -227,7 +227,7 @@ class BankAccountController extends Controller
             event: 'bank_account.reordered',
             module: 'bank_accounts',
             auditable: ['target_label' => 'Bank Accounts'],
-            description: 'Urutan rekening bank diperbarui.',
+            description: __('Bank account order updated.'),
             before: ['order' => $beforeOrder],
             after: ['order' => $afterOrder]
         );
