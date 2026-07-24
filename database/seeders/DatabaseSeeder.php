@@ -42,10 +42,12 @@ class DatabaseSeeder extends Seeder
             'sort_order' => 0,
         ]);
 
-        // Migrate existing stock to pivot
-        \Illuminate\Support\Facades\DB::statement("
-            INSERT INTO product_warehouse (product_id, warehouse_id, stock, created_at, updated_at)
-            SELECT id, {$pusat->id}, stock, NOW(), NOW() FROM products
-        ");
+        \Illuminate\Support\Facades\DB::table('product_warehouse')->insertUsing([
+            'product_id', 'warehouse_id', 'stock', 'created_at', 'updated_at',
+        ], \Illuminate\Support\Facades\DB::table('products')->select([
+            'id', \Illuminate\Support\Facades\DB::raw("{$pusat->id} as warehouse_id"), 'stock',
+            \Illuminate\Support\Facades\DB::raw("datetime('now') as created_at"),
+            \Illuminate\Support\Facades\DB::raw("datetime('now') as updated_at"),
+        ]));
     }
 }
