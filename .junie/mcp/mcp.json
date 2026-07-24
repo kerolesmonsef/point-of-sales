@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "/usr/bin/php8.3",
+            "args": [
+                "/mnt/2427cce8-dbbb-44b3-bd3b-87c263acaf9e/projects/php-projects/point-of-sales/artisan",
+                "boost:mcp"
+            ]
+        }
+    }
+}

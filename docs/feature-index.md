@@ -20,7 +20,7 @@
 | Batch / Expiry Tracking | — | ✅ |
 | Composite Products (Kits) | — | ✅ |
 | Reorder Point | — | ✅ |
-| Unit Conversion (Multi-Satuan) | `docs/features/unit-conversion.md` | ✅ |
+| Unit Conversion (Multi-Satuan) | `docs/features/unit-conversion.md` | 🟡 backend siap, UI POS belum |
 
 ## Purchasing & Finance
 

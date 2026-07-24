@@ -75,6 +75,7 @@ Operasi transaksional tertentu juga mewajibkan middleware `active_shift`.
 - operasi cart dan checkout bergantung pada shift aktif
 - payment gateway bergantung pada konfigurasi valid
 - checkout masih menjadi pusat perubahan stok penjualan
+- pemilihan satuan (unit) belum ada di UI cart — backend sudah siap, lihat `docs/features/unit-conversion.md`
 
 ## File Sentral
 

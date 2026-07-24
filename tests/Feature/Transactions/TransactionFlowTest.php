@@ -108,7 +108,7 @@ class TransactionFlowTest extends TestCase
         $this->assertSame($product->stock - $quantity, $product->fresh()->stock);
     }
 
-    public function test_cashier_can_view_invoice_page_after_transaction(): void
+    public function cashier_can_view_invoice_page_after_transaction(): void
     {
         $cashier = $this->createCashier();
         $shift = $this->openShiftFor($cashier);

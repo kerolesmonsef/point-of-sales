@@ -10,6 +10,7 @@ use App\Models\Warehouse;
 use App\Services\AuditLogService;
 use App\Services\StockMutationService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -23,7 +24,7 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request)
     {
@@ -42,89 +43,22 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
         return Inertia::render('Dashboard/Products/Create', [
-            "categories" => Category::all(),
-            "units" => Unit::all(),
-        ]);
-        // get categories
-        return Inertia::render("Dashboard/Products/Create", [
-            "categories" => Category::all(),
-            "units" => Unit::all(),
-        ]);
-        $categories = Category::all();
-        return Inertia::render("Dashboard/Products/Create", [
-            "categories" => Category::all(),
-            "units" => Unit::all(),
-        ]);
-
-        return Inertia::render("Dashboard/Products/Create", [
-            "categories" => Category::all(),
-            "units" => Unit::all(),
-        ]);
-        // return inertia
-        return Inertia::render("Dashboard/Products/Create", [
-            "categories" => Category::all(),
-            "units" => Unit::all(),
-        ]);
-        return Inertia::render('Dashboard/Products/Create', [
-        return Inertia::render("Dashboard/Products/Create", [
-            "categories" => Category::all(),
-            "units" => Unit::all(),
-        ]);
-            'categories' => $categories,
-        return Inertia::render("Dashboard/Products/Create", [
-            "categories" => Category::all(),
-            "units" => Unit::all(),
-        ]);
-        ]);
-        return Inertia::render("Dashboard/Products/Create", [
-            "categories" => Category::all(),
-            "units" => Unit::all(),
+            'categories' => Category::all(),
+            'units' => Unit::all(),
         ]);
     }
-        return Inertia::render("Dashboard/Products/Create", [
-            "categories" => Category::all(),
-            "units" => Unit::all(),
-        ]);
 
-        return Inertia::render("Dashboard/Products/Create", [
-            "categories" => Category::all(),
-            "units" => Unit::all(),
-        ]);
     /**
-        return Inertia::render("Dashboard/Products/Create", [
-            "categories" => Category::all(),
-            "units" => Unit::all(),
-        ]);
      * Store a newly created resource in storage.
-        return Inertia::render("Dashboard/Products/Create", [
-            "categories" => Category::all(),
-            "units" => Unit::all(),
-        ]);
      *
-        return Inertia::render("Dashboard/Products/Create", [
-            "categories" => Category::all(),
-            "units" => Unit::all(),
-        ]);
-     * @return \Illuminate\Http\Response
-        return Inertia::render("Dashboard/Products/Create", [
-            "categories" => Category::all(),
-            "units" => Unit::all(),
-        ]);
+     * @return Response
      */
-        return Inertia::render("Dashboard/Products/Create", [
-            "categories" => Category::all(),
-            "units" => Unit::all(),
-        ]);
     public function store(Request $request)
-        return Inertia::render("Dashboard/Products/Create", [
-            "categories" => Category::all(),
-            "units" => Unit::all(),
-        ]);
     {
         /**
          * validate
@@ -150,12 +84,16 @@ class ProductController extends Controller
             'units.*.sku_suffix' => 'nullable|string|max:20',
         ]);
         // upload image
-        $image = $request->file('image');
-        $image->storeAs('public/products', $image->hashName());
+        $imageName = null;
+        if ($request->file('image')) {
+            $image = $request->file('image');
+            $image->storeAs('public/products', $image->hashName());
+            $imageName = $image->hashName();
+        }
 
         // create product
         $product = Product::create([
-            'image' => $image->hashName(),
+            'image' => $imageName,
             'barcode' => $request->barcode,
             'sku' => $request->sku,
             'title' => $request->title,
@@ -202,7 +140,7 @@ class ProductController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(Product $product)
     {
@@ -219,7 +157,7 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, Product $product)
     {
@@ -288,7 +226,7 @@ class ProductController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {
