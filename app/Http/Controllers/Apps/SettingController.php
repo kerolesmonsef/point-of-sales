@@ -67,6 +67,7 @@ class SettingController extends Controller
             'store_npwp' => Setting::get('store_npwp', ''),
             'store_nib' => Setting::get('store_nib', ''),
             'tax_default_rate' => Setting::get('tax_default_rate', '11.00'),
+            'store_currency' => Setting::get('store_currency', 'EGP'),
         ];
 
         return Inertia::render('Dashboard/Settings/Store', [
@@ -90,6 +91,7 @@ class SettingController extends Controller
             'store_npwp' => 'nullable|string|max:20',
             'store_nib' => 'nullable|string|max:30',
             'tax_default_rate' => 'nullable|numeric|min:0|max:100',
+            'store_currency' => 'required|string|max:10',
         ]);
 
         $before = [
@@ -123,6 +125,7 @@ class SettingController extends Controller
         Setting::set('store_npwp', $request->store_npwp, __('Store NPWP'));
         Setting::set('store_nib', $request->store_nib, __('Store NIB'));
         Setting::set('tax_default_rate', $request->tax_default_rate, __('Default VAT rate (%)'));
+        Setting::set('store_currency', $request->store_currency, __('Store currency code'));
 
         $this->auditLogService->log(
             event: 'store.setting.updated',
