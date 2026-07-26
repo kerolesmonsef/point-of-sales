@@ -257,7 +257,7 @@ class CrmAutomationService
         );
 
         $shareText = sprintf(
-            __('Receivable reminder %s. Remaining balance Rp %s. Due date: %s'),
+            __('Receivable reminder %s. Remaining balance '.Setting::currencySymbol().' %s. Due date: %s'),
             $receivable->invoice,
             number_format($receivable->remaining, 0, ',', '.'),
             optional($receivable->due_date)?->format('d/m/Y') ?? '-'
@@ -415,7 +415,7 @@ class CrmAutomationService
     {
         foreach ($receivables as $receivable) {
             $message = sprintf(
-                __('Reminder %s for invoice %s. Remaining balance Rp %s. Due date %s.'),
+                __('Reminder %s for invoice %s. Remaining balance '.Setting::currencySymbol().' %s. Due date %s.'),
                 $reason,
                 $receivable->invoice,
                 number_format($receivable->remaining, 0, ',', '.'),
