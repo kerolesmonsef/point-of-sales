@@ -163,6 +163,7 @@ class FeatureCoverageSeeder extends Seeder
             'store_email' => ['value' => 'halo@majubersama.test', 'description' => 'Email toko'],
             'store_website' => ['value' => 'https://majubersama.test', 'description' => 'Website atau sosial media'],
             'store_city' => ['value' => 'Bandung', 'description' => 'Kota/Kabupaten toko'],
+            'store_currency' => ['value' => 'EGP', 'description' => 'Currency kode untuk toko (IDR, EGP, USD, dll)'],
         ];
 
         foreach ($settings as $key => $payload) {
