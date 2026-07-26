@@ -17,6 +17,7 @@ import ThermalReceipt, {
 } from "@/Components/Receipt/ThermalReceipt";
 import ShippingLabel from "@/Components/Receipt/ShippingLabel";
 import { useAuthorization } from "@/Utils/authorization";
+import { formatCurrency } from '@/Utils/formatCurrency';
 
 export default function Print({ transaction }) {
     const { storeProfile } = usePage().props;
@@ -25,13 +26,6 @@ export default function Print({ transaction }) {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [isConfirming, setIsConfirming] = useState(false);
     const canConfirmPayment = can("transactions-confirm-payment");
-
-    const formatPrice = (price = 0) =>
-        Number(price || 0).toLocaleString("id-ID", {
-            style: "currency",
-            currency: "IDR",
-            minimumFractionDigits: 0,
-        });
 
     const formatDateTime = (value) =>
         new Date(value).toLocaleString("id-ID", {
@@ -591,13 +585,13 @@ export default function Print({ transaction }) {
                                                             <div>
                                                                 {hasPromo && (
                                                                     <p className="text-xs text-slate-400 line-through">
-                                                                        {formatPrice(
+                                                                        {formatCurrency(
                                                                             baseUnitPrice
                                                                         )}
                                                                     </p>
                                                                 )}
                                                                 <p>
-                                                                    {formatPrice(
+                                                                    {formatCurrency(
                                                                         unitPrice
                                                                     )}
                                                                 </p>
@@ -607,7 +601,7 @@ export default function Print({ transaction }) {
                                                             {quantity}
                                                         </td>
                                                         <td className="py-3 text-right font-semibold text-slate-900 dark:text-white">
-                                                            {formatPrice(
+                                                            {formatCurrency(
                                                                 subtotal
                                                             )}
                                                         </td>
@@ -624,14 +618,14 @@ export default function Print({ transaction }) {
                                 <div className="max-w-xs ml-auto space-y-2 text-sm">
                                     <div className="flex justify-between text-slate-600 dark:text-slate-400">
                                         <span>Subtotal</span>
-                                        <span>{formatPrice(baseSubtotal)}</span>
+                                        <span>{formatCurrency(baseSubtotal)}</span>
                                     </div>
                                     {promoDiscountTotal > 0 && (
                                         <div className="flex justify-between text-slate-600 dark:text-slate-400">
                                             <span>{__("Auto Promo")}</span>
                                             <span>
                                                 -{" "}
-                                                {formatPrice(
+                                                {formatCurrency(
                                                     promoDiscountTotal
                                                 )}
                                             </span>
@@ -641,7 +635,7 @@ export default function Print({ transaction }) {
                                         <span>{__("Manual Discount")}</span>
                                         <span>
                                             -{" "}
-                                            {formatPrice(transaction.discount)}
+                                            {formatCurrency(transaction.discount)}
                                         </span>
                                     </div>
                                     {transaction.shipping_cost > 0 && (
@@ -649,7 +643,7 @@ export default function Print({ transaction }) {
                                             <span>{__("Shipping Cost")}</span>
                                             <span>
                                                 +{" "}
-                                                {formatPrice(
+                                                {formatCurrency(
                                                     transaction.shipping_cost
                                                 )}
                                             </span>
@@ -660,14 +654,14 @@ export default function Print({ transaction }) {
                                             <span>PPN {transaction.tax_rate ? Number(transaction.tax_rate).toFixed(0) : "11"}%</span>
                                             <span>
                                                 +{" "}
-                                                {formatPrice(transaction.tax_total)}
+                                                {formatCurrency(transaction.tax_total)}
                                             </span>
                                         </div>
                                     )}
                                     <div className="flex justify-between text-lg font-bold text-slate-900 dark:text-white pt-2 border-t border-slate-200 dark:border-slate-700">
                                         <span>Total</span>
                                         <span>
-                                            {formatPrice(
+                                            {formatCurrency(
                                                 transaction.grand_total
                                             )}
                                         </span>
@@ -677,7 +671,7 @@ export default function Print({ transaction }) {
                                             <div className="flex justify-between text-slate-600 dark:text-slate-400 pt-2">
                                                 <span>{__("Cash")}</span>
                                                 <span>
-                                                    {formatPrice(
+                                                    {formatCurrency(
                                                         transaction.cash
                                                     )}
                                                 </span>
@@ -685,7 +679,7 @@ export default function Print({ transaction }) {
                                             <div className="flex justify-between text-success-600 dark:text-success-400 font-medium">
                                                 <span>{__("Change")}</span>
                                                 <span>
-                                                    {formatPrice(
+                                                    {formatCurrency(
                                                         transaction.change
                                                     )}
                                                 </span>
@@ -767,7 +761,7 @@ export default function Print({ transaction }) {
                                         Total
                                     </span>
                                     <span className="text-lg font-bold text-primary-600 dark:text-primary-400">
-                                        {formatPrice(
+                                        {formatCurrency(
                                             transaction.grand_total ?? 0
                                         )}
                                     </span>

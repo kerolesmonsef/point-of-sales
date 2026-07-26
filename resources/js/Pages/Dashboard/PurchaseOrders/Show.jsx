@@ -13,13 +13,7 @@ import {
     IconTruckDelivery,
 } from "@tabler/icons-react";
 import toast from "react-hot-toast";
-
-const formatCurrency = (value = 0) =>
-    new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0,
-    }).format(value);
+import { formatCurrency } from '@/Utils/formatCurrency';
 
 const formatDateTime = (value) =>
     value

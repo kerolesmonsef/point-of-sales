@@ -1,6 +1,7 @@
 import React from "react";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head, Link } from "@inertiajs/react";
+import { formatCurrency } from '@/Utils/formatCurrency';
 import {
     IconArrowLeft,
     IconCoins,
@@ -11,13 +12,6 @@ import {
     IconReceipt,
     IconTags,
 } from "@tabler/icons-react";
-
-const formatPrice = (value = 0) =>
-    Number(value || 0).toLocaleString("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0,
-    });
 
 const formatDateTime = (value) =>
     value
@@ -123,7 +117,7 @@ export default function Show({
                                         {__("Total Spent")}
                                     </p>
                                     <p className="mt-2 text-lg font-bold text-slate-900 dark:text-white">
-                                        {formatPrice(stats?.total_spent || 0)}
+                                        {formatCurrency(stats?.total_spent || 0)}
                                     </p>
                                 </div>
                                 <div className="rounded-2xl bg-slate-50 p-4 dark:bg-slate-800/60">
@@ -176,7 +170,7 @@ export default function Show({
                                                 </p>
                                             </div>
                                             <p className="text-sm font-bold text-primary-600 dark:text-primary-300">
-                                                {formatPrice(transaction.total)}
+                                                {formatCurrency(transaction.total)}
                                             </p>
                                         </div>
                                     ))}
@@ -273,7 +267,7 @@ export default function Show({
                                         {__("Total Transaction Value")}
                                     </p>
                                     <p className="mt-1 font-semibold text-slate-900 dark:text-white">
-                                        {formatPrice(stats?.total_spent || 0)}
+                                        {formatCurrency(stats?.total_spent || 0)}
                                     </p>
                                 </div>
                             </div>
@@ -362,7 +356,7 @@ export default function Show({
                                                 <span className="text-xs font-medium text-primary-600 dark:text-primary-300">
                                                     {voucher.discount_type === "percentage"
                                                         ? `${voucher.discount_value}%`
-                                                        : formatPrice(voucher.discount_value)}
+                                                        : formatCurrency(voucher.discount_value)}
                                                 </span>
                                             </div>
                                         </div>

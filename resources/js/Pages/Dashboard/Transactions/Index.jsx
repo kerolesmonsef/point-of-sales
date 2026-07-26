@@ -21,6 +21,7 @@ import useBarcodeScanner from "@/Hooks/useBarcodeScanner";
 import { getProductImageUrl } from "@/Utils/imageUrl";
 import { useAuthorization } from "@/Utils/authorization";
 import { queueTransaction } from "@/Utils/offlineDb";
+import { formatCurrency } from '@/Utils/formatCurrency';
 import {
     IconUser,
     IconShoppingCart,
@@ -34,13 +35,6 @@ import {
     IconAlertTriangle,
     IconWallet,
 } from "@tabler/icons-react";
-
-const formatPrice = (value = 0) =>
-    Number(value || 0).toLocaleString("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0,
-    });
 
 export default function Index({
     carts = [],
@@ -827,14 +821,14 @@ export default function Index({
                                                         effectiveUnitPrice <
                                                             baseUnitPrice && (
                                                             <p className="line-through text-slate-400">
-                                                                {formatPrice(
+                                                                {formatCurrency(
                                                                     baseUnitPrice
                                                                 )}{" "}
                                                                 × {item.qty}
                                                             </p>
                                                         )}
                                                     <p>
-                                                        {formatPrice(
+                                                        {formatCurrency(
                                                             effectiveUnitPrice
                                                         )}{" "}
                                                         × {item.qty}
@@ -888,7 +882,7 @@ export default function Index({
                                                 </button>
                                             </div>
                                             <p className="text-xs font-semibold text-primary-600 dark:text-primary-400 w-16 text-right">
-                                                {formatPrice(
+                                                {formatCurrency(
                                                     effectiveLineTotal
                                                 )}
                                             </p>
@@ -1118,7 +1112,7 @@ export default function Index({
                                                             : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200"
                                                     }`}
                                                 >
-                                                    {formatPrice(amt)}
+                                                    {formatCurrency(amt)}
                                                 </button>
                                             )
                                         )}
@@ -1139,7 +1133,7 @@ export default function Index({
                                             </p>
                                         </div>
                                         <span className="text-sm font-bold text-emerald-700 dark:text-emerald-300">
-                                            -{formatPrice(promoDiscount)}
+                                            -{formatCurrency(promoDiscount)}
                                         </span>
                                     </div>
                                 </div>
@@ -1291,7 +1285,7 @@ export default function Index({
                                                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200"
                                             }`}
                                         >
-                                            {formatPrice(amt)}
+                                            {formatCurrency(amt)}
                                         </button>
                                     ))}
                                 </div>
@@ -1334,7 +1328,7 @@ export default function Index({
                         <div className="flex justify-between items-center mb-2 text-sm">
                             <span className="text-slate-500">{__("Base Subtotal")}</span>
                             <span className="font-medium">
-                                {formatPrice(baseSubtotal)}
+                                {formatCurrency(baseSubtotal)}
                             </span>
                         </div>
                         {promoDiscount > 0 && (
@@ -1343,7 +1337,7 @@ export default function Index({
                                     {__("Auto Promo")}
                                 </span>
                                 <span className="text-emerald-600">
-                                    -{formatPrice(promoDiscount)}
+                                    -{formatCurrency(promoDiscount)}
                                 </span>
                             </div>
                         )}
@@ -1363,7 +1357,7 @@ export default function Index({
                                                     {group.label}
                                                 </span>
                                                 <span className="font-medium text-emerald-600">
-                                                    -{formatPrice(group.discount_total)}
+                                                    -{formatCurrency(group.discount_total)}
                                                 </span>
                                             </div>
                                         )
@@ -1375,7 +1369,7 @@ export default function Index({
                             <div className="flex justify-between items-center mb-2 text-sm">
                                 <span className="text-slate-500">Voucher</span>
                                 <span className="text-primary-600">
-                                    -{formatPrice(voucherDiscount)}
+                                    -{formatCurrency(voucherDiscount)}
                                 </span>
                             </div>
                         )}
@@ -1385,7 +1379,7 @@ export default function Index({
                                     {__("Redeem Points")}
                                 </span>
                                 <span className="text-primary-600">
-                                    -{formatPrice(loyaltyDiscount)}
+                                    -{formatCurrency(loyaltyDiscount)}
                                 </span>
                             </div>
                         )}
@@ -1393,7 +1387,7 @@ export default function Index({
                             <div className="flex justify-between items-center mb-2 text-sm">
                                 <span className="text-slate-500">{__("Manual Discount")}</span>
                                 <span className="text-danger-500">
-                                    -{formatPrice(discount)}
+                                    -{formatCurrency(discount)}
                                 </span>
                             </div>
                         )}
@@ -1401,7 +1395,7 @@ export default function Index({
                             <div className="flex justify-between items-center mb-2 text-sm">
                                 <span className="text-slate-500">{__("Shipping")}</span>
                                 <span className="font-medium">
-                                    +{formatPrice(shipping)}
+                                    +{formatCurrency(shipping)}
                                 </span>
                             </div>
                         )}
@@ -1409,7 +1403,7 @@ export default function Index({
                             <div className="flex justify-between items-center mb-2 text-sm">
                                 <span className="text-slate-500">PPN</span>
                                 <span className="font-medium">
-                                    +{formatPrice(taxTotal)}
+                                    +{formatCurrency(taxTotal)}
                                 </span>
                             </div>
                         )}
@@ -1418,7 +1412,7 @@ export default function Index({
                                 Total
                             </span>
                             <span className="text-xl font-bold text-primary-600 dark:text-primary-400">
-                                {formatPrice(payable)}
+                                {formatCurrency(payable)}
                             </span>
                         </div>
 
@@ -1431,7 +1425,7 @@ export default function Index({
                                         {__("Change")}
                                     </span>
                                     <span className="font-bold text-success-600">
-                                        {formatPrice(cash - payable)}
+                                        {formatCurrency(cash - payable)}
                                     </span>
                                 </div>
                             )}
@@ -1469,7 +1463,7 @@ export default function Index({
                                             ? __("Select Customer")
                                             : paymentMethod === "cash" &&
                                               cash < payable
-                                            ? `${__("Short")} ${formatPrice(
+                                            ? `${__("Short")} ${formatCurrency(
                                                   payable - cash
                                               )}`
                                             : isLoadingPricing

@@ -3,6 +3,7 @@ import DashboardLayout from "@/Layouts/DashboardLayout";
 import Pagination from "@/Components/Dashboard/Pagination";
 import Table from "@/Components/Dashboard/Table";
 import { Head, Link, router } from "@inertiajs/react";
+import { formatCurrency } from '@/Utils/formatCurrency';
 import {
     IconCirclePlus,
     IconCrown,
@@ -11,13 +12,6 @@ import {
     IconSearch,
     IconUsers,
 } from "@tabler/icons-react";
-
-const formatCurrency = (value = 0) =>
-    Number(value || 0).toLocaleString("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0,
-    });
 
 const formatDate = (value) =>
     value

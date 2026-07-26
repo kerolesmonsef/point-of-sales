@@ -1,4 +1,5 @@
 import React from "react";
+import { formatCurrency } from '@/Utils/formatCurrency';
 import {
     IconMapPin,
     IconPhone,
@@ -9,12 +10,6 @@ import {
 } from "@tabler/icons-react";
 
 export default function ShippingLabel({ transaction, store = {} }) {
-    const formatPrice = (price = 0) =>
-        Number(price || 0).toLocaleString("id-ID", {
-            style: "currency",
-            currency: "IDR",
-            minimumFractionDigits: 0,
-        });
 
     const formatDate = (value) => {
         if (!value) return "-";
@@ -157,7 +152,7 @@ export default function ShippingLabel({ transaction, store = {} }) {
                                 </div>
                                 <div className="pt-2 border-t border-slate-200 flex justify-between items-center">
                                     <span className="text-[10px] font-bold text-slate-400 uppercase">{__("Total Payment")}</span>
-                                    <span className="text-sm font-black text-slate-900">{formatPrice(transaction?.grand_total)}</span>
+                                    <span className="text-sm font-black text-slate-900">{formatCurrency(transaction?.grand_total)}</span>
                                 </div>
                             </div>
                         </div>

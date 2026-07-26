@@ -5,6 +5,7 @@ import InputSelect from "@/Components/Dashboard/InputSelect";
 import Button from "@/Components/Dashboard/Button";
 import Table from "@/Components/Dashboard/Table";
 import Pagination from "@/Components/Dashboard/Pagination";
+import { formatCurrency } from '@/Utils/formatCurrency';
 import {
     IconCoin,
     IconDatabaseOff,
@@ -51,13 +52,6 @@ const defaultFilterState = {
     customer_id: "",
     warehouse_id: "",
 };
-
-const formatCurrency = (value = 0) =>
-    new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0,
-    }).format(value);
 
 const castFilterString = (value) =>
     typeof value === "number" ? String(value) : value ?? "";

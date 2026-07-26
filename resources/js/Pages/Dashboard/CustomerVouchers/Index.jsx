@@ -13,13 +13,7 @@ import {
     IconTrash,
 } from "@tabler/icons-react";
 import { useAuthorization } from "@/Utils/authorization";
-
-const formatPrice = (value = 0) =>
-    Number(value || 0).toLocaleString("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0,
-    });
+import { formatCurrency } from '@/Utils/formatCurrency';
 
 const statusBadge = (voucher) => {
     if (voucher.is_used) {
@@ -174,10 +168,10 @@ export default function Index({ vouchers, filters = {} }) {
                                             <p className="text-sm text-slate-700 dark:text-slate-300">
                                                 {voucher.discount_type === "percentage"
                                                     ? `${voucher.discount_value}%`
-                                                    : formatPrice(voucher.discount_value)}
+                                                    : formatCurrency(voucher.discount_value)}
                                             </p>
                                             <p className="text-xs text-slate-500 dark:text-slate-400">
-                                                {__("Min.")} {formatPrice(voucher.minimum_order)}
+                                                {__("Min.")} {formatCurrency(voucher.minimum_order)}
                                             </p>
                                         </Table.Td>
                                         <Table.Td>

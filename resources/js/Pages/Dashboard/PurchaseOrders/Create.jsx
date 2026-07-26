@@ -11,13 +11,7 @@ import {
     IconShoppingCart,
 } from "@tabler/icons-react";
 import toast from "react-hot-toast";
-
-const formatCurrency = (value = 0) =>
-    new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0,
-    }).format(value);
+import { formatCurrency } from '@/Utils/formatCurrency';
 
 export default function Create({ suppliers, products, warehouses = [] }) {
     const { data, setData, post, processing, errors } = useForm({

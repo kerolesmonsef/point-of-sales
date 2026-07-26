@@ -2,18 +2,12 @@ import React from "react";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head, Link } from "@inertiajs/react";
 import Table from "@/Components/Dashboard/Table";
+import { formatCurrency } from '@/Utils/formatCurrency';
 import {
     IconArrowLeft,
     IconTruckDelivery,
     IconPackage,
 } from "@tabler/icons-react";
-
-const formatCurrency = (value = 0) =>
-    new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0,
-    }).format(value);
 
 const formatDateTime = (value) =>
     value

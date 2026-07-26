@@ -2,13 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Head, Link, router } from "@inertiajs/react";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import Pagination from "@/Components/Dashboard/Pagination";
-
-const formatCurrency = (value = 0) =>
-    new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0,
-    }).format(value);
+import { formatCurrency } from '@/Utils/formatCurrency';
 
 const formatDate = (value) =>
     value

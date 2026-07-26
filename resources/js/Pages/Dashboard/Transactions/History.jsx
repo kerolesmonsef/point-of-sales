@@ -5,6 +5,7 @@ import Button from "@/Components/Dashboard/Button";
 import Table from "@/Components/Dashboard/Table";
 import Pagination from "@/Components/Dashboard/Pagination";
 import { useAuthorization } from "@/Utils/authorization";
+import { formatCurrency } from '@/Utils/formatCurrency';
 import {
     IconDatabaseOff,
     IconSearch,
@@ -26,13 +27,6 @@ const defaultFilters = {
     end_date: "",
     warehouse_id: "",
 };
-
-const formatCurrency = (value = 0) =>
-    new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0,
-    }).format(value);
 
 const History = ({ transactions, filters, warehouses = [] }) => {
     const { can } = useAuthorization();

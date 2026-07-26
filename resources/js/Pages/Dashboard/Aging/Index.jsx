@@ -1,6 +1,7 @@
 import React from "react";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head, Link, usePage } from "@inertiajs/react";
+import { formatCurrency } from '@/Utils/formatCurrency';
 import {
     IconAlertTriangle,
     IconChartBar,
@@ -9,13 +10,6 @@ import {
     IconReceipt,
     IconTruck,
 } from "@tabler/icons-react";
-
-const formatCurrency = (value = 0) =>
-    new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0,
-    }).format(value);
 
 const formatDate = (value) => {
     if (!value) return "-";

@@ -3,6 +3,7 @@ import { Head, router } from "@inertiajs/react";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import InputSelect from "@/Components/Dashboard/InputSelect";
 import Pagination from "@/Components/Dashboard/Pagination";
+import { formatCurrency } from '@/Utils/formatCurrency';
 import {
     IconCoin,
     IconDatabaseOff,
@@ -46,13 +47,6 @@ const defaultFilters = {
     cashier_id: "",
     customer_id: "",
 };
-
-const formatCurrency = (value = 0) =>
-    new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0,
-    }).format(value);
 
 const ProfitReport = ({
     transactions,

@@ -24,13 +24,7 @@ import { getProductImageUrl } from "@/Utils/imageUrl";
 import BarcodePrintModal from "@/Components/Barcode/BarcodePrintModal";
 import { useAuthorization } from "@/Utils/authorization";
 import { router } from "@inertiajs/react";
-
-const formatCurrency = (value = 0) =>
-    new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0,
-    }).format(value);
+import { formatCurrency } from '@/Utils/formatCurrency';
 
 // Product Card for Grid View
 function ProductCard({

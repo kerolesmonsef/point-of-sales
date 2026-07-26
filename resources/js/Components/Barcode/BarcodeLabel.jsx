@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import JsBarcode from "jsbarcode";
 import { useEffect } from "react";
+import { formatCurrency } from '@/Utils/formatCurrency';
 
 /**
  * BarcodeLabel Component
@@ -56,13 +57,6 @@ export default function BarcodeLabel({
         }
     }, [product?.barcode, currentSize]);
 
-    const formatPrice = (value = 0) =>
-        value.toLocaleString("id-ID", {
-            style: "currency",
-            currency: "IDR",
-            minimumFractionDigits: 0,
-        });
-
     if (!product) return null;
 
     return (
@@ -91,7 +85,7 @@ export default function BarcodeLabel({
                     className="font-bold text-slate-900 mt-1"
                     style={{ fontSize: size === "50x30" ? "12px" : "14px" }}
                 >
-                    {formatPrice(product.sell_price)}
+                    {formatCurrency(product.sell_price)}
                 </p>
             )}
 
@@ -101,7 +95,7 @@ export default function BarcodeLabel({
                     className="text-slate-500 mt-0.5"
                     style={{ fontSize: size === "50x30" ? "8px" : "10px" }}
                 >
-                    + Ongkir {formatPrice(ongkirAmount)}
+                    + Ongkir {formatCurrency(ongkirAmount)}
                 </p>
             )}
         </div>

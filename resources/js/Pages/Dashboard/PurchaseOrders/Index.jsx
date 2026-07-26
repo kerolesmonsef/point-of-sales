@@ -5,6 +5,7 @@ import Button from "@/Components/Dashboard/Button";
 import Table from "@/Components/Dashboard/Table";
 import Pagination from "@/Components/Dashboard/Pagination";
 import { useAuthorization } from "@/Utils/authorization";
+import { formatCurrency } from '@/Utils/formatCurrency';
 import {
     IconCirclePlus,
     IconEye,
@@ -12,13 +13,6 @@ import {
     IconShoppingCart,
     IconX,
 } from "@tabler/icons-react";
-
-const formatCurrency = (value = 0) =>
-    new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0,
-    }).format(value);
 
 const statusBadge = (status) => {
     const base = "inline-flex rounded-full px-2.5 py-1 text-xs font-semibold";

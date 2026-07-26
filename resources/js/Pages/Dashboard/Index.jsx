@@ -2,6 +2,7 @@ import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head, Link } from "@inertiajs/react";
 import { useEffect, useMemo, useRef } from "react";
 import Chart from "chart.js/auto";
+import { formatCurrency } from '@/Utils/formatCurrency';
 import {
     IconBox,
     IconCategory,
@@ -21,13 +22,6 @@ import {
     IconMapPin,
     IconWallet,
 } from "@tabler/icons-react";
-
-const formatCurrency = (value = 0) =>
-    new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0,
-    }).format(value);
 
 // Stat Card Component
 function StatCard({ title, value, subtitle, icon: Icon, gradient, trend }) {

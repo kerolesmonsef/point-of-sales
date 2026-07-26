@@ -4,6 +4,7 @@ import DashboardLayout from "@/Layouts/DashboardLayout";
 import Table from "@/Components/Dashboard/Table";
 import Pagination from "@/Components/Dashboard/Pagination";
 import { useAuthorization } from "@/Utils/authorization";
+import { formatCurrency } from '@/Utils/formatCurrency';
 import {
     IconCashBanknote,
     IconClockHour4,
@@ -11,13 +12,6 @@ import {
     IconHistory,
     IconUser,
 } from "@tabler/icons-react";
-
-const formatCurrency = (value = 0) =>
-    new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0,
-    }).format(value);
 
 const formatDateTime = (value) => {
     if (!value) return "-";

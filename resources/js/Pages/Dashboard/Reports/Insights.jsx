@@ -4,6 +4,7 @@ import Table from "@/Components/Dashboard/Table";
 import { Head, router } from "@inertiajs/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Chart from "chart.js/auto";
+import { formatCurrency } from '@/Utils/formatCurrency';
 import {
     IconChartBar,
     IconClock,
@@ -26,13 +27,6 @@ const defaultFilters = {
     customer_id: "",
     category_id: "",
 };
-
-const formatCurrency = (value = 0) =>
-    new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0,
-    }).format(value);
 
 const formatPercentage = (value = 0) =>
     new Intl.NumberFormat("id-ID", {

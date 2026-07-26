@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { IconBackspace, IconX, IconCheck } from "@tabler/icons-react";
+import { formatCurrency } from '@/Utils/formatCurrency';
 
 /**
  * Numpad Modal for POS - Touch-friendly number input
@@ -96,11 +97,7 @@ export default function NumpadModal({
     const formatDisplay = (val) => {
         const num = parseInt(val, 10) || 0;
         if (isCurrency) {
-            return new Intl.NumberFormat("id-ID", {
-                style: "currency",
-                currency: "IDR",
-                minimumFractionDigits: 0,
-            }).format(num);
+            return formatCurrency(num);
         }
         return num.toLocaleString("id-ID");
     };
