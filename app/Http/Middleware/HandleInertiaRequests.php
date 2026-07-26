@@ -172,6 +172,7 @@ class HandleInertiaRequests extends Middleware
             'receivableAgingSummary' => $receivableAgingSummary,
             'activeCashierShift' => $activeCashierShift,
             'storeProfile' => $storeProfile,
+            'storeCurrency' => Schema::hasTable('settings') ? Setting::get('store_currency', 'IDR') : 'IDR',
             'pendingApprovalCount' => $pendingApprovalCount,
             'appVersion' => config('app.version'),
             'security' => [
