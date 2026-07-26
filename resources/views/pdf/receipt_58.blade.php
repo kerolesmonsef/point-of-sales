@@ -1,7 +1,7 @@
 @php
     $line = str_repeat('=', 32);
     $dash = str_repeat('-', 32);
-    $formatPrice = fn($v) => 'Rp ' . number_format($v ?? 0, 0, ',', '.');
+    $formatPrice = fn($v) => \App\Models\Setting::currencySymbol() . ' ' . number_format($v ?? 0, 0, ',', '.');
 @endphp
 <!DOCTYPE html>
 <html lang="id">

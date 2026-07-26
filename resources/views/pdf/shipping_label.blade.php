@@ -1,5 +1,5 @@
 @php
-    $formatPrice = fn($v) => 'Rp ' . number_format($v ?? 0, 0, ',', '.');
+    $formatPrice = fn($v) => \App\Models\Setting::currencySymbol() . ' ' . number_format($v ?? 0, 0, ',', '.');
     $formatDate = fn($v) => \Carbon\Carbon::parse($v)->format('d M Y');
 @endphp
 <!DOCTYPE html>
