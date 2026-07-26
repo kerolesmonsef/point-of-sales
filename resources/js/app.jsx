@@ -21,6 +21,8 @@ createInertiaApp({
     setup({ el, App, props }) {
         const root = createRoot(el);
 
+        window.__storeCurrency = props.initialPage.props.storeCurrency || 'IDR';
+
         root.render(
             <ThemeSwitcherProvider>
                 <OnlineStatusProvider>
