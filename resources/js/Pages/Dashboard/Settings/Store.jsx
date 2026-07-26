@@ -28,6 +28,7 @@ export default function Store({ settings }) {
         store_npwp: settings.store_npwp || "",
         store_nib: settings.store_nib || "",
         tax_default_rate: settings.tax_default_rate || "11.00",
+        store_currency: settings.store_currency || 'EGP',
     });
 
     const [logoPreview, setLogoPreview] = useState(settings.store_logo || null);
@@ -199,6 +200,25 @@ export default function Store({ settings }) {
                             <p className="mt-1 text-xs text-slate-400">
                                 {__("Default rate for new products. Can be changed per product.")}
                             </p>
+                        </div>
+                        <div className="mt-4">
+                            <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                                {__('Store Currency')}
+                            </label>
+                            <select
+                                value={data.store_currency}
+                                onChange={(e) => setData('store_currency', e.target.value)}
+                                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm"
+                            >
+                                <option value="EGP">E£ — Egyptian Pound</option>
+                                <option value="IDR">Rp — Indonesian Rupiah</option>
+                                <option value="USD">$ — US Dollar</option>
+                                <option value="GBP">£ — British Pound</option>
+                                <option value="EUR">€ — Euro</option>
+                            </select>
+                            {errors.store_currency && (
+                                <p className="text-xs text-danger-500 mt-1">{errors.store_currency}</p>
+                            )}
                         </div>
                     </div>
 
