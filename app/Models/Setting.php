@@ -35,6 +35,25 @@ class Setting extends Model
         return filter_var(static::get($key, $default ? '1' : '0'), FILTER_VALIDATE_BOOL);
     }
 
+    public static function getTranslated(string $key, $default = null): string
+    {
+        return __(static::get($key, $default));
+    }
+
+    public static function currencySymbol(?string $code = null): string
+    {
+        $code ??= static::get('store_currency', 'IDR');
+
+        return match ($code) {
+            'IDR' => 'Rp',
+            'EGP' => 'E£',
+            'USD' => '$',
+            'GBP' => '£',
+            'EUR' => '€',
+            default => $code,
+        };
+    }
+
     /**
      * Set a setting value by key
      */
