@@ -53,7 +53,7 @@ class SupplierReturnController extends Controller
         if ($request->input('supplier_id')) {
             $goodsReceivings = GoodsReceiving::with([
                 'supplier:id,name',
-                'items.product:id,title,sku',
+                'items.product:id,title',
                 'items.purchaseOrderItem:id,unit_price',
             ])->where('supplier_id', $request->input('supplier_id'))
                 ->whereHas('purchaseOrder', fn ($q) => $q->whereIn('status', ['ordered', 'partial_received', 'completed']))
@@ -61,7 +61,7 @@ class SupplierReturnController extends Controller
                 ->get();
         }
 
-        $products = Product::orderBy('title')->get(['id', 'title', 'sku', 'buy_price', 'stock']);
+        $products = Product::orderBy('title')->get(['id', 'title', 'buy_price', 'stock']);
 
         return Inertia::render('Dashboard/SupplierReturns/Create', [
             'suppliers' => $suppliers,
@@ -102,7 +102,7 @@ class SupplierReturnController extends Controller
             'supplier:id,name,phone,email,address',
             'goodsReceiving:id,document_number',
             'payable:id,total,paid,status,document_number',
-            'items.product:id,title,sku',
+            'items.product:id,title',
             'items.goodsReceivingItem',
             'creator:id,name',
         ]);

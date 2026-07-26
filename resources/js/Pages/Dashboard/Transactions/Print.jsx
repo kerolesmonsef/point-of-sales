@@ -223,7 +223,7 @@ export default function Print({ transaction }) {
                                         size={16}
                                         className="inline mr-1"
                                     />
-                                    Resi
+                                    {__("Shipping Label")}
                                 </button>
                             </div>
 
@@ -309,7 +309,7 @@ export default function Print({ transaction }) {
                                     className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-sm font-semibold text-white transition-colors w-full sm:w-auto"
                                 >
                                     <IconPrinter size={18} />
-                                    PDF Struk {printMode === "thermal58" ? "58mm" : "80mm"}
+                                    {__("PDF Receipt")} {printMode === "thermal58" ? "58mm" : "80mm"}
                                 </a>
                             )}
 
@@ -493,7 +493,7 @@ export default function Print({ transaction }) {
                                 transaction.bank_account && (
                                     <div className="mx-6 mb-6 p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                                         <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
-                                            Silakan Transfer ke Rekening
+                                            {__("Please transfer to account")}
                                         </p>
                                         <p className="text-lg font-bold text-slate-900 dark:text-white">
                                             {transaction.bank_account.bank_name}
@@ -521,10 +521,10 @@ export default function Print({ transaction }) {
                                         <thead>
                                             <tr className="border-b border-slate-100 dark:border-slate-800">
                                                 <th className="pb-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                                                    Produk
+                                                    {__("Product")}
                                                 </th>
                                                 <th className="pb-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                                                    Harga
+                                                    {__("Price")}
                                                 </th>
                                                 <th className="pb-3 text-center text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                                                     Qty
@@ -628,7 +628,7 @@ export default function Print({ transaction }) {
                                     </div>
                                     {promoDiscountTotal > 0 && (
                                         <div className="flex justify-between text-slate-600 dark:text-slate-400">
-                                            <span>Promo Otomatis</span>
+                                            <span>{__("Auto Promo")}</span>
                                             <span>
                                                 -{" "}
                                                 {formatPrice(
@@ -638,7 +638,7 @@ export default function Print({ transaction }) {
                                         </div>
                                     )}
                                     <div className="flex justify-between text-slate-600 dark:text-slate-400">
-                                        <span>Diskon Manual</span>
+                                        <span>{__("Manual Discount")}</span>
                                         <span>
                                             -{" "}
                                             {formatPrice(transaction.discount)}
@@ -646,7 +646,7 @@ export default function Print({ transaction }) {
                                     </div>
                                     {transaction.shipping_cost > 0 && (
                                         <div className="flex justify-between text-slate-600 dark:text-slate-400">
-                                            <span>Ongkos Kirim</span>
+                                            <span>{__("Shipping Cost")}</span>
                                             <span>
                                                 +{" "}
                                                 {formatPrice(
@@ -675,7 +675,7 @@ export default function Print({ transaction }) {
                                     {paymentMethodKey === "cash" && (
                                         <>
                                             <div className="flex justify-between text-slate-600 dark:text-slate-400 pt-2">
-                                                <span>Tunai</span>
+                                                <span>{__("Cash")}</span>
                                                 <span>
                                                     {formatPrice(
                                                         transaction.cash
@@ -683,7 +683,7 @@ export default function Print({ transaction }) {
                                                 </span>
                                             </div>
                                             <div className="flex justify-between text-success-600 dark:text-success-400 font-medium">
-                                                <span>Kembali</span>
+                                                <span>{__("Change")}</span>
                                                 <span>
                                                     {formatPrice(
                                                         transaction.change
@@ -702,8 +702,8 @@ export default function Print({ transaction }) {
                                 </p>
                                 <SimpleBarcode value={transaction.invoice} />
                                 <div className="text-center mt-4">
-                                    <p className="text-xs text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-                                        Terima kasih telah berbelanja
+                                        <p className="text-xs text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                                        {__("Thank you for shopping")}
                                     </p>
                                 </div>
                             </div>
@@ -733,10 +733,10 @@ export default function Print({ transaction }) {
                                 </div>
                                 <div>
                                     <h3 className="text-lg font-bold">
-                                        Konfirmasi Pembayaran
+                                        {__("Payment Confirmation")}
                                     </h3>
                                     <p className="text-sm opacity-90">
-                                        Transfer Bank
+                                        {__("Bank Transfer")}
                                     </p>
                                 </div>
                             </div>
@@ -756,10 +756,10 @@ export default function Print({ transaction }) {
                                 </div>
                                 <div className="flex justify-between items-center mb-2">
                                     <span className="text-sm text-slate-500 dark:text-slate-400">
-                                        Pelanggan
+                                        {__("Customer")}
                                     </span>
                                     <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                        {transaction.customer?.name ?? "Umum"}
+                                        {transaction.customer?.name ?? __("General")}
                                     </span>
                                 </div>
                                 <div className="flex justify-between items-center">
@@ -781,9 +781,7 @@ export default function Print({ transaction }) {
                                     className="text-warning-600 dark:text-warning-400 flex-shrink-0 mt-0.5"
                                 />
                                 <p className="text-sm text-warning-800 dark:text-warning-300">
-                                    Pastikan dana sudah diterima sebelum
-                                    mengkonfirmasi pembayaran ini. Tindakan ini
-                                    tidak dapat dibatalkan.
+                                    {__("Make sure the funds have been received before confirming this payment. This action cannot be undone.")}
                                 </p>
                             </div>
                         </div>
@@ -795,7 +793,7 @@ export default function Print({ transaction }) {
                                 disabled={isConfirming}
                                 className="flex-1 px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50"
                             >
-                                Batal
+                                {__("Cancel")}
                             </button>
                             <button
                                 onClick={() => {
@@ -841,12 +839,12 @@ export default function Print({ transaction }) {
                                                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                                             />
                                         </svg>
-                                        Memproses...
+                                        {__("Processing...")}
                                     </>
                                 ) : (
                                     <>
                                         <IconCheck size={18} />
-                                        Konfirmasi Lunas
+                                        {__("Confirm Paid")}
                                     </>
                                 )}
                             </button>

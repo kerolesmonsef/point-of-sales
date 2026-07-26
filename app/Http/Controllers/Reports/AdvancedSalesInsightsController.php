@@ -130,8 +130,8 @@ class AdvancedSalesInsightsController extends Controller
         return $this->detailMetricsQuery($filters)
             ->selectRaw('
                 td.product_id,
+                td.product_id,
                 p.title as product_title,
-                p.sku as product_sku,
                 c.name as category_name,
                 p.stock as current_stock,
                 SUM(td.qty) as qty_sold,
@@ -146,7 +146,7 @@ class AdvancedSalesInsightsController extends Controller
                 'tx',
                 fn ($join) => $join->on('tx.transaction_id', '=', 'td.transaction_id')
             )
-            ->groupBy('td.product_id', 'p.title', 'p.sku', 'c.name', 'p.stock')
+            ->groupBy('td.product_id', 'p.title', 'c.name', 'p.stock')
             ->orderByDesc('qty_sold')
             ->orderByDesc('revenue_total')
             ->limit(10)
@@ -154,7 +154,6 @@ class AdvancedSalesInsightsController extends Controller
             ->map(fn ($row) => [
                 'product_id' => (int) $row->product_id,
                 'product_title' => $row->product_title,
-                'product_sku' => $row->product_sku,
                 'category_name' => $row->category_name,
                 'current_stock' => (int) $row->current_stock,
                 'qty_sold' => (int) $row->qty_sold,
@@ -192,7 +191,6 @@ class AdvancedSalesInsightsController extends Controller
             ->selectRaw('
                 products.id as product_id,
                 products.title as product_title,
-                products.sku as product_sku,
                 categories.name as category_name,
                 products.stock as current_stock,
                 COALESCE(sales.qty_sold, 0) as qty_sold,
@@ -208,7 +206,6 @@ class AdvancedSalesInsightsController extends Controller
             ->map(fn ($row) => [
                 'product_id' => (int) $row->product_id,
                 'product_title' => $row->product_title,
-                'product_sku' => $row->product_sku,
                 'category_name' => $row->category_name,
                 'current_stock' => (int) $row->current_stock,
                 'qty_sold' => (int) $row->qty_sold,
@@ -461,7 +458,6 @@ class AdvancedSalesInsightsController extends Controller
             ->selectRaw('
                 products.id as product_id,
                 products.title as product_title,
-                products.sku as product_sku,
                 categories.name as category_name,
                 products.stock as current_stock,
                 COALESCE(sales.qty_sold, 0) as qty_sold,
@@ -480,7 +476,6 @@ class AdvancedSalesInsightsController extends Controller
                 return [
                     'product_id' => (int) $row->product_id,
                     'product_title' => $row->product_title,
-                    'product_sku' => $row->product_sku,
                     'category_name' => $row->category_name,
                     'current_stock' => $currentStock,
                     'qty_sold' => $qtySold,

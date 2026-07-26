@@ -137,7 +137,7 @@ export default function Show({ return: ret }) {
                                                 <p className="font-medium text-slate-800 dark:text-slate-200">
                                                     {item.product?.title || __("Product #") + item.product_id}
                                                 </p>
-                                                <p className="text-xs text-slate-500">{item.product?.sku || "-"}</p>
+
                                             </Table.Td>
                                             <Table.Td className="font-semibold">{item.qty_returned}</Table.Td>
                                             <Table.Td>{formatCurrency(item.unit_price)}</Table.Td>

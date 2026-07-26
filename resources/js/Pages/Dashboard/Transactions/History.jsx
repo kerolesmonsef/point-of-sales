@@ -317,7 +317,7 @@ const History = ({ transactions, filters, warehouses = [] }) => {
                                                   "paid" ? (
                                                     <span className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium bg-success-100 dark:bg-success-900/30 text-success-700 dark:text-success-400 rounded-full">
                                                         <IconCheck size={12} />
-                                                        Lunas
+                                                        {__("Paid")}
                                                     </span>
                                                 ) : transaction.payment_status ===
                                                       "pending" &&
@@ -352,11 +352,11 @@ const History = ({ transactions, filters, warehouses = [] }) => {
                                                             className="inline-flex items-center justify-center rounded-lg bg-warning-50 px-3 py-2 text-xs font-semibold text-warning-700 hover:bg-warning-100 dark:bg-warning-950/30 dark:text-warning-300"
                                                             title={__("Create return")}
                                                         >
-                                                            Retur
+                                                            {__("Return")}
                                                         </Link>
                                                         ) : (
                                                         <span className="inline-flex items-center justify-center rounded-lg bg-slate-100 px-3 py-2 text-xs font-semibold text-slate-500 dark:bg-slate-800 dark:text-slate-400">
-                                                            Retur selesai
+                                                            {__("Return completed")}
                                                         </span>
                                                         )
                                                     ) : null}
@@ -443,7 +443,7 @@ const History = ({ transactions, filters, warehouses = [] }) => {
                                                   "paid" ? (
                                                     <span className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium bg-success-100 dark:bg-success-900/30 text-success-700 dark:text-success-400 rounded-full">
                                                         <IconCheck size={12} />
-                                                        Lunas
+                                                        {__("Paid")}
                                                     </span>
                                                 ) : transaction.payment_status ===
                                                       "pending" &&
@@ -477,7 +477,7 @@ const History = ({ transactions, filters, warehouses = [] }) => {
                                     <div className="grid grid-cols-2 gap-2 text-sm text-slate-600 dark:text-slate-300">
                                         <div>
                                             <p className="text-xs text-slate-500 dark:text-slate-400">
-                                                Kasir
+                                                {__("Cashier")}
                                             </p>
                                             <p className="font-medium">
                                                 {transaction.cashier?.name ??
@@ -486,7 +486,7 @@ const History = ({ transactions, filters, warehouses = [] }) => {
                                         </div>
                                         <div className="text-right">
                                             <p className="text-xs text-slate-500 dark:text-slate-400">
-                                                Pelanggan
+                                                {__("Customer")}
                                             </p>
                                             <p className="font-medium">
                                                 {transaction.customer?.name ??
@@ -495,7 +495,7 @@ __("General")}
                                         </div>
                                         <div>
                                             <p className="text-xs text-slate-500 dark:text-slate-400">
-                                                Item
+                                                {__("Item")}
                                             </p>
                                             <p className="font-medium">
                                                 {transaction.total_items ?? 0}
@@ -503,7 +503,7 @@ __("General")}
                                         </div>
                                         <div className="text-right">
                                             <p className="text-xs text-slate-500 dark:text-slate-400">
-                                                Pembayaran
+                                                {__("Payment")}
                                             </p>
                                             <p className="font-medium capitalize">
                                                 {transaction.payment_method?.replace("_", " ") ??
@@ -522,7 +522,7 @@ __("General")}
                                                 )}
                                                 className="inline-flex items-center justify-center gap-1 px-3 py-2 text-xs font-semibold rounded-lg bg-warning-50 text-warning-700 hover:bg-warning-100 dark:bg-warning-950/30 dark:text-warning-300"
                                             >
-                                                Retur
+                                                {__("Return")}
                                             </Link>
                                             ) : (
                                             <div className="inline-flex items-center justify-center gap-1 px-3 py-2 text-xs font-semibold rounded-lg bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400">
@@ -648,11 +648,11 @@ __("General")}
                                 </div>
                                 <div className="flex justify-between items-center mb-2">
                                     <span className="text-sm text-slate-500 dark:text-slate-400">
-                                        Pelanggan
+                                        {__("Customer")}
                                     </span>
                                     <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
                                         {confirmModal.transaction.customer
-                                            ?.name ?? "Umum"}
+                                            ?.name ?? __("General")}
                                     </span>
                                 </div>
                                 <div className="flex justify-between items-center">
@@ -675,9 +675,7 @@ __("General")}
                                     className="text-warning-600 dark:text-warning-400 flex-shrink-0 mt-0.5"
                                 />
                                 <p className="text-sm text-warning-800 dark:text-warning-300">
-                                    Pastikan dana sudah diterima sebelum
-                                    mengkonfirmasi pembayaran ini. Tindakan ini
-                                    tidak dapat dibatalkan.
+                                    {__("Make sure the funds have been received before confirming this payment. This action cannot be undone.")}
                                 </p>
                             </div>
                         </div>
@@ -694,7 +692,7 @@ __("General")}
                                 disabled={isConfirming}
                                 className="flex-1 px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50"
                             >
-                                Batal
+                                {__("Cancel")}
                             </button>
                             <button
                                 onClick={() => {

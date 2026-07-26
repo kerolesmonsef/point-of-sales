@@ -26,7 +26,6 @@ class Product extends Model
     protected $fillable = [
         'image',
         'barcode',
-        'sku',
         'title',
         'description',
         'buy_price',
@@ -56,7 +55,7 @@ class Product extends Model
     public function units(): BelongsToMany
     {
         return $this->belongsToMany(Unit::class, 'product_units')
-            ->withPivot(['is_base', 'conversion_factor', 'buy_price', 'sell_price', 'barcode', 'sku_suffix'])
+            ->withPivot(['is_base', 'conversion_factor', 'buy_price', 'sell_price', 'barcode'])
             ->using(ProductUnit::class)
             ->withTimestamps();
     }
@@ -141,7 +140,9 @@ class Product extends Model
     protected function image(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => asset('/storage/products/'.$value),
+            get: fn ($value) => $value
+                ? asset('/storage/products/'.$value)
+                : asset('/images/3dcube.svg'),
         );
     }
 }

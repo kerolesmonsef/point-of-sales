@@ -16,7 +16,7 @@ export default function Create({ warehouses, products }) {
 
     const [searchProduct, setSearchProduct] = useState("");
     const filteredProducts = products.filter(
-        (p) => p.title.toLowerCase().includes(searchProduct.toLowerCase()) || (p.sku && p.sku.toLowerCase().includes(searchProduct.toLowerCase()))
+        (p) => p.title.toLowerCase().includes(searchProduct.toLowerCase())
     );
 
     const addItem = (product) => {
@@ -24,7 +24,7 @@ export default function Create({ warehouses, products }) {
             toast.error(__("Product already in the list."));
             return;
         }
-        setData("items", [...data.items, { product_id: product.id, product_title: product.title, product_sku: product.sku || "-", qty: 1 }]);
+        setData("items", [...data.items, { product_id: product.id, product_title: product.title, qty: 1 }]);
     };
 
     const removeItem = (index) => setData("items", data.items.filter((_, i) => i !== index));
@@ -115,7 +115,7 @@ export default function Create({ warehouses, products }) {
                                     <button key={product.id} type="button" onClick={() => addItem(product)} className="flex w-full items-center justify-between rounded-lg border border-slate-100 bg-slate-50 px-4 py-3 text-left text-sm transition hover:border-primary-200 hover:bg-primary-50 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-primary-700 dark:hover:bg-primary-950/20">
                                         <div>
                                             <p className="font-medium text-slate-800 dark:text-slate-200">{product.title}</p>
-                                            <p className="text-xs text-slate-500">{product.sku || "-"} &bull; {__("Stock")}: {product.stock}</p>
+                                            <p className="text-xs text-slate-500">{__("Stock")}: {product.stock}</p>
                                         </div>
                                     </button>
                                 ))}
@@ -136,7 +136,6 @@ export default function Create({ warehouses, products }) {
                                             <tr key={index} className="border-b border-slate-100 dark:border-slate-800">
                                                 <td className="px-3 py-3">
                                                     <p className="font-medium text-slate-800 dark:text-slate-200">{item.product_title}</p>
-                                                    <p className="text-xs text-slate-500">{item.product_sku}</p>
                                                 </td>
                                                 <td className="px-3 py-3 text-right">
                                                     <input type="number" min="1" value={item.qty} onChange={(e) => updateItem(index, e.target.value)} className="h-10 w-20 rounded-lg border border-slate-200 bg-slate-50 px-3 text-right text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200" />

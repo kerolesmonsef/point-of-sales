@@ -107,8 +107,7 @@ class StockOpnameController extends Controller
                 ->where(function ($builder) use ($productFilters) {
                     $builder
                         ->where('title', 'like', '%'.$productFilters['search'].'%')
-                        ->orWhere('barcode', 'like', '%'.$productFilters['search'].'%')
-                        ->orWhere('sku', 'like', '%'.$productFilters['search'].'%');
+                        ->orWhere('barcode', 'like', '%'.$productFilters['search'].'%');
                 })
                 ->whereNotIn('id', $selectedProductIds)
                 ->orderBy('title')

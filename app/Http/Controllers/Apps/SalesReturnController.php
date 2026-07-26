@@ -354,7 +354,7 @@ class SalesReturnController extends Controller
                 'cashier:id,name',
                 'customer:id,name',
                 'receivable',
-                'details.product:id,title,barcode,sku,buy_price',
+                'details.product:id,title,barcode,buy_price',
                 'details.salesReturnItems.salesReturn:id,status',
             ])
             ->when(! $request->user()->isSuperAdmin(), fn (Builder $query) => $query->where('cashier_id', $request->user()->id))
@@ -370,9 +370,9 @@ class SalesReturnController extends Controller
                 'transaction.cashier:id,name',
                 'transaction.customer:id,name',
                 'transaction.receivable',
-                'transaction.details.product:id,title,barcode,sku,buy_price',
+                'transaction.details.product:id,title,barcode,buy_price',
                 'transaction.details.salesReturnItems.salesReturn:id,status',
-                'items.product:id,title,barcode,sku,buy_price',
+                'items.product:id,title,barcode,buy_price',
                 'items.transactionDetail:id,transaction_id,product_id,qty,price',
             ])
             ->when(! $request->user()->isSuperAdmin(), function (Builder $query) use ($request) {
@@ -425,7 +425,6 @@ class SalesReturnController extends Controller
                         'id' => $detail->product->id,
                         'title' => $detail->product->title,
                         'barcode' => $detail->product->barcode,
-                        'sku' => $detail->product->sku,
                     ] : null,
                     'qty' => $qtySold,
                     'price' => (int) $detail->price,
@@ -475,7 +474,6 @@ class SalesReturnController extends Controller
                         'id' => $item->product->id,
                         'title' => $item->product->title,
                         'barcode' => $item->product->barcode,
-                        'sku' => $item->product->sku,
                     ] : null,
                     'qty_sold' => (int) $item->qty_sold,
                     'qty_returned_before' => (int) $item->qty_returned_before,

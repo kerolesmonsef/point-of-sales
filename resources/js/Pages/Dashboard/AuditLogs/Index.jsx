@@ -46,7 +46,7 @@ export default function Index({
             <div className="mb-6">
                 <h1 className="flex items-center gap-2 text-2xl font-bold text-slate-900 dark:text-white">
                     <IconFileSearch size={28} className="text-primary-500" />
-                    Audit Log
+                    {__("Audit Log")}
                 </h1>
                 <p className="text-sm text-slate-500 dark:text-slate-400">
                     {__("History of sensitive activities for operational and administrative investigation.")}

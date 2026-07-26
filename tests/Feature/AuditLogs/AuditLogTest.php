@@ -105,7 +105,6 @@ class AuditLogTest extends TestCase
         $this->actingAs($user)->post(route('products.store'), [
             'image' => UploadedFile::fake()->image('product.png'),
             'barcode' => 'BRCD-'.Str::upper(Str::random(6)),
-            'sku' => 'SKU-'.Str::upper(Str::random(6)),
             'title' => 'Produk Audit',
             'description' => 'Produk Audit',
             'category_id' => $category->id,
@@ -118,7 +117,6 @@ class AuditLogTest extends TestCase
 
         $this->actingAs($user)->put(route('products.update', $product), [
             'barcode' => $product->barcode,
-            'sku' => $product->sku,
             'title' => 'Produk Audit Final',
             'description' => 'Produk Audit Baru',
             'category_id' => $category->id,
@@ -394,7 +392,6 @@ class AuditLogTest extends TestCase
             'category_id' => $category->id,
             'image' => 'audit-product.png',
             'barcode' => 'BRCD-'.Str::upper(Str::random(8)),
-            'sku' => 'SKU-'.Str::upper(Str::random(8)),
             'title' => 'Produk Audit '.Str::random(4),
             'description' => 'Produk Audit',
             'buy_price' => $buyPrice,

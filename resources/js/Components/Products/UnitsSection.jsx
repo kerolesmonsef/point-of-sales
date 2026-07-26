@@ -15,7 +15,6 @@ export default function UnitsSection({ units = [], onChange, unitOptions = [] })
         buy_price: "",
         sell_price: "",
         barcode: "",
-        sku_suffix: "",
       },
     ]);
   };
@@ -159,16 +158,6 @@ export default function UnitsSection({ units = [], onChange, unitOptions = [] })
                   />
                 </div>
 
-                <div className="col-span-6 sm:col-span-2">
-                  <label className="block text-xs font-medium text-slate-500 mb-1">{__("SKU suffix")}</label>
-                  <input
-                    type="text"
-                    value={unit.sku_suffix}
-                    onChange={(e) => updateRow(i, "sku_suffix", e.target.value)}
-                    placeholder={__("Optional")}
-                    className="w-full h-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 text-sm text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
-                  />
-                </div>
               </div>
             </div>
           ))}

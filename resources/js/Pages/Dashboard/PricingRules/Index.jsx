@@ -52,14 +52,14 @@ const targetLabel = (rule) => {
 const customerScopeLabel = (scope) => {
     if (scope === "walk_in") return __("General");
     if (scope === "registered") return __("Customer");
-    if (scope === "member") return "Member";
+    if (scope === "member") return __("Member");
     return __("All");
 };
 
 const kindLabel = (kind) => {
     if (kind === "qty_break") return __("Wholesale");
-    if (kind === "bundle_price") return "Bundle";
-    if (kind === "buy_x_get_y") return "BXGY";
+    if (kind === "bundle_price") return __("Bundle");
+    if (kind === "buy_x_get_y") return __("BXGY");
     return __("Standard");
 };
 
@@ -104,8 +104,8 @@ export default function Index({ rules, filters, summary = {}, recentAudits = [] 
                     {[
                         { label: __("Active"), value: summary.active || 0 },
                         { label: __("Scheduled"), value: summary.scheduled || 0 },
-                        { label: "Expired", value: summary.expired || 0 },
-                        { label: "Inactive", value: summary.inactive || 0 },
+                        { label: __("Expired"), value: summary.expired || 0 },
+                        { label: __("Inactive"), value: summary.inactive || 0 },
                     ].map((item) => (
                         <div
                             key={item.label}
@@ -170,8 +170,8 @@ export default function Index({ rules, filters, summary = {}, recentAudits = [] 
                             <option value="">{__("All Types")}</option>
                             <option value="standard_discount">{__("Standard")}</option>
                             <option value="qty_break">{__("Wholesale")}</option>
-                            <option value="bundle_price">Bundle</option>
-                            <option value="buy_x_get_y">BXGY</option>
+                            <option value="bundle_price">{__("Bundle")}</option>
+                            <option value="buy_x_get_y">{__("BXGY")}</option>
                         </select>
                     </div>
                 </div>

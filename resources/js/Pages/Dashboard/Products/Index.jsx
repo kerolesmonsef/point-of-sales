@@ -87,15 +87,15 @@ function ProductCard({
                 <div className="absolute top-2 right-2">
                     {outOfStock ? (
                         <span className="px-2 py-1 text-xs font-semibold bg-danger-500 text-white rounded-full">
-                            Habis
+                            {__("Out of Stock")}
                         </span>
                     ) : lowStock ? (
                         <span className="px-2 py-1 text-xs font-semibold bg-warning-500 text-white rounded-full">
-                            Stok: {product.stock}
+                            {__("Stock")}: {product.stock}
                         </span>
                     ) : (
                         <span className="px-2 py-1 text-xs font-medium bg-slate-900/60 text-white rounded-full">
-                            Stok: {product.stock}
+                            {__("Stock")}: {product.stock}
                         </span>
                     )}
                 </div>
@@ -135,19 +135,10 @@ function ProductCard({
                 <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 line-clamp-2 mb-1">
                     {product.title}
                 </h3>
-                {(product.barcode || product.sku) && (
-                    <div className="space-y-0.5 mb-2">
-                        {product.barcode && (
-                            <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">
-                                Barcode: {product.barcode}
-                            </p>
-                        )}
-                        {product.sku && (
-                            <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">
-                                SKU: {product.sku}
-                            </p>
-                        )}
-                    </div>
+                {product.barcode && (
+                    <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1 mb-2">
+                        Barcode: {product.barcode}
+                    </p>
                 )}
 
                 {/* Price Section - Mobile Friendly */}
@@ -159,7 +150,7 @@ function ProductCard({
                     {/* Buy Price - Subtle */}
                     <div className="flex items-center justify-between mt-1">
                         <p className="text-xs text-slate-400 dark:text-slate-500">
-                            Modal: {formatCurrency(product.buy_price)}
+                            {__("Cost")}: {formatCurrency(product.buy_price)}
                         </p>
                         {/* Profit Indicator */}
                         {product.sell_price > product.buy_price && (
@@ -179,7 +170,7 @@ function ProductCard({
 
 export default function Index({ products }) {
     const { can } = useAuthorization();
-    const [viewMode, setViewMode] = useState("grid"); // 'grid' | 'list'
+    const [viewMode, setViewMode] = useState("list"); // 'grid' | 'list'
     const [showBarcodeModal, setShowBarcodeModal] = useState(false);
     const [singleProductBarcode, setSingleProductBarcode] = useState(null);
     const [selectedProducts, setSelectedProducts] = useState([]);
@@ -236,10 +227,10 @@ export default function Index({ products }) {
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
                         <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-                            Produk
+                            {__("Products")}
                         </h1>
                         <p className="text-sm text-slate-500 dark:text-slate-400">
-                            {products.total} produk terdaftar
+                            {products.total} {__("products registered")}
                         </p>
                     </div>
                     <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
@@ -248,7 +239,7 @@ export default function Index({ products }) {
                             className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors w-full sm:w-auto"
                         >
                             <IconBarcode size={18} />
-                            Cetak All Barcode
+                            {__("Print All Barcodes")}
                         </button>
                         {canCreateProducts && (
                             <>
@@ -321,7 +312,7 @@ export default function Index({ products }) {
                             className="w-4 h-4 rounded border-slate-300 text-primary-500 focus:ring-primary-500"
                         />
                         <span className="text-sm text-slate-600 dark:text-slate-400 hidden sm:inline">
-                            Pilih Semua
+                            {__("Select All")}
                         </span>
                     </label>
                 </div>
@@ -333,7 +324,7 @@ export default function Index({ products }) {
                             className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-primary-500 hover:bg-primary-600 text-white text-sm font-medium transition-colors"
                         >
                             <IconPrinter size={18} />
-                            Cetak Terpilih ({selectedProducts.length})
+                            {__("Print Selected")} ({selectedProducts.length})
                         </button>
                     )}
                     <button
@@ -386,12 +377,12 @@ export default function Index({ products }) {
                         <Table>
                             <Table.Thead>
                                 <tr>
-                                    <Table.Th className="w-10">No</Table.Th>
-                                    <Table.Th>Produk</Table.Th>
-                                    <Table.Th>Kategori</Table.Th>
-                                    <Table.Th>Harga Beli</Table.Th>
-                                    <Table.Th>Harga Jual</Table.Th>
-                                    <Table.Th>Stok</Table.Th>
+                                    <Table.Th className="w-10">{__("No")}</Table.Th>
+                                    <Table.Th>{__("Product")}</Table.Th>
+                                    <Table.Th>{__("Category")}</Table.Th>
+                                    <Table.Th>{__("Buy Price")}</Table.Th>
+                                    <Table.Th>{__("Sell Price")}</Table.Th>
+                                    <Table.Th>{__("Stock")}</Table.Th>
                                     <Table.Th></Table.Th>
                                 </tr>
                             </Table.Thead>
@@ -434,7 +425,6 @@ export default function Index({ products }) {
                                                                 Barcode: {product.barcode}
                                                             </p>
                                                         )}
-                                                        {product.sku && <p>SKU: {product.sku}</p>}
                                                     </div>
                                                 </div>
                                             </div>
@@ -524,10 +514,10 @@ export default function Index({ products }) {
                         />
                     </div>
                     <h3 className="text-lg font-medium text-slate-800 dark:text-slate-200 mb-1">
-                        Belum Ada Produk
+                        {__("No Products Yet")}
                     </h3>
                     <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-                        Tambahkan produk pertama Anda untuk memulai.
+                        {__("Add your first product to get started.")}
                     </p>
                     {canCreateProducts && (
                         <Button

@@ -244,7 +244,6 @@ class StockOpnameTest extends TestCase
             ->actingAs($user)
             ->put(route('products.update', $product), [
                 'barcode' => $product->barcode,
-                'sku' => $product->sku,
                 'title' => 'Produk Revisi',
                 'description' => $product->description,
                 'category_id' => $product->category_id,
@@ -276,7 +275,6 @@ class StockOpnameTest extends TestCase
             ->post(route('products.store'), [
                 'image' => UploadedFile::fake()->image('product.png'),
                 'barcode' => 'BRCD-'.Str::upper(Str::random(8)),
-                'sku' => 'SKU-'.Str::upper(Str::random(8)),
                 'title' => 'Produk Baru',
                 'description' => 'Deskripsi produk baru',
                 'category_id' => $category->id,
@@ -321,7 +319,6 @@ class StockOpnameTest extends TestCase
             'category_id' => $category->id,
             'image' => 'product.png',
             'barcode' => 'BRCD-'.Str::upper(Str::random(10)),
-            'sku' => 'SKU-'.Str::upper(Str::random(10)),
             'title' => 'Produk Uji '.Str::upper(Str::random(4)),
             'description' => 'Deskripsi produk uji.',
             'buy_price' => 45000,

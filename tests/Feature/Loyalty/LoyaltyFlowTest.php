@@ -270,7 +270,6 @@ class LoyaltyFlowTest extends TestCase
             'category_id' => $category->id,
             'image' => 'product.png',
             'barcode' => 'BRCD-'.Str::upper(Str::random(10)),
-            'sku' => 'SKU-'.Str::upper(Str::random(8)),
             'title' => 'Produk Loyalty',
             'description' => 'Produk untuk pengujian loyalty.',
             'buy_price' => 40000,

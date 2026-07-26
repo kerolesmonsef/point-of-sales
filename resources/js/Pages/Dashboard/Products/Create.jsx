@@ -22,7 +22,6 @@ export default function Create({ categories, units: unitOptions = [] }) {
     const { data, setData, post, processing } = useForm({
         image: "",
         barcode: "",
-        sku: "",
         title: "",
         category_id: "",
         description: "",
@@ -52,7 +51,10 @@ export default function Create({ categories, units: unitOptions = [] }) {
         e.preventDefault();
         post(route("products.store"), {
             onSuccess: () => toast.success(__("Product added successfully")),
-            onError: () => toast.error(__("Failed to save product")),
+            onError: (errors) => {
+                const msg = Object.values(errors).find(Boolean);
+                toast.error(msg || __("Failed to save product"));
+            },
         });
     };
 
@@ -67,11 +69,11 @@ export default function Create({ categories, units: unitOptions = [] }) {
                     className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-primary-600 mb-3"
                 >
                     <IconArrowLeft size={16} />
-                    Kembali ke Produk
+                    {__("Back to Products")}
                 </Link>
                 <h1 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <IconPackage size={28} className="text-primary-500" />
-                    Tambah Produk Baru
+                    {__("Add New Product")}
                 </h1>
             </div>
 
@@ -82,7 +84,7 @@ export default function Create({ categories, units: unitOptions = [] }) {
                         <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5">
                             <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4 flex items-center gap-2">
                                 <IconPhoto size={18} />
-                                Gambar Produk
+                                {__("Product Image")}
                             </h3>
                             <div className="aspect-square rounded-xl bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-700 flex items-center justify-center overflow-hidden mb-4">
                                 {imagePreview ? (
@@ -98,7 +100,7 @@ export default function Create({ categories, units: unitOptions = [] }) {
                                             className="mx-auto text-slate-400 mb-2"
                                         />
                                         <p className="text-sm text-slate-500">
-                                            Belum ada gambar
+                                            {__("No image yet")}
                                         </p>
                                     </div>
                                 )}
@@ -119,7 +121,7 @@ export default function Create({ categories, units: unitOptions = [] }) {
                         <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5">
                             <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4 flex items-center gap-2">
                                 <IconBarcode size={18} />
-                                Informasi Dasar
+                                {__("Basic Information")}
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="md:col-span-2">
@@ -143,14 +145,6 @@ export default function Create({ categories, units: unitOptions = [] }) {
                                     }
                                     errors={errors.barcode}
                                     placeholder={__("Enter product code")}
-                                />
-                                <Input
-                                    type="text"
-                                    label={__("SKU")}
-                                    value={data.sku}
-                                    onChange={(e) => setData("sku", e.target.value)}
-                                    errors={errors.sku}
-                                    placeholder={__("Enter unique SKU")}
                                 />
                                 <Input
                                     type="text"
@@ -184,7 +178,7 @@ export default function Create({ categories, units: unitOptions = [] }) {
                         <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5">
                             <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4 flex items-center gap-2">
                                 <IconCurrencyDollar size={18} />
-                                Harga & Stok
+                                {__("Price & Stock")}
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <Input
@@ -225,7 +219,7 @@ export default function Create({ categories, units: unitOptions = [] }) {
                                     <div className="flex items-center justify-between">
                                         <div>
                                             <p className="text-sm text-success-700 dark:text-success-400 font-medium">
-                                                Estimasi Profit per Item
+                                                {__("Estimated Profit per Item")}
                                             </p>
                                             <p className="text-2xl font-bold text-success-600 dark:text-success-500 mt-1">
                                                 + Rp{" "}
@@ -267,7 +261,7 @@ export default function Create({ categories, units: unitOptions = [] }) {
                                 href={route("products.index")}
                                 className="px-6 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 font-medium transition-colors"
                             >
-                                Batal
+                                {__("Cancel")}
                             </Link>
                             <button
                                 type="submit"

@@ -16,7 +16,7 @@ const statusBadge = (status) => {
         completed: "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400",
         cancelled: "bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-400",
     };
-    const labels = { draft: "Draft", in_transit: "In Transit", completed: __("Completed"), cancelled: __("Cancelled") };
+    const labels = { draft: __("Draft"), in_transit: __("In Transit"), completed: __("Completed"), cancelled: __("Cancelled") };
     return <span className={`inline-flex rounded-full px-3 py-1.5 text-sm font-semibold ${styles[status] || styles.draft}`}>{labels[status] || status}</span>;
 };
 
@@ -92,7 +92,7 @@ export default function Show({ transfer }) {
                                         <tr key={item.id} className="border-b border-slate-100 dark:border-slate-800">
                                             <td className="px-3 py-3">
                                                 <p className="font-medium text-slate-800 dark:text-slate-200">{item.product?.title || "-"}</p>
-                                                <p className="text-xs text-slate-500">{item.product?.sku || "-"}</p>
+
                                             </td>
                                             <td className="px-3 py-3 text-right font-medium text-slate-800 dark:text-slate-200">{item.qty}</td>
                                         </tr>

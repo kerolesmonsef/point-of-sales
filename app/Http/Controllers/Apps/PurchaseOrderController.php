@@ -49,7 +49,7 @@ class PurchaseOrderController extends Controller
     public function create()
     {
         $suppliers = Supplier::orderBy('name')->get(['id', 'name']);
-        $products = Product::orderBy('title')->get(['id', 'title', 'sku', 'buy_price', 'stock']);
+        $products = Product::orderBy('title')->get(['id', 'title', 'buy_price', 'stock']);
         $warehouses = Warehouse::active()->orderBy('sort_order')->orderBy('code')->get(['id', 'code', 'name']);
 
         return Inertia::render('Dashboard/PurchaseOrders/Create', [
@@ -84,9 +84,9 @@ class PurchaseOrderController extends Controller
         $purchaseOrder->load([
             'supplier:id,name,phone,email,address',
             'warehouse:id,code,name',
-            'items.product:id,title,sku,image',
+            'items.product:id,title,image',
             'goodsReceivings' => function ($q) {
-                $q->with('items.product:id,title,sku')->orderByDesc('received_at');
+                $q->with('items.product:id,title')->orderByDesc('received_at');
             },
             'creator:id,name',
             'payable:id,purchase_order_id,total,paid,status,document_number',

@@ -54,7 +54,7 @@ class DashboardController extends Controller
             ->values();
 
         $topProducts = TransactionDetail::select('product_id', DB::raw('SUM(qty) as qty'), DB::raw('SUM(price) as total'))
-            ->with('product:id,title,sku')
+            ->with('product:id,title')
             ->groupBy('product_id')
             ->orderByDesc('qty')
             ->take(3)
@@ -62,7 +62,6 @@ class DashboardController extends Controller
             ->map(function ($detail) {
                 return [
                     'name' => $detail->product?->title ?? 'Produk terhapus',
-                    'sku' => $detail->product?->sku ?? '-',
                     'qty' => (int) $detail->qty,
                     'total' => (int) $detail->total,
                 ];

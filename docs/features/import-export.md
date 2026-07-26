@@ -9,7 +9,7 @@ Import master data (produk, customer) dari spreadsheet. Export data ke Excel unt
 ## Fitur Saat Ini
 
 ### Export
-- **Produk** — barcode, SKU, nama, kategori, harga beli, harga jual, stok, min stok, max stok, tipe pajak, tarif pajak
+- **Produk** — barcode, nama, kategori, harga beli, harga jual, stok, min stok, max stok, tipe pajak, tarif pajak
 - **Customer** — nama, telepon, alamat, provinsi, kota, kecamatan, desa, status member, tier, poin
 - **Transaksi** — invoice, tanggal, kasir, pelanggan, metode, status, subtotal, diskon, ongkir, PPN, grand total (dapat difilter berdasarkan tanggal & warehouse)
 

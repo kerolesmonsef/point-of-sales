@@ -14,19 +14,27 @@ import {
     IconCurrencyDollar,
 } from "@tabler/icons-react";
 import { getProductImageUrl } from "@/Utils/imageUrl";
+import UnitsSection from "@/Components/Products/UnitsSection";
 
-export default function Edit({ categories, product }) {
+export default function Edit({ categories, product, units: unitOptions = [] }) {
     const { errors } = usePage().props;
 
     const { data, setData, post, processing } = useForm({
         image: "",
         barcode: product.barcode,
-        sku: product.sku,
         title: product.title,
         category_id: product.category_id,
         description: product.description,
         buy_price: product.buy_price,
         sell_price: product.sell_price,
+        units: product.units?.map(u => ({
+            unit_id: u.id,
+            is_base: u.pivot.is_base,
+            conversion_factor: u.pivot.conversion_factor,
+            buy_price: u.pivot.buy_price,
+            sell_price: u.pivot.sell_price,
+            barcode: u.pivot.barcode || "",
+        })) || [],
         _method: "PUT",
     });
 
@@ -60,7 +68,10 @@ export default function Edit({ categories, product }) {
         e.preventDefault();
         post(route("products.update", product.id), {
             onSuccess: () => toast.success(__("Product updated successfully")),
-            onError: () => toast.error(__("Failed to update product")),
+            onError: (errors) => {
+                const msg = Object.values(errors).find(Boolean);
+                toast.error(msg || __("Failed to update product"));
+            },
         });
     };
 
@@ -74,11 +85,11 @@ export default function Edit({ categories, product }) {
                     className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-primary-600 mb-3"
                 >
                     <IconArrowLeft size={16} />
-                    Kembali ke Produk
+                    {__("Back to Products")}
                 </Link>
                 <h1 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <IconPackage size={28} className="text-primary-500" />
-                    Edit Produk
+                    {__("Edit Product")}
                 </h1>
                 <p className="text-sm text-slate-500 mt-1">{product.title}</p>
             </div>
@@ -90,7 +101,7 @@ export default function Edit({ categories, product }) {
                         <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5">
                             <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4 flex items-center gap-2">
                                 <IconPhoto size={18} />
-                                Gambar Produk
+                                {__("Product Image")}
                             </h3>
                             <div className="aspect-square rounded-xl bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-700 flex items-center justify-center overflow-hidden mb-4">
                                 {imagePreview ? (
@@ -106,7 +117,7 @@ export default function Edit({ categories, product }) {
                                             className="mx-auto text-slate-400 mb-2"
                                         />
                                         <p className="text-sm text-slate-500">
-                                            Belum ada gambar
+                                            {__("No image yet")}
                                         </p>
                                     </div>
                                 )}
@@ -126,7 +137,7 @@ export default function Edit({ categories, product }) {
                         <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5">
                             <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4 flex items-center gap-2">
                                 <IconBarcode size={18} />
-                                Informasi Dasar
+                                {__("Basic Information")}
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="md:col-span-2">
@@ -153,15 +164,7 @@ export default function Edit({ categories, product }) {
                                 />
                                 <Input
                                     type="text"
-                                    label="SKU"
-                                    value={data.sku}
-                                    onChange={(e) => setData("sku", e.target.value)}
-                                    errors={errors.sku}
-                                    placeholder={__("Unique SKU")}
-                                />
-                                <Input
-                                    type="text"
-                                    label="Nama Produk"
+                                    label={__("Product Name")}
                                     value={data.title}
                                     onChange={(e) =>
                                         setData("title", e.target.value)
@@ -171,8 +174,8 @@ export default function Edit({ categories, product }) {
                                 />
                                 <div className="md:col-span-2">
                                     <Textarea
-                                        label="Deskripsi"
-                                        placeholder={__("Product description")}
+                                    label={__("Description")}
+                                    placeholder={__("Product description")}
                                         errors={errors.description}
                                         onChange={(e) =>
                                             setData(
@@ -190,12 +193,12 @@ export default function Edit({ categories, product }) {
                         <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5">
                             <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4 flex items-center gap-2">
                                 <IconCurrencyDollar size={18} />
-                                Harga Produk
+                                {__("Product Price")}
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <Input
                                     type="number"
-                                    label="Harga Beli"
+                                    label={__("Buy Price")}
                                     value={data.buy_price}
                                     onChange={(e) =>
                                         setData("buy_price", e.target.value)
@@ -205,7 +208,7 @@ export default function Edit({ categories, product }) {
                                 />
                                 <Input
                                     type="number"
-                                    label="Harga Jual"
+                                    label={__("Sell Price")}
                                     value={data.sell_price}
                                     onChange={(e) =>
                                         setData("sell_price", e.target.value)
@@ -217,13 +220,13 @@ export default function Edit({ categories, product }) {
 
                             <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-700 dark:bg-slate-800">
                                 <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                                    Stok Saat Ini
+                                    {__("Current Stock")}
                                 </p>
                                 <p className="mt-1 text-lg font-bold text-slate-900 dark:text-slate-100">
                                     {product.stock}
                                 </p>
                                 <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                                    Perubahan stok dilakukan melalui transaksi atau stock opname.
+                                    {__("Stock changes are made through transactions or stock opname.")}
                                 </p>
                             </div>
 
@@ -233,7 +236,7 @@ export default function Edit({ categories, product }) {
                                     <div className="flex items-center justify-between">
                                         <div>
                                             <p className="text-sm text-success-700 dark:text-success-400 font-medium">
-                                                Estimasi Profit per Item
+                                                {__("Estimated Profit per Item")}
                                             </p>
                                             <p className="text-2xl font-bold text-success-600 dark:text-success-500 mt-1">
                                                 + Rp{" "}
@@ -262,12 +265,19 @@ export default function Edit({ categories, product }) {
                             )}
                         </div>
 
+                        {/* Units Section */}
+                        <UnitsSection
+                            units={data.units}
+                            onChange={(units) => setData("units", units)}
+                            unitOptions={unitOptions}
+                        />
+
                         <div className="flex justify-end gap-3">
                             <Link
                                 href={route("products.index")}
                                 className="px-6 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 font-medium transition-colors"
                             >
-                                Batal
+                                {__("Cancel")}
                             </Link>
                             <button
                                 type="submit"

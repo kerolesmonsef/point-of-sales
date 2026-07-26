@@ -103,11 +103,11 @@ export default function Create() {
                     className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-primary-600 mb-3"
                 >
                     <IconArrowLeft size={16} />
-                    Kembali ke Pelanggan
+                    {__("Back to Customers")}
                 </Link>
                 <h1 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <IconUsers size={28} className="text-primary-500" />
-                    Tambah Pelanggan Baru
+                    {__("Add New Customer")}
                 </h1>
             </div>
 
@@ -139,10 +139,10 @@ export default function Create() {
                             <div className="flex items-center justify-between gap-4">
                                 <div>
                                     <p className="text-sm font-semibold text-slate-900 dark:text-white">
-                                        Aktivasi Loyalty Member
+                                        {__("Activate Loyalty Member")}
                                     </p>
                                     <p className="text-xs text-slate-500 dark:text-slate-400">
-                                        Member mendapat poin, voucher, dan harga khusus.
+                                        {__("Members get points, vouchers, and special prices.")}
                                     </p>
                                 </div>
                                 <label className="inline-flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
@@ -157,14 +157,14 @@ export default function Create() {
                                         }
                                         className="h-4 w-4 rounded border-slate-300 text-primary-500"
                                     />
-                                    Member
+                                    {__("Member")}
                                 </label>
                             </div>
 
                             {data.is_loyalty_member && (
                                 <div className="mt-4">
                                     <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                        Tier Awal
+                                        {__("Initial Tier")}
                                     </label>
                                     <select
                                         value={data.loyalty_tier}
@@ -192,14 +192,14 @@ export default function Create() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Provinsi
+                                    {__("Province")}
                                 </label>
                                 <select
                                     value={data.province_id}
                                     onChange={(e) => setData("province_id", e.target.value)}
                                     className="w-full h-11 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 text-sm"
                                 >
-                                    <option value="">Pilih Provinsi</option>
+                                    <option value="">{__("Select Province")}</option>
                                     {provinces.map((prov) => (
                                         <option key={prov.code} value={prov.code}>
                                             {prov.name}
@@ -214,7 +214,7 @@ export default function Create() {
                             </div>
                             <div>
                                 <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Kota/Kabupaten
+                                    {__("City/Regency")}
                                 </label>
                                 <select
                                     value={data.regency_id}
@@ -222,7 +222,7 @@ export default function Create() {
                                     className="w-full h-11 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 text-sm"
                                     disabled={!data.province_id}
                                 >
-                                    <option value="">Pilih Kota/Kabupaten</option>
+                                    <option value="">{__("Select City/Regency")}</option>
                                     {regencies.map((item) => (
                                         <option key={item.code} value={item.code}>
                                             {item.name}
@@ -240,7 +240,7 @@ export default function Create() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Kecamatan
+                                    {__("District")}
                                 </label>
                                 <select
                                     value={data.district_id}
@@ -248,7 +248,7 @@ export default function Create() {
                                     className="w-full h-11 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 text-sm"
                                     disabled={!data.regency_id}
                                 >
-                                    <option value="">Pilih Kecamatan</option>
+                                    <option value="">{__("Select District")}</option>
                                     {districts.map((item) => (
                                         <option key={item.code} value={item.code}>
                                             {item.name}
@@ -263,7 +263,7 @@ export default function Create() {
                             </div>
                             <div>
                                 <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Kelurahan
+                                    {__("Village")}
                                 </label>
                                 <select
                                     value={data.village_id}
@@ -274,7 +274,7 @@ export default function Create() {
                                     className="w-full h-11 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 text-sm"
                                     disabled={!data.district_id}
                                 >
-                                    <option value="">Pilih Kelurahan</option>
+                                    <option value="">{__("Select Village")}</option>
                                     {villages.map((item) => (
                                         <option
                                             key={item.code}
@@ -307,7 +307,7 @@ export default function Create() {
                             href={route("customers.index")}
                             className="px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 font-medium transition-colors"
                         >
-                            Batal
+                            {__("Cancel")}
                         </Link>
                         <button
                             type="submit"
@@ -315,7 +315,7 @@ export default function Create() {
                             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-medium transition-colors disabled:opacity-50"
                         >
                             <IconDeviceFloppy size={18} />
-                            {processing ? __("Saving...") : "Simpan"}
+                            {processing ? __("Saving...") : __("Save")}
                         </button>
                     </div>
                 </div>

@@ -65,9 +65,9 @@ export default function Index({ stockMutations, products, warehouses = [], filte
                     className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                 >
                     <option value="">{__("All Types")}</option>
-                    <option value="in">In</option>
-                    <option value="out">Out</option>
-                    <option value="adjustment">Adjustment</option>
+                    <option value="in">{__("In")}</option>
+                    <option value="out">{__("Out")}</option>
+                    <option value="adjustment">{__("Adjustment")}</option>
                 </select>
 
                 <select
@@ -127,7 +127,7 @@ export default function Index({ stockMutations, products, warehouses = [], filte
                                                 {mutation.product?.title || "-"}
                                             </p>
                                             <p className="text-xs text-slate-500 dark:text-slate-400">
-                                                {mutation.product?.barcode || mutation.product?.sku || "-"}
+                                                {mutation.product?.barcode || "-"}
                                             </p>
                                         </div>
                                     </Table.Td>

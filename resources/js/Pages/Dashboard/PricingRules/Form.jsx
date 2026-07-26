@@ -576,7 +576,7 @@ export default function Form({
                                                 )
                                             }
                                             className="h-11 rounded-xl border border-slate-200 bg-white px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
-                                            placeholder="Qty"
+                                            placeholder={__("Qty")}
                                         />
                                         <button
                                             type="button"
@@ -628,8 +628,8 @@ export default function Form({
                                             }
                                             className="h-11 rounded-xl border border-slate-200 bg-white px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
                                         >
-                                            <option value="buy">Buy</option>
-                                            <option value="get">Get</option>
+                                            <option value="buy">{__("Buy")}</option>
+                                            <option value="get">{__("Get")}</option>
                                         </select>
                                         <select
                                             value={row.product_id}

@@ -9,7 +9,7 @@ export default function Form({ mode = "create", campaign = null, audienceOptions
         name: campaign?.name ?? "",
         type: campaign?.type ?? "promo_broadcast",
         channel: campaign?.channel ?? "whatsapp_link",
-        message_template: campaign?.message_template ?? "Halo {{name}}, ada promo spesial untuk Anda.",
+        message_template: campaign?.message_template ?? __("Hi {{name}}, here is a special promo for you."),
         save_as_draft: true,
         audience_filters: {
             segment_ids: campaign?.audience_filters?.segment_ids ?? [],

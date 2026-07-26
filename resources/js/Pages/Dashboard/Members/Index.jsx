@@ -184,7 +184,7 @@ export default function Index({ members, filters, tierOptions, summary }) {
                                         </Table.Td>
                                         <Table.Td>
                                             <span className="inline-flex rounded-full bg-primary-100 px-2.5 py-1 text-xs font-semibold text-primary-700 dark:bg-primary-950/40 dark:text-primary-300">
-                                                {member.loyalty_tier || "regular"}
+                                                {member.loyalty_tier || __("Regular")}
                                             </span>
                                             <p className="mt-2 text-[11px] text-slate-500 dark:text-slate-400">
                                                 {member.is_loyalty_member

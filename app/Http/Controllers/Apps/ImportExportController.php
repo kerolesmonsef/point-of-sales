@@ -59,7 +59,7 @@ class ImportExportController extends Controller
     public function downloadTemplate(string $type)
     {
         $headings = match ($type) {
-            'products' => ['barcode', 'sku', __('name'), __('description'), __('category'), __('purchase_price'), __('selling_price'), __('stock'), __('min_stock'), __('max_stock'), __('tax_type'), __('tax_rate')],
+            'products' => ['barcode', __('name'), __('description'), __('category'), __('purchase_price'), __('selling_price'), __('stock'), __('min_stock'), __('max_stock'), __('tax_type'), __('tax_rate')],
             'customers' => [__('name'), __('phone'), __('address')],
             default => abort(404),
         };

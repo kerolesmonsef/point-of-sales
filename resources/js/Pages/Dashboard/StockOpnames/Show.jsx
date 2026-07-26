@@ -364,10 +364,8 @@ export default function Show({
                                                             {item.product.title}
                                                         </p>
                                                         <p className="text-xs text-slate-500 dark:text-slate-400">
-                                                            {item.product.category?.name || "-"} •{" "}
-                                                            {item.product.barcode ||
-                                                                item.product.sku ||
-                                                                "-"}
+                                                         {item.product.category?.name || "-"} •{" "}
+                                                             {item.product.barcode || "-"}
                                                         </p>
                                                     </div>
                                                 </Table.Td>
@@ -532,7 +530,7 @@ export default function Show({
                             onChange={(event) =>
                                 setProductSearchInput(event.target.value)
                             }
-                            placeholder={__("Search product name, barcode, or SKU...")}
+                            placeholder={__("Search product name or barcode...")}
                             className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 pr-11 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                         />
                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
@@ -559,7 +557,7 @@ export default function Show({
                                                 {product.title}
                                             </p>
                                             <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                                                {product.category?.name || "-"} • {product.barcode || product.sku || "-"}
+                                                {product.category?.name || "-"} • {product.barcode || "-"}
                                             </p>
                                             <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                                                 {__("System stock")}: {product.stock}

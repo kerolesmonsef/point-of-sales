@@ -31,8 +31,7 @@ export default function Create({ suppliers, products, warehouses = [] }) {
     const [searchProduct, setSearchProduct] = useState("");
     const filteredProducts = products.filter(
         (p) =>
-            p.title.toLowerCase().includes(searchProduct.toLowerCase()) ||
-            (p.sku && p.sku.toLowerCase().includes(searchProduct.toLowerCase()))
+            p.title.toLowerCase().includes(searchProduct.toLowerCase())
     );
 
     const addItem = (product) => {
@@ -45,7 +44,6 @@ export default function Create({ suppliers, products, warehouses = [] }) {
             {
                 product_id: product.id,
                 product_title: product.title,
-                product_sku: product.sku || "-",
                 qty_ordered: 1,
                 unit_price: Number(product.buy_price) || 0,
             },
@@ -172,7 +170,7 @@ export default function Create({ suppliers, products, warehouses = [] }) {
                                     >
                                         <div>
                                             <p className="font-medium text-slate-800 dark:text-slate-200">{product.title}</p>
-                                            <p className="text-xs text-slate-500">{product.sku || "-"} &bull; {__("Stock:")} {product.stock}</p>
+                                            <p className="text-xs text-slate-500">{__("Stock:")} {product.stock}</p>
                                         </div>
                                         <span className="text-xs text-slate-500 dark:text-slate-400">
                                             {formatCurrency(product.buy_price)}
@@ -198,7 +196,6 @@ export default function Create({ suppliers, products, warehouses = [] }) {
                                             <tr key={index} className="border-b border-slate-100 dark:border-slate-800">
                                                 <td className="px-3 py-3">
                                                     <p className="font-medium text-slate-800 dark:text-slate-200">{item.product_title}</p>
-                                                    <p className="text-xs text-slate-500">{item.product_sku}</p>
                                                 </td>
                                                 <td className="px-3 py-3 text-right">
                                                     <input

@@ -23,7 +23,7 @@ class StockMutationController extends Controller
         ];
 
         $stockMutations = StockMutation::query()
-            ->with(['product:id,title,barcode,sku', 'creator:id,name', 'warehouse:id,code,name'])
+            ->with(['product:id,title,barcode', 'creator:id,name', 'warehouse:id,code,name'])
             ->when($filters['product_id'], fn ($query, $productId) => $query->where('product_id', $productId))
             ->when($filters['mutation_type'], fn ($query, $mutationType) => $query->where('mutation_type', $mutationType))
             ->when($filters['date_from'], fn ($query, $date) => $query->whereDate('created_at', '>=', $date))
@@ -35,7 +35,7 @@ class StockMutationController extends Controller
 
         return Inertia::render('Dashboard/StockMutations/Index', [
             'stockMutations' => $stockMutations,
-            'products' => Product::query()->orderBy('title')->get(['id', 'title', 'barcode', 'sku']),
+            'products' => Product::query()->orderBy('title')->get(['id', 'title', 'barcode']),
             'warehouses' => Warehouse::active()->orderBy('code')->get(['id', 'code', 'name']),
             'filters' => $filters,
         ]);

@@ -145,7 +145,6 @@ class CashierShiftTest extends TestCase
             'category_id' => $category->id,
             'image' => 'shift-product.png',
             'barcode' => 'BRCD-'.Str::upper(Str::random(8)),
-            'sku' => 'SKU-'.Str::upper(Str::random(8)),
             'title' => 'Produk Shift',
             'description' => 'Produk Shift',
             'buy_price' => 40000,

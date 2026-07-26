@@ -17,7 +17,6 @@ return new class extends Migration
             $table->bigInteger('buy_price');
             $table->bigInteger('sell_price');
             $table->string('barcode', 100)->nullable();
-            $table->string('sku_suffix', 20)->nullable();
             $table->timestamps();
 
             $table->unique(['product_id', 'unit_id']);

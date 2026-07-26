@@ -22,9 +22,9 @@ class PriceListController extends Controller
 
     public function show(PriceList $priceList)
     {
-        $priceList->load('items.product:id,title,sku,sell_price');
+        $priceList->load('items.product:id,title,sell_price');
 
-        $products = Product::orderBy('title')->get(['id', 'title', 'sku', 'sell_price']);
+        $products = Product::orderBy('title')->get(['id', 'title', 'sell_price']);
 
         return Inertia::render('Dashboard/Settings/PriceListItems', [
             'priceList' => $priceList,

@@ -34,8 +34,7 @@ export default function Create({ suppliers, goodsReceivings, products }) {
 
     const filteredProducts = products.filter(
         (p) =>
-            p.title.toLowerCase().includes(searchProduct.toLowerCase()) ||
-            (p.sku && p.sku.toLowerCase().includes(searchProduct.toLowerCase()))
+            p.title.toLowerCase().includes(searchProduct.toLowerCase())
     );
 
     const addItemFromProduct = (product) => {
@@ -48,7 +47,6 @@ export default function Create({ suppliers, goodsReceivings, products }) {
             {
                 product_id: product.id,
                 product_title: product.title,
-                product_sku: product.sku || "-",
                 qty_returned: 1,
                 unit_price: Number(product.buy_price) || 0,
                 reason: "",
@@ -68,7 +66,6 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                 goods_receiving_item_id: grItem.id,
                 product_id: grItem.product_id,
                 product_title: grItem.product?.title || __("Product #") + grItem.product_id,
-                product_sku: grItem.product?.sku || "-",
                 qty_returned: 1,
                 unit_price: Number(grItem.purchase_order_item?.unit_price) || 0,
                 reason: "",
@@ -205,7 +202,7 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                                                         {grItem.product?.title || __("Product #") + grItem.product_id}
                                                     </p>
                                                     <p className="text-xs text-slate-500">
-                                                        {grItem.product?.sku || "-"} &bull; {__("Price:")} {formatCurrency(grItem.purchase_order_item?.unit_price || 0)}
+                                                        {__("Price:")} {formatCurrency(grItem.purchase_order_item?.unit_price || 0)}
                                                     </p>
                                                 </div>
                                                 <span className="text-xs text-primary-600">+ {__("Add")}</span>
@@ -236,7 +233,7 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                                     >
                                         <div>
                                             <p className="font-medium text-slate-800 dark:text-slate-200">{product.title}</p>
-                                            <p className="text-xs text-slate-500">{product.sku || "-"} &bull; Stok: {product.stock}</p>
+                                            <p className="text-xs text-slate-500">{__("Stock:")} {product.stock}</p>
                                         </div>
                                         <span className="text-xs text-slate-500">{formatCurrency(product.buy_price)}</span>
                                     </button>
@@ -262,7 +259,6 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                                             <tr key={index} className="border-b border-slate-100 dark:border-slate-800">
                                                 <td className="px-3 py-3">
                                                     <p className="font-medium text-slate-800 dark:text-slate-200">{item.product_title}</p>
-                                                    <p className="text-xs text-slate-500">{item.product_sku}</p>
                                                 </td>
                                                 <td className="px-3 py-3 text-right">
                                                     <input

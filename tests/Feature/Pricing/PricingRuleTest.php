@@ -396,7 +396,6 @@ class PricingRuleTest extends TestCase
             'category_id' => $category->id,
             'image' => 'product.png',
             'barcode' => 'BRCD-'.Str::upper(Str::random(10)),
-            'sku' => 'SKU-'.Str::upper(Str::random(8)),
             'title' => $title ?? 'Produk Promo',
             'description' => 'Produk untuk pengujian promo.',
             'buy_price' => 45000,

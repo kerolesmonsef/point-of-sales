@@ -59,7 +59,7 @@ export default function Index({ orders, filters, suppliers }) {
                         Purchase Orders
                     </h1>
                     <p className="text-sm text-slate-500 dark:text-slate-400">
-                        Kelola pemesanan pembelian ke supplier.
+                        {__("Manage purchase orders to suppliers.")}
                     </p>
                 </div>
                 {can("purchase-orders-create") && (
@@ -91,19 +91,19 @@ export default function Index({ orders, filters, suppliers }) {
                     onChange={(e) => handleFilterChange("status", e.target.value)}
                     className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                 >
-                    <option value="">Semua Status</option>
-                    <option value="draft">Draft</option>
-                    <option value="ordered">Dipesan</option>
-                    <option value="partial_received">Sebagian Diterima</option>
-                    <option value="completed">Selesai</option>
-                    <option value="cancelled">Dibatalkan</option>
+                    <option value="">{__("All Statuses")}</option>
+                    <option value="draft">{__("Draft")}</option>
+                    <option value="ordered">{__("Ordered")}</option>
+                    <option value="partial_received">{__("Partially Received")}</option>
+                    <option value="completed">{__("Completed")}</option>
+                    <option value="cancelled">{__("Cancelled")}</option>
                 </select>
                 <select
                     value={filters.supplier || ""}
                     onChange={(e) => handleFilterChange("supplier", e.target.value)}
                     className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                 >
-                    <option value="">Semua Supplier</option>
+                    <option value="">{__("All Suppliers")}</option>
                     {suppliers.map((s) => (
                         <option key={s.id} value={s.id}>{s.name}</option>
                     ))}
@@ -114,12 +114,12 @@ export default function Index({ orders, filters, suppliers }) {
                 <Table>
                     <Table.Thead>
                         <tr>
-                            <Table.Th>Dokumen</Table.Th>
-                            <Table.Th>Supplier</Table.Th>
-                            <Table.Th>Status</Table.Th>
-                            <Table.Th>Item</Table.Th>
-                            <Table.Th>Dibuat Oleh</Table.Th>
-                            <Table.Th className="w-24 text-center">Aksi</Table.Th>
+                            <Table.Th>{__("Document")}</Table.Th>
+                            <Table.Th>{__("Supplier")}</Table.Th>
+                            <Table.Th>{__("Status")}</Table.Th>
+                            <Table.Th>{__("Item")}</Table.Th>
+                            <Table.Th>{__("Created By")}</Table.Th>
+                            <Table.Th className="w-24 text-center">{__("Action")}</Table.Th>
                         </tr>
                     </Table.Thead>
                     <Table.Tbody>
@@ -149,7 +149,7 @@ export default function Index({ orders, filters, suppliers }) {
                         ) : (
                             <Table.Empty colSpan={6} message={
                                 <div className="text-slate-500 dark:text-slate-400">
-                                    Belum ada purchase order.
+                                    {__("No purchase orders yet.")}
                                 </div>
                             }>
                                 <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800">

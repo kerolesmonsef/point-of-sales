@@ -562,9 +562,7 @@ export default function Insights({
                                                 <p className="font-semibold text-slate-900 dark:text-slate-100">
                                                     {item.product_title}
                                                 </p>
-                                                <p className="text-xs text-slate-500 dark:text-slate-400">
-                                                    {item.product_sku || "-"}
-                                                </p>
+
                                             </div>
                                         </Table.Td>
                                         <Table.Td>{item.category_name || "-"}</Table.Td>

@@ -48,11 +48,11 @@ export default function Create() {
                     className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-primary-600 mb-3"
                 >
                     <IconArrowLeft size={16} />
-                    Kembali ke Kategori
+                    {__("Back to Categories")}
                 </Link>
                 <h1 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <IconCategory size={28} className="text-primary-500" />
-                    Tambah Kategori Baru
+                    {__("Add New Category")}
                 </h1>
             </div>
 
@@ -64,7 +64,7 @@ export default function Create() {
                             <div>
                                 <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
                                     <IconPhoto size={16} />
-                                    Gambar
+                                    {__("Image")}
                                 </h3>
                                 <div className="aspect-video rounded-xl bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-700 flex items-center justify-center overflow-hidden mb-3">
                                     {imagePreview ? (
@@ -101,7 +101,7 @@ export default function Create() {
                                     value={data.name}
                                 />
                                 <Textarea
-                                    label="Deskripsi"
+                                    label={__("Description")}
                                     placeholder={__("Category description")}
                                     errors={errors.description}
                                     onChange={(e) =>
@@ -118,7 +118,7 @@ export default function Create() {
                                 href={route("categories.index")}
                                 className="px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 font-medium transition-colors"
                             >
-                                Batal
+                                {__("Cancel")}
                             </Link>
                             <button
                                 type="submit"

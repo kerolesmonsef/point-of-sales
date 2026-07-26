@@ -451,9 +451,7 @@ export default function Dashboard({
                                                 <p className="text-sm font-semibold text-slate-800 dark:text-slate-200 line-clamp-1">
                                                     {product.name}
                                                 </p>
-                                                <p className="text-xs text-slate-500 dark:text-slate-400">
-                                                    SKU: {product.sku || "-"}
-                                                </p>
+
                                             </div>
                                         </div>
                                         <div className="text-right">

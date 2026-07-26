@@ -37,7 +37,7 @@ class StockTransferController extends Controller
     public function create(): Response
     {
         $warehouses = Warehouse::active()->orderBy('sort_order')->orderBy('code')->get(['id', 'code', 'name']);
-        $products = Product::orderBy('title')->get(['id', 'title', 'sku', 'stock']);
+        $products = Product::orderBy('title')->get(['id', 'title', 'stock']);
 
         return Inertia::render('Dashboard/StockTransfers/Create', [
             'warehouses' => $warehouses,
@@ -69,7 +69,7 @@ class StockTransferController extends Controller
         $stockTransfer->load([
             'sourceWarehouse:id,code,name',
             'destinationWarehouse:id,code,name',
-            'items.product:id,title,sku',
+            'items.product:id,title',
             'creator:id,name',
         ]);
 

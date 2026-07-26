@@ -298,9 +298,7 @@ export default function SalesReturnForm({
                                                     {item.product?.title || "-"}
                                                 </p>
                                                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                                                    {item.product?.barcode ||
-                                                        item.product?.sku ||
-                                                        "-"}
+                                                    {item.product?.barcode || "-"}
                                                 </p>
                                             </div>
                                         </Table.Td>

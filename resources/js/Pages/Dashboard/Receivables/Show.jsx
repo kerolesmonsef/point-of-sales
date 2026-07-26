@@ -117,7 +117,7 @@ export default function ReceivableShow({ receivable, bankAccounts = [] }) {
 
     return (
         <>
-            <Head title={`Nota ${receivable.invoice}`} />
+            <Head title={`${__("Note")} ${receivable.invoice}`} />
             <div className="space-y-6">
                 <div className="flex items-start justify-between gap-3 flex-wrap">
                     <div className="flex items-center gap-3">

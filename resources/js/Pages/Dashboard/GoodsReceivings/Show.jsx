@@ -41,7 +41,7 @@ export default function Show({ receiving }) {
                     </h1>
                 </div>
                 <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                    PO Referensi: {" "}
+                    {__("PO Reference:")}{" "}
                     <Link
                         href={route("purchase-orders.show", receiving.purchase_order_id)}
                         className="font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400"
@@ -49,7 +49,7 @@ export default function Show({ receiving }) {
                         {receiving.purchase_order?.document_number || "-"}
                     </Link>
                     {" "}&bull; Supplier: {receiving.supplier?.name || "-"}
-                    {" "}&bull; Diterima oleh {receiving.receiver?.name || "-"}
+                    {" "}&bull; {__("Received by")} {receiving.receiver?.name || "-"}
                     {" "}&bull; {formatDateTime(receiving.received_at)}
                 </p>
             </div>
@@ -79,7 +79,7 @@ export default function Show({ receiving }) {
                                                 <p className="font-medium text-slate-800 dark:text-slate-200">
                                                     {item.product?.title || __("Product #") + item.product_id}
                                                 </p>
-                                                <p className="text-xs text-slate-500">{item.product?.sku || "-"}</p>
+
                                             </Table.Td>
                                             <Table.Td className="font-semibold">{item.qty_received}</Table.Td>
                                             <Table.Td>{formatCurrency(unitPrice)}</Table.Td>

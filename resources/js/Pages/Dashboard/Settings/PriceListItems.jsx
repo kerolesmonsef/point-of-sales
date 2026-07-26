@@ -11,7 +11,7 @@ export default function PriceListItems({ priceList, products }) {
     const [search, setSearch] = useState("");
     if (flash?.success) toast.success(flash.success);
 
-    const filtered = products.filter(p => p.title.toLowerCase().includes(search.toLowerCase()) || (p.sku || "").includes(search));
+    const filtered = products.filter(p => p.title.toLowerCase().includes(search.toLowerCase()));
     const existingProductIds = priceList.items.map(i => i.product_id);
 
     const addPrice = (product) => {
@@ -42,7 +42,7 @@ export default function PriceListItems({ priceList, products }) {
                     <input value={search} onChange={e => setSearch(e.target.value)} placeholder={__("Search products...")} className="h-11 w-full rounded-xl border border-slate-200 px-4 text-sm mb-3" />
                     {search && filtered.filter(p => !existingProductIds.includes(p.id)).slice(0, 10).map(p => (
                         <button key={p.id} type="button" onClick={() => addPrice(p)} className="flex w-full items-center justify-between px-4 py-3 rounded-lg hover:bg-slate-50 text-sm transition">
-                            <span>{p.title} <span className="text-slate-400">({p.sku || "-"})</span></span>
+                            <span>{p.title}</span>
                             <span className="text-primary-500 font-medium">{formatPrice(p.sell_price)}</span>
                         </button>
                     ))}
@@ -55,7 +55,7 @@ export default function PriceListItems({ priceList, products }) {
                                 <div key={item.id} className="p-4 flex items-center gap-4">
                                     <div className="flex-1">
                                         <p className="font-semibold">{item.product?.title || "-"}</p>
-                                        <p className="text-sm text-slate-500">{item.product?.sku || "-"} • {__("Normal price:")} {formatPrice(item.product?.sell_price)}</p>
+                                        <p className="text-sm text-slate-500">{__("Normal price:")} {formatPrice(item.product?.sell_price)}</p>
                                     </div>
                                     <span className="font-bold text-primary-600">{formatPrice(item.price)}</span>
                                     <button onClick={() => removeItem(item)} className="p-2 rounded-lg text-danger-500 hover:bg-danger-50"><IconTrash size={18} /></button>

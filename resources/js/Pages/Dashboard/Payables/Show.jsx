@@ -95,7 +95,7 @@ export default function PayableShow({ payable, bankAccounts = [] }) {
 
     return (
         <>
-            <Head title={`Hutang ${payable.document_number}`} />
+            <Head title={`${__("Payable")} ${payable.document_number}`} />
             <div className="space-y-6">
                 <div className="flex items-start justify-between gap-3 flex-wrap">
                     <div className="flex items-center gap-3">
@@ -188,7 +188,7 @@ export default function PayableShow({ payable, bankAccounts = [] }) {
                                                             {formatCurrency(pay.amount)}
                                                         </p>
                                                         <p className="text-xs text-slate-500">
-                                                            {formatDate(pay.paid_at)} • {pay.method || "metode"}
+                                                            {formatDate(pay.paid_at)} • {pay.method || __("method")}
                                                             {pay.bank_account && ` • ${pay.bank_account.bank_name}`}
                                                         </p>
                                                         {pay.note && (

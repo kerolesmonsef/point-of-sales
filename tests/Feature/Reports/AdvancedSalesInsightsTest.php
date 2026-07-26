@@ -70,9 +70,9 @@ class AdvancedSalesInsightsTest extends TestCase
         ]);
         $cashier = User::factory()->create();
 
-        $topProduct = $this->createProduct($category, 'Top Product', 'TOP-001', 12_000, 20_000, 10);
-        $revenueProduct = $this->createProduct($category, 'Revenue Product', 'REV-001', 30_000, 50_000, 8);
-        $unsoldProduct = $this->createProduct($category, 'Unsold Product', 'UNS-001', 15_000, 25_000, 6);
+        $topProduct = $this->createProduct($category, 'Top Product', 12_000, 20_000, 10);
+        $revenueProduct = $this->createProduct($category, 'Revenue Product', 30_000, 50_000, 8);
+        $unsoldProduct = $this->createProduct($category, 'Unsold Product', 15_000, 25_000, 6);
 
         $this->createTransactionWithDetails($cashier, $customer, Carbon::parse('2026-05-05 09:10:00'), [
             ['product' => $topProduct, 'qty' => 5, 'line_total' => 100_000],
@@ -105,7 +105,7 @@ class AdvancedSalesInsightsTest extends TestCase
         ]);
         $cashierA = User::factory()->create(['name' => 'Cashier A']);
         $cashierB = User::factory()->create(['name' => 'Cashier B']);
-        $product = $this->createProduct($category, 'Filter Product', 'FLT-001', 10_000, 20_000, 10);
+        $product = $this->createProduct($category, 'Filter Product', 10_000, 20_000, 10);
 
         $this->createTransactionWithDetails($cashierA, $customer, Carbon::parse('2026-05-01 08:00:00'), [
             ['product' => $product, 'qty' => 2, 'line_total' => 40_000],
@@ -146,7 +146,7 @@ class AdvancedSalesInsightsTest extends TestCase
             'address' => 'Jl. Insight 3',
         ]);
         $cashier = User::factory()->create();
-        $product = $this->createProduct($category, 'Hourly Product', 'HR-001', 8_000, 15_000, 9);
+        $product = $this->createProduct($category, 'Hourly Product', 8_000, 15_000, 9);
 
         $this->createTransactionWithDetails($cashier, $customer, Carbon::parse('2026-05-03 09:15:00'), [
             ['product' => $product, 'qty' => 1, 'line_total' => 15_000],
@@ -187,7 +187,7 @@ class AdvancedSalesInsightsTest extends TestCase
             'address' => 'Jl. Repeat 2',
         ]);
         $cashier = User::factory()->create();
-        $product = $this->createProduct($category, 'Repeat Product', 'RPT-001', 10_000, 20_000, 12);
+        $product = $this->createProduct($category, 'Repeat Product', 10_000, 20_000, 12);
 
         $this->createTransactionWithDetails($cashier, $repeatMember, Carbon::parse('2026-05-01 10:00:00'), [
             ['product' => $product, 'qty' => 1, 'line_total' => 20_000],
@@ -226,9 +226,9 @@ class AdvancedSalesInsightsTest extends TestCase
             'address' => 'Jl. Coverage',
         ]);
         $cashier = User::factory()->create();
-        $fastProduct = $this->createProduct($category, 'Fast Product', 'FST-001', 10_000, 20_000, 4);
-        $steadyProduct = $this->createProduct($category, 'Steady Product', 'STD-001', 10_000, 20_000, 20);
-        $idleProduct = $this->createProduct($category, 'Idle Product', 'IDL-001', 10_000, 20_000, 12);
+        $fastProduct = $this->createProduct($category, 'Fast Product', 10_000, 20_000, 4);
+        $steadyProduct = $this->createProduct($category, 'Steady Product', 10_000, 20_000, 20);
+        $idleProduct = $this->createProduct($category, 'Idle Product', 10_000, 20_000, 12);
 
         $this->createTransactionWithDetails($cashier, $customer, Carbon::parse('2026-05-01 11:00:00'), [
             ['product' => $fastProduct, 'qty' => 4, 'line_total' => 80_000],
@@ -274,7 +274,7 @@ class AdvancedSalesInsightsTest extends TestCase
             'loyalty_total_spent' => 1_500_000,
             'loyalty_transaction_count' => 6,
         ]);
-        $product = $this->createProduct($category, 'Promo Product', 'PRM-001', 10_000, 20_000, 10);
+        $product = $this->createProduct($category, 'Promo Product', 10_000, 20_000, 10);
 
         PricingRule::create([
             'name' => 'Active Promo',
@@ -418,15 +418,13 @@ class AdvancedSalesInsightsTest extends TestCase
     private function createProduct(
         Category $category,
         string $title,
-        string $sku,
         int $buyPrice,
         int $sellPrice,
         int $stock
     ): Product {
         return Product::create([
             'image' => 'product.png',
-            'barcode' => $sku,
-            'sku' => $sku,
+            'barcode' => 'BRCD-'.strtoupper((string) str()->random(10)),
             'title' => $title,
             'description' => $title,
             'buy_price' => $buyPrice,

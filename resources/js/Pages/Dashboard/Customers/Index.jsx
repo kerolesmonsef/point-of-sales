@@ -55,7 +55,7 @@ function CustomerCard({ customer, canUpdate, canDelete }) {
                                     : __("non-member")}
                             </span>
                             <span className="inline-flex rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
-                                {customer.loyalty_points || 0} poin
+                                {customer.loyalty_points || 0} {__("points")}
                             </span>
                         </div>
                     </div>
@@ -101,7 +101,7 @@ function CustomerCard({ customer, canUpdate, canDelete }) {
                                 "flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-danger-100 text-danger-600 hover:bg-danger-200 dark:bg-danger-900/50 dark:text-danger-400 text-sm font-medium"
                             }
                             url={route("customers.destroy", customer.id)}
-                            label="Hapus"
+                                            label={__("Delete")}
                         />
                     )}
                 </div>
@@ -126,11 +126,11 @@ export default function Index({ customers }) {
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
                         <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-                            Pelanggan
+                            {__("Customers")}
                         </h1>
                         <p className="text-sm text-slate-500 dark:text-slate-400">
                             {customers.total || customers.data?.length || 0}{" "}
-                            pelanggan terdaftar
+                            {__("registered customers")}
                         </p>
                     </div>
                     {canCreateCustomers && (
@@ -230,10 +230,10 @@ export default function Index({ customers }) {
                             <Table.Thead>
                                 <tr>
                                     <Table.Th className="w-10">No</Table.Th>
-                                    <Table.Th>Pelanggan</Table.Th>
-                                    <Table.Th>Loyalty</Table.Th>
-                                    <Table.Th>No. Telepon</Table.Th>
-                                    <Table.Th>Alamat</Table.Th>
+                                    <Table.Th>{__("Customer")}</Table.Th>
+                                    <Table.Th>{__("Loyalty")}</Table.Th>
+                                    <Table.Th>{__("Phone Number")}</Table.Th>
+                                    <Table.Th>{__("Address")}</Table.Th>
                                     <Table.Th></Table.Th>
                                 </tr>
                             </Table.Thead>
@@ -284,9 +284,8 @@ export default function Index({ customers }) {
                                                         : __("non-member")}
                                                 </span>
                                                 <span className="text-xs text-slate-500 dark:text-slate-400">
-                                                    {customer.loyalty_points ||
-                                                        0}{" "}
-                                                    poin
+                                                    {customer.loyalty_points || 0}{" "}
+                                                    {__("points")}
                                                 </span>
                                             </div>
                                         </Table.Td>
@@ -360,12 +359,12 @@ export default function Index({ customers }) {
                             strokeWidth={1.5}
                         />
                     </div>
-                    <h3 className="text-lg font-medium text-slate-800 dark:text-slate-200 mb-1">
-                        Belum Ada Pelanggan
-                    </h3>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-                        Tambahkan pelanggan pertama Anda.
-                    </p>
+                                    <h3 className="text-lg font-medium text-slate-800 dark:text-slate-200 mb-1">
+                                        {__("No Customers Yet")}
+                                    </h3>
+                                    <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
+                                        {__("Add your first customer.")}
+                                    </p>
                     <Button
                         type={"link"}
                         icon={<IconCirclePlus size={18} />}

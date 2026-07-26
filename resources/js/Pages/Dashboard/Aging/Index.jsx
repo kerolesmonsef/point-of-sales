@@ -116,7 +116,7 @@ export default function AgingIndex() {
                                 (payableAgingSummary?.find((b) => b.bucket === "61-90")?.remaining || 0)
                             )}
                         </p>
-                        <p className="text-xs text-slate-500 mt-1">61+ hari</p>
+                        <p className="text-xs text-slate-500 mt-1">61+ {__("days")}</p>
                     </div>
 
                     <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
@@ -166,7 +166,7 @@ export default function AgingIndex() {
                                 <div>
                                     <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-3 flex items-center gap-1.5">
                                         <IconClock size={16} className="text-warning-500" />
-                                        Akan Jatuh Tempo
+                                        {__("Due Soon")}
                                     </h3>
                                     <div className="space-y-2">
                                         {payableNotifications.map((item) => (

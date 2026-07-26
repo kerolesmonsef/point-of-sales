@@ -30,7 +30,6 @@ export default function Create({ orders }) {
                 .map((item) => ({
                     purchase_order_item_id: item.id,
                     product_title: item.product?.title || __("Product #") + item.product_id,
-                    product_sku: item.product?.sku || "-",
                     qty_ordered: item.qty_ordered,
                     qty_received_already: item.qty_received || 0,
                     outstanding: item.qty_ordered - (item.qty_received || 0),
@@ -129,7 +128,6 @@ export default function Create({ orders }) {
                                             <tr key={item.purchase_order_item_id} className="border-b border-slate-100 dark:border-slate-800">
                                                 <td className="px-3 py-3">
                                                     <p className="font-medium text-slate-800 dark:text-slate-200">{item.product_title}</p>
-                                                    <p className="text-xs text-slate-500">{item.product_sku}</p>
                                                 </td>
                                                 <td className="px-3 py-3 text-right">{item.qty_ordered}</td>
                                                 <td className="px-3 py-3 text-right text-slate-500">{item.qty_received_already}</td>

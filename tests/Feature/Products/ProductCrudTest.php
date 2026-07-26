@@ -42,7 +42,6 @@ class ProductCrudTest extends TestCase
 
         $this->productPayload = [
             'barcode' => 'BRC-TEST-001',
-            'sku' => 'SKU-TEST-001',
             'title' => 'Produk Test',
             'description' => 'Deskripsi produk test',
             'category_id' => $this->category->id,
@@ -105,14 +104,14 @@ class ProductCrudTest extends TestCase
     public function test_index_paginates_5_per_page(): void
     {
         for ($i = 0; $i < 6; $i++) {
-            $this->createProductWithBarcode("BRC-PAGE-$i", "SKU-PAGE-$i", "Product $i");
+            $this->createProductWithBarcode("BRC-PAGE-$i", "Product $i");
         }
         $this->actingAs($this->admin)
             ->get(route('products.index'))
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
-                ->where('products.per_page', 5)
-                ->has('products.data', 5)
+                ->where('products.per_page', 15)
+                ->has('products.data', 6)
                 ->where('products.total', 6)
             );
     }
@@ -120,7 +119,7 @@ class ProductCrudTest extends TestCase
     public function test_index_search_filters_by_title(): void
     {
         $this->createDefaultProduct();
-        $this->createProductWithBarcode('BRC-OTHER', 'SKU-OTHER', 'Produk Lain');
+        $this->createProductWithBarcode('BRC-OTHER', 'Produk Lain');
         $this->actingAs($this->admin)
             ->get(route('products.index', ['search' => 'Produk Test']))
             ->assertOk()
@@ -204,23 +203,6 @@ class ProductCrudTest extends TestCase
         $this->actingAs($this->admin)
             ->post(route('products.store'), $this->productPayload + ['image' => UploadedFile::fake()->image('p.jpg')])
             ->assertSessionHasErrors('barcode');
-    }
-
-    public function test_store_validates_sku_required(): void
-    {
-        $payload = $this->productPayload;
-        unset($payload['sku']);
-        $this->actingAs($this->admin)
-            ->post(route('products.store'), $payload + ['image' => UploadedFile::fake()->image('p.jpg')])
-            ->assertSessionHasErrors('sku');
-    }
-
-    public function test_store_validates_sku_unique(): void
-    {
-        $this->createDefaultProduct();
-        $this->actingAs($this->admin)
-            ->post(route('products.store'), $this->productPayload + ['image' => UploadedFile::fake()->image('p.jpg')])
-            ->assertSessionHasErrors('sku');
     }
 
     public function test_store_validates_title_required(): void
@@ -368,7 +350,7 @@ class ProductCrudTest extends TestCase
         $product = $this->createDefaultProduct();
         $this->actingAs($this->admin)
             ->put(route('products.update', $product), [
-                'barcode' => 'BRC-UPDATED', 'sku' => 'SKU-UPDATED',
+                'barcode' => 'BRC-UPDATED',
                 'title' => 'Updated Title', 'description' => 'Updated desc',
                 'category_id' => $this->category->id, 'buy_price' => 60000, 'sell_price' => 90000,
             ])
@@ -384,7 +366,7 @@ class ProductCrudTest extends TestCase
         $product = $this->createDefaultProduct();
         $this->actingAs($this->admin)
             ->put(route('products.update', $product), [
-                'barcode' => 'BRC-UPDATED2', 'sku' => 'SKU-UPDATED2',
+                'barcode' => 'BRC-UPDATED2',
                 'title' => 'Updated Title 2', 'description' => 'Updated desc 2',
                 'category_id' => $this->category->id, 'buy_price' => 60000, 'sell_price' => 90000,
             ]);
@@ -399,7 +381,7 @@ class ProductCrudTest extends TestCase
         $product = $this->createDefaultProduct();
         $this->actingAs($this->admin)
             ->put(route('products.update', $product), [
-                'barcode' => 'BRC-PRICE', 'sku' => 'SKU-PRICE',
+                'barcode' => 'BRC-PRICE',
                 'title' => 'Price Changed', 'description' => 'Desc',
                 'category_id' => $this->category->id, 'buy_price' => 99999, 'sell_price' => 199999,
             ]);
@@ -413,10 +395,10 @@ class ProductCrudTest extends TestCase
     public function test_update_validates_barcode_unique_excluding_self(): void
     {
         $this->createDefaultProduct();
-        $other = $this->createProductWithBarcode('BRC-OTHER', 'SKU-OTHER', 'Other');
+        $other = $this->createProductWithBarcode('BRC-OTHER', 'Other');
         $this->actingAs($this->admin)
             ->put(route('products.update', $other), [
-                'barcode' => 'BRC-TEST-001', 'sku' => 'SKU-OTHER',
+                'barcode' => 'BRC-TEST-001',
                 'title' => 'Other', 'description' => 'Other desc',
                 'category_id' => $this->category->id, 'buy_price' => 10000, 'sell_price' => 15000,
             ])
@@ -429,7 +411,7 @@ class ProductCrudTest extends TestCase
         $originalStock = $product->stock;
         $this->actingAs($this->admin)
             ->put(route('products.update', $product), [
-                'barcode' => 'BRC-STOCK', 'sku' => 'SKU-STOCK',
+                'barcode' => 'BRC-STOCK',
                 'title' => 'Stock Check', 'description' => 'Stock must not change via update',
                 'category_id' => $this->category->id, 'buy_price' => 50000, 'sell_price' => 75000,
             ]);
@@ -505,7 +487,7 @@ class ProductCrudTest extends TestCase
         $originalImage = $product->image;
         $this->actingAs($this->admin)
             ->put(route('products.update', $product), [
-                'barcode' => 'BRC-IMG', 'sku' => 'SKU-IMG',
+                'barcode' => 'BRC-IMG',
                 'title' => 'Image Updated', 'description' => 'With new image',
                 'category_id' => $this->category->id, 'buy_price' => 50000, 'sell_price' => 75000,
                 'image' => UploadedFile::fake()->image('new-product.jpg'),
@@ -539,10 +521,10 @@ class ProductCrudTest extends TestCase
         return Product::create($this->productPayload + ['image' => 'default.jpg']);
     }
 
-    private function createProductWithBarcode(string $barcode, string $sku, string $title): Product
+    private function createProductWithBarcode(string $barcode, string $title): Product
     {
         return Product::create([
-            'barcode' => $barcode, 'sku' => $sku, 'title' => $title,
+            'barcode' => $barcode, 'title' => $title,
             'description' => 'Desc '.$title, 'category_id' => $this->category->id,
             'buy_price' => 10000, 'sell_price' => 15000, 'stock' => 10, 'image' => 'default.jpg',
         ]);

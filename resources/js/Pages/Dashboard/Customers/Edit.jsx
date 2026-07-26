@@ -139,11 +139,11 @@ export default function Edit({ customer }) {
                     className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-primary-600 mb-3"
                 >
                     <IconArrowLeft size={16} />
-                    Kembali ke Pelanggan
+                    {__("Back to Customers")}
                 </Link>
                 <h1 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <IconUsers size={28} className="text-primary-500" />
-                    Edit Pelanggan
+                    {__("Edit Customer")}
                 </h1>
                 <p className="text-sm text-slate-500 mt-1">{customer.name}</p>
             </div>
@@ -174,10 +174,10 @@ export default function Edit({ customer }) {
                             <div className="flex items-center justify-between gap-4">
                                 <div>
                                     <p className="text-sm font-semibold text-slate-900 dark:text-white">
-                                        Status Loyalty
+                                        {__("Loyalty Status")}
                                     </p>
                                     <p className="text-xs text-slate-500 dark:text-slate-400">
-                                        Member code: {customer.member_code || "-"} | poin saat ini: {customer.loyalty_points || 0}
+                                        {__("Member code:")} {customer.member_code || "-"} | {__("Current points:")} {customer.loyalty_points || 0}
                                     </p>
                                 </div>
                                 <label className="inline-flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
@@ -192,14 +192,14 @@ export default function Edit({ customer }) {
                                         }
                                         className="h-4 w-4 rounded border-slate-300 text-primary-500"
                                     />
-                                    Member
+                                    {__("Member")}
                                 </label>
                             </div>
 
                             {data.is_loyalty_member && (
                                 <div className="mt-4">
                                     <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                        Tier Member
+                                        {__("Member Tier")}
                                     </label>
                                     <select
                                         value={data.loyalty_tier}
@@ -227,7 +227,7 @@ export default function Edit({ customer }) {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Provinsi
+                                    {__("Province")}
                                 </label>
                                 <select
                                     value={data.province_id}
@@ -236,7 +236,7 @@ export default function Edit({ customer }) {
                                     }
                                     className="w-full h-11 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 text-sm"
                                 >
-                                    <option value="">Pilih Provinsi</option>
+                                    <option value="">{__("Select Province")}</option>
                                     {provinces.map((prov) => (
                                         <option key={prov.code} value={prov.code}>
                                             {prov.name}
@@ -251,7 +251,7 @@ export default function Edit({ customer }) {
                             </div>
                             <div>
                                 <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Kota/Kabupaten
+                                    {__("City/Regency")}
                                 </label>
                                 <select
                                     value={data.regency_id}
@@ -261,7 +261,7 @@ export default function Edit({ customer }) {
                                     className="w-full h-11 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 text-sm"
                                     disabled={!data.province_id}
                                 >
-                                    <option value="">Pilih Kota/Kabupaten</option>
+                                    <option value="">{__("Select City/Regency")}</option>
                                     {regencyList.map((item) => (
                                         <option key={item.code} value={item.code}>
                                             {item.name}
@@ -279,7 +279,7 @@ export default function Edit({ customer }) {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Kecamatan
+                                    {__("District")}
                                 </label>
                                 <select
                                     value={data.district_id}
@@ -289,7 +289,7 @@ export default function Edit({ customer }) {
                                     className="w-full h-11 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 text-sm"
                                     disabled={!data.regency_id}
                                 >
-                                    <option value="">Pilih Kecamatan</option>
+                                    <option value="">{__("Select District")}</option>
                                     {districtList.map((item) => (
                                         <option key={item.code} value={item.code}>
                                             {item.name}
@@ -304,7 +304,7 @@ export default function Edit({ customer }) {
                             </div>
                             <div>
                                 <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    Kelurahan
+                                    {__("Village")}
                                 </label>
                                 <select
                                     value={data.village_id}
@@ -315,7 +315,7 @@ export default function Edit({ customer }) {
                                     className="w-full h-11 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 text-sm"
                                     disabled={!data.district_id}
                                 >
-                                    <option value="">Pilih Kelurahan</option>
+                                    <option value="">{__("Select Village")}</option>
                                     {villageList.map((item) => (
                                         <option key={item.code} value={item.code}>
                                             {item.name}
@@ -344,7 +344,7 @@ export default function Edit({ customer }) {
                             href={route("customers.index")}
                             className="px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 font-medium transition-colors"
                         >
-                            Batal
+                            {__("Cancel")}
                         </Link>
                         <button
                             type="submit"

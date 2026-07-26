@@ -28,7 +28,6 @@ class ProductsImport implements ToModel, WithBatchInserts, WithChunkReading, Wit
         return Product::updateOrCreate(
             ['barcode' => $barcode],
             [
-                'sku' => $row['sku'] ?? $barcode,
                 'title' => $row['nama'] ?? '',
                 'description' => $row['deskripsi'] ?? '',
                 'category_id' => $category->id,
