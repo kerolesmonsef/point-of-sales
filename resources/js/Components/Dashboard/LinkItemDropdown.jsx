@@ -20,13 +20,22 @@ export default function LinkItemDropdown({ icon, title, data, access, sidebarOpe
 
     const canRenderParent = superAdmin || access === true || visibleItems.length > 0;
 
+    const hasActiveChild = useMemo(
+        () => visibleItems.some((item) => url.startsWith(new URL(item.href).pathname)),
+        [visibleItems, url]
+    );
+
     if (!canRenderParent || visibleItems.length === 0) {
         return null;
     }
 
+    const activeParentClasses = hasActiveChild
+        ? "bg-slate-100 dark:bg-slate-800 text-primary-700 dark:text-primary-400 border-l-[3px] border-primary-500"
+        : "text-gray-500 hover:border-r-gray-700 hover:text-gray-900 dark:text-gray-500 dark:hover:border-r-gray-50 dark:hover:text-gray-100 border-l-[3px] border-transparent hover:bg-slate-100 dark:hover:bg-slate-800";
+
     const buttonClass = sidebarOpen
-        ? "min-w-full flex items-center font-medium gap-x-3.5 px-4 py-3 hover:border-r-2 capitalize hover:cursor-pointer text-sm justify-between text-gray-500 hover:border-r-gray-700 hover:text-gray-900 dark:text-gray-500 dark:hover:border-r-gray-50 dark:hover:text-gray-100"
-        : "min-w-full flex justify-center py-3 hover:border-r-2 hover:cursor-pointer text-gray-500 hover:border-r-gray-700 hover:text-gray-900 dark:text-gray-500 dark:hover:border-r-gray-50 dark:hover:text-gray-100";
+        ? `min-w-full flex items-center font-medium gap-x-3.5 px-4 py-3 hover:border-r-2 capitalize hover:cursor-pointer text-sm justify-between transition-all duration-200 group ${activeParentClasses}`
+        : "min-w-full flex justify-center py-3 hover:border-r-2 hover:cursor-pointer text-gray-500 hover:border-r-gray-700 hover:text-gray-900 dark:text-gray-500 dark:hover:border-r-gray-50 dark:hover:text-gray-100 group";
 
     return (
         <>
@@ -34,7 +43,7 @@ export default function LinkItemDropdown({ icon, title, data, access, sidebarOpe
                 {sidebarOpen ? (
                     <>
                         <div className="flex items-center gap-x-3.5">
-                            {icon}
+                            <span className="transition-transform duration-200 group-hover:scale-125 inline-flex">{icon}</span>
                             {title}
                         </div>
                         {isOpen ? (
@@ -44,40 +53,46 @@ export default function LinkItemDropdown({ icon, title, data, access, sidebarOpe
                         )}
                     </>
                 ) : !isOpen ? (
-                    icon
+                    <span className="transition-transform duration-200 group-hover:scale-125 inline-flex">{icon}</span>
                 ) : (
                     <IconChevronDown size={20} strokeWidth={1.5} />
                 )}
             </button>
 
             {isOpen &&
-                visibleItems.map((item, index) => (
+                visibleItems.map((item, index) => {
+                    const isSubActive = url.startsWith(new URL(item.href).pathname);
+                    return (
                     <Link
                         key={index}
                         href={item.href}
                         className={`${
-                            url === item.href &&
-                            "border-r-2 border-r-gray-400 bg-gray-100 text-gray-700 dark:border-r-gray-500 dark:bg-gray-900 dark:text-white"
-                        } ${
                             sidebarOpen
-                                ? "min-w-full flex items-center font-medium gap-x-3.5 px-5 py-3 hover:border-r-2 capitalize hover:cursor-pointer text-sm line-clamp-1 text-gray-500 hover:border-r-gray-700 hover:text-gray-900 dark:text-gray-500 dark:hover:border-r-gray-50 dark:hover:text-gray-100"
-                                : "min-w-full flex justify-center py-3 hover:border-r-2 hover:cursor-pointer text-gray-500 hover:border-r-gray-700 hover:text-gray-900 dark:text-gray-500 dark:hover:border-r-gray-50 dark:hover:text-gray-100"
+                                ? `min-w-full flex items-center font-medium gap-x-3.5 px-5 py-3 capitalize hover:cursor-pointer text-sm line-clamp-1 transition-all duration-200 group ${
+                                    isSubActive
+                                        ? "bg-slate-100 dark:bg-slate-800 text-primary-700 dark:text-primary-400 border-l-[3px] border-primary-500"
+                                        : "text-gray-500 hover:text-gray-900 dark:text-gray-500 dark:hover:text-gray-100 border-l-[3px] border-transparent hover:bg-slate-100 dark:hover:bg-slate-800"
+                                  }`
+                                : "min-w-full flex justify-center py-3 hover:border-r-2 hover:cursor-pointer text-gray-500 hover:border-r-gray-700 hover:text-gray-900 dark:text-gray-500 dark:hover:border-r-gray-50 dark:hover:text-gray-100 group"
                         }`}
                         {...props}
                     >
                         {sidebarOpen ? (
                             <>
-                                <IconCornerDownRight
-                                    size={18}
-                                    strokeWidth={1.5}
-                                />{" "}
+                                <span className="transition-transform duration-200 group-hover:scale-125 inline-flex">
+                                    <IconCornerDownRight
+                                        size={18}
+                                        strokeWidth={1.5}
+                                    />
+                                </span>
                                 {item.title}
                             </>
                         ) : (
-                            item.icon
+                            <span className="transition-transform duration-200 group-hover:scale-125 inline-flex">{item.icon}</span>
                         )}
                     </Link>
-                ))}
+                    );
+                })}
         </>
     );
 }

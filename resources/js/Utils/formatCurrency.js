@@ -1,4 +1,4 @@
-const localeMap = { EGP: 'ar-EG', IDR: 'id-ID', USD: 'en-US' };
+const localeMap = { EGP: 'ar-EG-u-nu-latn', IDR: 'id-ID', USD: 'en-US' };
 
 export function formatCurrency(value = 0) {
   const currency = window.__storeCurrency || 'IDR';

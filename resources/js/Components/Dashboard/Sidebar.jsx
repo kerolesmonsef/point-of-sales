@@ -3,6 +3,7 @@ import { usePage } from "@inertiajs/react";
 import { IconLayoutGrid } from "@tabler/icons-react";
 import LinkItem from "@/Components/Dashboard/LinkItem";
 import LinkItemDropdown from "@/Components/Dashboard/LinkItemDropdown";
+import SidebarSearch from "@/Components/Dashboard/SidebarSearch";
 import Menu from "@/Utils/Menu";
 import { useTranslations } from "@/Utils/Translations";
 
@@ -68,7 +69,8 @@ export default function Sidebar({ sidebarOpen }) {
                 )}
             </div>
 
-            {/* Navigation */}
+            <SidebarSearch sidebarOpen={sidebarOpen} navigation={menuNavigation} __={__} />
+
             <nav className="dashboard-scrollbar min-h-0 flex-1 overflow-y-auto py-3">
                 {menuNavigation.map((section, index) => {
                     const hasPermission = section.details.some(
@@ -78,7 +80,6 @@ export default function Sidebar({ sidebarOpen }) {
 
                     return (
                         <div key={index} className="mb-2">
-                            {/* Section Title */}
                             {sidebarOpen && (
                                 <div className="px-4 py-2">
                                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-600">
