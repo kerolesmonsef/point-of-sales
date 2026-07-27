@@ -11,7 +11,7 @@ import {
 } from "@tabler/icons-react";
 import { useState } from "react";
 
-export default function Login({ status, canResetPassword, canRegister, botGuard }) {
+export default function Login({ status, canResetPassword, botGuard }) {
     const honeypotField = botGuard?.honeypot_field || "company_website";
     const tokenField = botGuard?.token_field || "bot_guard_token";
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -206,18 +206,6 @@ export default function Login({ status, canResetPassword, canRegister, botGuard 
                                 )}
                             </button>
 
-                            {/* Register Link */}
-                            {canRegister && (
-                                <p className="text-center text-sm text-slate-600 dark:text-slate-400">
-                                    {__("Don't have an account?")}{" "}
-                                    <Link
-                                        href="/register"
-                                        className="text-primary-500 hover:text-primary-600 font-semibold"
-                                    >
-                                        {__("Register Now")}
-                                    </Link>
-                                </p>
-                            )}
                         </form>
                     </div>
                 </div>

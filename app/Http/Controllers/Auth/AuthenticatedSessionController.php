@@ -26,7 +26,6 @@ class AuthenticatedSessionController extends Controller
     {
         return Inertia::render('Auth/Login', [
             'canResetPassword' => Route::has('password.request'),
-            'canRegister' => config('security.auth.public_registration'),
             'status' => session('status'),
             'botGuard' => BotGuard::payload(),
         ]);
