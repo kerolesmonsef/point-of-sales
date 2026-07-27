@@ -74,7 +74,7 @@ export default function Edit({ category }) {
                                     {imagePreview ? (
                                         <img
                                             src={imagePreview}
-                                            alt="Preview"
+                                            alt={__("Preview")}
                                             className="w-full h-full object-cover"
                                         />
                                     ) : (

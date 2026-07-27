@@ -8,46 +8,47 @@
 
 ---
 
-## Never migrated (0 `__()` calls — stock Breeze scaffolding, untouched)
+## ✅ Completed — wrapped with `__()` in commit `4a9cdd7` (first 20 files)
 
-- [ ] `Auth/ResetPassword.jsx` — `<Head title="Reset Password" />`, labels `Email`/`Password`/`Confirm Password`, button `Reset Password`
-- [ ] `Profile/Edit.jsx` — `<Head title="Profile" />`, `<h2>Profile</h2>`
-- [ ] `Profile/Partials/DeleteUserForm.jsx` — `Delete Account`, `Are you sure you want to delete your account?`, confirmation copy, `Password`, `Cancel`
-- [ ] `Profile/Partials/UpdatePasswordForm.jsx` — `Update Password`, `Current Password`, `New Password`, `Confirm Password`, `Save`, `Saved.`
-- [ ] `Profile/Partials/UpdateProfileInformationForm.jsx` — `Profile Information`, `Name`, `Email`, `Avatar`, `Your email address is unverified.`, `Save`, `Saved.`
+- [x] `Auth/ResetPassword.jsx`
+- [x] `Profile/Edit.jsx`
+- [x] `Profile/Partials/DeleteUserForm.jsx`
+- [x] `Profile/Partials/UpdatePasswordForm.jsx`
+- [x] `Profile/Partials/UpdateProfileInformationForm.jsx`
+- [x] `Dashboard/Index.jsx`
+- [x] `Dashboard/Reports/Insights.jsx`
+- [x] `Dashboard/Transactions/Index.jsx`
+- [x] `Dashboard/Transactions/History.jsx`
+- [x] `Dashboard/Transactions/Print.jsx`
+- [x] `Public/TransactionDetail.jsx`
+- [x] `Dashboard/PricingRules/Index.jsx`
+- [x] `Dashboard/PricingRules/Form.jsx`
+- [x] `Dashboard/Members/Index.jsx`
+- [x] `Dashboard/CashierShifts/Index.jsx`
+- [x] `Dashboard/AuditLogs/Index.jsx`
+- [x] `Dashboard/AuditLogs/Show.jsx`
+- [x] `Dashboard/Customers/Index.jsx`
+- [x] `Dashboard/Products/Index.jsx`
+- [x] `Dashboard/Products/Create.jsx`
 
----
+## ✅ Fixed in this session (13 files)
 
-## Partially migrated — isolated unwrapped strings left behind
+- [x] `Dashboard/Products/Edit.jsx` — `"Margin"` label, `label="Barcode"`, `alt="Preview"`
+- [x] `Dashboard/Receivables/Index.jsx` — `"Collection Rate"`
+- [x] `Dashboard/Receivables/Show.jsx` — `"Invoice"` (x2)
+- [x] `Dashboard/PurchaseOrders/Index.jsx` — `<h1>Purchase Orders</h1>`
+- [x] `Dashboard/StockOpnames/Index.jsx` — `<option>Draft</option>`, `<option>Finalized</option>`, `<Table.Th>Finalized</Table.Th>`
+- [x] `Dashboard/StockOpnames/Show.jsx` — `isDraft ? "Draft" : "Finalized"`
+- [x] `Dashboard/StockMutations/Index.jsx` — `<Table.Th>Qty</Table.Th>`
+- [x] `Dashboard/Suppliers/Index.jsx` — `<label>Email</label>`
+- [x] `Dashboard/Categories/Create.jsx` — `alt="Preview"`
+- [x] `Dashboard/Categories/Edit.jsx` — `alt="Preview"`
+- [x] `Dashboard/Users/Create.jsx` — `alt="Preview"`
+- [x] `Dashboard/Users/Edit.jsx` — `alt="Preview"`
 
-- [ ] `Dashboard/Index.jsx` — `"Dashboard"` (title/h1), `"Best seller"`, `"Slow Moving"`, `"Top spender"`
-- [ ] `Dashboard/Reports/Insights.jsx` — `"Advanced Sales Insights"`, `"Sales by Hour"`, `"Sales by Day"`, `"Qty"`, `"Qty Sold"`, `"Last Sold"`, `"Last Purchase"`, `"Member"`/`"Non-member"`, `"Rule"`, `"Loyalty Performance Summary"`, `"Tier"`, `"CRM Operational Snapshot"`, `"Campaign"`; `promoKindLabel` object (`"Discount"`, `"Bundle"`, `"BXGY"`)
-- [ ] `Dashboard/Transactions/Index.jsx` — `"Voucher"`, `"PPN"`, `"Total"`
-- [ ] `Dashboard/Transactions/History.jsx` — `"Filter"` button, `"Invoice"`, `"Total"`
-- [ ] `Dashboard/Transactions/Print.jsx` — `"Invoice"`, `"Thermal"`, `"Share"`, `"INVOICE"`, `"Subtotal"`, `"Total"`
-- [ ] `Public/TransactionDetail.jsx` — `"INVOICE"`, `"Item"`, `"Subtotal"`
-- [ ] `Dashboard/PricingRules/Index.jsx` — `<Table.Th>Rule</Table.Th>`, `<Table.Th>Priority</Table.Th>`
-- [ ] `Dashboard/PricingRules/Form.jsx` — `title="Bundle Price"`, `title="Buy X Get Y"`, `"Applied Groups"` heading
-- [ ] `Dashboard/Members/Index.jsx` — `<Table.Th>Tier</Table.Th>`
-- [ ] `Dashboard/CashierShifts/Index.jsx` — `<option>Open</option>`, `<option>Closed</option>`, `<option>Force Closed</option>`
-- [ ] `Dashboard/AuditLogs/Index.jsx` — `log.user?.name || "System"` fallback
-- [ ] `Dashboard/AuditLogs/Show.jsx` — `log.user?.name || "System"` fallback
-- [ ] `Dashboard/Customers/Index.jsx` — `"Export"`, `"Import"` buttons, `<Table.Th>No</Table.Th>`
-- [ ] `Dashboard/Products/Index.jsx` — `"Export"`, `"Import"` buttons
-- [ ] `Dashboard/Products/Create.jsx` — `"Margin"` label, `alt="Preview"`
-- [ ] `Dashboard/Products/Edit.jsx` — `"Margin"` label, `label="Barcode"`, `alt="Preview"`
-- [ ] `Dashboard/Receivables/Index.jsx` — `"Collection Rate"`
-- [ ] `Dashboard/Receivables/Show.jsx` — `"Invoice"` (x2)
-- [ ] `Dashboard/PurchaseOrders/Index.jsx` — `<h1>Purchase Orders</h1>`
-- [ ] `Dashboard/StockOpnames/Index.jsx` — `<option>Draft</option>`, `<option>Finalized</option>`, `<Table.Th>Finalized</Table.Th>`
-- [ ] `Dashboard/StockOpnames/Show.jsx` — `isDraft ? "Draft" : "Finalized"`
-- [ ] `Dashboard/StockMutations/Index.jsx` — `<Table.Th>Qty</Table.Th>`
-- [ ] `Dashboard/Suppliers/Index.jsx` — `<label>Email</label>`
-- [ ] `Dashboard/Categories/Create.jsx` — `alt="Preview"`
-- [ ] `Dashboard/Categories/Edit.jsx` — `alt="Preview"`
-- [ ] `Dashboard/Users/Create.jsx` — `alt="Preview"`
-- [ ] `Dashboard/Users/Edit.jsx` — `alt="Preview"`
-- [ ] `Welcome.jsx` — `"View Repository"`, `"Before & After"`, `"Version 1.0"`, `"✨ Revamp 2.0"`, image alt text (`"POS V1"` etc.) — **note: this page is slated for deletion per `docs/desktop.md`, don't bother translating it, just remove it**
+## Skipped
+
+- `Welcome.jsx` — slated for deletion per `docs/desktop.md`
 
 ---
 

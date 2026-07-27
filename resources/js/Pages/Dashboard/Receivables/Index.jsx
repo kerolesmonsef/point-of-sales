@@ -145,7 +145,7 @@ export default function ReceivablesIndex({ receivables, filters = {} }) {
                                         </p>
                                     </div>
                                     <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
-                                        <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">Collection Rate</p>
+                                        <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">{__("Collection Rate")}</p>
                                         <p className="mt-2 text-2xl font-bold text-primary-600">
                                             {agingData.collection_rate?.collection_rate || 0}%
                                         </p>

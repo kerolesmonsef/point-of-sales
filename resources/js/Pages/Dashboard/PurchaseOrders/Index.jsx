@@ -50,7 +50,7 @@ export default function Index({ orders, filters, suppliers }) {
             <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                     <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-                        Purchase Orders
+                        {__("Purchase Orders")}
                     </h1>
                     <p className="text-sm text-slate-500 dark:text-slate-400">
                         {__("Manage purchase orders to suppliers.")}

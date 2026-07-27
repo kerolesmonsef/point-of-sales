@@ -87,8 +87,8 @@ export default function Index({ stockOpnames, filters, warehouses = [] }) {
                     className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                 >
                     <option value="">{__("All Statuses")}</option>
-                    <option value="draft">Draft</option>
-                    <option value="finalized">Finalized</option>
+                    <option value="draft">{__("Draft")}</option>
+                    <option value="finalized">{__("Finalized")}</option>
                 </select>
 
                 <select
@@ -130,7 +130,7 @@ export default function Index({ stockOpnames, filters, warehouses = [] }) {
                             <Table.Th>{__("Status")}</Table.Th>
                             <Table.Th>{__("Items Count")}</Table.Th>
                             <Table.Th>{__("Created By")}</Table.Th>
-                            <Table.Th>Finalized</Table.Th>
+                            <Table.Th>{__("Finalized")}</Table.Th>
                             <Table.Th className="w-24 text-center">{__("Action")}</Table.Th>
                         </tr>
                     </Table.Thead>
@@ -160,8 +160,8 @@ export default function Index({ stockOpnames, filters, warehouses = [] }) {
                                             }`}
                                         >
                                             {stockOpname.status === "finalized"
-                                                ? "Finalized"
-                                                : "Draft"}
+                                                ? __("Finalized")
+                                                : __("Draft")}
                                         </span>
                                     </Table.Td>
                                     <Table.Td>{stockOpname.items_count}</Table.Td>

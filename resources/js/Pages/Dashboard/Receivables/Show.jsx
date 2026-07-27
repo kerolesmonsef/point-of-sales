@@ -255,7 +255,7 @@ export default function ReceivableShow({ receivable, bankAccounts = [] }) {
                         </p>
                         <div className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
                             <div className="flex justify-between">
-                                <span>Invoice</span>
+                                <span>{__("Invoice")}</span>
                                 <span className="font-semibold text-slate-800 dark:text-white">
                                     {receivable.invoice}
                                 </span>
@@ -482,10 +482,10 @@ export default function ReceivableShow({ receivable, bankAccounts = [] }) {
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <p className="text-xs text-slate-500">Invoice</p>
-                                        <p className="text-lg font-bold text-slate-900 dark:text-white">
-                                            {receivable.invoice}
-                                        </p>
+                                                    <p className="text-xs text-slate-500">{__("Invoice")}</p>
+                                                    <p className="text-lg font-bold text-slate-900 dark:text-white">
+                                                        {receivable.invoice}
+                                                    </p>
                                         <p className="text-xs text-slate-500">
                                             {__("Due date:")} {formatDate(receivable.due_date)}
                                         </p>

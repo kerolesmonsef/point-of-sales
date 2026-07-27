@@ -106,7 +106,7 @@ export default function Index({ stockMutations, products, warehouses = [], filte
                         <tr>
                             <Table.Th>{__("Product")}</Table.Th>
                             <Table.Th>{__("Type")}</Table.Th>
-                            <Table.Th>Qty</Table.Th>
+                            <Table.Th>{__("Qty")}</Table.Th>
                             <Table.Th>{__("Before / After")}</Table.Th>
                             <Table.Th>{__("Warehouse")}</Table.Th>
                             <Table.Th>{__("Reference")}</Table.Th>

@@ -264,7 +264,7 @@ export default function Show({
                                         : "bg-success-100 text-success-700 dark:bg-success-950/30 dark:text-success-400"
                                 }`}
                             >
-                                {isDraft ? "Draft" : "Finalized"}
+                                {isDraft ? __("Draft") : __("Finalized")}
                             </span>
                         </div>
                         <p className="text-sm text-slate-500 dark:text-slate-400">

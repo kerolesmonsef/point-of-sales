@@ -108,7 +108,7 @@ export default function SuppliersIndex({ suppliers = [] }) {
                     </div>
                     <div>
                         <label className="text-sm font-semibold text-slate-700 dark:text-slate-200">
-                            Email
+                            {__("Email")}
                         </label>
                         <input
                             className="w-full h-11 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm"

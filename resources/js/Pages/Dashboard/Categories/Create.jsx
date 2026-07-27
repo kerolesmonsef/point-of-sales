@@ -70,7 +70,7 @@ export default function Create() {
                                     {imagePreview ? (
                                         <img
                                             src={imagePreview}
-                                            alt="Preview"
+                                            alt={__("Preview")}
                                             className="w-full h-full object-cover"
                                         />
                                     ) : (

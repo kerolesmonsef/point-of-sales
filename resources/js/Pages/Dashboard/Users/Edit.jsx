@@ -83,7 +83,7 @@ export default function Edit() {
                                         {avatarPreview ? (
                                             <img
                                                 src={avatarPreview}
-                                                alt="Preview"
+                                                alt={__("Preview")}
                                                 className="w-full h-full object-cover"
                                             />
                                         ) : (
