@@ -115,7 +115,7 @@ const History = ({ transactions, filters, warehouses = [] }) => {
                             }`}
                         >
                             <IconFilter size={18} />
-                            <span>Filter</span>
+                            <span>{__("Filter")}</span>
                             {hasActiveFilters && (
                                 <span className="w-2 h-2 rounded-full bg-primary-500"></span>
                             )}
@@ -634,7 +634,7 @@ __("General")}
                             <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-4">
                                 <div className="flex justify-between items-center mb-2">
                                     <span className="text-sm text-slate-500 dark:text-slate-400">
-                                        Invoice
+                                        {__("Invoice")}
                                     </span>
                                     <span className="text-sm font-bold text-slate-900 dark:text-white">
                                         {confirmModal.transaction.invoice}
@@ -651,7 +651,7 @@ __("General")}
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-sm text-slate-500 dark:text-slate-400">
-                                        Total
+                                        {__("Total")}
                                     </span>
                                     <span className="text-lg font-bold text-primary-600 dark:text-primary-400">
                                         {formatCurrency(

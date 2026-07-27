@@ -175,7 +175,7 @@ export default function Print({ transaction }) {
                                         size={16}
                                         className="inline mr-1"
                                     />
-                                    Invoice
+                                    {__("Invoice")}
                                 </button>
                                 <button
                                     onClick={() => setPrintMode("thermal80")}
@@ -237,7 +237,7 @@ export default function Print({ transaction }) {
                                 className="inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors w-full sm:w-auto"
                             >
                                 <IconPrinter size={18} />
-                                Thermal
+                                {__("Thermal")}
                             </button>
 
                             {showPaymentLink && (
@@ -262,7 +262,7 @@ export default function Print({ transaction }) {
                                 className="inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors w-full sm:w-auto"
                             >
                                 <IconShare size={18} />
-                                Share
+                                {__("Share")}
                             </button>
 
                             {/* Confirm Payment Button - Only for pending bank_transfer */}
@@ -394,12 +394,12 @@ export default function Print({ transaction }) {
                                                 <p className="text-[11px] sm:text-xs opacity-90 space-x-2 leading-snug flex flex-wrap justify-center sm:justify-start gap-x-2 gap-y-1">
                                                     {store.phone && (
                                                         <span>
-                                                            Telp: {store.phone}
+                                                            {__("Telp")}: {store.phone}
                                                         </span>
                                                     )}
                                                     {store.email && (
                                                         <span>
-                                                            Email: {store.email}
+                                                            {__("Email")}: {store.email}
                                                         </span>
                                                     )}
                                                     {store.website && (
@@ -415,7 +415,7 @@ export default function Print({ transaction }) {
                                             <div className="flex items-center gap-2 mb-1 justify-center sm:justify-end">
                                                 <IconReceipt size={20} className="sm:w-6 sm:h-6" />
                                                 <span className="text-xs sm:text-sm font-medium opacity-90 print:opacity-100">
-                                                    INVOICE
+                                                    {__("INVOICE")}
                                                 </span>
                                             </div>
                                             <p className="text-lg sm:text-2xl font-bold leading-tight">
@@ -499,7 +499,7 @@ export default function Print({ transaction }) {
                                             }
                                         </p>
                                         <p className="text-sm text-slate-600 dark:text-slate-400">
-                                            a.n.{" "}
+                                            {__("a.n.")}{" "}
                                             {
                                                 transaction.bank_account
                                                     .account_name
@@ -521,10 +521,10 @@ export default function Print({ transaction }) {
                                                     {__("Price")}
                                                 </th>
                                                 <th className="pb-3 text-center text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                                                    Qty
+                                                    {__("Qty")}
                                                 </th>
                                                 <th className="pb-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                                                    Subtotal
+                                                    {__("Subtotal")}
                                                 </th>
                                             </tr>
                                         </thead>
@@ -617,7 +617,7 @@ export default function Print({ transaction }) {
                             <div className="bg-slate-50 dark:bg-slate-800/50 px-6 py-6">
                                 <div className="max-w-xs ml-auto space-y-2 text-sm">
                                     <div className="flex justify-between text-slate-600 dark:text-slate-400">
-                                        <span>Subtotal</span>
+                                        <span>{__("Subtotal")}</span>
                                         <span>{formatCurrency(baseSubtotal)}</span>
                                     </div>
                                     {promoDiscountTotal > 0 && (
@@ -651,7 +651,7 @@ export default function Print({ transaction }) {
                                     )}
                                     {transaction.tax_total > 0 && (
                                         <div className="flex justify-between text-slate-600 dark:text-slate-400">
-                                            <span>PPN {transaction.tax_rate ? Number(transaction.tax_rate).toFixed(0) : "11"}%</span>
+                                            <span>{__("PPN")} {transaction.tax_rate ? Number(transaction.tax_rate).toFixed(0) : "11"}%</span>
                                             <span>
                                                 +{" "}
                                                 {formatCurrency(transaction.tax_total)}
@@ -659,12 +659,12 @@ export default function Print({ transaction }) {
                                         </div>
                                     )}
                                     <div className="flex justify-between text-lg font-bold text-slate-900 dark:text-white pt-2 border-t border-slate-200 dark:border-slate-700">
-                                        <span>Total</span>
-                                        <span>
-                                            {formatCurrency(
-                                                transaction.grand_total
-                                            )}
-                                        </span>
+                                    <span>{__("Total")}</span>
+                                    <span>
+                                        {formatCurrency(
+                                            transaction.grand_total
+                                        )}
+                                    </span>
                                     </div>
                                     {paymentMethodKey === "cash" && (
                                         <>

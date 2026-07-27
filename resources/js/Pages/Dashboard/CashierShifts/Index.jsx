@@ -240,9 +240,9 @@ export default function Index({
                         className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                     >
                         <option value="">{__("All Status")}</option>
-                        <option value="open">Open</option>
-                        <option value="closed">Closed</option>
-                        <option value="force_closed">Force Closed</option>
+                        <option value="open">{__("Open")}</option>
+                        <option value="closed">{__("Closed")}</option>
+                        <option value="force_closed">{__("Force Closed")}</option>
                     </select>
                     <input
                         type="date"

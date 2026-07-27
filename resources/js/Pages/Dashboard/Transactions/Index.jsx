@@ -1071,7 +1071,7 @@ export default function Index({
                                                                 }
                                                             </p>
                                                             <p className="text-[11px] text-slate-500 dark:text-slate-500">
-                                                                a.n.{" "}
+                                                                {__("a.n.")}{" "}
                                                                 {
                                                                     bank.account_name
                                                                 }
@@ -1367,7 +1367,7 @@ export default function Index({
                         )}
                         {voucherDiscount > 0 && (
                             <div className="flex justify-between items-center mb-2 text-sm">
-                                <span className="text-slate-500">Voucher</span>
+                                <span className="text-slate-500">{__("Voucher")}</span>
                                 <span className="text-primary-600">
                                     -{formatCurrency(voucherDiscount)}
                                 </span>
@@ -1401,7 +1401,7 @@ export default function Index({
                         )}
                         {taxTotal > 0 && (
                             <div className="flex justify-between items-center mb-2 text-sm">
-                                <span className="text-slate-500">PPN</span>
+                                <span className="text-slate-500">{__("PPN")}</span>
                                 <span className="font-medium">
                                     +{formatCurrency(taxTotal)}
                                 </span>
@@ -1409,7 +1409,7 @@ export default function Index({
                         )}
                         <div className="flex justify-between items-center mb-3">
                             <span className="font-semibold text-slate-800 dark:text-white">
-                                Total
+                                {__("Total")}
                             </span>
                             <span className="text-xl font-bold text-primary-600 dark:text-primary-400">
                                 {formatCurrency(payable)}

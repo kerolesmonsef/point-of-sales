@@ -89,10 +89,10 @@ const promoStatusConfig = {
 };
 
 const promoKindLabel = {
-    standard_discount: "Discount",
+    standard_discount: __("Discount"),
     qty_break: __("Wholesale"),
-    bundle_price: "Bundle",
-    buy_x_get_y: "BXGY",
+    bundle_price: __("Bundle"),
+    buy_x_get_y: __("BXGY"),
 };
 
 const crmCampaignTypeLabel = {
@@ -339,7 +339,7 @@ export default function Insights({
 
     return (
         <>
-            <Head title="Advanced Sales Insights" />
+            <Head title={__("Advanced Sales Insights")} />
 
             <div className="space-y-6">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -349,7 +349,7 @@ export default function Insights({
                                 size={28}
                                 className="text-primary-500"
                             />
-                            Advanced Sales Insights
+                            {__("Advanced Sales Insights")}
                         </h1>
                         <p className="text-sm text-slate-500 dark:text-slate-400">
                             {__("Operational insights on sales, margin, products, and cashier performance in a single dashboard.")}
@@ -487,13 +487,13 @@ export default function Insights({
 
                 <div className="grid gap-6 xl:grid-cols-2">
                     <ChartCard
-                        title="Sales by Hour"
+                        title={__("Sales by Hour")}
                         subtitle={__("Revenue pattern per hour from filtered transactions.")}
                         chartRef={salesHourChartRef}
                         hasData={hourChartData.length > 0}
                     />
                     <ChartCard
-                        title="Sales by Day"
+                        title={__("Sales by Day")}
                         subtitle={__("Daily revenue trend in the active period.")}
                         chartRef={salesDayChartRef}
                         hasData={dayChartData.length > 0}
@@ -542,7 +542,7 @@ export default function Insights({
                             <tr>
                                 <Table.Th>{__("Product")}</Table.Th>
                                 <Table.Th>{__("Category")}</Table.Th>
-                                <Table.Th className="text-right">Qty</Table.Th>
+                                <Table.Th className="text-right">{__("Qty")}</Table.Th>
                                 <Table.Th className="text-right">{__("Revenue")}</Table.Th>
                                 <Table.Th className="text-right">{__("Profit")}</Table.Th>
                             </tr>
@@ -578,9 +578,9 @@ export default function Insights({
                             <tr>
                                 <Table.Th>{__("Product")}</Table.Th>
                                 <Table.Th>{__("Stock")}</Table.Th>
-                                <Table.Th className="text-right">Qty Sold</Table.Th>
+                                <Table.Th className="text-right">{__("Qty Sold")}</Table.Th>
                                 <Table.Th className="text-right">{__("Revenue")}</Table.Th>
-                                <Table.Th>Last Sold</Table.Th>
+                                <Table.Th>{__("Last Sold")}</Table.Th>
                             </tr>
                         </Table.Thead>
                         <Table.Tbody>
@@ -641,7 +641,7 @@ export default function Insights({
                         <Table.Thead>
                             <tr>
                                 <Table.Th>{marginView === "product" ? __("Product") : __("Category")}</Table.Th>
-                                <Table.Th className="text-right">Qty</Table.Th>
+                                <Table.Th className="text-right">{__("Qty")}</Table.Th>
                                 <Table.Th className="text-right">{__("Revenue")}</Table.Th>
                                 <Table.Th className="text-right">{__("Profit")}</Table.Th>
                                 <Table.Th className="text-right">{__("Margin")} %</Table.Th>
@@ -741,7 +741,7 @@ export default function Insights({
                                 <Table.Th className="text-right">{__("Transactions")}</Table.Th>
                                 <Table.Th className="text-right">{__("Revenue")}</Table.Th>
                                 <Table.Th className="text-right">{__("Avg Basket")}</Table.Th>
-                                <Table.Th>Last Purchase</Table.Th>
+                                <Table.Th>{__("Last Purchase")}</Table.Th>
                             </tr>
                         </Table.Thead>
                         <Table.Tbody>
@@ -771,8 +771,8 @@ export default function Insights({
                                                 }`}
                                             >
                                                 {item.is_loyalty_member
-                                                    ? "Member"
-                                                    : "Non-member"}
+                                                    ? __("Member")
+                                                    : __("Non-member")}
                                             </span>
                                         </Table.Td>
                                         <Table.Td className="text-right">
@@ -840,10 +840,10 @@ export default function Insights({
                                 <Table.Th>{__("Product")}</Table.Th>
                                 <Table.Th>{__("Status")}</Table.Th>
                                 <Table.Th className="text-right">{__("Stock")}</Table.Th>
-                                <Table.Th className="text-right">Qty Sold</Table.Th>
+                                <Table.Th className="text-right">{__("Qty Sold")}</Table.Th>
                                 <Table.Th className="text-right">{__("Avg / Day")}</Table.Th>
                                 <Table.Th className="text-right">{__("Coverage")}</Table.Th>
-                                <Table.Th>Last Sold</Table.Th>
+                                <Table.Th>{__("Last Sold")}</Table.Th>
                             </tr>
                         </Table.Thead>
                         <Table.Tbody>
@@ -946,7 +946,7 @@ export default function Insights({
                         <Table>
                             <Table.Thead>
                                 <tr>
-                                    <Table.Th>Rule</Table.Th>
+                                    <Table.Th>{__("Rule")}</Table.Th>
                                     <Table.Th>{__("Type")}</Table.Th>
                                     <Table.Th>{__("Status")}</Table.Th>
                                     <Table.Th>{__("Period")}</Table.Th>
@@ -1043,7 +1043,7 @@ export default function Insights({
                         </div>
                     </Table.Card>
 
-                    <Table.Card title="Loyalty Performance Summary">
+                    <Table.Card title={__("Loyalty Performance Summary")}>
                         <div className="mb-4 grid gap-3 md:grid-cols-2">
                             <div className="rounded-2xl bg-slate-50 p-4 dark:bg-slate-800/60">
                                 <p className="text-sm text-slate-500 dark:text-slate-400">
@@ -1130,7 +1130,7 @@ export default function Insights({
                             <Table.Thead>
                                 <tr>
                                     <Table.Th>{__("Member")}</Table.Th>
-                                    <Table.Th>Tier</Table.Th>
+                                    <Table.Th>{__("Tier")}</Table.Th>
                                     <Table.Th className="text-right">{__("Points")}</Table.Th>
                                     <Table.Th className="text-right">{__("Total Spent")}</Table.Th>
                                 </tr>
@@ -1168,7 +1168,7 @@ export default function Insights({
                     </Table.Card>
                 </div>
 
-                <Table.Card title="CRM Operational Snapshot">
+                <Table.Card title={__("CRM Operational Snapshot")}>
                     <div className="mb-4 grid gap-3 md:grid-cols-4">
                         <div className="rounded-2xl bg-slate-50 p-4 dark:bg-slate-800/60">
                             <p className="text-sm text-slate-500 dark:text-slate-400">
@@ -1239,7 +1239,7 @@ export default function Insights({
                     <Table>
                         <Table.Thead>
                             <tr>
-                                <Table.Th>Campaign</Table.Th>
+                                <Table.Th>{__("Campaign")}</Table.Th>
                                 <Table.Th>{__("Type")}</Table.Th>
                                 <Table.Th>{__("Status")}</Table.Th>
                                 <Table.Th className="text-right">{__("Target")}</Table.Th>

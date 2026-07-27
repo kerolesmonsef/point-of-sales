@@ -39,16 +39,16 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900">Profile Information</h2>
+                <h2 className="text-lg font-medium text-gray-900">{__("Profile Information")}</h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Update your account's profile information and email address.
+                    {__("Update your account's profile information and email address.")}
                 </p>
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <InputLabel htmlFor="name" value={__("Name")} />
 
                     <TextInput
                         id="name"
@@ -64,7 +64,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel htmlFor="email" value={__("Email")} />
 
                     <TextInput
                         id="email"
@@ -80,12 +80,12 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="avatar" value="Avatar" />
+                    <InputLabel htmlFor="avatar" value={__("Avatar")} />
 
                     <div className="flex items-center gap-4 mt-2">
                         <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
                             {preview ? (
-                                <img src={preview} alt="Preview" className="w-full h-full object-cover" />
+                                <img src={preview} alt={__("Preview")} className="w-full h-full object-cover" />
                             ) : (
                                 <span className="text-lg font-semibold text-gray-600">
                                     {user.name?.charAt(0)?.toUpperCase() || '?'}
@@ -111,27 +111,27 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                 {mustVerifyEmail && user.email_verified_at === null && (
                     <div>
                         <p className="text-sm mt-2 text-gray-800">
-                            Your email address is unverified.
+                            {__("Your email address is unverified.")}
                             <Link
                                 href={route('verification.send')}
                                 method="post"
                                 as="button"
                                 className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
-                                Click here to re-send the verification email.
+                                {__("Click here to re-send the verification email.")}
                             </Link>
                         </p>
 
                         {status === 'verification-link-sent' && (
                             <div className="mt-2 font-medium text-sm text-green-600">
-                                A new verification link has been sent to your email address.
+                                {__("A new verification link has been sent to your email address.")}
                             </div>
                         )}
                     </div>
                 )}
 
                 <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
+                    <PrimaryButton disabled={processing}>{__("Save")}</PrimaryButton>
 
                     <Transition
                         show={recentlySuccessful}
@@ -140,7 +140,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         leave="transition ease-in-out"
                         leaveTo="opacity-0"
                     >
-                        <p className="text-sm text-gray-600">Saved.</p>
+                        <p className="text-sm text-gray-600">{__("Saved.")}</p>
                     </Transition>
                 </div>
             </form>

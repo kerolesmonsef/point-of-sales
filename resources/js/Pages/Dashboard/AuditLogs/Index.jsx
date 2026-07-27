@@ -170,7 +170,7 @@ export default function Index({
                                     <Table.Td>
                                         <div>
                                             <p className="font-medium text-slate-800 dark:text-slate-200">
-                                                {log.user?.name || "System"}
+                                                {log.user?.name || __("System")}
                                             </p>
                                             <p className="text-xs text-slate-500 dark:text-slate-400">
                                                 {log.user?.email || "-"}

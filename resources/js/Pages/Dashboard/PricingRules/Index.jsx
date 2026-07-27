@@ -174,12 +174,12 @@ export default function Index({ rules, filters, summary = {}, recentAudits = [] 
                     <Table>
                         <Table.Thead>
                             <tr>
-                                <Table.Th>Rule</Table.Th>
+                                <Table.Th>{__("Rule")}</Table.Th>
                                 <Table.Th>{__("Target")}</Table.Th>
                                 <Table.Th>{__("Scope")}</Table.Th>
                                 <Table.Th>{__("Type")}</Table.Th>
                                 <Table.Th>{__("Discount")}</Table.Th>
-                                <Table.Th>Priority</Table.Th>
+                                <Table.Th>{__("Priority")}</Table.Th>
                                 <Table.Th>{__("Status")}</Table.Th>
                                 <Table.Th className="w-28 text-center">{__("Action")}</Table.Th>
                             </tr>

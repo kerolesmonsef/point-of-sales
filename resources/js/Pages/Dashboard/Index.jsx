@@ -297,14 +297,14 @@ export default function Dashboard({
 
     return (
         <>
-            <Head title="Dashboard" />
+            <Head title={__("Dashboard")} />
 
             <div className="space-y-6">
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
                         <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-                            Dashboard
+                            {__("Dashboard")}
                         </h1>
                         <p className="text-sm text-slate-500 dark:text-slate-400">
                             {__("Your business activity summary")}
@@ -426,7 +426,7 @@ export default function Dashboard({
                     {/* Top Products */}
                     <ListCard
                         title={__("Best Selling Products")}
-                        subtitle="Best seller"
+                        subtitle={__("Best seller")}
                         icon={IconBox}
                         emptyMessage={__("No data yet")}
                     >
@@ -464,7 +464,7 @@ export default function Dashboard({
 
                     {/* Slow Moving Products */}
                     <ListCard
-                        title="Slow Moving"
+                        title={__("Slow Moving")}
                         subtitle={__("Unsold for 30 days")}
                         icon={IconPackageOff}
                         emptyMessage={__("All products are selling")}
@@ -496,7 +496,7 @@ export default function Dashboard({
                     {/* Top Customers */}
                     <ListCard
                         title={__("Top Customers")}
-                        subtitle="Top spender"
+                        subtitle={__("Top spender")}
                         icon={IconUsers}
                         emptyMessage={__("No data yet")}
                     >

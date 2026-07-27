@@ -99,7 +99,7 @@ export default function Show({ auditLog }) {
                             {__("Actor")}
                         </p>
                         <p className="mt-2 text-sm font-semibold text-slate-900 dark:text-white">
-                            {auditLog.user?.name || "System"}
+                            {auditLog.user?.name || __("System")}
                         </p>
                         <p className="text-xs text-slate-500 dark:text-slate-400">
                             {auditLog.user?.email || "-"}

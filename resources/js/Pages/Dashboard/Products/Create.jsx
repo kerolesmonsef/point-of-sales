@@ -90,7 +90,7 @@ export default function Create({ categories, units: unitOptions = [] }) {
                                 {imagePreview ? (
                                     <img
                                         src={imagePreview}
-                                        alt="Preview"
+                                        alt={__("Preview")}
                                         className="w-full h-full object-cover"
                                     />
                                 ) : (
@@ -231,7 +231,7 @@ export default function Create({ categories, units: unitOptions = [] }) {
                                         </div>
                                         <div className="text-right">
                                             <p className="text-sm text-success-700 dark:text-success-400 font-medium">
-                                                Margin
+                                                {__("Margin")}
                                             </p>
                                             <p className="text-xl font-bold text-success-600 dark:text-success-500 mt-1">
                                                 {(

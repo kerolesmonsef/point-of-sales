@@ -521,7 +521,7 @@ export default function Form({
 
                     {data.kind === "bundle_price" && (
                         <CardSection
-                            title="Bundle Price"
+                            title={__("Bundle Price")}
                             description={__("Select product combinations and final package price.")}
                         >
                             <div className="mb-4">
@@ -607,7 +607,7 @@ export default function Form({
 
                     {data.kind === "buy_x_get_y" && (
                         <CardSection
-                            title="Buy X Get Y"
+                            title={__("Buy X Get Y")}
                             description={__("Set purchase items (buy) and gift/discount items (get).")}
                         >
                             <div className="space-y-3">
@@ -798,7 +798,7 @@ export default function Form({
                                 {previewGroups.length > 0 && (
                                     <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800">
                                         <h3 className="mb-3 text-sm font-semibold text-slate-900 dark:text-white">
-                                            Applied Groups
+                                            {__("Applied Groups")}
                                         </h3>
                                         <div className="space-y-2">
                                             {previewGroups.map((group) => (

@@ -148,7 +148,7 @@ export default function Index({ members, filters, tierOptions, summary }) {
                         <Table.Thead>
                             <tr>
                                 <Table.Th>{__("Member")}</Table.Th>
-                                <Table.Th>Tier</Table.Th>
+                                <Table.Th>{__("Tier")}</Table.Th>
                                 <Table.Th>{__("Points")}</Table.Th>
                                 <Table.Th>{__("Total Spent")}</Table.Th>
                                 <Table.Th>{__("Transactions")}</Table.Th>

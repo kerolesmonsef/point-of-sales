@@ -90,7 +90,7 @@ function CustomerCard({ customer, canUpdate, canDelete }) {
                             className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-warning-100 text-warning-600 hover:bg-warning-200 dark:bg-warning-900/50 dark:text-warning-400 text-sm font-medium transition-colors"
                         >
                             <IconPencilCog size={16} />
-                            <span>Edit</span>
+                            <span>{__("Edit")}</span>
                         </Link>
                     )}
                     {canDelete && (
@@ -140,7 +140,7 @@ export default function Index({ customers }) {
                                 className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                             >
                                 <IconDownload size={18} />
-                                Export
+                                {__("Export")}
                             </a>
                             <button
                                 type="button"
@@ -148,7 +148,7 @@ export default function Index({ customers }) {
                                 className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                             >
                                 <IconUpload size={18} />
-                                Import
+                                {__("Import")}
                             </button>
                             <input id="import-customers-input" type="file" accept=".xlsx,.xls,.csv" className="hidden"
                                 onChange={function(e) {
@@ -229,7 +229,7 @@ export default function Index({ customers }) {
                         <Table>
                             <Table.Thead>
                                 <tr>
-                                    <Table.Th className="w-10">No</Table.Th>
+                                    <Table.Th className="w-10">{__("No")}</Table.Th>
                                     <Table.Th>{__("Customer")}</Table.Th>
                                     <Table.Th>{__("Loyalty")}</Table.Th>
                                     <Table.Th>{__("Phone Number")}</Table.Th>

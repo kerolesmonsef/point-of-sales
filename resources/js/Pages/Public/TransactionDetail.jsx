@@ -18,7 +18,7 @@ export default function TransactionDetail({ transaction, token }) {
             <div className="min-h-screen bg-slate-50 py-8 px-4">
                 <div className="max-w-lg mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                     <div className="bg-gradient-to-r from-primary-500 to-primary-700 px-6 py-5 text-white text-center">
-                        <p className="text-sm opacity-80">INVOICE</p>
+                        <p className="text-sm opacity-80">{__("INVOICE")}</p>
                         <p className="text-xl font-bold mt-1">{transaction.invoice}</p>
                         <p className="text-sm opacity-80 mt-1">{formatDate(transaction.created_at)}</p>
                     </div>
@@ -30,7 +30,7 @@ export default function TransactionDetail({ transaction, token }) {
                         </div>
 
                         <div className="border-t border-slate-100 pt-4">
-                            <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 mb-2">Item</p>
+                            <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 mb-2">{__("Item")}</p>
                             {transaction.details.map((item, i) => (
                                 <div key={i} className="flex justify-between py-1.5 text-sm">
                                     <span className="text-slate-700">{item.product_title} x{item.qty}</span>
@@ -40,7 +40,7 @@ export default function TransactionDetail({ transaction, token }) {
                         </div>
 
                         <div className="border-t border-slate-100 pt-4 space-y-1.5 text-sm">
-                            <div className="flex justify-between text-slate-500"><span>Subtotal</span><span>{formatCurrency(transaction.grand_total + transaction.discount - (transaction.shipping_cost || 0) - (transaction.tax_total || 0))}</span></div>
+                            <div className="flex justify-between text-slate-500"><span>{__("Subtotal")}</span><span>{formatCurrency(transaction.grand_total + transaction.discount - (transaction.shipping_cost || 0) - (transaction.tax_total || 0))}</span></div>
                             {transaction.discount > 0 && <div className="flex justify-between text-slate-500"><span>{__("Discount")}</span><span>-{formatCurrency(transaction.discount)}</span></div>}
                             {transaction.tax_total > 0 && <div className="flex justify-between text-slate-500"><span>{__("Tax")}</span><span>{formatCurrency(transaction.tax_total)}</span></div>}
                             {transaction.shipping_cost > 0 && <div className="flex justify-between text-slate-500"><span>{__("Shipping")}</span><span>{formatCurrency(transaction.shipping_cost)}</span></div>}
