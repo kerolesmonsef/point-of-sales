@@ -67,9 +67,9 @@ class ApiTranslateWithAttribute
         foreach ($this->parameter_map as $key => $attribute) {
             $combinations = [
                 $key,
-                substr($key, 0, 1) . ' ' . substr($key, 1),
-                strtoupper(substr($key, 0, 1)) . ' ' . substr($key, 1),
-                strtoupper(substr($key, 0, 1)) . substr($key, 1),
+                substr($key, 0, 1).' '.substr($key, 1),
+                strtoupper(substr($key, 0, 1)).' '.substr($key, 1),
+                strtoupper(substr($key, 0, 1)).substr($key, 1),
             ];
             foreach ($combinations as $combination) {
                 $text = str_replace($combination, $attribute, $text, $count);

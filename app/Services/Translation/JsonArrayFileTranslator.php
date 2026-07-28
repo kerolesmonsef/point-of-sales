@@ -44,8 +44,9 @@ class JsonArrayFileTranslator
         $path = lang_path("{$target_locale}.json");
 
         foreach ($stringKeys as $key) {
-            if (isset($translated_strings[$key]) && $translated_strings[$key] !== '' && !$this->force) {
+            if (isset($translated_strings[$key]) && $translated_strings[$key] !== '' && ! $this->force) {
                 $progress?->advance();
+
                 continue;
             }
 
@@ -110,12 +111,12 @@ class JsonArrayFileTranslator
         $finder->files();
 
         $stringPattern =
-            "[^\w]" .
-            '(' . implode('|', $functions) . ')' .
-            "\(" .
-            "(?P<quote>['\"])" .
-            "(?P<string>(?:\\\k{quote}|(?!\k{quote}).)*)" .
-            "\k{quote}" .
+            "[^\w]".
+            '('.implode('|', $functions).')'.
+            "\(".
+            "(?P<quote>['\"])".
+            "(?P<string>(?:\\\k{quote}|(?!\k{quote}).)*)".
+            "\k{quote}".
             "[\),]";
 
         $count = 0;

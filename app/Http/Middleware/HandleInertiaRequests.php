@@ -157,9 +157,14 @@ class HandleInertiaRequests extends Middleware
             ];
         }
 
+        $locale = session('locale', 'en');
+        $langFile = lang_path("{$locale}.json");
+        $translations = json_decode(file_get_contents($langFile), true);
+
         return [
             ...parent::share($request),
-            'translations' => json_decode(file_get_contents(lang_path('en.json')), true),
+            'locale' => $locale,
+            'translations' => $translations,
             'auth' => [
                 'user' => $request->user(),
                 'permissions' => $request->user() ? $request->user()->getPermissions() : [],

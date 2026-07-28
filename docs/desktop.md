@@ -46,3 +46,33 @@ php artisan native:build   # generate installer per OS (mac/win/linux)
 
 - Payment gateway: drop entirely, or switch to API status polling?
 - Migrating existing customer data from multi-terminal MySQL to single-store sqlite (if a shop is already running the web version).
+
+## Business Sections — Desktop Audit Checklist
+
+Each section is `[PENDING]` — scan 1-by-1 to decide: **delete**, **enhance**, or **update** menus/buttons/pages/flows for single-machine POS operation.
+
+| # | Section | Sub-items | Desktop | Status |
+|---|---------|-----------|---------|--------|
+| 1 | **POS Cashier** | Cart, checkout, hold/resume, payment, receipt print, customer lookup | Core POS — must work offline, no server dependency | `[PENDING]` |
+| 2 | **Overview** | Dashboard (summary cards, charts) | Local-only metrics, no external API calls needed | `[PENDING]` |
+| 3 | **Master Data** | Categories, Products, Customers, Suppliers | All local CRUD — no changes expected | `[PENDING]` |
+| 4 | **Sales** | Transactions, Transaction History, Sales Returns, Receivables, Aging & Reminders | Review: Receivables Aging may need offline calc adjustment | `[PENDING]` |
+| 5 | **Approval** | Discount Approval | Local workflow, no change needed | `[PENDING]` |
+| 6 | **Inventory** | Stock Opname, Stock Mutations, Stock Transfers | Multi-warehouse transfer irrelevant for single-store — may simplify | `[PENDING]` |
+| 7 | **Procurement** | Purchase Orders, Goods Receiving, Supplier Returns, Supplier Payables | All local — no changes expected | `[PENDING]` |
+| 8 | **CRM & Pricing** | Members, Promo Pricing, Customer Vouchers, Customer Segments, CRM Campaigns, CRM Reminders | Review: Campaigns & Reminders use WhatsApp — remove WA parts, keep non-WA | `[PENDING]` |
+| 9 | **Reports** | Sales Report, Profit Report, Advanced Insights | Local data only — no changes expected | `[PENDING]` |
+| 10 | **Operations & Control** | Cashier Shifts, Audit Log | All local — no changes expected | `[PENDING]` |
+| 11 | **User Management** | Permissions, Roles, Users | Multi-staff login on one machine — keep as-is | `[PENDING]` |
+| 12 | **Settings** | Payment Gateway, Store Profile, Bank Accounts, Loyalty, Sales Target, Price List, Warehouses/Branches, WhatsApp | **Major review**: Payment Gateway (webhook dead), Warehouses (single-store), WhatsApp (remove) | `[PENDING]` |
+| 13 | **Auth** | Login, Register, Forgot Password (Breeze) | Keep — multi-staff login, but review: registration should be off (single install) | `[PENDING]` |
+| 14 | **Public/Portal** | Shared transaction page, receivable payment portal | Public-facing pages unnecessary for local desktop — consider removing | `[PENDING]` |
+
+### Review Process
+
+For each `[PENDING]` section:
+
+1. Open the section's pages and components
+2. Identify: what needs removal (network deps, multi-tenant features), what needs enhancement (offline UX, print, local-first), what stays
+3. Update desktop.md status to `[DONE]` with notes on decisions made
+4. Update individual feature docs under `docs/features/` to reflect desktop changes

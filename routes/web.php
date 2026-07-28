@@ -13,6 +13,7 @@ use App\Http\Controllers\Apps\CustomerVoucherController;
 use App\Http\Controllers\Apps\DiscountApprovalController;
 use App\Http\Controllers\Apps\GoodsReceivingController;
 use App\Http\Controllers\Apps\ImportExportController;
+use App\Http\Controllers\Apps\LanguageController;
 use App\Http\Controllers\Apps\MemberController;
 use App\Http\Controllers\Apps\PayableController;
 use App\Http\Controllers\Apps\PaymentSettingController;
@@ -44,6 +45,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+Route::post('/language/switch', LanguageController::class)->name('language.switch');
 
 Route::redirect('/', '/login');
 

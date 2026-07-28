@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { usePage } from "@inertiajs/react";
-import { IconMenu2, IconMoon, IconSun, IconSearch } from "@tabler/icons-react";
+import { usePage, router } from "@inertiajs/react";
+import { IconMenu2, IconMoon, IconSun, IconSearch, IconLanguage } from "@tabler/icons-react";
 import AuthDropdown from "@/Components/Dashboard/AuthDropdown";
 import Menu from "@/Utils/Menu";
 import Notification from "@/Components/Dashboard/Notification";
 import { useTranslations } from "@/Utils/Translations";
 
 export default function Navbar({ toggleSidebar, themeSwitcher, darkMode }) {
-    const { auth } = usePage().props;
+    const { auth, locale } = usePage().props;
     const __ = useTranslations();
     const menuNavigation = Menu(__);
 
@@ -77,6 +77,15 @@ export default function Navbar({ toggleSidebar, themeSwitcher, darkMode }) {
 
             {/* Right Section */}
             <div className="flex items-center gap-2">
+                {/* Language Switcher */}
+                <button
+                    onClick={() => router.post(route('language.switch'), { locale: locale === 'en' ? 'ar' : 'en' })}
+                    className="p-2.5 rounded-xl text-slate-500 hover:text-slate-700 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800 transition-colors"
+                    title={locale === 'en' ? 'العربية' : 'English'}
+                >
+                    <IconLanguage size={20} strokeWidth={1.5} />
+                </button>
+
                 {/* Theme Toggle */}
                 <button
                     onClick={themeSwitcher}

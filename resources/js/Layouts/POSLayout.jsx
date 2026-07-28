@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { usePage, Link } from "@inertiajs/react";
+import { usePage, Link, router } from "@inertiajs/react";
 import { Toaster } from "react-hot-toast";
 import { useTheme } from "@/Context/ThemeSwitcherContext";
 import { useOnlineStatus } from "@/Context/OnlineStatusContext";
@@ -15,11 +15,12 @@ import {
     IconWallet,
     IconArrowsMaximize,
     IconArrowsMinimize,
+    IconLanguage,
 } from "@tabler/icons-react";
 import Notification from "@/Components/Dashboard/Notification";
 
 export default function POSLayout({ children }) {
-    const { auth, storeProfile, activeCashierShift, appVersion } = usePage().props;
+    const { auth, storeProfile, activeCashierShift, appVersion, locale } = usePage().props;
     const { darkMode, themeSwitcher } = useTheme();
     const [currentTime, setCurrentTime] = useState(new Date());
     const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -166,6 +167,15 @@ export default function POSLayout({ children }) {
                         ) : (
                             <IconArrowsMaximize size={20} className="text-slate-500" />
                         )}
+                    </button>
+
+                    {/* Language Switcher */}
+                    <button
+                        onClick={() => router.post(route('language.switch'), { locale: locale === 'en' ? 'ar' : 'en' })}
+                        className="p-2.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors min-w-touch min-h-touch flex items-center justify-center"
+                        title={locale === 'en' ? 'العربية' : 'English'}
+                    >
+                        <IconLanguage size={20} className="text-slate-500" />
                     </button>
 
                     {/* Theme Toggle */}
