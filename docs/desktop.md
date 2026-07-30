@@ -53,7 +53,7 @@ Each section is `[PENDING]` — scan 1-by-1 to decide: **delete**, **enhance**, 
 
 | # | Section | Sub-items | Desktop | Status |
 |---|---------|-----------|---------|--------|
-| 1 | **POS Cashier** | Cart, checkout, hold/resume, payment, receipt print, customer lookup | Core POS — must work offline, no server dependency | `[PENDING]` |
+| 1 | **POS Cashier** | Cart, checkout, hold/resume, payment, receipt print, customer lookup | Core POS — must work offline, no server dependency | `[PROCESSING]` (details → [desktop-implementations.md#pos-cashier](desktop-implementations.md#pos-cashier)) |
 | 2 | **Overview** | Dashboard (summary cards, charts) | Local-only metrics, no external API calls needed | `[PENDING]` |
 | 3 | **Master Data** | Categories, Products, Customers, Suppliers | All local CRUD — no changes expected | `[PENDING]` |
 | 4 | **Sales** | Transactions, Transaction History, Sales Returns, Receivables, Aging & Reminders | Review: Receivables Aging may need offline calc adjustment | `[PENDING]` |
@@ -67,8 +67,6 @@ Each section is `[PENDING]` — scan 1-by-1 to decide: **delete**, **enhance**, 
 | 12 | **Settings** | Payment Gateway, Store Profile, Bank Accounts, Loyalty, Sales Target, Price List, Warehouses/Branches, WhatsApp | **Major review**: Payment Gateway (webhook dead), Warehouses (single-store), WhatsApp (remove) | `[PENDING]` |
 | 13 | **Auth** | Login, Register, Forgot Password (Breeze) | Keep — multi-staff login, but review: registration should be off (single install) | `[PENDING]` |
 | 14 | **Public/Portal** | Shared transaction page, receivable payment portal | Public-facing pages unnecessary for local desktop — consider removing | `[PENDING]` |
-
-### Review Process
 
 For each `[PENDING]` section:
 
