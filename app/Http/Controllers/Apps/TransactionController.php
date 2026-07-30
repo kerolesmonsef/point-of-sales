@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Apps;
 
-use App\Exceptions\PaymentGatewayException;
 use App\Http\Controllers\Controller;
 use App\Models\BankAccount;
 use App\Models\Cart;
@@ -19,7 +18,6 @@ use App\Models\Warehouse;
 use App\Services\AuditLogService;
 use App\Services\CashierShiftService;
 use App\Services\LoyaltyService;
-use App\Services\Payments\PaymentGatewayManager;
 use App\Services\PricingService;
 use App\Services\UnitConversionService;
 use Illuminate\Database\Eloquent\Builder;
@@ -126,7 +124,7 @@ class TransactionController extends Controller
         $defaultGateway = $paymentSetting?->default_gateway ?? 'cash';
         if (
             $defaultGateway !== 'cash'
-            && (! $paymentSetting || ! $paymentSetting->isGatewayReady($defaultGateway))
+            && (! $paymentSetting || ! $paymentSetting->isBankTransferReady())
         ) {
             $defaultGateway = 'cash';
         }
@@ -528,29 +526,15 @@ class TransactionController extends Controller
      * @param  mixed  $request
      * @return void
      */
-    public function store(Request $request, PaymentGatewayManager $paymentGatewayManager)
+    public function store(Request $request)
     {
         $isPayLater = $request->boolean('pay_later');
         $paymentGateway = $isPayLater ? null : $request->input('payment_gateway');
-        if ($paymentGateway) {
-            $paymentGateway = strtolower($paymentGateway);
-        }
-        $paymentSetting = null;
 
         if ($isPayLater && ! $request->filled('due_date')) {
             return redirect()
                 ->route('transactions.index')
                 ->with('error', __('Due date is required for pay later.'));
-        }
-
-        if ($paymentGateway) {
-            $paymentSetting = PaymentSetting::first();
-
-            if (! $paymentSetting || ! $paymentSetting->isGatewayReady($paymentGateway)) {
-                return redirect()
-                    ->route('transactions.index')
-                    ->with('error', __('Payment gateway not configured.'));
-            }
         }
 
         $length = 10;
@@ -731,21 +715,6 @@ class TransactionController extends Controller
             return redirect()
                 ->route('transactions.print', $transaction->invoice)
                 ->with('info', __('Transaction awaiting supervisor approval.'));
-        }
-
-        if ($paymentGateway) {
-            try {
-                $paymentResponse = $paymentGatewayManager->createPayment($transaction, $paymentGateway, $paymentSetting);
-
-                $transaction->update([
-                    'payment_reference' => $paymentResponse['reference'] ?? null,
-                    'payment_url' => $paymentResponse['payment_url'] ?? null,
-                ]);
-            } catch (PaymentGatewayException $exception) {
-                return redirect()
-                    ->route('transactions.print', $transaction->invoice)
-                    ->with('error', $exception->getMessage());
-            }
         }
 
         return to_route('transactions.print', $transaction->invoice);

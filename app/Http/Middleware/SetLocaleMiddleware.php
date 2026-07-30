@@ -16,7 +16,6 @@ class SetLocaleMiddleware
             app()->setLocale($locale);
         }
 
-
         return $next($request);
     }
 }

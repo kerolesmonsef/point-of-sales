@@ -3,7 +3,6 @@ import { Head, Link, router, usePage } from "@inertiajs/react";
 import {
     IconArrowLeft,
     IconPrinter,
-    IconExternalLink,
     IconReceipt,
     IconFileInvoice,
     IconTruck,
@@ -75,8 +74,6 @@ export default function Print({ transaction }) {
     const paymentLabels = {
         cash: __("Cash"),
         bank_transfer: __("Bank Transfer"),
-        midtrans: "Midtrans",
-        xendit: "Xendit",
         pay_later: __("Receivable"),
     };
     const paymentMethodKey = (
@@ -113,7 +110,6 @@ export default function Print({ transaction }) {
         statusColors[paymentStatusKey] ?? statusColors.paid;
 
     const isNonCash = paymentMethodKey !== "cash";
-    const showPaymentLink = isNonCash && transaction.payment_url;
 
     const handlePrint = () => {
         window.print();
@@ -239,18 +235,6 @@ export default function Print({ transaction }) {
                                 <IconPrinter size={18} />
                                 {__("Thermal")}
                             </button>
-
-                            {showPaymentLink && (
-                                <a
-                                    href={transaction.payment_url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-primary-200 dark:border-primary-800 text-sm font-semibold text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-950/50 transition-colors w-full sm:w-auto"
-                                >
-                                    <IconExternalLink size={18} />
-                                    {__("Payment")}
-                                </a>
-                            )}
 
                             <button
                                 type="button"

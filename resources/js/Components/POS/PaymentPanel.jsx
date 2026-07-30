@@ -6,7 +6,6 @@ import {
     IconReceipt,
     IconArrowRight,
     IconCheck,
-    IconAlertCircle,
     IconBuildingBank,
 } from "@tabler/icons-react";
 
@@ -434,20 +433,6 @@ export default function PaymentPanel({
                     </div>
                 )}
 
-                {/* Non-cash payment info */}
-                {!isCashPayment && (
-                    <div className="p-3 rounded-xl bg-warning-50 dark:bg-warning-950/30 border border-warning-200 dark:border-warning-800">
-                        <div className="flex gap-2">
-                            <IconAlertCircle
-                                size={18}
-                                className="text-warning-500 flex-shrink-0 mt-0.5"
-                            />
-                            <p className="text-sm text-warning-700 dark:text-warning-400">
-                                {__("Payment link will appear on the invoice page after the transaction is created.")}
-                            </p>
-                        </div>
-                    </div>
-                )}
             </div>
 
             {/* Submit Button */}

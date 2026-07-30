@@ -1,23 +1,17 @@
 import React, { useEffect } from "react";
 import { Head, useForm, usePage } from "@inertiajs/react";
 import DashboardLayout from "@/Layouts/DashboardLayout";
-import Input from "@/Components/Dashboard/Input";
 import Checkbox from "@/Components/Dashboard/Checkbox";
 import { useAuthorization } from "@/Utils/authorization";
 import {
     IconCreditCard,
     IconDeviceFloppy,
-    IconBrandStripe,
-    IconCash,
 } from "@tabler/icons-react";
 import toast from "react-hot-toast";
 
 export default function Payment({
     setting,
-    paymentSettingSources = {},
     supportedGateways = [],
-    webhookUrls = {},
-    webhookWarnings = [],
 }) {
     const { flash } = usePage().props;
     const { can } = useAuthorization();
@@ -26,15 +20,6 @@ export default function Payment({
     const { data, setData, put, errors, processing } = useForm({
         default_gateway: setting?.default_gateway ?? "cash",
         bank_transfer_enabled: setting?.bank_transfer_enabled ?? false,
-        midtrans_enabled: setting?.midtrans_enabled ?? false,
-        midtrans_server_key: "",
-        midtrans_client_key: setting?.midtrans_client_key ?? "",
-        midtrans_production: setting?.midtrans_production ?? false,
-        xendit_enabled: setting?.xendit_enabled ?? false,
-        xendit_secret_key: "",
-        xendit_public_key: setting?.xendit_public_key ?? "",
-        xendit_callback_token: "",
-        xendit_production: setting?.xendit_production ?? false,
     });
 
     useEffect(() => {
@@ -45,39 +30,6 @@ export default function Payment({
     const handleSubmit = (e) => {
         e.preventDefault();
         put(route("settings.payments.update"), { preserveScroll: true });
-    };
-
-    const isGatewaySelectable = (gateway) => {
-        if (gateway === "cash") return true;
-        if (gateway === "midtrans") return data.midtrans_enabled;
-        if (gateway === "xendit") return data.xendit_enabled;
-        return false;
-    };
-
-    const renderSecretHint = (field, keepMessage) => {
-        const source = paymentSettingSources?.[field];
-
-        if (!source) {
-            return null;
-        }
-
-        if (source.managed_by_environment) {
-            return (
-                <p className="text-xs text-amber-600 dark:text-amber-400">
-                    {__("Secret is managed by environment and cannot be changed from dashboard.")}
-                </p>
-            );
-        }
-
-        if (source.configured) {
-            return (
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                    {__("Saved:")} <span className="font-medium">{source.masked}</span>. {keepMessage}
-                </p>
-            );
-        }
-
-        return null;
     };
 
     return (
@@ -98,8 +50,7 @@ export default function Payment({
                 {/* Default Gateway */}
                 <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6">
                     <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4 flex items-center gap-2">
-                        <IconCash size={18} />
-                        {__("Default Gateway")}
+                        💳 {__("Default Gateway")}
                     </h3>
                     <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
                         {__("Default payment gateway used by cashier when opening transaction page.")}
@@ -125,11 +76,8 @@ export default function Payment({
                                 <option
                                     key={gw.value}
                                     value={gw.value}
-                                    disabled={!isGatewaySelectable(gw.value)}
                                 >
                                     {gw.label}
-                                    {!isGatewaySelectable(gw.value) &&
-                                        __(" (inactive)")}
                                 </option>
                             ))}
                         </select>
@@ -176,277 +124,6 @@ export default function Payment({
                     >
                         {__("Manage Bank Accounts")} →
                     </a>
-                </div>
-
-                {/* Midtrans */}
-                <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6">
-                    <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                            <IconBrandStripe size={18} />
-                            Midtrans Snap
-                        </h3>
-                        <label
-                            className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${
-                                data.midtrans_enabled
-                                    ? "bg-success-100 dark:bg-success-900/50 text-success-700 dark:text-success-400"
-                                    : "bg-slate-100 dark:bg-slate-800 text-slate-500"
-                            }`}
-                        >
-                            <Checkbox
-                                checked={data.midtrans_enabled}
-                                onChange={(e) =>
-                                    setData(
-                                        "midtrans_enabled",
-                                        e.target.checked
-                                    )
-                                }
-                                disabled={!canUpdatePaymentSettings}
-                            />
-                            {data.midtrans_enabled ? __("Active") : __("Inactive")}
-                        </label>
-                    </div>
-                    <div
-                        className={`space-y-4 ${
-                            !data.midtrans_enabled
-                                ? "opacity-50 pointer-events-none"
-                                : ""
-                        }`}
-                    >
-                        <div className="grid gap-4 md:grid-cols-2">
-                            <Input
-                                label={__("Server Key")}
-                                type="password"
-                                value={data.midtrans_server_key}
-                                onChange={(e) =>
-                                    setData(
-                                        "midtrans_server_key",
-                                        e.target.value
-                                    )
-                                }
-                                errors={errors?.midtrans_server_key}
-                                placeholder={
-                                    paymentSettingSources?.midtrans_server_key?.configured
-                                        ? __("Leave blank to keep current value")
-                                        : "SB-Mid-server-xxx"
-                                }
-                                disabled={
-                                    !canUpdatePaymentSettings ||
-                                    paymentSettingSources?.midtrans_server_key?.managed_by_environment
-                                }
-                            />
-                            <Input
-                                label={__("Client Key")}
-                                type="text"
-                                value={data.midtrans_client_key}
-                                onChange={(e) =>
-                                    setData(
-                                        "midtrans_client_key",
-                                        e.target.value
-                                    )
-                                }
-                                errors={errors?.midtrans_client_key}
-                                placeholder="SB-Mid-client-xxx"
-                                disabled={!canUpdatePaymentSettings}
-                            />
-                        </div>
-                        {renderSecretHint(
-                            "midtrans_server_key",
-                            __("Fill only if you want to change the secret.")
-                        )}
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <Checkbox
-                                checked={data.midtrans_production}
-                                onChange={(e) =>
-                                    setData(
-                                        "midtrans_production",
-                                        e.target.checked
-                                    )
-                                }
-                                disabled={!canUpdatePaymentSettings}
-                            />
-                            <span className="text-sm text-slate-600 dark:text-slate-400">
-                                {__("Production Mode")}
-                            </span>
-                        </label>
-                    </div>
-                </div>
-
-                {/* Xendit */}
-                <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6">
-                    <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                            <IconCreditCard size={18} />
-                            Xendit Invoice
-                        </h3>
-                        <label
-                            className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${
-                                data.xendit_enabled
-                                    ? "bg-success-100 dark:bg-success-900/50 text-success-700 dark:text-success-400"
-                                    : "bg-slate-100 dark:bg-slate-800 text-slate-500"
-                            }`}
-                        >
-                            <Checkbox
-                                checked={data.xendit_enabled}
-                                onChange={(e) => setData("xendit_enabled", e.target.checked)}
-                                disabled={!canUpdatePaymentSettings}
-                            />
-                            {data.xendit_enabled ? __("Active") : __("Inactive")}
-                        </label>
-                    </div>
-                    <div
-                        className={`space-y-4 ${
-                            !data.xendit_enabled
-                                ? "opacity-50 pointer-events-none"
-                                : ""
-                        }`}
-                    >
-                        <div className="grid gap-4 md:grid-cols-2">
-                            <Input
-                                label={__("Secret Key")}
-                                type="password"
-                                value={data.xendit_secret_key}
-                                onChange={(e) =>
-                                    setData("xendit_secret_key", e.target.value)
-                                }
-                                errors={errors?.xendit_secret_key}
-                                placeholder={
-                                    paymentSettingSources?.xendit_secret_key?.configured
-                                        ? __("Leave blank to keep current value")
-                                        : "xnd_development_xxx"
-                                }
-                                disabled={
-                                    !canUpdatePaymentSettings ||
-                                    paymentSettingSources?.xendit_secret_key?.managed_by_environment
-                                }
-                            />
-                            <Input
-                                label={__("Public Key")}
-                                type="text"
-                                value={data.xendit_public_key}
-                                onChange={(e) =>
-                                    setData("xendit_public_key", e.target.value)
-                                }
-                                errors={errors?.xendit_public_key}
-                                placeholder="xnd_public_development_xxx"
-                                disabled={!canUpdatePaymentSettings}
-                            />
-                        </div>
-                        {renderSecretHint(
-                            "xendit_secret_key",
-                            __("Fill only if you want to change the secret.")
-                        )}
-                        <Input
-                            label={__("Callback Token")}
-                            type="password"
-                            value={data.xendit_callback_token}
-                            onChange={(e) =>
-                                setData("xendit_callback_token", e.target.value)
-                            }
-                            errors={errors?.xendit_callback_token}
-                            placeholder={
-                                paymentSettingSources?.xendit_callback_token?.configured
-                                    ? __("Leave blank to keep current value")
-                                    : "xendit-callback-token"
-                            }
-                            disabled={
-                                !canUpdatePaymentSettings ||
-                                paymentSettingSources?.xendit_callback_token?.managed_by_environment
-                            }
-                        />
-                        {renderSecretHint(
-                            "xendit_callback_token",
-                            __("Fill only if you want to change the token.")
-                        )}
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <Checkbox
-                                checked={data.xendit_production}
-                                onChange={(e) =>
-                                    setData(
-                                        "xendit_production",
-                                        e.target.checked
-                                    )
-                                }
-                                disabled={!canUpdatePaymentSettings}
-                            />
-                            <span className="text-sm text-slate-600 dark:text-slate-400">
-                                {__("Production Mode")}
-                            </span>
-                        </label>
-                    </div>
-                </div>
-
-                {/* Webhook URLs Info */}
-                <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 p-6">
-                    <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4 flex items-center gap-2">
-                        🔗 {__("Webhook URLs")}
-                    </h3>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-                        {__("Copy the following URLs and paste into Midtrans/Xendit dashboard as Notification/Callback URL.")}
-                    </p>
-                    {webhookWarnings.length > 0 && (
-                        <div className="mb-4 space-y-2">
-                            {webhookWarnings.map((warning) => (
-                                <div
-                                    key={warning}
-                                    className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-900/60 dark:bg-amber-950/30 dark:text-amber-300"
-                                >
-                                    {warning}
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                    <div className="space-y-3">
-                        <div>
-                            <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
-                                {__("Midtrans Notification URL")}
-                            </label>
-                            <div className="flex items-center gap-2">
-                                <input
-                                    type="text"
-                                    readOnly
-                                    value={webhookUrls.midtrans || ""}
-                                    className="flex-1 h-10 px-3 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400"
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => {
-                                        navigator.clipboard.writeText(
-                                            webhookUrls.midtrans || ""
-                                        );
-                                        toast.success(__("URL copied!"));
-                                    }}
-                                    className="px-3 h-10 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
-                                >
-                                    {__("Copy")}
-                                </button>
-                            </div>
-                        </div>
-                        <div>
-                            <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
-                                {__("Xendit Callback URL")}
-                            </label>
-                            <div className="flex items-center gap-2">
-                                <input
-                                    type="text"
-                                    readOnly
-                                    value={webhookUrls.xendit || ""}
-                                    className="flex-1 h-10 px-3 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400"
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => {
-                                        navigator.clipboard.writeText(
-                                            webhookUrls.xendit || ""
-                                        );
-                                        toast.success(__("URL copied!"));
-                                    }}
-                                    className="px-3 h-10 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
-                                >
-                                    {__("Copy")}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 {/* Submit */}
