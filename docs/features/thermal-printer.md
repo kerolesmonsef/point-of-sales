@@ -23,18 +23,36 @@ Cetak receipt ke printer thermal (ESC/POS protocol) langsung dari browser via We
 - Auto-print toggle (cetak otomatis setelah transaksi)
 - WebUSB: koneksi printer thermal via USB langsung dari browser
 
+### Printer Profiles (Desktop)
+> **Status:** Designed, not yet implemented.
+
+Settings page diubah dari form tunggal menjadi **profile manager** — multiple printer profiles dengan:
+- Nama profil (e.g. "Front Receipt", "Kitchen")
+- Paper size per profil (58mm, 80mm, A4)
+- Auto-print toggle per profil
+- Default profile (satu yang aktif saat checkout)
+
 ### WebUSB Print Button
 - Tombol "Thermal" di halaman print transaksi
 - Fetch HTML receipt → buka tab baru siap print
 - Dapat dikoneksikan ke printer thermal USB via WebUSB API
+
+### Post-Checkout Modal (Desktop)
+> **Status:** Designed, not yet implemented.
+
+Setelah checkout, halaman POS menampilkan **modal** (bukan redirect ke Print page):
+- Ringkasan transaksi
+- Tombol: Print Thermal, PDF Invoice, PDF Receipt (size dari default profile), Shipping Label, Skip
+- Auto-print otomatis jika default profile memiliki auto-print enabled
 
 ## Route
 
 | Route | Method | Fungsi |
 |-------|--------|--------|
 | `pdf.transactions.thermal` | GET | HTML receipt thermal |
-| `settings.printer` | GET | Halaman settings printer |
-| `settings.printer.update` | POST | Simpan settings printer |
+| `settings.printer` | GET | Halaman settings printer (lama — akan diubah) |
+| `settings.printer.update` | POST | Simpan settings printer (lama — akan diubah) |
+| `settings.printer-profiles.*` | Resource | CRUD printer profiles (baru — desktop) |
 
 ## Format Receipt (80mm)
 
@@ -67,4 +85,5 @@ Kembali              11.150
 
 - Untuk auto-print via USB: browser Chrome/Edge dengan WebUSB support
 - Untuk print via jaringan: gunakan `NetworkPrintConnector` atau `WindowsPrintConnector`
-- Setting auto-print belum terintegrasi penuh dengan checkout flow
+- Setting auto-print sudah terintegrasi dengan checkout flow via printer profiles (desktop)
+- Untuk implementasi detail: lihat `docs/desktop-implementations.md`

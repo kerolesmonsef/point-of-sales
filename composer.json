@@ -16,6 +16,7 @@
         "laravel/tinker": "^3.0",
         "laravolt/indonesia": "^0.41",
         "maatwebsite/excel": "^3.1.69",
+        "nativephp/desktop": "^2.2",
         "picqer/php-barcode-generator": "^3.2",
         "spatie/laravel-permission": "^8.3",
         "tightenco/ziggy": "^2.6.3"
@@ -49,7 +50,8 @@
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "@php artisan native:install --force --quiet --publish"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
@@ -58,6 +60,10 @@
             "@php artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
+        ],
+        "native:dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -k -c \"#93c5fd,#c4b5fd\" \"php artisan native:run --no-interaction\" \"npm run dev\" --names=app,vite"
         ]
     },
     "extra": {

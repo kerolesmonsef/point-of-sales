@@ -14,7 +14,7 @@ Reason this approach was chosen over the alternatives (thin client to a hosted s
 
 ## What Must Be Removed/Changed
 
-The following features depend on network infrastructure that doesn't make sense for a single-machine app:
+The following features depend on network infrastructure that doesn't make sense for a single-machine app, or need enhancement for a native desktop flow:
 
 | Feature | Problem | Action |
 |---------|---------|--------|
@@ -53,7 +53,7 @@ Each section is `[PENDING]` — scan 1-by-1 to decide: **delete**, **enhance**, 
 
 | # | Section | Sub-items | Desktop | Status |
 |---|---------|-----------|---------|--------|
-| 1 | **POS Cashier** | Cart, checkout, hold/resume, payment, receipt print, customer lookup | Core POS — must work offline, no server dependency | `[PROCESSING]` (details → [desktop-implementations.md#pos-cashier](desktop-implementations.md#pos-cashier)) |
+| 1 | **POS Cashier** | Cart, checkout, hold/resume, payment, receipt print, customer lookup, multi-unit per item | Core POS — must work offline, no server dependency. Enhancement: post-checkout receipt modal + multi-unit control per item | `[DESIGNED]` (details → [desktop-implementations.md#pos-cashier](desktop-implementations.md#pos-cashier)) |
 | 2 | **Overview** | Dashboard (summary cards, charts) | Local-only metrics, no external API calls needed | `[PENDING]` |
 | 3 | **Master Data** | Categories, Products, Customers, Suppliers | All local CRUD — no changes expected | `[PENDING]` |
 | 4 | **Sales** | Transactions, Transaction History, Sales Returns, Receivables, Aging & Reminders | Review: Receivables Aging may need offline calc adjustment | `[PENDING]` |
@@ -64,7 +64,7 @@ Each section is `[PENDING]` — scan 1-by-1 to decide: **delete**, **enhance**, 
 | 9 | **Reports** | Sales Report, Profit Report, Advanced Insights | Local data only — no changes expected | `[PENDING]` |
 | 10 | **Operations & Control** | Cashier Shifts, Audit Log | All local — no changes expected | `[PENDING]` |
 | 11 | **User Management** | Permissions, Roles, Users | Multi-staff login on one machine — keep as-is | `[PENDING]` |
-| 12 | **Settings** | Payment Gateway, Store Profile, Bank Accounts, Loyalty, Sales Target, Price List, Warehouses/Branches, WhatsApp | **Major review**: Payment Gateway (webhook dead), Warehouses (single-store), WhatsApp (remove) | `[PENDING]` |
+| 12 | **Settings** | Payment Gateway, Store Profile, Bank Accounts, Loyalty, Sales Target, Price List, Warehouses/Branches, WhatsApp, Printer | **Major review**: Payment Gateway (webhook dead), Warehouses (single-store), WhatsApp (remove). **Printer**: single-setting form → multiple printer profiles | `[DESIGNED]` (printer profile design → [desktop-implementations.md#printer-profiles](desktop-implementations.md#printer-profiles)) |
 | 13 | **Auth** | Login, Register, Forgot Password (Breeze) | Keep — multi-staff login, but review: registration should be off (single install) | `[PENDING]` |
 | 14 | **Public/Portal** | Shared transaction page, receivable payment portal | Public-facing pages unnecessary for local desktop — consider removing | `[PENDING]` |
 
