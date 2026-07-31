@@ -10,6 +10,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import POSLayout from "@/Layouts/POSLayout";
 import ProductGrid from "@/Components/POS/ProductGrid";
+import Pagination from "@/Components/Dashboard/Pagination";
 import CartPanel from "@/Components/POS/CartPanel";
 import PaymentPanel from "@/Components/POS/PaymentPanel";
 import CustomerSelect from "@/Components/POS/CustomerSelect";
@@ -17,7 +18,6 @@ import NumpadModal from "@/Components/POS/NumpadModal";
 import HeldTransactions, {
     HoldButton,
 } from "@/Components/POS/HeldTransactions";
-import useBarcodeScanner from "@/Hooks/useBarcodeScanner";
 import { getProductImageUrl } from "@/Utils/imageUrl";
 import { useAuthorization } from "@/Utils/authorization";
 import { queueTransaction } from "@/Utils/offlineDb";
@@ -60,8 +60,15 @@ export default function Index({
     const canOpenShift = can("cashier-shifts-open");
 
     // State
-    const [searchQuery, setSearchQuery] = useState("");
-    const [selectedCategory, setSelectedCategory] = useState(null);
+    const getUrlParams = () => new URLSearchParams(window.location.search);
+    const [searchQuery, setSearchQuery] = useState(
+        () => getUrlParams().get("search") ?? ""
+    );
+    const [selectedCategory, setSelectedCategory] = useState(() => {
+        const category = getUrlParams().get("category");
+
+        return category ? Number(category) : null;
+    });
     const [isSearching, setIsSearching] = useState(false);
     const [addingProductId, setAddingProductId] = useState(null);
     const [removingItemId, setRemovingItemId] = useState(null);
@@ -71,7 +78,6 @@ export default function Index({
     const [discountInput, setDiscountInput] = useState("");
     const [redeemPointsInput, setRedeemPointsInput] = useState("");
     const [cashInput, setCashInput] = useState("");
-    const [shippingInput, setShippingInput] = useState("");
     const [paymentMethod, setPaymentMethod] = useState(
         defaultPaymentGateway ?? "cash"
     );
@@ -85,8 +91,6 @@ export default function Index({
     const [selectedVoucherId, setSelectedVoucherId] = useState("");
     const [openingCashInput, setOpeningCashInput] = useState("");
     const [shiftNotesInput, setShiftNotesInput] = useState("");
-    const normalizedSelectedCategory =
-        selectedCategory === null ? null : Number(selectedCategory);
     const pricingItemsByCartId = useMemo(() => {
         const items = pricingPreview?.items || [];
 
@@ -96,6 +100,7 @@ export default function Index({
             return accumulator;
         }, {});
     }, [pricingPreview]);
+    const productList = products?.data ?? [];
 
     // Ref for search input to enable keyboard focus
     const searchInputRef = useRef(null);
@@ -119,31 +124,38 @@ export default function Index({
         if (flash?.success) toast.success(flash.success);
     }, [flash]);
 
-    // Barcode scanner integration
-    const handleBarcodeScan = useCallback(
-        (barcode) => {
-            const product = products.find(
-                (p) => p.barcode?.toLowerCase() === barcode.toLowerCase()
-            );
+    // Server-side search & category filter (debounced)
+    const skipInitialSearch = useRef(true);
 
-            if (product) {
-                if (product.stock > 0) {
-                    handleAddToCart(product);
-                    toast.success(`${product.title} ${__("added (barcode)")}`);
-                } else {
-                    toast.error(`${product.title} ${__("out of stock")}`);
+    useEffect(() => {
+        if (skipInitialSearch.current) {
+            skipInitialSearch.current = false;
+
+            return;
+        }
+
+        setIsSearching(true);
+
+        const timer = setTimeout(() => {
+            router.get(
+                route("transactions.index"),
+                {
+                    search: searchQuery || undefined,
+                    category: selectedCategory ?? undefined,
+                    page: 1,
+                },
+                {
+                    only: ["products"],
+                    preserveState: true,
+                    preserveScroll: true,
+                    replace: true,
+                    onFinish: () => setIsSearching(false),
                 }
-            } else {
-                    toast.error(`${__("Product not found")}: ${barcode}`);
-            }
-        },
-        [products]
-    );
+            );
+        }, 300);
 
-    const { isScanning } = useBarcodeScanner(handleBarcodeScan, {
-        enabled: true,
-        minLength: 3,
-    });
+        return () => clearTimeout(timer);
+    }, [searchQuery, selectedCategory]);
 
     const LowStockAlerts = () => null;
 
@@ -151,10 +163,6 @@ export default function Index({
     const discount = useMemo(
         () => Math.max(0, Number(discountInput) || 0),
         [discountInput]
-    );
-    const shipping = useMemo(
-        () => Math.max(0, Number(shippingInput) || 0),
-        [shippingInput]
     );
     const baseSubtotal = useMemo(
         () => Number(pricingPreview?.summary?.base_subtotal ?? carts_total ?? 0),
@@ -225,7 +233,6 @@ export default function Index({
             .post(route("transactions.pricing-preview"), {
                 customer_id: selectedCustomer?.id ?? null,
                 discount,
-                shipping_cost: shipping,
                 redeem_points: Number(redeemPointsInput || 0),
                 customer_voucher_id: selectedVoucherId || null,
             })
@@ -252,7 +259,6 @@ export default function Index({
         selectedCustomer?.id,
         pricingDependency,
         discount,
-        shipping,
         redeemPointsInput,
         selectedVoucherId,
     ]);
@@ -335,6 +341,33 @@ export default function Index({
                 },
             }
         );
+    };
+
+    // Handle Enter in search input: look up barcode in database and add to cart
+    const handleSearchEnter = async () => {
+        const barcode = searchQuery.trim();
+        if (!barcode) return;
+
+        try {
+            const response = await axios.post(
+                route("transactions.searchProduct"),
+                { barcode }
+            );
+
+            const product = response.data?.data;
+            if (response.data?.success && product) {
+                if (product.stock > 0) {
+                    handleAddToCart(product);
+                    setSearchQuery("");
+                } else {
+                    toast.error(`${product.title} ${__("out of stock")}`);
+                }
+            } else {
+                toast.error(`${__("Product not found")}: ${barcode}`);
+            }
+        } catch {
+            toast.error(__("Failed to search product"));
+        }
     };
 
     // Handle update cart quantity
@@ -494,7 +527,6 @@ export default function Index({
                 discount,
                 redeem_points: Number(redeemPointsInput || 0),
                 customer_voucher_id: selectedVoucherId || null,
-                shipping_cost: shipping,
                 grand_total: payable,
                 cash: isCashPayment ? cash : payable,
                 payment_gateway: payLater ? null : isCashPayment ? null : paymentMethod,
@@ -518,7 +550,6 @@ export default function Index({
                 discount,
                 redeem_points: Number(redeemPointsInput || 0),
                 customer_voucher_id: selectedVoucherId || null,
-                shipping_cost: shipping,
                 grand_total: payable,
                 cash: isCashPayment ? cash : payable,
                 change: isCashPayment ? Math.max(cash - payable, 0) : 0,
@@ -534,7 +565,6 @@ export default function Index({
                     setDiscountInput("");
                     setRedeemPointsInput("");
                     setCashInput("");
-                    setShippingInput("");
                     setSelectedCustomer(null);
                     setSelectedBankAccount(null);
                     setSelectedVoucherId("");
@@ -551,24 +581,6 @@ export default function Index({
             }
         );
     };
-
-    // Filter products including out of stock
-    const allProducts = useMemo(() => {
-        return products.filter((product) => {
-            const matchesCategory =
-                normalizedSelectedCategory === null ||
-                Number(product.category_id) === normalizedSelectedCategory;
-            const matchesSearch =
-                !searchQuery ||
-                product.title
-                    .toLowerCase()
-                    .includes(searchQuery.toLowerCase()) ||
-                product.barcode
-                    ?.toLowerCase()
-                    .includes(searchQuery.toLowerCase());
-            return matchesCategory && matchesSearch;
-        });
-    }, [products, normalizedSelectedCategory, searchQuery]);
 
     if (!activeCashierShift) {
         return (
@@ -690,7 +702,7 @@ export default function Index({
                     }`}
                 >
                     <ProductGrid
-                        products={allProducts}
+                        products={productList}
                         categories={categories}
                         selectedCategory={selectedCategory}
                         onCategoryChange={(categoryId) =>
@@ -700,11 +712,18 @@ export default function Index({
                         }
                         searchQuery={searchQuery}
                         onSearchChange={setSearchQuery}
+                        onSearchEnter={handleSearchEnter}
                         isSearching={isSearching}
                         onAddToCart={handleAddToCart}
                         addingProductId={addingProductId}
                         searchInputRef={searchInputRef}
                     />
+
+                    {products?.last_page > 1 && (
+                        <div className="flex-shrink-0 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 px-4 py-2">
+                            <Pagination links={products?.links ?? []} />
+                        </div>
+                    )}
                 </div>
 
                 {/* Right Panel - Cart & Payment */}
@@ -1100,7 +1119,7 @@ export default function Index({
                                         {__("Quick Amounts")}
                                     </label>
                                     <div className="grid grid-cols-4 gap-2">
-                                        {[10000, 20000, 50000, 100000].map(
+                                        {[5, 10, 20, 50,100,200].map(
                                             (amt) => (
                                                 <button
                                                     key={amt}
@@ -1249,52 +1268,6 @@ export default function Index({
                                 </div>
                             </div>
 
-                            {/* Shipping Cost Input */}
-                            <div>
-                                <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-2">
-                                    {__("Shipping Cost (Rp)")}
-                                </label>
-                                <div className="relative">
-                                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">
-                                        Rp
-                                    </span>
-                                    <input
-                                        type="text"
-                                        inputMode="numeric"
-                                        value={shippingInput}
-                                        onChange={(e) =>
-                                            setShippingInput(
-                                                e.target.value.replace(
-                                                    /[^\d]/g,
-                                                    ""
-                                                )
-                                            )
-                                        }
-                                        placeholder="0"
-                                        className="w-full h-10 pl-10 pr-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
-                                    />
-                                </div>
-                                {/* Quick Shipping Amounts */}
-                                <div className="grid grid-cols-4 gap-2 mt-2">
-                                    {[10000, 15000, 20000, 25000].map((amt) => (
-                                        <button
-                                            key={amt}
-                                            type="button"
-                                            onClick={() =>
-                                                setShippingInput(String(amt))
-                                            }
-                                            className={`py-1.5 px-1 rounded-lg text-xs font-medium transition-all ${
-                                                Number(shippingInput) === amt
-                                                    ? "bg-primary-500 text-white"
-                                                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200"
-                                            }`}
-                                        >
-                                            {formatCurrency(amt)}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-
                             {/* Cash Input - Only for cash */}
                             {paymentMethod === "cash" && (
                                 <div>
@@ -1392,14 +1365,6 @@ export default function Index({
                                 <span className="text-slate-500">{__("Manual Discount")}</span>
                                 <span className="text-danger-500">
                                     -{formatCurrency(discount)}
-                                </span>
-                            </div>
-                        )}
-                        {shipping > 0 && (
-                            <div className="flex justify-between items-center mb-2 text-sm">
-                                <span className="text-slate-500">{__("Shipping")}</span>
-                                <span className="font-medium">
-                                    +{formatCurrency(shipping)}
                                 </span>
                             </div>
                         )}

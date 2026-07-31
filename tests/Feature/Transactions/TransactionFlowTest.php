@@ -9,6 +9,7 @@ use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Warehouse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Inertia\Testing\AssertableInertia as Assert;
@@ -169,7 +170,7 @@ class TransactionFlowTest extends TestCase
             ->assertInertia(function (Assert $page) use ($product, $shift) {
                 $page->component('Dashboard/Transactions/Index');
 
-                $products = $page->toArray()['props']['products'] ?? [];
+                $products = $page->toArray()['props']['products']['data'] ?? [];
                 $categories = $page->toArray()['props']['categories'] ?? [];
 
                 $serializedProduct = collect($products)->firstWhere('id', $product->id);
@@ -195,6 +196,74 @@ class TransactionFlowTest extends TestCase
         ]);
 
         return $user;
+    }
+
+    public function test_transaction_page_paginates_products_with_limit(): void
+    {
+        $cashier = $this->createCashier();
+        $this->openShiftFor($cashier);
+
+        for ($i = 0; $i < 6; $i++) {
+            $this->createProduct();
+        }
+
+        $response = $this
+            ->actingAs($cashier)
+            ->get(route('transactions.index', ['limit' => 5]));
+
+        $response
+            ->assertOk()
+            ->assertInertia(function (Assert $page) {
+                $page->component('Dashboard/Transactions/Index');
+                $products = $page->toArray()['props']['products'];
+                $this->assertCount(5, $products['data']);
+                $this->assertSame(6, $products['total']);
+                $this->assertSame(2, $products['last_page']);
+            });
+    }
+
+    public function test_transaction_page_filters_products_by_search_and_category(): void
+    {
+        $cashier = $this->createCashier();
+        $this->openShiftFor($cashier);
+
+        $category = Category::create([
+            'name' => 'Makanan',
+            'description' => 'Kategori makanan',
+            'image' => 'food.png',
+        ]);
+        $product = Product::create([
+            'category_id' => $category->id,
+            'image' => 'product.png',
+            'barcode' => 'BRCD-'.Str::upper(Str::random(10)),
+            'title' => 'Indomie Goreng',
+            'description' => 'Mie instan.',
+            'buy_price' => 2000,
+            'sell_price' => 3500,
+            'stock' => 10,
+            'tax_rate' => 0,
+        ]);
+        $this->createProduct();
+
+        $this
+            ->actingAs($cashier)
+            ->get(route('transactions.index', ['search' => 'indomie']))
+            ->assertOk()
+            ->assertInertia(function (Assert $page) use ($product) {
+                $data = $page->toArray()['props']['products']['data'];
+                $this->assertCount(1, $data);
+                $this->assertSame($product->id, $data[0]['id']);
+            });
+
+        $this
+            ->actingAs($cashier)
+            ->get(route('transactions.index', ['category' => $category->id]))
+            ->assertOk()
+            ->assertInertia(function (Assert $page) use ($product) {
+                $data = $page->toArray()['props']['products']['data'];
+                $this->assertCount(1, $data);
+                $this->assertSame($product->id, $data[0]['id']);
+            });
     }
 
     public function test_cashier_cannot_store_transaction_without_active_shift(): void
@@ -230,7 +299,7 @@ class TransactionFlowTest extends TestCase
         $this->assertDatabaseCount('transactions', 0);
     }
 
-    protected function openShiftFor(User $cashier)
+    protected function openShiftFor(User $cashier, ?int $warehouseId = null)
     {
         return CashierShift::create([
             'user_id' => $cashier->id,
@@ -238,6 +307,7 @@ class TransactionFlowTest extends TestCase
             'opened_at' => now(),
             'opening_cash' => 100000,
             'expected_cash' => 100000,
+            'warehouse_id' => $warehouseId,
             'status' => 'open',
         ]);
     }
@@ -261,5 +331,43 @@ class TransactionFlowTest extends TestCase
             'stock' => 25,
             'tax_rate' => 0,
         ]);
+    }
+
+    public function test_search_product_by_barcode_returns_product_with_warehouse_stock(): void
+    {
+        $cashier = $this->createCashier();
+        $warehouse = Warehouse::create([
+            'code' => 'WH-01',
+            'name' => 'Gudang Utama',
+            'is_active' => true,
+        ]);
+        $this->openShiftFor($cashier, $warehouse->id);
+        $product = $this->createProduct();
+        $product->warehouses()->attach($warehouse->id, ['stock' => 7]);
+
+        $this
+            ->actingAs($cashier)
+            ->postJson(route('transactions.searchProduct'), ['barcode' => $product->barcode])
+            ->assertOk()
+            ->assertJson([
+                'success' => true,
+                'data' => [
+                    'id' => $product->id,
+                    'barcode' => $product->barcode,
+                    'stock' => 7,
+                ],
+            ]);
+    }
+
+    public function test_search_product_by_barcode_returns_not_found_when_barcode_unknown(): void
+    {
+        $cashier = $this->createCashier();
+        $this->openShiftFor($cashier);
+
+        $this
+            ->actingAs($cashier)
+            ->postJson(route('transactions.searchProduct'), ['barcode' => 'BRCD-UNKNOWN'])
+            ->assertOk()
+            ->assertJson(['success' => false]);
     }
 }

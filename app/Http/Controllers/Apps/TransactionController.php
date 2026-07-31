@@ -42,9 +42,10 @@ class TransactionController extends Controller
      *
      * @return void
      */
-    public function index()
+    public function index(Request $request)
     {
         $userId = auth()->user()->id;
+        $limit = $request->integer('limit', 50);
         $activeShift = $this->cashierShiftService->getActiveShiftForUser($userId);
         $warehouseId = $activeShift?->warehouse_id;
 
@@ -90,10 +91,13 @@ class TransactionController extends Controller
             }, function ($q) {
                 $q->where('stock', '>', 0);
             })
+            ->when($request->search, fn ($q, $search) => $q->whereLike(['title', 'barcode'], "%{$search}%"))
+            ->when($request->category, fn ($q, $category) => $q->where('category_id', $category))
             ->orderBy('title')
-            ->get();
+            ->paginate($limit)
+            ->withQueryString();
         $pricingBadges = $this->pricingService->previewProducts($products, null);
-        $products = $products->map(function (Product $product) use ($pricingBadges) {
+        $products = $products->through(function (Product $product) use ($pricingBadges) {
             $pricing = $pricingBadges->get($product->id);
 
             return [
@@ -109,7 +113,6 @@ class TransactionController extends Controller
             ];
         });
 
-        // get all categories
         $categories = Category::select('id', 'name', 'image')
             ->orderBy('name')
             ->get();
@@ -159,26 +162,28 @@ class TransactionController extends Controller
         $activeShift = $this->cashierShiftService->getActiveShiftForUser(auth()->user()->id);
         $warehouseId = $activeShift?->warehouse_id;
 
+
         $product = Product::where('barcode', $request->barcode)
-            ->whereHas('warehouses', fn ($q) => $q->where('product_warehouse.warehouse_id', $warehouseId))
+//            ->whereHas('warehouses', fn ($q) => $q->where('product_warehouse.warehouse_id', $warehouseId))
             ->first();
 
-        if ($product) {
-            $pivotStock = $product->warehouses()->where('warehouse_id', $warehouseId)->first()?->pivot->stock ?? 0;
-
+        if (!$product) {
             return response()->json([
-                'success' => true,
-                'data' => [
-                    ...$product->toArray(),
-                    'stock' => $pivotStock,
-                ],
+                'success' => false,
+                'data' => null,
             ]);
         }
 
+        $pivotStock = $product->warehouses()->where('warehouse_id', $warehouseId)->first()?->pivot->stock ?? 0;
+
         return response()->json([
-            'success' => false,
-            'data' => null,
+            'success' => true,
+            'data' => [
+                ...$product->toArray(),
+                'stock' => $pivotStock,
+            ],
         ]);
+
     }
 
     public function previewPricing(Request $request): JsonResponse

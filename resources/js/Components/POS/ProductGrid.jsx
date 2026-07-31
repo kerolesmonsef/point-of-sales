@@ -155,7 +155,6 @@ function SearchInput({
                     placeholder-slate-400 dark:placeholder-slate-500
                     focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 dark:focus:border-primary-500
                     transition-all text-base"
-                disabled={isSearching}
             />
             <div className="absolute right-3 top-1/2 -translate-y-1/2">
                 {isSearching ? (
@@ -176,6 +175,7 @@ export default function ProductGrid({
     onCategoryChange,
     searchQuery,
     onSearchChange,
+    onSearchEnter,
     isSearching,
     onAddToCart,
     addingProductId,
@@ -184,18 +184,6 @@ export default function ProductGrid({
     const normalizedSelectedCategory =
         selectedCategory === null ? null : Number(selectedCategory);
 
-    // Filter products by category and search
-    const filteredProducts = products.filter((product) => {
-        const matchesCategory =
-            normalizedSelectedCategory === null ||
-            Number(product.category_id) === normalizedSelectedCategory;
-        const matchesSearch =
-            !searchQuery ||
-            product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            product.barcode?.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchesCategory && matchesSearch;
-    });
-
     return (
         <div className="h-full flex flex-col">
             {/* Search Bar */}
@@ -203,7 +191,7 @@ export default function ProductGrid({
                 <SearchInput
                     value={searchQuery}
                     onChange={onSearchChange}
-                    onSearch={onSearch}
+                    onSearch={onSearchEnter}
                     isSearching={isSearching}
                     placeholder={__("Search products or scan barcode... (press / to focus)")}
                     inputRef={searchInputRef}
@@ -234,9 +222,9 @@ export default function ProductGrid({
 
             {/* Products Grid */}
             <div className="flex-1 overflow-y-auto p-4 scrollbar-thin">
-                {filteredProducts.length > 0 ? (
+                {products.length > 0 ? (
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
-                        {filteredProducts.map((product) => (
+                        {products.map((product) => (
                             <ProductCard
                                 key={product.id}
                                 product={product}
