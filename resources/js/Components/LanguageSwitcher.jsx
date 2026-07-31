@@ -36,7 +36,9 @@ export default function LanguageSwitcher() {
                         <button
                             key={l.code}
                             onClick={() => {
-                                router.post(route("language.switch"), { locale: l.code });
+                                router.post(route("language.switch"), { locale: l.code }, {
+                                    onSuccess: () => window.location.reload(),
+                                });
                                 setOpen(false);
                             }}
                             className="w-full flex items-center gap-2 px-3 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"

@@ -3,5 +3,6 @@ window.axios = axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-// ponytail: pass-through __() — English key is its own value until real lookup wired
-window.__ = (key) => key;
+// ponytail: __() resolves from backend-shared translations (hydrated in app.jsx); falls back to the key itself
+window.__translations = window.__translations || {};
+window.__ = (key) => window.__translations?.[key] ?? key;

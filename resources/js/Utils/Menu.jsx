@@ -42,18 +42,16 @@ import {
 import hasAnyPermission from "./Permission";
 import React from "react";
 
-export default function Menu(__) {
-    const fallback = (k) => k;
-    const t = __ || fallback;
+export default function Menu() {
     const { url } = usePage();
 
     // define menu navigations
     const menuNavigation = [
         {
-            title: "Overview",
+            title: __("Overview"),
             details: [
                 {
-                    title: "Dashboard",
+                    title: __("Dashboard"),
                     href: route("dashboard"),
                     active: url === "/dashboard",
                     icon: <IconLayout2 size={20} strokeWidth={1.5} />,
@@ -62,31 +60,31 @@ export default function Menu(__) {
             ],
         },
         {
-            title: "Master Data",
+            title: __("Master Data"),
             details: [
                 {
-                    title: "Categories",
+                    title: __("Categories"),
                     href: route("categories.index"),
                     active: url === "/dashboard/categories",
                     icon: <IconFolder size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["categories-access"]),
                 },
                 {
-                    title: "Products",
+                    title: __("Products"),
                     href: route("products.index"),
                     active: url === "/dashboard/products",
                     icon: <IconBox size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["products-access"]),
                 },
                 {
-                    title: "Customers",
+                    title: __("Customers"),
                     href: route("customers.index"),
                     active: url === "/dashboard/customers",
                     icon: <IconUsersPlus size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["customers-access"]),
                 },
                 {
-                    title: "Suppliers",
+                    title: __("Suppliers"),
                     href: route("suppliers.index"),
                     active: url.startsWith("/dashboard/suppliers"),
                     icon: <IconBuildingWarehouse size={20} strokeWidth={1.5} />,
@@ -95,17 +93,17 @@ export default function Menu(__) {
             ],
         },
         {
-            title: "Sales",
+            title: __("Sales"),
             details: [
                 {
-                    title: "Transactions",
+                    title: __("Transactions"),
                     href: route("transactions.index"),
                     active: url === "/dashboard/transactions",
                     icon: <IconShoppingCart size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["transactions-access"]),
                 },
                 {
-                    title: "Transaction History",
+                    title: __("Transaction History"),
                     href: route("transactions.history"),
                     active:
                         url === "/dashboard/transactions/history"
@@ -115,21 +113,21 @@ export default function Menu(__) {
                     permissions: hasAnyPermission(["transactions-access"]),
                 },
                 {
-                    title: "Sales Returns",
+                    title: __("Sales Returns"),
                     href: route("sales-returns.index"),
                     active: url.startsWith("/dashboard/sales-returns"),
                     icon: <IconFileCertificate size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["sales-returns-access"]),
                 },
                 {
-                    title: "Receivables",
+                    title: __("Receivables"),
                     href: route("receivables.index"),
                     active: url.startsWith("/dashboard/receivables"),
                     icon: <IconFileInvoice size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["receivables-access"]),
                 },
                 {
-                    title: "Aging & Reminders",
+                    title: __("Aging & Reminders"),
                     href: route("aging.index"),
                     active: url.startsWith("/dashboard/aging"),
                     icon: <IconChartBar size={20} strokeWidth={1.5} />,
@@ -138,10 +136,10 @@ export default function Menu(__) {
             ],
         },
         {
-            title: "Approval",
+            title: __("Approval"),
             details: [
                 {
-                    title: "Discount Approval",
+                    title: __("Discount Approval"),
                     href: route("discount-approvals.pending"),
                     active: url.startsWith("/dashboard/discount-approvals"),
                     icon: <IconAlertCircle size={20} strokeWidth={1.5} />,
@@ -150,17 +148,17 @@ export default function Menu(__) {
             ],
         },
         {
-            title: "Inventory",
+            title: __("Inventory"),
             details: [
                 {
-                    title: "Stock Opname",
+                    title: __("Stock Opname"),
                     href: route("stock-opnames.index"),
                     active: url.startsWith("/dashboard/stock-opnames"),
                     icon: <IconFileDescription size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["stock-opnames-access"]),
                 },
                 {
-                    title: "Stock Mutations",
+                    title: __("Stock Mutations"),
                     href: route("stock-mutations.index"),
                     active: url.startsWith("/dashboard/stock-mutations"),
                     icon: (
@@ -169,7 +167,7 @@ export default function Menu(__) {
                     permissions: hasAnyPermission(["stock-mutations-access"]),
                 },
                 {
-                    title: "Stock Transfers",
+                    title: __("Stock Transfers"),
                     href: route("stock-transfers.index"),
                     active: url.startsWith("/dashboard/stock-transfers"),
                     icon: <IconArrowsLeftRight size={20} strokeWidth={1.5} />,
@@ -178,31 +176,31 @@ export default function Menu(__) {
             ],
         },
         {
-            title: "Procurement",
+            title: __("Procurement"),
             details: [
                 {
-                    title: "Purchase Orders",
+                    title: __("Purchase Orders"),
                     href: route("purchase-orders.index"),
                     active: url.startsWith("/dashboard/purchase-orders"),
                     icon: <IconClipboardCheck size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["purchase-orders-access"]),
                 },
                 {
-                    title: "Goods Receiving",
+                    title: __("Goods Receiving"),
                     href: route("goods-receivings.index"),
                     active: url.startsWith("/dashboard/goods-receivings"),
                     icon: <IconTruckDelivery size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["goods-receivings-access"]),
                 },
                 {
-                    title: "Supplier Returns",
+                    title: __("Supplier Returns"),
                     href: route("supplier-returns.index"),
                     active: url.startsWith("/dashboard/supplier-returns"),
                     icon: <IconTruckReturn size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["supplier-returns-access"]),
                 },
                 {
-                    title: "Supplier Payables",
+                    title: __("Supplier Payables"),
                     href: route("payables.index"),
                     active: url.startsWith("/dashboard/payables"),
                     icon: <IconCurrencyDollar size={20} strokeWidth={1.5} />,
@@ -211,45 +209,45 @@ export default function Menu(__) {
             ],
         },
         {
-            title: "CRM & Pricing",
+            title: __("CRM & Pricing"),
             details: [
                 {
-                    title: "Members",
+                    title: __("Members"),
                     href: route("members.index"),
                     active: url.startsWith("/dashboard/members"),
                     icon: <IconCrown size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["customers-access"]),
                 },
                 {
-                    title: "Promo Pricing",
+                    title: __("Promo Pricing"),
                     href: route("pricing-rules.index"),
                     active: url.startsWith("/dashboard/pricing-rules"),
                     icon: <IconChartInfographic size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["pricing-rules-access"]),
                 },
                 {
-                    title: "Customer Vouchers",
+                    title: __("Customer Vouchers"),
                     href: route("customer-vouchers.index"),
                     active: url.startsWith("/dashboard/customer-vouchers"),
                     icon: <IconCreditCard size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["customer-vouchers-access"]),
                 },
                 {
-                    title: "Customer Segments",
+                    title: __("Customer Segments"),
                     href: route("customer-segments.index"),
                     active: url.startsWith("/dashboard/customer-segments"),
                     icon: <IconUsers size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["customer-segments-access"]),
                 },
                 {
-                    title: "CRM Campaigns",
+                    title: __("CRM Campaigns"),
                     href: route("crm-campaigns.index"),
                     active: url.startsWith("/dashboard/crm-campaigns"),
                     icon: <IconSpeakerphone size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["crm-campaigns-access"]),
                 },
                 {
-                    title: "CRM Reminders",
+                    title: __("CRM Reminders"),
                     href: route("crm-reminders.index"),
                     active: url.startsWith("/dashboard/crm-reminders"),
                     icon: <IconClockHour6 size={20} strokeWidth={1.5} />,
@@ -258,10 +256,10 @@ export default function Menu(__) {
             ],
         },
         {
-            title: "Reports",
+            title: __("Reports"),
             details: [
                 {
-                    title: "Sales Report",
+                    title: __("Sales Report"),
                     href: route("reports.sales.index"),
                     active: url.startsWith("/dashboard/reports/sales"),
                     icon: (
@@ -270,14 +268,14 @@ export default function Menu(__) {
                     permissions: hasAnyPermission(["reports-access"]),
                 },
                 {
-                    title: "Profit Report",
+                    title: __("Profit Report"),
                     href: route("reports.profits.index"),
                     active: url.startsWith("/dashboard/reports/profits"),
                     icon: <IconChartBarPopular size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["profits-access"]),
                 },
                 {
-                    title: "Advanced Insights",
+                    title: __("Advanced Insights"),
                     href: route("reports.insights.index"),
                     active: url.startsWith("/dashboard/reports/insights"),
                     icon: <IconChartBar size={20} strokeWidth={1.5} />,
@@ -286,17 +284,17 @@ export default function Menu(__) {
             ],
         },
         {
-            title: "Operations & Control",
+            title: __("Operations & Control"),
             details: [
                 {
-                    title: "Cashier Shifts",
+                    title: __("Cashier Shifts"),
                     href: route("cashier-shifts.index"),
                     active: url.startsWith("/dashboard/cashier-shifts"),
                     icon: <IconWallet size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["cashier-shifts-access"]),
                 },
                 {
-                    title: "Audit Log",
+                    title: __("Audit Log"),
                     href: route("audit-logs.index"),
                     active: url.startsWith("/dashboard/audit-logs"),
                     icon: <IconFileSearch size={20} strokeWidth={1.5} />,
@@ -305,36 +303,36 @@ export default function Menu(__) {
             ],
         },
         {
-            title: "User Management",
+            title: __("User Management"),
             details: [
                 {
-                    title: "Permissions",
+                    title: __("Permissions"),
                     href: route("permissions.index"),
                     active: url === "/dashboard/permissions",
                     icon: <IconUserBolt size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["permissions-access"]),
                 },
                 {
-                    title: "Roles",
+                    title: __("Roles"),
                     href: route("roles.index"),
                     active: url === "/dashboard/roles",
                     icon: <IconUserShield size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["roles-access"]),
                 },
                 {
-                    title: "Users",
+                    title: __("Users"),
                     icon: <IconUsers size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["users-access"]),
                     subdetails: [
                         {
-                            title: "User Data",
+                            title: __("User Data"),
                             href: route("users.index"),
                             icon: <IconTable size={20} strokeWidth={1.5} />,
                             active: url === "/dashboard/users",
                             permissions: hasAnyPermission(["users-access"]),
                         },
                         {
-                            title: "Add User",
+                            title: __("Add User"),
                             href: route("users.create"),
                             icon: (
                                 <IconCirclePlus size={20} strokeWidth={1.5} />
@@ -350,59 +348,59 @@ export default function Menu(__) {
             ],
         },
         {
-            title: "Settings",
+            title: __("Settings"),
             details: [
                 {
-                    title: "Payment Gateway",
+                    title: __("Payment Gateway"),
                     href: route("settings.payments.edit"),
                     active: url === "/dashboard/settings/payments",
                     icon: <IconCreditCard size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["payment-settings-access"]),
                 },
                 {
-                    title: "Store Profile",
+                    title: __("Store Profile"),
                     href: route("settings.store"),
                     active: url === "/dashboard/settings/store",
                     icon: <IconBuildingStore size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["dashboard-access"]),
                 },
                 {
-                    title: "Bank Accounts",
+                    title: __("Bank Accounts"),
                     href: route("settings.bank-accounts.index"),
                     active: url === "/dashboard/settings/bank-accounts",
                     icon: <IconCreditCard size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["payment-settings-access"]),
                 },
                 {
-                    title: "Loyalty",
+                    title: __("Loyalty"),
                     href: route("settings.loyalty"),
                     active: url === "/dashboard/settings/loyalty",
                     icon: <IconGift size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["dashboard-access"]),
                 },
                 {
-                    title: "Sales Target",
+                    title: __("Sales Target"),
                     href: route("settings.target"),
                     active: url === "/dashboard/settings/target",
                     icon: <IconChartInfographic size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["dashboard-access"]),
                 },
                 {
-                    title: "Price List",
+                    title: __("Price List"),
                     href: route("price-lists.index"),
                     active: url.startsWith("/dashboard/settings/price-lists"),
                     icon: <IconListDetails size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["price-lists-access"]),
                 },
                 {
-                    title: "Warehouses / Branches",
+                    title: __("Warehouses / Branches"),
                     href: route("settings.warehouses.index"),
                     active: url === "/dashboard/settings/warehouses",
                     icon: <IconBuildingWarehouse size={20} strokeWidth={1.5} />,
                     permissions: hasAnyPermission(["warehouses-access"]),
                 },
                 {
-                    title: "WhatsApp",
+                    title: __("WhatsApp"),
                     href: route("settings.whatsapp"),
                     active: url === "/dashboard/settings/whatsapp",
                     icon: <IconBrandWhatsapp size={20} strokeWidth={1.5} />,

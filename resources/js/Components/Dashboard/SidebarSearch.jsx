@@ -26,7 +26,7 @@ function flattenMenu(navigation, auth) {
     return flat;
 }
 
-export default function SidebarSearch({ sidebarOpen, navigation, __ }) {
+export default function SidebarSearch({ sidebarOpen, navigation }) {
     const { auth } = usePage().props;
     const [query, setQuery] = useState("");
     const [open, setOpen] = useState(false);
@@ -40,7 +40,7 @@ export default function SidebarSearch({ sidebarOpen, navigation, __ }) {
         return allItems.filter((item) =>
             __(item.title || "").toLowerCase().includes(q)
         );
-    }, [query, allItems, __]);
+    }, [query, allItems]);
 
     useEffect(() => {
         function handleClick(e) {

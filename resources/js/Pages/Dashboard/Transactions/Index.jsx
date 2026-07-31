@@ -98,6 +98,8 @@ export default function Index({
     }, [pricingPreview]);
     const productList = products?.data ?? [];
 
+    console.log(__("Card"));
+
     // Ref for search input to enable keyboard focus
     const searchInputRef = useRef(null);
 

@@ -158,13 +158,10 @@ class HandleInertiaRequests extends Middleware
         }
 
         $locale = session('locale', 'en');
-        $langFile = lang_path("{$locale}.json");
-        $translations = json_decode(file_get_contents($langFile), true);
 
         return [
             ...parent::share($request),
             'locale' => $locale,
-            'translations' => $translations,
             'auth' => [
                 'user' => $request->user(),
                 'permissions' => $request->user() ? $request->user()->getPermissions() : [],
@@ -185,6 +182,13 @@ class HandleInertiaRequests extends Middleware
                 'publicRegistrationEnabled' => config('security.auth.public_registration'),
                 'stepUpFreshUntil' => $stepUpFreshUntil,
             ],
+        ];
+    }
+
+    public function shareOnce(Request $request): array
+    {
+        return [
+            'translations' => fn () => json_decode(file_get_contents(lang_path(session('locale', 'en').'.json')), true) ?? [],
         ];
     }
 }

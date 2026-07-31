@@ -20,8 +20,8 @@ class PaymentSetting extends Model
         return [
             [
                 'value' => self::GATEWAY_CARD,
-                'label' => 'Kartu',
-                'description' => 'Pembayaran dengan kartu debit/kredit (Visa/Mastercard).',
+                'label' => __('Card'),
+                'description' => __('Payment by debit/credit card (Visa/Mastercard).'),
             ],
         ];
     }

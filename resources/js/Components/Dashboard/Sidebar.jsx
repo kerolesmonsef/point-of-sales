@@ -5,12 +5,10 @@ import LinkItem from "@/Components/Dashboard/LinkItem";
 import LinkItemDropdown from "@/Components/Dashboard/LinkItemDropdown";
 import SidebarSearch from "@/Components/Dashboard/SidebarSearch";
 import Menu from "@/Utils/Menu";
-import { useTranslations } from "@/Utils/Translations";
 
 export default function Sidebar({ sidebarOpen }) {
     const { auth, storeProfile, appVersion } = usePage().props;
-    const __ = useTranslations();
-    const menuNavigation = Menu(__);
+    const menuNavigation = Menu();
 
     const storeName = storeProfile?.name || "KASIR";
     const storeLogo = storeProfile?.logo || null;
@@ -69,7 +67,7 @@ export default function Sidebar({ sidebarOpen }) {
                 )}
             </div>
 
-            <SidebarSearch sidebarOpen={sidebarOpen} navigation={menuNavigation} __={__} />
+            <SidebarSearch sidebarOpen={sidebarOpen} navigation={menuNavigation} />
 
             <nav className="dashboard-scrollbar min-h-0 flex-1 overflow-y-auto py-3">
                 {menuNavigation.map((section, index) => {
