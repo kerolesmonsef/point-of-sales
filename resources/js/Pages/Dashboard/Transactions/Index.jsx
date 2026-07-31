@@ -12,7 +12,6 @@ import POSLayout from "@/Layouts/POSLayout";
 import ProductGrid from "@/Components/POS/ProductGrid";
 import Pagination from "@/Components/Dashboard/Pagination";
 import CartPanel from "@/Components/POS/CartPanel";
-import PaymentPanel from "@/Components/POS/PaymentPanel";
 import CustomerSelect from "@/Components/POS/CustomerSelect";
 import NumpadModal from "@/Components/POS/NumpadModal";
 import HeldTransactions, {
@@ -31,7 +30,6 @@ import {
     IconTrash,
     IconCash,
     IconCreditCard,
-    IconBuildingBank,
     IconAlertTriangle,
     IconWallet,
 } from "@tabler/icons-react";
@@ -46,7 +44,6 @@ export default function Index({
     initialPricingPreview = { items: [], summary: {} },
     paymentGateways = [],
     defaultPaymentGateway = "cash",
-    bankAccounts = [],
     loyaltyTierOptions = [],
 }) {
     const {
@@ -87,7 +84,6 @@ export default function Index({
     const [mobileView, setMobileView] = useState("products"); // 'products' | 'cart'
     const [numpadOpen, setNumpadOpen] = useState(false);
     const [showShortcuts, setShowShortcuts] = useState(false);
-    const [selectedBankAccount, setSelectedBankAccount] = useState(null);
     const [selectedVoucherId, setSelectedVoucherId] = useState("");
     const [openingCashInput, setOpeningCashInput] = useState("");
     const [shiftNotesInput, setShiftNotesInput] = useState("");
@@ -512,13 +508,6 @@ export default function Index({
             return;
         }
 
-        // Validate bank transfer requires bank selection
-        const isBankTransfer = paymentMethod === "bank_transfer";
-        if (isBankTransfer && !selectedBankAccount) {
-            toast.error(__("Select destination bank account"));
-            return;
-        }
-
         setIsSubmitting(true);
 
         if (!navigator.onLine) {
@@ -532,7 +521,6 @@ export default function Index({
                 payment_gateway: payLater ? null : isCashPayment ? null : paymentMethod,
                 pay_later: payLater,
                 due_date: payLater ? dueDate : null,
-                bank_account_id: isBankTransfer ? selectedBankAccount : null,
             };
             queueTransaction(payload).then(() => {
                 setCarts([]);
@@ -554,9 +542,6 @@ export default function Index({
                 cash: isCashPayment ? cash : payable,
                 change: isCashPayment ? Math.max(cash - payable, 0) : 0,
                 payment_gateway: payLater ? null : isCashPayment ? null : paymentMethod,
-                bank_account_id: isBankTransfer
-                    ? selectedBankAccount?.id
-                    : null,
                 pay_later: payLater,
                 due_date: dueDate,
             },
@@ -566,7 +551,6 @@ export default function Index({
                     setRedeemPointsInput("");
                     setCashInput("");
                     setSelectedCustomer(null);
-                    setSelectedBankAccount(null);
                     setSelectedVoucherId("");
                     setPaymentMethod(defaultPaymentGateway ?? "cash");
                     setPayLater(false);
@@ -947,7 +931,6 @@ export default function Index({
                                         onChange={(e) => {
                                             setPayLater(e.target.checked);
                                             if (e.target.checked) {
-                                                setSelectedBankAccount(null);
                                                 setPaymentMethod("cash");
                                             }
                                         }}
@@ -1011,11 +994,6 @@ export default function Index({
                                             >
                                                 {method.value === "cash" ? (
                                                     <IconCash size={16} />
-                                                ) : method.value ===
-                                                  "bank_transfer" ? (
-                                                    <IconBuildingBank
-                                                        size={16}
-                                                    />
                                                 ) : (
                                                     <IconCreditCard size={16} />
                                                 )}
@@ -1036,81 +1014,6 @@ export default function Index({
                                     ))}
                                 </div>
                             </div>
-
-                            {/* Bank Selector - Only for bank_transfer */}
-                            {paymentMethod === "bank_transfer" &&
-                                bankAccounts.length > 0 &&
-                                !payLater && (
-                                    <div>
-                                        <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-2">
-                                            {__("Destination Account")}
-                                        </label>
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                            {bankAccounts.map((bank) => {
-                                                const isActive =
-                                                    selectedBankAccount?.id ===
-                                                    bank.id;
-                                                return (
-                                                    <button
-                                                        key={bank.id}
-                                                        onClick={() =>
-                                                            setSelectedBankAccount(
-                                                                bank
-                                                            )
-                                                        }
-                                                        className={`p-3 rounded-xl border-2 transition-colors flex items-center gap-3 text-left ${
-                                                            isActive
-                                                                ? "border-primary-500 bg-primary-50 dark:bg-primary-950/30"
-                                                                : "border-slate-200 dark:border-slate-700 hover:border-primary-200 dark:hover:border-primary-800"
-                                                        }`}
-                                                    >
-                                                        <div className="w-10 h-10 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center overflow-hidden">
-                                                            {bank.logo_url ? (
-                                                                <img
-                                                                    src={
-                                                                        bank.logo_url
-                                                                    }
-                                                                    alt={
-                                                                        bank.bank_name
-                                                                    }
-                                                                    className="max-w-full max-h-full object-contain"
-                                                                />
-                                                            ) : (
-                                                                <IconBuildingBank
-                                                                    size={18}
-                                                                    className="text-slate-500"
-                                                                />
-                                                            )}
-                                                        </div>
-                                                        <div className="flex-1">
-                                                            <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
-                                                                {
-                                                                    bank.bank_name
-                                                                }
-                                                            </p>
-                                                            <p className="text-xs text-slate-600 dark:text-slate-400">
-                                                                {
-                                                                    bank.account_number
-                                                                }
-                                                            </p>
-                                                            <p className="text-[11px] text-slate-500 dark:text-slate-500">
-                                                                {__("a.n.")}{" "}
-                                                                {
-                                                                    bank.account_name
-                                                                }
-                                                            </p>
-                                                        </div>
-                                                        {isActive && (
-                                                            <span className="text-[11px] font-semibold text-primary-600">
-                                                                 {__("Selected")}
-                                                            </span>
-                                                        )}
-                                                    </button>
-                                                );
-                                            })}
-                                        </div>
-                                    </div>
-                                )}
 
                             {/* Quick Amounts - Only for cash */}
                             {paymentMethod === "cash" && (

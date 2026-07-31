@@ -26,7 +26,7 @@ Menyediakan alur kasir cepat untuk pencarian produk, pengelolaan cart, checkout,
 - hold transaction
 - resume held cart
 - clear held cart
-- checkout tunai, bank transfer, Midtrans, Xendit, pay later
+- checkout  (cash),  (card),  pay later
 - print invoice / receipt / shipping label
 - share invoice publik
 - add customer langsung dari POS
@@ -68,13 +68,12 @@ Operasi transaksional tertentu juga mewajibkan middleware `active_shift`.
 - `transaction_details`
 - `profits`
 - `receivables`
-- `bank_accounts`
 - `payment_settings`
 
 ## Batasan Saat Ini
 
 - operasi cart dan checkout bergantung pada shift aktif
-- payment gateway bergantung pada konfigurasi valid
+- pembayaran non-tunai (card) langsung tercatat `paid` — tidak ada alur pending/konfirmasi manual
 - checkout masih menjadi pusat perubahan stok penjualan
 - pemilihan satuan (unit) belum ada di UI cart — backend sudah siap, lihat `docs/features/unit-conversion.md`
 

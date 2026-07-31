@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Apps;
 
 use App\Http\Controllers\Controller;
-use App\Models\BankAccount;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Customer;
@@ -15,7 +14,6 @@ use App\Models\ProductWarehouse;
 use App\Models\Receivable;
 use App\Models\Transaction;
 use App\Models\Warehouse;
-use App\Services\AuditLogService;
 use App\Services\CashierShiftService;
 use App\Services\LoyaltyService;
 use App\Services\PricingService;
@@ -32,7 +30,6 @@ class TransactionController extends Controller
 {
     public function __construct(
         private readonly CashierShiftService $cashierShiftService,
-        private readonly AuditLogService $auditLogService,
         private readonly PricingService $pricingService,
         private readonly LoyaltyService $loyaltyService
     ) {}
@@ -125,15 +122,6 @@ class TransactionController extends Controller
         }
 
         $defaultGateway = $paymentSetting?->default_gateway ?? 'cash';
-        if (
-            $defaultGateway !== 'cash'
-            && (! $paymentSetting || ! $paymentSetting->isBankTransferReady())
-        ) {
-            $defaultGateway = 'cash';
-        }
-
-        // Get active bank accounts for bank transfer
-        $bankAccounts = BankAccount::active()->ordered()->get();
 
         return Inertia::render('Dashboard/Transactions/Index', [
             'carts' => $carts,
@@ -145,7 +133,6 @@ class TransactionController extends Controller
             'initialPricingPreview' => $initialPricingPreview,
             'paymentGateways' => $paymentSetting?->enabledGateways() ?? [],
             'defaultPaymentGateway' => $defaultGateway,
-            'bankAccounts' => $bankAccounts,
             'shiftSummary' => $this->cashierShiftService->summarizeForDisplay($activeShift),
             'loyaltyTierOptions' => $this->loyaltyService->tierOptions(),
         ]);
@@ -162,12 +149,11 @@ class TransactionController extends Controller
         $activeShift = $this->cashierShiftService->getActiveShiftForUser(auth()->user()->id);
         $warehouseId = $activeShift?->warehouse_id;
 
-
         $product = Product::where('barcode', $request->barcode)
 //            ->whereHas('warehouses', fn ($q) => $q->where('product_warehouse.warehouse_id', $warehouseId))
             ->first();
 
-        if (!$product) {
+        if (! $product) {
             return response()->json([
                 'success' => false,
                 'data' => null,
@@ -620,8 +606,7 @@ class TransactionController extends Controller
                 'shipping_cost' => $shippingCost,
                 'grand_total' => $grandTotal,
                 'payment_method' => $isPayLater ? 'pay_later' : ($paymentGateway ?: 'cash'),
-                'payment_status' => $isCashPayment ? 'paid' : ($isPayLater ? 'unpaid' : 'pending'),
-                'bank_account_id' => $paymentGateway === 'bank_transfer' ? $request->bank_account_id : null,
+                'payment_status' => $isPayLater ? 'unpaid' : 'paid',
                 'tax_rate' => data_get($checkoutPreview, 'summary.tax_rate'),
                 'tax_total' => data_get($checkoutPreview, 'summary.tax_total', 0),
                 'customer_npwp' => $request->customer_npwp,
@@ -819,49 +804,5 @@ class TransactionController extends Controller
             'salesReturnFeatureReady' => $salesReturnTablesReady,
             'warehouses' => $warehouses,
         ]);
-    }
-
-    /**
-     * Confirm payment for bank transfer transactions
-     */
-    public function confirmPayment(Transaction $transaction)
-    {
-        if ($transaction->payment_status === 'paid') {
-            return redirect()
-                ->back()
-                ->with('error', __('Transaction already paid.'));
-        }
-
-        $beforeStatus = $transaction->payment_status;
-        $transaction->update([
-            'payment_status' => 'paid',
-        ]);
-
-        $this->auditLogService->log(
-            event: 'transaction.payment_confirmed',
-            module: 'transactions',
-            auditable: $transaction,
-            description: __("Payment for invoice {$transaction->invoice} confirmed."),
-            before: [
-                'invoice' => $transaction->invoice,
-                'payment_method' => $transaction->payment_method,
-                'payment_status' => $beforeStatus,
-                'bank_account_id' => $transaction->bank_account_id,
-            ],
-            after: [
-                'invoice' => $transaction->invoice,
-                'payment_method' => $transaction->payment_method,
-                'payment_status' => 'paid',
-                'bank_account_id' => $transaction->bank_account_id,
-            ],
-            meta: [
-                'invoice' => $transaction->invoice,
-                'bank_account_id' => $transaction->bank_account_id,
-            ],
-        );
-
-        return redirect()
-            ->back()
-            ->with('success', __("Payment for invoice {$transaction->invoice} confirmed successfully."));
     }
 }

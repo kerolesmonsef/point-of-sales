@@ -20,7 +20,6 @@ class PhaseTwoSecurityHardeningTest extends TestCase
 
         PaymentSetting::create([
             'default_gateway' => 'cash',
-            'bank_transfer_enabled' => true,
         ]);
 
         $response = $this->actingAs($user)->get(route('settings.payments.edit'));

@@ -65,7 +65,7 @@ class FeatureCoverageSeeder extends Seeder
         $this->seedStoreSettings();
         $bankAccounts = $this->seedBankAccounts();
         $this->configurePaymentSettings();
-        $this->assignBankTransferTransaction($bankAccounts, $cashier);
+        $this->assignCardTransaction($cashier);
 
         Auth::setUser($admin);
 
@@ -214,21 +214,19 @@ class FeatureCoverageSeeder extends Seeder
             'default_gateway' => 'cash',
         ])->update([
             'default_gateway' => 'cash',
-            'bank_transfer_enabled' => true,
             'midtrans_enabled' => false,
             'xendit_enabled' => false,
         ]);
     }
 
-    private function assignBankTransferTransaction(Collection $bankAccounts, User $cashier): void
+    private function assignCardTransaction(User $cashier): void
     {
-        $bankAccount = $bankAccounts->get('BCA');
         $transaction = Transaction::query()
             ->whereNull('customer_id')
             ->latest('id')
             ->first();
 
-        if (! $bankAccount || ! $transaction) {
+        if (! $transaction) {
             return;
         }
 
@@ -236,11 +234,10 @@ class FeatureCoverageSeeder extends Seeder
 
         $transaction->update([
             'cashier_id' => $cashier->id,
-            'payment_method' => PaymentSetting::GATEWAY_BANK_TRANSFER,
+            'payment_method' => PaymentSetting::GATEWAY_CARD,
             'payment_status' => 'paid',
             'payment_reference' => 'TRF-'.$transaction->invoice,
-            'bank_account_id' => $bankAccount->id,
-            'cash' => $grandTotal,
+            'cash' => 0,
             'change' => 0,
         ]);
     }

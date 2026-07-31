@@ -9,34 +9,20 @@ class PaymentSetting extends Model
 {
     use HasFactory;
 
-    public const GATEWAY_BANK_TRANSFER = 'bank_transfer';
+    public const GATEWAY_CARD = 'card';
 
     protected $fillable = [
         'default_gateway',
-        'bank_transfer_enabled',
-    ];
-
-    protected $casts = [
-        'bank_transfer_enabled' => 'boolean',
     ];
 
     public function enabledGateways(): array
     {
-        $gateways = [];
-
-        if ($this->isBankTransferReady()) {
-            $gateways[] = [
-                'value' => self::GATEWAY_BANK_TRANSFER,
-                'label' => 'Transfer Bank',
-                'description' => 'Pembayaran manual via transfer bank.',
-            ];
-        }
-
-        return $gateways;
-    }
-
-    public function isBankTransferReady(): bool
-    {
-        return $this->bank_transfer_enabled && BankAccount::active()->exists();
+        return [
+            [
+                'value' => self::GATEWAY_CARD,
+                'label' => 'Kartu',
+                'description' => 'Pembayaran dengan kartu debit/kredit (Visa/Mastercard).',
+            ],
+        ];
     }
 }

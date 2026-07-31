@@ -19,11 +19,10 @@ class PaymentSettingController extends Controller
         return Inertia::render('Dashboard/Settings/Payment', [
             'setting' => [
                 'default_gateway' => $setting->default_gateway,
-                'bank_transfer_enabled' => (bool) $setting->bank_transfer_enabled,
             ],
             'supportedGateways' => [
                 ['value' => 'cash', 'label' => __('Cash')],
-                ['value' => PaymentSetting::GATEWAY_BANK_TRANSFER, 'label' => __('Bank Transfer')],
+                ['value' => PaymentSetting::GATEWAY_CARD, 'label' => __('Card')],
             ],
         ]);
     }
@@ -37,14 +36,12 @@ class PaymentSettingController extends Controller
         $data = $request->validate([
             'default_gateway' => [
                 'required',
-                Rule::in(['cash', PaymentSetting::GATEWAY_BANK_TRANSFER]),
+                Rule::in(['cash', PaymentSetting::GATEWAY_CARD]),
             ],
-            'bank_transfer_enabled' => ['boolean'],
         ]);
 
         $setting->update([
             'default_gateway' => $data['default_gateway'],
-            'bank_transfer_enabled' => (bool) ($data['bank_transfer_enabled'] ?? false),
         ]);
 
         return redirect()

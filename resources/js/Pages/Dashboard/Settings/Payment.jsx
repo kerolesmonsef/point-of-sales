@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Head, useForm, usePage } from "@inertiajs/react";
 import DashboardLayout from "@/Layouts/DashboardLayout";
-import Checkbox from "@/Components/Dashboard/Checkbox";
 import { useAuthorization } from "@/Utils/authorization";
 import {
     IconCreditCard,
@@ -19,7 +18,6 @@ export default function Payment({
 
     const { data, setData, put, errors, processing } = useForm({
         default_gateway: setting?.default_gateway ?? "cash",
-        bank_transfer_enabled: setting?.bank_transfer_enabled ?? false,
     });
 
     useEffect(() => {
@@ -87,43 +85,6 @@ export default function Payment({
                             </small>
                         )}
                     </div>
-                </div>
-
-                {/* Bank Transfer */}
-                <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6">
-                    <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                            🏦 {__("Bank Transfer")}
-                        </h3>
-                        <label
-                            className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${
-                                data.bank_transfer_enabled
-                                    ? "bg-success-100 text-success-700 dark:bg-success-900/30 dark:text-success-400"
-                                    : "bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400"
-                            }`}
-                        >
-                            <Checkbox
-                                checked={data.bank_transfer_enabled}
-                                onChange={(e) =>
-                                    setData(
-                                        "bank_transfer_enabled",
-                                        e.target.checked
-                                    )
-                                }
-                                disabled={!canUpdatePaymentSettings}
-                            />
-                            {data.bank_transfer_enabled ? __("Active") : __("Inactive")}
-                        </label>
-                    </div>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-                        {__("Manual payment via bank transfer. Cashier enters transaction as pending, then admin confirms after funds received.")}
-                    </p>
-                        <a
-                            href={route("settings.bank-accounts.index")}
-                        className="inline-flex items-center gap-2 text-sm text-primary-500 hover:text-primary-600 font-medium"
-                    >
-                        {__("Manage Bank Accounts")} →
-                    </a>
                 </div>
 
                 {/* Submit */}

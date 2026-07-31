@@ -152,17 +152,14 @@ class AuditLogTest extends TestCase
 
         PaymentSetting::create([
             'default_gateway' => 'cash',
-            'bank_transfer_enabled' => false,
         ]);
 
         $this->withSession($this->recentlyConfirmedSession())->actingAs($user)->put(route('settings.payments.update'), [
-            'default_gateway' => 'cash',
-            'bank_transfer_enabled' => true,
+            'default_gateway' => 'card',
         ])->assertRedirect(route('settings.payments.edit'));
 
         $this->assertDatabaseHas('payment_settings', [
-            'default_gateway' => 'cash',
-            'bank_transfer_enabled' => true,
+            'default_gateway' => 'card',
         ]);
     }
 
@@ -212,14 +209,12 @@ class AuditLogTest extends TestCase
         ]);
     }
 
-    public function test_stock_opname_finalize_and_payment_confirmation_are_audited(): void
+    public function test_stock_opname_finalize_is_audited(): void
     {
         $user = $this->createUserWithPermissions([
             'stock-opnames-access',
             'stock-opnames-create',
             'stock-opnames-finalize',
-            'transactions-access',
-            'transactions-confirm-payment',
         ]);
 
         $product = $this->createProduct(stock: 10);
@@ -250,28 +245,6 @@ class AuditLogTest extends TestCase
         $this->assertDatabaseHas('audit_logs', [
             'event' => 'stock.adjusted',
             'module' => 'stock',
-        ]);
-
-        $transaction = Transaction::create([
-            'cashier_id' => $user->id,
-            'customer_id' => null,
-            'invoice' => 'TRX-'.Str::upper(Str::random(8)),
-            'cash' => 0,
-            'change' => 0,
-            'discount' => 0,
-            'shipping_cost' => 0,
-            'grand_total' => 50000,
-            'payment_method' => 'bank_transfer',
-            'payment_status' => 'pending',
-        ]);
-
-        $this->withSession($this->recentlyConfirmedSession())->actingAs($user)
-            ->patch(route('transactions.confirm-payment', $transaction))
-            ->assertRedirect();
-
-        $this->assertDatabaseHas('audit_logs', [
-            'event' => 'transaction.payment_confirmed',
-            'module' => 'transactions',
         ]);
     }
 

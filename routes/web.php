@@ -329,9 +329,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         ->middlewareFor('update', 'permission:warehouses-update')
         ->middlewareFor('destroy', 'permission:warehouses-delete');
 
-    // confirm payment for bank transfer
-    Route::patch('/transactions/{transaction}/confirm-payment', [TransactionController::class, 'confirmPayment'])->middleware(['permission:transactions-confirm-payment', 'step_up'])->name('transactions.confirm-payment');
-
     // discount approval
     Route::get('/discount-approvals', [DiscountApprovalController::class, 'pending'])->middleware('permission:discounts-approve')->name('discount-approvals.pending');
     Route::post('/discount-approvals/{transaction}/approve', [DiscountApprovalController::class, 'approve'])->middleware('permission:discounts-approve')->name('discount-approvals.approve');

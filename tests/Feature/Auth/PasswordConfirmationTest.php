@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Auth;
 
-use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
@@ -47,25 +46,15 @@ class PasswordConfirmationTest extends TestCase
     public function test_sensitive_routes_redirect_to_confirm_password_when_recent_confirmation_is_missing(): void
     {
         $user = User::factory()->create();
-        Permission::firstOrCreate(['name' => 'transactions-confirm-payment', 'guard_name' => 'web']);
-        $user->givePermissionTo('transactions-confirm-payment');
-
-        $transaction = Transaction::create([
-            'cashier_id' => $user->id,
-            'invoice' => 'TRX-CONFIRM',
-            'cash' => 0,
-            'change' => 0,
-            'discount' => 0,
-            'shipping_cost' => 0,
-            'grand_total' => 10000,
-            'payment_method' => 'bank_transfer',
-            'payment_status' => 'pending',
-        ]);
+        Permission::firstOrCreate(['name' => 'payment-settings-update', 'guard_name' => 'web']);
+        $user->givePermissionTo('payment-settings-update');
 
         $response = $this
             ->actingAs($user)
-            ->from(route('transactions.history'))
-            ->patch(route('transactions.confirm-payment', $transaction));
+            ->from(route('settings.payments.edit'))
+            ->put(route('settings.payments.update'), [
+                'default_gateway' => 'cash',
+            ]);
 
         $response->assertRedirect(route('password.confirm'));
     }

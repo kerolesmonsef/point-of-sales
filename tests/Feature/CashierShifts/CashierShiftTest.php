@@ -180,8 +180,8 @@ class CashierShiftTest extends TestCase
             'discount' => 0,
             'shipping_cost' => 0,
             'grand_total' => 50000,
-            'payment_method' => 'bank_transfer',
-            'payment_status' => 'pending',
+            'payment_method' => 'card',
+            'payment_status' => 'paid',
         ]);
 
         SalesReturn::create([

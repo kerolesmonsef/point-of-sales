@@ -27,8 +27,8 @@ Mengelola konfigurasi bisnis dan pembayaran yang dipakai aplikasi secara operasi
 
 ## Alur User
 
-1. admin mengatur gateway pembayaran
-2. admin menambah rekening bank aktif
+1. admin mengatur gateway pembayaran (default: cash / card)
+2. admin menambah rekening bank aktif (untuk pembayaran receivable/payable)
 3. admin mengatur profil toko
 4. admin mengisi target penjualan
 
@@ -41,14 +41,13 @@ Mengelola konfigurasi bisnis dan pembayaran yang dipakai aplikasi secara operasi
 
 ## Efek Bisnis Penting
 
-- payment gateway settings memengaruhi checkout
-- bank account aktif memengaruhi transfer manual dan pembayaran finansial lain
-- `APP_URL` yang salah dapat membuat webhook tidak usable
+- `default_gateway` menentukan metode pembayaran yang terpilih saat membuka halaman kasir
+- bank account aktif hanya dipakai pembayaran receivable/payable — checkout POS kini memakai cash/card tanpa alur transfer manual
 
 ## Batasan Saat Ini
 
-- payment gateway tetap memerlukan konfigurasi provider di luar aplikasi
-- warning webhook ditampilkan, tetapi deployment publik tetap tanggung jawab environment
+- hanya dua metode di checkout: `cash` dan `card` (card langsung `paid`)
+- `bank_transfer_enabled` masih ada di kolom DB lama, tapi tidak lagi dipakai di UI
 
 ## File Sentral
 

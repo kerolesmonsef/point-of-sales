@@ -17,7 +17,6 @@ import {
     IconX,
     IconCheck,
     IconBuildingBank,
-    IconAlertCircle,
     IconBrandWhatsapp,
 } from "@tabler/icons-react";
 
@@ -31,18 +30,12 @@ const defaultFilters = {
 const History = ({ transactions, filters, warehouses = [] }) => {
     const { can } = useAuthorization();
     const canCreateSalesReturn = can("sales-returns-create");
-    const canConfirmPayment = can("transactions-confirm-payment");
     const canCreateCrmCampaign = can("crm-campaigns-create");
     const [filterData, setFilterData] = useState({
         ...defaultFilters,
         ...filters,
     });
     const [showFilters, setShowFilters] = useState(false);
-    const [confirmModal, setConfirmModal] = useState({
-        open: false,
-        transaction: null,
-    });
-    const [isConfirming, setIsConfirming] = useState(false);
 
     useEffect(() => {
         setFilterData({
@@ -313,20 +306,6 @@ const History = ({ transactions, filters, warehouses = [] }) => {
                                                         <IconCheck size={12} />
                                                         {__("Paid")}
                                                     </span>
-                                                ) : transaction.payment_status ===
-                                                      "pending" &&
-                                                  canConfirmPayment ? (
-                                                    <button
-                                                        onClick={() =>
-                                                            setConfirmModal({
-                                                                open: true,
-                                                                transaction,
-                                                            })
-                                                        }
-                                                        className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium bg-warning-100 dark:bg-warning-900/30 text-warning-700 dark:text-warning-400 rounded-full hover:bg-warning-200 dark:hover:bg-warning-900/50 transition-colors"
-                                                    >
-                                                        {__("Pending - Confirm")}
-                                                    </button>
                                                 ) : (
                                                     <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-danger-100 dark:bg-danger-900/30 text-danger-700 dark:text-danger-400 rounded-full">
                                                         {transaction.payment_status ??
@@ -439,20 +418,6 @@ const History = ({ transactions, filters, warehouses = [] }) => {
                                                         <IconCheck size={12} />
                                                         {__("Paid")}
                                                     </span>
-                                                ) : transaction.payment_status ===
-                                                      "pending" &&
-                                                  canConfirmPayment ? (
-                                                    <button
-                                                        onClick={() =>
-                                                            setConfirmModal({
-                                                                open: true,
-                                                                transaction,
-                                                            })
-                                                        }
-                                                        className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium bg-warning-100 dark:bg-warning-900/30 text-warning-700 dark:text-warning-400 rounded-full"
-                                                    >
-                                                        {__("Pending")}
-                                                    </button>
                                                 ) : (
                                                     <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-danger-100 dark:bg-danger-900/30 text-danger-700 dark:text-danger-400 rounded-full">
                                                         {transaction.payment_status ??
@@ -596,158 +561,6 @@ __("General")}
 
                 {links.length > 3 && <Pagination links={links} />}
             </div>
-
-            {/* Confirmation Modal */}
-            {confirmModal.open && confirmModal.transaction && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                    {/* Backdrop */}
-                    <div
-                        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-                        onClick={() =>
-                            !isConfirming &&
-                            setConfirmModal({ open: false, transaction: null })
-                        }
-                    />
-
-                    {/* Modal */}
-                    <div className="relative bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
-                        {/* Header */}
-                        <div className="bg-gradient-to-r from-primary-500 to-primary-600 px-6 py-5 text-white">
-                            <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
-                                    <IconBuildingBank size={24} />
-                                </div>
-                                <div>
-                                    <h3 className="text-lg font-bold">
-                                        {__("Payment Confirmation")}
-                                    </h3>
-                                    <p className="text-sm opacity-90">
-                                        {__("Bank Transfer")}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Content */}
-                        <div className="p-6 space-y-4">
-                            {/* Invoice Info */}
-                            <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-4">
-                                <div className="flex justify-between items-center mb-2">
-                                    <span className="text-sm text-slate-500 dark:text-slate-400">
-                                        {__("Invoice")}
-                                    </span>
-                                    <span className="text-sm font-bold text-slate-900 dark:text-white">
-                                        {confirmModal.transaction.invoice}
-                                    </span>
-                                </div>
-                                <div className="flex justify-between items-center mb-2">
-                                    <span className="text-sm text-slate-500 dark:text-slate-400">
-                                        {__("Customer")}
-                                    </span>
-                                    <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                        {confirmModal.transaction.customer
-                                            ?.name ?? __("General")}
-                                    </span>
-                                </div>
-                                <div className="flex justify-between items-center">
-                                    <span className="text-sm text-slate-500 dark:text-slate-400">
-                                        {__("Total")}
-                                    </span>
-                                    <span className="text-lg font-bold text-primary-600 dark:text-primary-400">
-                                        {formatCurrency(
-                                            confirmModal.transaction
-                                                .grand_total ?? 0
-                                        )}
-                                    </span>
-                                </div>
-                            </div>
-
-                            {/* Confirmation Message */}
-                            <div className="flex items-start gap-3 p-4 bg-warning-50 dark:bg-warning-900/20 rounded-xl border border-warning-200 dark:border-warning-800">
-                                <IconAlertCircle
-                                    size={20}
-                                    className="text-warning-600 dark:text-warning-400 flex-shrink-0 mt-0.5"
-                                />
-                                <p className="text-sm text-warning-800 dark:text-warning-300">
-                                    {__("Make sure the funds have been received before confirming this payment. This action cannot be undone.")}
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Actions */}
-                        <div className="px-6 pb-6 flex gap-3">
-                            <button
-                                onClick={() =>
-                                    setConfirmModal({
-                                        open: false,
-                                        transaction: null,
-                                    })
-                                }
-                                disabled={isConfirming}
-                                className="flex-1 px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50"
-                            >
-                                {__("Cancel")}
-                            </button>
-                            <button
-                                onClick={() => {
-                                    setIsConfirming(true);
-                                    router.patch(
-                                        route(
-                                            "transactions.confirm-payment",
-                                            confirmModal.transaction.id
-                                        ),
-                                        {},
-                                        {
-                                            onSuccess: () => {
-                                                setConfirmModal({
-                                                    open: false,
-                                                    transaction: null,
-                                                });
-                                                setIsConfirming(false);
-                                            },
-                                            onError: () => {
-                                                setIsConfirming(false);
-                                            },
-                                        }
-                                    );
-                                }}
-                                disabled={isConfirming}
-                                className="flex-1 px-4 py-3 rounded-xl bg-success-500 hover:bg-success-600 text-white font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
-                            >
-                                {isConfirming ? (
-                                    <>
-                                        <svg
-                                            className="animate-spin h-4 w-4"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <circle
-                                                className="opacity-25"
-                                                cx="12"
-                                                cy="12"
-                                                r="10"
-                                                stroke="currentColor"
-                                                strokeWidth="4"
-                                                fill="none"
-                                            />
-                                            <path
-                                                className="opacity-75"
-                                                fill="currentColor"
-                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                            />
-                                        </svg>
-                                        {__("Processing...")}
-                                    </>
-                                ) : (
-                                    <>
-                                        <IconCheck size={18} />
-                                        {__("Confirm Paid")}
-                                    </>
-                                )}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
         </>
     );
 };
