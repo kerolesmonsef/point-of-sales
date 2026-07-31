@@ -100,6 +100,10 @@ export default function Index({
     // Ref for search input to enable keyboard focus
     const searchInputRef = useRef(null);
 
+    useEffect(() => {
+        searchInputRef.current?.focus();
+    }, []);
+
     // Set default payment method
     useEffect(() => {
         setPaymentMethod(defaultPaymentGateway ?? "cash");

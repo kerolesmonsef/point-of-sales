@@ -176,7 +176,6 @@ export default function ProductGrid({
     onCategoryChange,
     searchQuery,
     onSearchChange,
-    onSearch,
     isSearching,
     onAddToCart,
     addingProductId,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head, useForm, usePage, Link } from "@inertiajs/react";
 import Button from "@/Components/Dashboard/Button";
@@ -47,14 +47,36 @@ export default function Create({ categories, units: unitOptions = [] }) {
         }
     };
 
+    console.log('--- Create page props errors:', errors);
+    useEffect(() => {
+        console.log('--- Create page mounted, errors:', errors);
+    }, []);
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && e.target.tagName === 'INPUT' && (e.target.type === 'text' || e.target.type === 'number')) {
+            const inputs = Array.from(e.currentTarget.querySelectorAll('input[type="text"], input[type="number"]'));
+            const idx = inputs.indexOf(e.target);
+            if (idx < inputs.length - 1) {
+                e.preventDefault();
+                inputs[idx + 1].focus();
+            }
+        }
+    };
+
     const submit = (e) => {
         e.preventDefault();
+        console.log('--- Submitting form, data:', data);
         post(route("products.store"), {
-            onSuccess: () => toast.success(__("Product added successfully")),
+            onSuccess: () => {
+                console.log('--- onSuccess fired');
+                toast.success(__("Product added successfully"));
+            },
             onError: (errors) => {
+                console.log('--- onError fired, errors:', errors);
                 const msg = Object.values(errors).find(Boolean);
                 toast.error(msg || __("Failed to save product"));
             },
+            onFinish: () => console.log('--- onFinish fired'),
         });
     };
 
@@ -77,7 +99,7 @@ export default function Create({ categories, units: unitOptions = [] }) {
                 </h1>
             </div>
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} onKeyDown={handleKeyDown}>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* Left Column - Image */}
                     <div className="lg:col-span-1">
