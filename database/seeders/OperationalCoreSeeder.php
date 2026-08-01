@@ -9,6 +9,7 @@ use App\Models\SalesReturn;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use App\Models\User;
+use App\Models\Warehouse;
 use App\Services\CashierShiftService;
 use App\Services\StockMutationService;
 use Illuminate\Database\Seeder;
@@ -287,9 +288,18 @@ class OperationalCoreSeeder extends Seeder
             'updated_at' => $completedAt,
         ]);
 
-        $stockBefore = (int) $product->stock;
+        $warehouse = $transaction->warehouse_id
+            ? $product->warehouses()->where('warehouse_id', $transaction->warehouse_id)->first()
+            : Warehouse::default();
+
+        $stockBefore = $warehouse ? (int) $warehouse->pivot->stock : (int) $product->stock;
         $stockAfter = $stockBefore + $qtyReturn;
-        $product->update(['stock' => $stockAfter]);
+
+        if ($warehouse) {
+            $product->warehouses()->updateExistingPivot($warehouse->id, [
+                'stock' => $stockAfter,
+            ]);
+        }
 
         $stockMutationService->recordSalesReturnRestock(
             product: $product,

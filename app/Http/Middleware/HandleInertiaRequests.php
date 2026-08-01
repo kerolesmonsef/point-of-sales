@@ -44,8 +44,7 @@ class HandleInertiaRequests extends Middleware
                 $pendingApprovalCount = Transaction::where('discount_approval_status', 'pending')->count();
             }
 
-            $lowStockNotifications = Product::where('min_stock', '>', 0)
-                ->whereColumn('stock', '<=', 'min_stock')
+            $lowStockNotifications = Product::whereLowStock()
                 ->whereNotExists(function ($query) use ($userId) {
                     $query->selectRaw('1')
                         ->from('product_notification_reads as pr')
@@ -55,7 +54,7 @@ class HandleInertiaRequests extends Middleware
                 })
                 ->orderByDesc('updated_at')
                 ->limit(10)
-                ->get(['id', 'title', 'stock', 'updated_at'])
+                ->get(['id', 'title', 'updated_at'])
                 ->map(function ($product) {
                     return [
                         'id' => $product->id,

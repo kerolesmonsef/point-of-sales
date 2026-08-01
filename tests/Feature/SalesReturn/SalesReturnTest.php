@@ -10,6 +10,7 @@ use App\Models\Receivable;
 use App\Models\SalesReturn;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Warehouse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
@@ -365,9 +366,17 @@ class SalesReturnTest extends TestCase
             'description' => 'Deskripsi produk uji.',
             'buy_price' => 45000,
             'sell_price' => 60000,
-            'stock' => $stock,
             'tax_rate' => 0,
         ]);
+
+        $warehouse = Warehouse::default() ?? Warehouse::create([
+            'code' => 'MAIN',
+            'name' => 'Main warehouse',
+            'type' => 'main',
+            'is_active' => true,
+            'sort_order' => 0,
+        ]);
+        $product->warehouses()->attach($warehouse->id, ['stock' => $stock]);
 
         $customer = $withCustomer
             ? Customer::create([

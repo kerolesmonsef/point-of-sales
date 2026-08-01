@@ -28,7 +28,7 @@ Memisahkan stok produk per lokasi fisik (gudang pusat, cabang toko, gudang penya
 | Column | Type | Notes |
 |--------|------|-------|
 | id | bigIncrements | PK |
-| code | string(20), unique | `WH-001`, `PUSAT`, `CABANG-A` |
+| code | string(20), unique | `WH-001`, `MAIN`, `CABANG-A` |
 | name | string(100) | Nama gudang/cabang |
 | type | enum: `main`, `branch`, `warehouse` | |
 | address | text, nullable | |
@@ -54,8 +54,8 @@ Memisahkan stok produk per lokasi fisik (gudang pusat, cabang toko, gudang penya
 ```php
 // Di DatabaseSeeder, setelah migrasi warehouse
 $pusat = Warehouse::create([
-    'code' => 'PUSAT',
-    'name' => 'Gudang Pusat',
+    'code' => 'MAIN',
+    'name' => 'Main warehouse',
     'type' => 'main',
     'is_active' => true,
 ]);
@@ -458,11 +458,11 @@ Buat reusable `WarehouseFilter.jsx` — dropdown yang muncul di:
 
 ## Rollout Strategy
 
-1. **Phase 1 (Foundation):** Bisa di-release sendiri. Semua produk existing otomatis masuk warehouse PUSAT. Admin bisa manage warehouse. Tidak ada perubahan UX untuk kasir.
-2. **Phase 2 (Shift):** Setelah ini, kasir harus pilih warehouse saat buka shift. Backward compat: warehouse_id nullable, default ke PUSAT.
+1. **Phase 1 (Foundation):** Bisa di-release sendiri. Semua produk existing otomatis masuk warehouse MAIN. Admin bisa manage warehouse. Tidak ada perubahan UX untuk kasir.
+2. **Phase 2 (Shift):** Setelah ini, kasir harus pilih warehouse saat buka shift. Backward compat: warehouse_id nullable, default ke MAIN.
 3. **Phase 3 (Transactions):** Transaksi mulai tercatat per warehouse. Stok dikurangi dari warehouse shift aktif.
 4. **Phase 4 (Purchasing):** PO, GR, supplier return, stock opname, sales return jadi warehouse-aware.
 5. **Phase 5 (Transfer):** Fitur baru — transfer stok antar gudang.
 6. **Phase 6 (Reports):** Penyempurnaan UI filtering.
 
-Setiap phase backward compatible: data lama tetap berfungsi dengan warehouse PUSAT sebagai default.
+Setiap phase backward compatible: data lama tetap berfungsi dengan warehouse MAIN sebagai default.

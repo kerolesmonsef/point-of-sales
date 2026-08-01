@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Warehouse;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -25,7 +26,7 @@ class ProductsImport implements ToModel, WithBatchInserts, WithChunkReading, Wit
 
         $barcode = (string) ($row['barcode'] ?? '');
 
-        return Product::updateOrCreate(
+        $product = Product::updateOrCreate(
             ['barcode' => $barcode],
             [
                 'title' => $row['nama'] ?? '',
@@ -33,13 +34,22 @@ class ProductsImport implements ToModel, WithBatchInserts, WithChunkReading, Wit
                 'category_id' => $category->id,
                 'buy_price' => (int) ($row['harga_beli'] ?? 0),
                 'sell_price' => (int) ($row['harga_jual'] ?? 0),
-                'stock' => (int) ($row['stok'] ?? 0),
                 'min_stock' => (int) ($row['min_stok'] ?? 0),
                 'max_stock' => (int) ($row['max_stok'] ?? 0),
                 'tax_type' => $row['tipe_pajak'] ?? 'exclusive',
                 'tax_rate' => (float) ($row['tarif_pajak'] ?? 11.00),
             ]
         );
+
+        $warehouse = Warehouse::default();
+
+        if ($warehouse) {
+            $product->warehouses()->syncWithoutDetaching([
+                $warehouse->id => ['stock' => (int) ($row['stok'] ?? 0)],
+            ]);
+        }
+
+        return $product;
     }
 
     public function rules(): array

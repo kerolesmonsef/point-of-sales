@@ -10,18 +10,19 @@ class ReorderService
 {
     public function getLowStockProducts(?int $warehouseId = null): Collection
     {
-        $query = Product::where('min_stock', '>', 0);
+        $query = Product::query();
 
         if ($warehouseId) {
-            $query->whereHas('warehouses', function ($q) use ($warehouseId) {
-                $q->where('product_warehouse.warehouse_id', $warehouseId)
-                    ->whereColumn('product_warehouse.stock', '<=', 'products.min_stock');
-            });
+            $query->where('min_stock', '>', 0)
+                ->whereHas('warehouses', function ($q) use ($warehouseId) {
+                    $q->where('product_warehouse.warehouse_id', $warehouseId)
+                        ->whereColumn('product_warehouse.stock', '<=', 'products.min_stock');
+                });
         } else {
-            $query->whereColumn('stock', '<=', 'min_stock');
+            $query->whereLowStock();
         }
 
-        return $query->orderBy('stock')->limit(20)->get();
+        return $query->orderByStock()->limit(20)->get();
     }
 
     public function createDraftPurchaseOrder(Collection $products, int $userId): ?PurchaseOrder

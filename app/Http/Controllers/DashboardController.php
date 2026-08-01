@@ -68,8 +68,8 @@ class DashboardController extends Controller
             });
 
         // New: Low Stock Products (stock < 10)
-        $lowStockProducts = Product::where('stock', '<', 10)
-            ->orderBy('stock', 'asc')
+        $lowStockProducts = Product::whereStock('<', 10)
+            ->orderByStock()
             ->take(5)
             ->get()
             ->map(function ($product) {
@@ -87,7 +87,7 @@ class DashboardController extends Controller
             ->pluck('product_id');
 
         $slowMovingProducts = Product::whereNotIn('id', $recentlySoldProductIds)
-            ->where('stock', '>', 0)
+            ->whereHasStock()
             ->take(5)
             ->get()
             ->map(function ($product) {

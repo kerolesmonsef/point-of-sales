@@ -30,14 +30,14 @@ class WarehouseTest extends TestCase
 
         // Seed default warehouse
         $pusat = Warehouse::create([
-            'code' => 'PUSAT',
-            'name' => 'Gudang Pusat',
+            'code' => 'MAIN',
+            'name' => 'Main warehouse',
             'type' => 'main',
             'is_active' => true,
             'sort_order' => 0,
         ]);
 
-        // Create sample product + pivot
+        // Create sample product attached to the default warehouse
         $category = Category::create(['image' => 'test.png', 'name' => 'Test', 'description' => 'Test']);
         $product = Product::create([
             'category_id' => $category->id,
@@ -47,9 +47,8 @@ class WarehouseTest extends TestCase
             'description' => 'Test',
             'buy_price' => 5000,
             'sell_price' => 10000,
-            'stock' => 100,
         ]);
-        $pusat->products()->attach($product->id, ['stock' => 100]);
+        $product->warehouses()->attach($pusat->id, ['stock' => 100]);
     }
 
     public function test_index_warehouses_requires_warehouses_access_permission()
@@ -154,12 +153,12 @@ class WarehouseTest extends TestCase
 
     public function test_default_warehouse_is_created_after_seed()
     {
-        $this->assertDatabaseHas('warehouses', ['code' => 'PUSAT', 'type' => 'main']);
+        $this->assertDatabaseHas('warehouses', ['code' => 'MAIN', 'type' => 'main']);
     }
 
     public function test_product_has_stock_total_helper()
     {
-        $warehouse = Warehouse::where('code', 'PUSAT')->first();
+        $warehouse = Warehouse::where('code', 'MAIN')->first();
         $product = Product::first();
         $product->warehouses()->syncWithPivotValues([$warehouse->id], ['stock' => 50]);
 

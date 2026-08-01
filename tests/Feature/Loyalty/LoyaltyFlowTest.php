@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Warehouse;
 use App\Services\LoyaltyService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
@@ -266,7 +267,7 @@ class LoyaltyFlowTest extends TestCase
             'image' => 'category.png',
         ]);
 
-        return Product::create([
+        $product = Product::create([
             'category_id' => $category->id,
             'image' => 'product.png',
             'barcode' => 'BRCD-'.Str::upper(Str::random(10)),
@@ -274,8 +275,22 @@ class LoyaltyFlowTest extends TestCase
             'description' => 'Produk untuk pengujian loyalty.',
             'buy_price' => 40000,
             'sell_price' => 60000,
-            'stock' => 25,
             'tax_rate' => 0,
+        ]);
+
+        $product->warehouses()->attach($this->defaultWarehouse()->id, ['stock' => 25]);
+
+        return $product;
+    }
+
+    private function defaultWarehouse(): Warehouse
+    {
+        return Warehouse::default() ?? Warehouse::create([
+            'code' => 'MAIN',
+            'name' => 'Main warehouse',
+            'type' => 'main',
+            'is_active' => true,
+            'sort_order' => 0,
         ]);
     }
 }

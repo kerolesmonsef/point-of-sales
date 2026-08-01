@@ -58,9 +58,14 @@ class GoodsReceivingService
                 $poItem->increment('qty_received', $qtyReceived);
 
                 $product = $poItem->product;
-                // Decrement legacy stock
-                $product->decrement('stock', $qtyReceived);
+
                 // Increment warehouse pivot stock
+                $stockBefore = $order->warehouse_id
+                    ? (int) (ProductWarehouse::where([
+                        'product_id' => $product->id,
+                        'warehouse_id' => $order->warehouse_id,
+                    ])->value('stock') ?? 0)
+                    : (int) $product->stock;
                 if ($order->warehouse_id) {
                     ProductWarehouse::where([
                         'product_id' => $product->id,
@@ -84,8 +89,8 @@ class GoodsReceivingService
                     product: $product,
                     goodsReceiving: $receiving,
                     qty: $qtyReceived,
-                    stockBefore: (int) $product->stock + $qtyReceived,
-                    stockAfter: (int) $product->stock,
+                    stockBefore: $stockBefore,
+                    stockAfter: $stockBefore + $qtyReceived,
                     notes: __('Receiving from PO ').$order->document_number,
                     userId: $userId,
                 );

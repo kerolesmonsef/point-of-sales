@@ -52,6 +52,7 @@ class TransactionFlowTest extends TestCase
             'address' => 'Jl. Pengujian No. 1',
         ]);
         $product = $this->createProduct();
+        $originalStock = $product->stock;
 
         $quantity = 2;
         $cart = Cart::create([
@@ -104,7 +105,7 @@ class TransactionFlowTest extends TestCase
         $this->assertSame($expectedProfit, (int) $profit->total);
 
         $this->assertDatabaseMissing('carts', ['id' => $cart->id]);
-        $this->assertSame($product->stock - $quantity, $product->fresh()->stock);
+        $this->assertSame($originalStock - $quantity, $product->fresh()->stock);
     }
 
     public function cashier_can_view_invoice_page_after_transaction(): void
@@ -240,9 +241,9 @@ class TransactionFlowTest extends TestCase
             'description' => 'Mie instan.',
             'buy_price' => 2000,
             'sell_price' => 3500,
-            'stock' => 10,
             'tax_rate' => 0,
         ]);
+        $product->warehouses()->attach($this->defaultWarehouse()->id, ['stock' => 10]);
         $this->createProduct();
 
         $this
@@ -312,6 +313,17 @@ class TransactionFlowTest extends TestCase
         ]);
     }
 
+    protected function defaultWarehouse(): Warehouse
+    {
+        return Warehouse::default() ?? Warehouse::create([
+            'code' => 'MAIN',
+            'name' => 'Main warehouse',
+            'type' => 'main',
+            'is_active' => true,
+            'sort_order' => 0,
+        ]);
+    }
+
     protected function createProduct(): Product
     {
         $category = Category::create([
@@ -320,7 +332,7 @@ class TransactionFlowTest extends TestCase
             'image' => 'category.png',
         ]);
 
-        return Product::create([
+        $product = Product::create([
             'category_id' => $category->id,
             'image' => 'product.png',
             'barcode' => 'BRCD-'.Str::upper(Str::random(10)),
@@ -328,9 +340,12 @@ class TransactionFlowTest extends TestCase
             'description' => 'Deskripsi produk uji.',
             'buy_price' => 45000,
             'sell_price' => 60000,
-            'stock' => 25,
             'tax_rate' => 0,
         ]);
+
+        $product->warehouses()->attach($this->defaultWarehouse()->id, ['stock' => 25]);
+
+        return $product;
     }
 
     public function test_search_product_by_barcode_returns_product_with_warehouse_stock(): void
@@ -343,7 +358,7 @@ class TransactionFlowTest extends TestCase
         ]);
         $this->openShiftFor($cashier, $warehouse->id);
         $product = $this->createProduct();
-        $product->warehouses()->attach($warehouse->id, ['stock' => 7]);
+        $product->warehouses()->updateExistingPivot($warehouse->id, ['stock' => 7]);
 
         $this
             ->actingAs($cashier)

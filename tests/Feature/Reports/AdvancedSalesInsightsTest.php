@@ -14,6 +14,7 @@ use App\Models\PricingRule;
 use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Warehouse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Inertia\Testing\AssertableInertia as Assert;
@@ -422,7 +423,7 @@ class AdvancedSalesInsightsTest extends TestCase
         int $sellPrice,
         int $stock
     ): Product {
-        return Product::create([
+        $product = Product::create([
             'image' => 'product.png',
             'barcode' => 'BRCD-'.strtoupper((string) str()->random(10)),
             'title' => $title,
@@ -430,8 +431,22 @@ class AdvancedSalesInsightsTest extends TestCase
             'buy_price' => $buyPrice,
             'sell_price' => $sellPrice,
             'category_id' => $category->id,
-            'stock' => $stock,
             'tax_rate' => 0,
+        ]);
+
+        $product->warehouses()->attach($this->defaultWarehouse()->id, ['stock' => $stock]);
+
+        return $product;
+    }
+
+    private function defaultWarehouse(): Warehouse
+    {
+        return Warehouse::default() ?? Warehouse::create([
+            'code' => 'MAIN',
+            'name' => 'Main warehouse',
+            'type' => 'main',
+            'is_active' => true,
+            'sort_order' => 0,
         ]);
     }
 

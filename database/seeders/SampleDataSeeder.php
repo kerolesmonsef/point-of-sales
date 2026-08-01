@@ -22,6 +22,7 @@ use App\Models\Supplier;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use App\Models\User;
+use App\Models\Warehouse;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
@@ -277,6 +278,7 @@ class SampleDataSeeder extends Seeder
      */
     private function seedProducts(Collection $categories): Collection
     {
+        $warehouse = Warehouse::default();
         // Products with Unsplash image URLs
         $products = collect([
             // Minuman
@@ -322,7 +324,7 @@ class SampleDataSeeder extends Seeder
             ['category' => 'Kebutuhan Rumah', 'barcode' => 'RMH-0003', 'title' => 'Pewangi Pakaian 900ml', 'description' => 'Pelembut dan pewangi pakaian', 'buy_price' => 18000, 'sell_price' => 26000, 'stock' => 70, 'image_url' => 'https://images.unsplash.com/photo-1626806819282-2c1dc01a5e0c?w=300&h=300&fit=crop'],
         ]);
 
-        return $products->map(function ($product) use ($categories) {
+        return $products->map(function ($product) use ($warehouse, $categories) {
             $category = $categories->get($product['category']);
 
             // Download product image
@@ -333,7 +335,7 @@ class SampleDataSeeder extends Seeder
                 'prod-'.$slug
             );
 
-            return Product::create([
+            $product = Product::create([
                 'category_id' => $category?->id,
                 'image' => $image ?? 'default.jpg',
                 'barcode' => $product['barcode'],
@@ -341,8 +343,15 @@ class SampleDataSeeder extends Seeder
                 'description' => $product['description'],
                 'buy_price' => $product['buy_price'],
                 'sell_price' => $product['sell_price'],
-                'stock' => $product['stock'],
             ]);
+
+            if ($warehouse) {
+                $product->warehouses()->attach($warehouse->id, [
+                    'stock' => (int) $product['stock'],
+                ]);
+            }
+
+            return $product;
         })->keyBy('barcode');
     }
 
@@ -356,6 +365,8 @@ class SampleDataSeeder extends Seeder
         if (! $cashier) {
             return;
         }
+
+        $warehouse = Warehouse::default();
 
         $blueprints = [
             [
@@ -475,7 +486,11 @@ class SampleDataSeeder extends Seeder
                     'total' => $item['profit'],
                 ]);
 
-                $item['product']->decrement('stock', $item['qty']);
+                if ($warehouse) {
+                    $item['product']->warehouses()->updateExistingPivot($warehouse->id, [
+                        'stock' => max(0, (int) $item['product']->stock - (int) $item['qty']),
+                    ]);
+                }
             }
         }
     }

@@ -40,4 +40,10 @@ class Warehouse extends Model
     {
         return $query->where('is_active', true);
     }
+
+    public static function default(): ?self
+    {
+        return self::where('type', 'main')->where('is_active', true)->first()
+            ?? self::where('is_active', true)->first();
+    }
 }

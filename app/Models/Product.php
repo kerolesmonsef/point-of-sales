@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,12 +12,18 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $appends = ['stock'];
+
+    public static function stockSql(string $alias = 'products'): string
+    {
+        return "(SELECT COALESCE(SUM(pw.stock), 0) FROM product_warehouse pw WHERE pw.product_id = {$alias}.id)";
+    }
+
     protected $casts = [
         'id' => 'integer',
         'category_id' => 'integer',
         'buy_price' => 'integer',
         'sell_price' => 'integer',
-        'stock' => 'integer',
         'tax_rate' => 'decimal:2',
         'min_stock' => 'integer',
         'max_stock' => 'integer',
@@ -31,7 +38,6 @@ class Product extends Model
         'buy_price',
         'sell_price',
         'category_id',
-        'stock',
         'tax_type',
         'tax_rate',
         'min_stock',
@@ -109,6 +115,32 @@ class Product extends Model
     public function pricingRules()
     {
         return $this->hasMany(PricingRule::class);
+    }
+
+    public function scopeWhereHasStock(Builder $query, int $minStock = 0): Builder
+    {
+        return $query->whereRaw(static::stockSql().' > '.$minStock);
+    }
+
+    public function scopeWhereStock(Builder $query, string $operator, int $stock): Builder
+    {
+        return $query->whereRaw(static::stockSql().' '.$operator.' '.$stock);
+    }
+
+    public function scopeWhereLowStock(Builder $query): Builder
+    {
+        return $query->where('min_stock', '>', 0)
+            ->whereRaw(static::stockSql().' <= min_stock');
+    }
+
+    public function scopeOrderByStock(Builder $query, string $direction = 'asc'): Builder
+    {
+        return $query->orderByRaw(static::stockSql().' '.$direction);
+    }
+
+    protected function stock(): Attribute
+    {
+        return Attribute::get(fn () => $this->stockTotal());
     }
 
     public function stockTotal(): int

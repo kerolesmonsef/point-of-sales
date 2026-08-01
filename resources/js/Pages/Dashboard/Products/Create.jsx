@@ -16,8 +16,10 @@ import {
     IconCurrencyDollar,
 } from "@tabler/icons-react";
 
-export default function Create({ categories, units: unitOptions = [] }) {
+export default function Create({ categories, units: unitOptions = [], warehouses = [] }) {
     const { errors } = usePage().props;
+
+    const defaultWarehouse = warehouses.find((w) => w.type === "main") ?? warehouses[0] ?? null;
 
     const { data, setData, post, processing } = useForm({
         image: "",
@@ -27,16 +29,23 @@ export default function Create({ categories, units: unitOptions = [] }) {
         description: "",
         buy_price: "",
         sell_price: "",
+        warehouse_id: defaultWarehouse?.id || "",
         stock: "",
         units: [],
     });
 
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedWarehouse, setSelectedWarehouse] = useState(defaultWarehouse);
     const [imagePreview, setImagePreview] = useState(null);
 
     const setSelectedCategoryHandler = (value) => {
         setSelectedCategory(value);
         setData("category_id", value?.id || "");
+    };
+
+    const setSelectedWarehouseHandler = (value) => {
+        setSelectedWarehouse(value);
+        setData("warehouse_id", value?.id || "");
     };
 
     const handleImageChange = (e) => {
@@ -203,6 +212,18 @@ export default function Create({ categories, units: unitOptions = [] }) {
                                 {__("Price & Stock")}
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div className="md:col-span-3">
+                                    <InputSelect
+                                        label={__("Warehouse")}
+                                        data={warehouses}
+                                        selected={selectedWarehouse}
+                                        setSelected={setSelectedWarehouseHandler}
+                                        placeholder={__("Select warehouse")}
+                                        errors={errors.warehouse_id}
+                                        searchable={true}
+                                        displayKey="name"
+                                    />
+                                </div>
                                 <Input
                                     type="number"
                                     label={__("Buy Price")}

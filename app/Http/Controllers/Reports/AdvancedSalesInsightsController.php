@@ -130,10 +130,9 @@ class AdvancedSalesInsightsController extends Controller
         return $this->detailMetricsQuery($filters)
             ->selectRaw('
                 td.product_id,
-                td.product_id,
                 p.title as product_title,
                 c.name as category_name,
-                p.stock as current_stock,
+                '.Product::stockSql('p').' as current_stock,
                 SUM(td.qty) as qty_sold,
                 SUM(td.price) as revenue_total,
                 SUM((td.price - ROUND((COALESCE(t.discount, 0) * td.price) / NULLIF(tx.subtotal_after_promo, 0))) - (p.buy_price * td.qty)) as profit_total,
@@ -146,7 +145,7 @@ class AdvancedSalesInsightsController extends Controller
                 'tx',
                 fn ($join) => $join->on('tx.transaction_id', '=', 'td.transaction_id')
             )
-            ->groupBy('td.product_id', 'p.title', 'c.name', 'p.stock')
+            ->groupBy('td.product_id', 'p.title', 'c.name')
             ->orderByDesc('qty_sold')
             ->orderByDesc('revenue_total')
             ->limit(10)
@@ -187,12 +186,12 @@ class AdvancedSalesInsightsController extends Controller
             ->leftJoinSub($salesSubquery, 'sales', fn ($join) => $join->on('sales.product_id', '=', 'products.id'))
             ->leftJoin('categories', 'categories.id', '=', 'products.category_id')
             ->when($filters['category_id'] ?? null, fn ($q, $categoryId) => $q->where('products.category_id', $categoryId))
-            ->where('products.stock', '>', 0)
+            ->whereRaw(Product::stockSql().' > 0')
             ->selectRaw('
                 products.id as product_id,
                 products.title as product_title,
                 categories.name as category_name,
-                products.stock as current_stock,
+                '.Product::stockSql().' as current_stock,
                 COALESCE(sales.qty_sold, 0) as qty_sold,
                 COALESCE(sales.revenue_total, 0) as revenue_total,
                 COALESCE(sales.profit_total, 0) as profit_total,
@@ -200,7 +199,7 @@ class AdvancedSalesInsightsController extends Controller
             ')
             ->orderBy('qty_sold')
             ->orderBy('revenue_total')
-            ->orderByDesc('products.stock')
+            ->orderByRaw(Product::stockSql().' desc')
             ->limit(10)
             ->get()
             ->map(fn ($row) => [
@@ -454,12 +453,12 @@ class AdvancedSalesInsightsController extends Controller
             ->leftJoinSub($salesSubquery, 'sales', fn ($join) => $join->on('sales.product_id', '=', 'products.id'))
             ->leftJoin('categories', 'categories.id', '=', 'products.category_id')
             ->when($filters['category_id'] ?? null, fn ($q, $categoryId) => $q->where('products.category_id', $categoryId))
-            ->where('products.stock', '>', 0)
+            ->whereRaw(Product::stockSql().' > 0')
             ->selectRaw('
                 products.id as product_id,
                 products.title as product_title,
                 categories.name as category_name,
-                products.stock as current_stock,
+                '.Product::stockSql().' as current_stock,
                 COALESCE(sales.qty_sold, 0) as qty_sold,
                 COALESCE(sales.revenue_total, 0) as revenue_total,
                 sales.last_sold_at as last_sold_at

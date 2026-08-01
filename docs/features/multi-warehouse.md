@@ -27,7 +27,7 @@ Memisahkan stok produk per lokasi fisik (gudang pusat, cabang toko, gudang penya
 ### Product-Warehouse Pivot
 - Stok disimpan per produk per warehouse di `product_warehouse`
 - Saat warehouse baru dibuat, semua produk otomatis ter-sync dengan stok 0
-- Saat seeder, semua stok produk existing dipindah ke warehouse PUSAT
+- Saat seeder, semua stok produk existing dipindah ke warehouse MAIN
 
 ### Warehouse di Shift
 - Kasir memilih warehouse saat buka shift
@@ -93,4 +93,4 @@ Memisahkan stok produk per lokasi fisik (gudang pusat, cabang toko, gudang penya
 
 - Semua tabel stok & transaksi punya `warehouse_id` nullable (backward compat)
 - Jika `warehouse_id` null, fallback ke `products.stock` (legacy single-warehouse)
-- Seed data: warehouse PUSAT (main) dibuat otomatis, stok existing dipindah ke pivot
+- Seed data: warehouse MAIN (main) dibuat otomatis, stok existing dipindah ke pivot

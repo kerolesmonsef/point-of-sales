@@ -12,6 +12,7 @@ use App\Models\SalesReturn;
 use App\Models\SalesReturnItem;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
+use App\Models\Warehouse;
 use App\Services\AuditLogService;
 use App\Services\CashierShiftService;
 use App\Services\StockMutationService;
@@ -229,15 +230,15 @@ class SalesReturnController extends Controller
                     $product = $item->product()->lockForUpdate()->first();
 
                     if ($product) {
-                        $stockBefore = (int) $product->stock;
-                        $stockAfter = $stockBefore + (int) $item->qty_return;
-
-                        $product->update([
-                            'stock' => $stockAfter,
-                        ]);
+                        $transactionWarehouseId = $salesReturn->transaction->warehouse_id ?? Warehouse::default()?->id;
+                        $stockBefore = $transactionWarehouseId
+                            ? (int) (ProductWarehouse::where([
+                                'product_id' => $product->id,
+                                'warehouse_id' => $transactionWarehouseId,
+                            ])->value('stock') ?? 0)
+                            : (int) $product->stock;
 
                         // Restock to transaction warehouse
-                        $transactionWarehouseId = $salesReturn->transaction->warehouse_id;
                         if ($transactionWarehouseId) {
                             ProductWarehouse::where([
                                 'product_id' => $product->id,
@@ -249,7 +250,7 @@ class SalesReturnController extends Controller
                             product: $product,
                             salesReturn: $salesReturn,
                             stockBefore: $stockBefore,
-                            stockAfter: $stockAfter,
+                            stockAfter: $stockBefore + (int) $item->qty_return,
                             reason: $item->return_reason,
                             userId: $request->user()?->id,
                         );

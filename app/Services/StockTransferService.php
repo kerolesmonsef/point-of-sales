@@ -115,8 +115,6 @@ class StockTransferService
                     'warehouse_id' => $transfer->source_warehouse_id,
                 ])->decrement('stock', $item->qty);
 
-                $product->decrement('stock', $item->qty);
-
                 StockMutation::create([
                     'product_id' => $product->id,
                     'warehouse_id' => $transfer->source_warehouse_id,
@@ -163,12 +161,12 @@ class StockTransferService
             foreach ($transfer->items as $item) {
                 $product = $item->product;
 
-                ProductWarehouse::updateOrCreate(
+                $destinationPivot = ProductWarehouse::updateOrCreate(
                     ['product_id' => $item->product_id, 'warehouse_id' => $transfer->destination_warehouse_id],
                     ['stock' => 0]
-                )->increment('stock', $item->qty);
-
-                $product->increment('stock', $item->qty);
+                );
+                $destinationBefore = (int) $destinationPivot->stock;
+                $destinationPivot->increment('stock', $item->qty);
 
                 StockMutation::create([
                     'product_id' => $product->id,
@@ -177,8 +175,8 @@ class StockTransferService
                     'reference_id' => $transfer->id,
                     'mutation_type' => 'in',
                     'qty' => $item->qty,
-                    'stock_before' => (int) $product->stock - $item->qty,
-                    'stock_after' => (int) $product->stock,
+                    'stock_before' => $destinationBefore,
+                    'stock_after' => $destinationBefore + $item->qty,
                     'notes' => 'Transfer dari '.$transfer->sourceWarehouse->code,
                     'created_by' => $userId,
                 ]);
@@ -222,9 +220,6 @@ class StockTransferService
                         ['product_id' => $item->product_id, 'warehouse_id' => $transfer->source_warehouse_id],
                         ['stock' => 0]
                     )->increment('stock', $item->qty);
-
-                    $product = $item->product;
-                    $product->increment('stock', $item->qty);
                 }
             }
 

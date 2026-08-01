@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Unit;
 use App\Models\User;
+use App\Models\Warehouse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Inertia\Testing\AssertableInertia as Assert;
@@ -40,6 +41,14 @@ class ProductCrudTest extends TestCase
         $this->userWithoutAccess = User::factory()->create();
         $this->category = Category::create(['name' => 'Elektronik', 'description' => 'Kategori', 'image' => 'default.png']);
 
+        $warehouse = Warehouse::create([
+            'code' => 'MAIN',
+            'name' => 'Main warehouse',
+            'type' => 'main',
+            'is_active' => true,
+            'sort_order' => 0,
+        ]);
+
         $this->productPayload = [
             'barcode' => 'BRC-TEST-001',
             'title' => 'Produk Test',
@@ -47,6 +56,7 @@ class ProductCrudTest extends TestCase
             'category_id' => $this->category->id,
             'buy_price' => 50000,
             'sell_price' => 75000,
+            'warehouse_id' => $warehouse->id,
             'stock' => 100,
             'min_stock' => 5,
             'max_stock' => 200,
@@ -159,10 +169,16 @@ class ProductCrudTest extends TestCase
             ->assertRedirect(route('products.index'));
         $this->assertDatabaseHas('products', [
             'barcode' => 'BRC-TEST-001', 'title' => 'Produk Test',
-            'buy_price' => 50000, 'sell_price' => 75000, 'stock' => 100,
+            'buy_price' => 50000, 'sell_price' => 75000,
         ]);
         $product = Product::where('barcode', 'BRC-TEST-001')->first();
         $this->assertNotNull($product->image);
+        $this->assertSame(100, (int) $product->stock);
+        $this->assertDatabaseHas('product_warehouse', [
+            'product_id' => $product->id,
+            'warehouse_id' => $this->productPayload['warehouse_id'],
+            'stock' => 100,
+        ]);
     }
 
     public function test_store_creates_audit_log(): void
@@ -518,15 +534,21 @@ class ProductCrudTest extends TestCase
 
     private function createDefaultProduct(): Product
     {
-        return Product::create($this->productPayload + ['image' => 'default.jpg']);
+        $product = Product::create($this->productPayload + ['image' => 'default.jpg']);
+        $product->warehouses()->attach($this->productPayload['warehouse_id'], ['stock' => $this->productPayload['stock']]);
+
+        return $product;
     }
 
     private function createProductWithBarcode(string $barcode, string $title): Product
     {
-        return Product::create([
+        $product = Product::create([
             'barcode' => $barcode, 'title' => $title,
             'description' => 'Desc '.$title, 'category_id' => $this->category->id,
-            'buy_price' => 10000, 'sell_price' => 15000, 'stock' => 10, 'image' => 'default.jpg',
+            'buy_price' => 10000, 'sell_price' => 15000, 'image' => 'default.jpg',
         ]);
+        $product->warehouses()->attach($this->productPayload['warehouse_id'], ['stock' => 10]);
+
+        return $product;
     }
 }

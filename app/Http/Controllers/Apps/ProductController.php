@@ -50,6 +50,7 @@ class ProductController extends Controller
         return Inertia::render('Dashboard/Products/Create', [
             'categories' => Category::all(),
             'units' => Unit::all(),
+            'warehouses' => Warehouse::active()->orderBy('code')->get(['id', 'code', 'name', 'type']),
         ]);
     }
 
@@ -70,6 +71,7 @@ class ProductController extends Controller
             'category_id' => 'required',
             'buy_price' => 'required',
             'sell_price' => 'required',
+            'warehouse_id' => 'required|exists:warehouses,id',
             'stock' => 'required|integer|min:0',
             'min_stock' => 'nullable|integer|min:0',
             'max_stock' => 'nullable|integer|min:0',
@@ -98,9 +100,12 @@ class ProductController extends Controller
             'category_id' => $request->category_id,
             'buy_price' => $request->buy_price,
             'sell_price' => $request->sell_price,
-            'stock' => $request->stock,
             'min_stock' => $request->min_stock ?? 0,
             'max_stock' => $request->max_stock ?? 0,
+        ]);
+
+        $product->warehouses()->attach($request->warehouse_id, [
+            'stock' => (int) $request->stock,
         ]);
 
         if ($request->units) {
@@ -119,7 +124,7 @@ class ProductController extends Controller
             }
         }
 
-        $this->stockMutationService->recordInitialStock($product, $request->user()?->id);
+        $this->stockMutationService->recordInitialStock($product, $request->user()?->id, (int) $request->warehouse_id);
         $this->auditLogService->log(
             event: 'product.created',
             module: 'products',

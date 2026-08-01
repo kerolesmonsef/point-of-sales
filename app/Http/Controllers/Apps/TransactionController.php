@@ -81,12 +81,12 @@ class TransactionController extends Controller
 
         // get products with stock > 0 in active warehouse
         $products = Product::with('category:id,name')
-            ->select('id', 'barcode', 'title', 'description', 'image', 'buy_price', 'sell_price', 'stock', 'category_id')
+            ->select('id', 'barcode', 'title', 'description', 'image', 'buy_price', 'sell_price', 'category_id')
             ->when($warehouseId, function ($q) use ($warehouseId) {
                 $q->whereHas('warehouses', fn ($w) => $w->where('product_warehouse.warehouse_id', $warehouseId)
                     ->where('product_warehouse.stock', '>', 0));
             }, function ($q) {
-                $q->where('stock', '>', 0);
+                $q->whereHasStock();
             })
             ->when($request->search, fn ($q, $search) => $q->whereLike(['title', 'barcode'], "%{$search}%"))
             ->when($request->category, fn ($q, $category) => $q->where('category_id', $category))
@@ -565,6 +565,8 @@ class TransactionController extends Controller
                 lockForUpdate: true
             );
 
+            $effectiveWarehouseId = $activeShift->warehouse_id ?? Warehouse::default()?->id;
+
             $carts = Cart::with('product')
                 ->where('cashier_id', auth()->user()->id)
                 ->active()
@@ -655,17 +657,15 @@ class TransactionController extends Controller
                         $componentQty = (int) round((float) $component->pivot->qty * $cart->qty);
                         ProductWarehouse::where([
                             'product_id' => $component->id,
-                            'warehouse_id' => $activeShift->warehouse_id,
+                            'warehouse_id' => $effectiveWarehouseId,
                         ])->decrement('stock', $componentQty);
-                        $component->decrement('stock', $componentQty);
                     }
                 } else {
                     $baseQty = (int) round($cart->qty * (float) ($cart->conversion_factor ?? 1));
                     ProductWarehouse::where([
                         'product_id' => $product->id,
-                        'warehouse_id' => $activeShift->warehouse_id,
+                        'warehouse_id' => $effectiveWarehouseId,
                     ])->decrement('stock', $baseQty);
-                    $product->decrement('stock', $baseQty);
                 }
             }
 
@@ -698,7 +698,7 @@ class TransactionController extends Controller
             DiscountApprovalLog::create([
                 'transaction_id' => $transaction->id,
                 'cashier_id' => auth()->id(),
-                'requested_discount' => $appliedManualDiscount,
+                'requested_discount' => $transaction->discount,
                 'status' => 'pending',
             ]);
 

@@ -1,7 +1,18 @@
 # Stock Model Refactor: Products.stock → product_warehouse pivot
 
-> Status: planned for desktop v1
-> Scope: remove `products.stock` column; make `product_warehouse` the only source of truth; enforce ≥1 pivot row per product via an auto default warehouse.
+> Status: in progress (branch `feature/stock-warehouse-refactor`)
+
+## Steps
+
+- [x] 1. Migration: drop `stock` from `create_products_table`
+- [x] 2. `Warehouse::default()` + Product accessor/hooks (auto-seed pivot on create)
+- [x] 3. Rewrite SQL-level readers (dashboard, notifications, reports, controller selects/filters)
+- [x] 4. Remove `products.stock` writes from services and controllers
+- [x] 5. Update seeders and import
+- [x] 6. Update tests and run affected suites
+- [ ] 7. Update `docs/desktop.md` and this plan file
+> Scope: remove `products.stock` column; make `product_warehouse` the only source of truth; the create-product form requires selecting a warehouse, which the controller seeds as the pivot.
+> Design update: `Product` model no longer auto-seeds a default-warehouse pivot via `booted()`. The product-create form (`Dashboard/Products/Create`) requires the user to pick a warehouse; `ProductController::store` expects `warehouse_id` and attaches the pivot with the initial stock. `Product::create(['stock' => X])` no longer works — callers attach the pivot explicitly.
 
 ## Why
 
@@ -39,7 +50,7 @@ public static function default(): ?self
 
 ### `app/Models/Product.php`
 - Remove `'stock'` from `$casts`.
-- Keep `'stock'` in `$fillable` so existing `Product::create(['stock' => X])` calls keep compiling.
+- Remove `'stock'` from `$fillable` (column no longer exists).
 - Add accessor:
   ```php
   protected function stock(): Attribute
@@ -47,10 +58,9 @@ public static function default(): ?self
       return Attribute::get(fn () => $this->stockTotal());
   }
   ```
-- Add `booted()` hooks:
-  - `creating`: read `stock` from attributes, unset it so the INSERT does not reference the dropped column.
-  - `created`: attach the default warehouse pivot with the stashed stock (default `0`).
+- `$appends = ['stock']` so `toArray()` serializes the aggregate for the frontend.
 - `stockTotal()` already exists and sums pivot rows.
+- No `booted()` hook: the create-product flow attaches the pivot explicitly in `ProductController::store`.
 
 ## Service changes
 
@@ -69,8 +79,9 @@ Remove `$product->decrement('stock', ...)` line. Keep only pivot decrement.
 ## Controller changes
 
 ### `app/Http/Controllers/Apps/ProductController.php`
-- Keep `$request->stock` in the create payload; the model hook seeds the pivot.
-- On product update, if `stock` is provided, update the default-warehouse pivot row.
+- `create()`: pass active warehouses to the form.
+- `store()`: require `warehouse_id`; create the product without `stock`, then `warehouses()->attach($warehouse_id, ['stock' => $stock])`; pass `warehouse_id` to `recordInitialStock`.
+- Product update: stock is unchanged (no `stock` in update payload).
 
 ### `app/Http/Controllers/Apps/TransactionController.php`
 - `index()`: remove `'stock'` from the `select()`.
@@ -100,20 +111,16 @@ Replace raw `products.stock` selects/filters/order with a `SUM(product_warehouse
 ## Import/export
 
 ### `app/Imports/ProductsImport.php`
-- On create: `updateOrCreate` with `'stock'` triggers the model hook → pivot seeded.
-- On update: explicitly update the default-warehouse pivot stock.
+- `updateOrCreate` without `'stock'`; attach the default-warehouse pivot with the imported stock via `syncWithoutDetaching`.
 
 ### `app/Exports/ProductsExport.php`
 No change. `$product->stock` reads the accessor.
 
 ## Seeders
 
-- `database/seeders/DatabaseSeeder.php`: keep `seedDefaultWarehouse()` to ensure the default warehouse exists.
-- `database/seeders/SampleDataSeeder.php`
-- `database/seeders/OperationalCoreSeeder.php`
-- `database/seeders/FeatureCoverageSeeder.php`
-
-Replace direct `update(['stock' => ...])` / `decrement('stock')` calls with pivot operations, or rely on `Product::create(['stock' => X])` plus the model hook.
+- `database/seeders/DatabaseSeeder.php`: `seedDefaultWarehouse()` now runs *before* the other seeders (so products have a warehouse to attach to) and only creates the MAIN warehouse (no `insertUsing` from the dropped column).
+- `database/seeders/SampleDataSeeder.php`: products attach the default-warehouse pivot with their `stock`; transaction seeding decrements the pivot instead of the column.
+- `database/seeders/OperationalCoreSeeder.php`, `FeatureCoverageSeeder.php`: replace `update(['stock' => ...])` with pivot `updateExistingPivot` (default warehouse when none specified).
 
 ## Tests
 

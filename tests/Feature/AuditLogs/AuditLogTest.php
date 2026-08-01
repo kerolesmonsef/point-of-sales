@@ -13,6 +13,7 @@ use App\Models\StockOpname;
 use App\Models\StockOpnameItem;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Warehouse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -102,6 +103,14 @@ class AuditLogTest extends TestCase
             'image' => 'audit-product.png',
         ]);
 
+        $warehouse = Warehouse::default() ?? Warehouse::create([
+            'code' => 'MAIN',
+            'name' => 'Main warehouse',
+            'type' => 'main',
+            'is_active' => true,
+            'sort_order' => 0,
+        ]);
+
         $this->actingAs($user)->post(route('products.store'), [
             'image' => UploadedFile::fake()->image('product.png'),
             'barcode' => 'BRCD-'.Str::upper(Str::random(6)),
@@ -110,6 +119,7 @@ class AuditLogTest extends TestCase
             'category_id' => $category->id,
             'buy_price' => 10000,
             'sell_price' => 15000,
+            'warehouse_id' => $warehouse->id,
             'stock' => 7,
         ])->assertRedirect(route('products.index'));
 
@@ -346,7 +356,7 @@ class AuditLogTest extends TestCase
             'image' => 'audit-category.png',
         ]);
 
-        return Product::create([
+        $product = Product::create([
             'category_id' => $category->id,
             'image' => 'audit-product.png',
             'barcode' => 'BRCD-'.Str::upper(Str::random(8)),
@@ -354,8 +364,18 @@ class AuditLogTest extends TestCase
             'description' => 'Produk Audit',
             'buy_price' => $buyPrice,
             'sell_price' => $sellPrice,
-            'stock' => $stock,
             'tax_rate' => 0,
         ]);
+
+        $warehouse = Warehouse::default() ?? Warehouse::create([
+            'code' => 'MAIN',
+            'name' => 'Main warehouse',
+            'type' => 'main',
+            'is_active' => true,
+            'sort_order' => 0,
+        ]);
+        $product->warehouses()->attach($warehouse->id, ['stock' => $stock]);
+
+        return $product;
     }
 }

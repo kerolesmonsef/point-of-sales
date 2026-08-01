@@ -20,6 +20,7 @@ use App\Models\SupplierReturn;
 use App\Models\SupplierReturnItem;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Warehouse;
 use App\Services\AuditLogService;
 use App\Services\GoodsReceivingService;
 use App\Services\PurchaseOrderService;
@@ -585,12 +586,18 @@ class FeatureCoverageSeeder extends Seeder
                     continue;
                 }
 
-                $stockBefore = (int) $product->stock;
+                $warehouse = $finalizedOpname->warehouse_id
+                    ? $product->warehouses()->where('warehouse_id', $finalizedOpname->warehouse_id)->first()
+                    : Warehouse::default();
+
+                $stockBefore = $warehouse ? (int) $warehouse->pivot->stock : (int) $product->stock;
                 $stockAfter = (int) $item->physical_stock;
 
-                $product->update([
-                    'stock' => $stockAfter,
-                ]);
+                if ($warehouse) {
+                    $product->warehouses()->updateExistingPivot($warehouse->id, [
+                        'stock' => $stockAfter,
+                    ]);
+                }
 
                 $stockMutationService->recordStockOpnameAdjustment(
                     product: $product,

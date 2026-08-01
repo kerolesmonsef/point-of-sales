@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\StockOpname;
 use App\Models\StockOpnameItem;
 use App\Models\User;
+use App\Models\Warehouse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -270,6 +271,14 @@ class StockOpnameTest extends TestCase
             'image' => 'minuman.png',
         ]);
 
+        $warehouse = Warehouse::default() ?? Warehouse::create([
+            'code' => 'MAIN',
+            'name' => 'Main warehouse',
+            'type' => 'main',
+            'is_active' => true,
+            'sort_order' => 0,
+        ]);
+
         $response = $this
             ->actingAs($user)
             ->post(route('products.store'), [
@@ -280,6 +289,7 @@ class StockOpnameTest extends TestCase
                 'category_id' => $category->id,
                 'buy_price' => 10000,
                 'sell_price' => 15000,
+                'warehouse_id' => $warehouse->id,
                 'stock' => 15,
             ]);
 
@@ -315,7 +325,7 @@ class StockOpnameTest extends TestCase
             'image' => 'category.png',
         ]);
 
-        return Product::create([
+        $product = Product::create([
             'category_id' => $category->id,
             'image' => 'product.png',
             'barcode' => 'BRCD-'.Str::upper(Str::random(10)),
@@ -323,8 +333,22 @@ class StockOpnameTest extends TestCase
             'description' => 'Deskripsi produk uji.',
             'buy_price' => 45000,
             'sell_price' => 60000,
-            'stock' => $stock,
             'tax_rate' => 0,
+        ]);
+
+        $product->warehouses()->attach($this->defaultWarehouse()->id, ['stock' => $stock]);
+
+        return $product;
+    }
+
+    private function defaultWarehouse(): Warehouse
+    {
+        return Warehouse::default() ?? Warehouse::create([
+            'code' => 'MAIN',
+            'name' => 'Main warehouse',
+            'type' => 'main',
+            'is_active' => true,
+            'sort_order' => 0,
         ]);
     }
 }

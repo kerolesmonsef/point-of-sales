@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\SalesReturn;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Warehouse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Inertia\Testing\AssertableInertia as Assert;
@@ -149,8 +150,16 @@ class CashierShiftTest extends TestCase
             'description' => 'Produk Shift',
             'buy_price' => 40000,
             'sell_price' => 60000,
-            'stock' => 10,
         ]);
+
+        $warehouse = Warehouse::default() ?? Warehouse::create([
+            'code' => 'MAIN',
+            'name' => 'Main warehouse',
+            'type' => 'main',
+            'is_active' => true,
+            'sort_order' => 0,
+        ]);
+        $product->warehouses()->attach($warehouse->id, ['stock' => 10]);
 
         Transaction::create([
             'cashier_id' => $cashier->id,

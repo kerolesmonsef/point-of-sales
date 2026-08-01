@@ -78,8 +78,12 @@ class SupplierReturnService
 
             foreach ($return->items as $item) {
                 $product = $item->product;
-                $stockBefore = (int) $product->stock;
-                $product->decrement('stock', $item->qty_returned);
+                $stockBefore = $return->warehouse_id
+                    ? (int) (ProductWarehouse::where([
+                        'product_id' => $product->id,
+                        'warehouse_id' => $return->warehouse_id,
+                    ])->value('stock') ?? 0)
+                    : (int) $product->stock;
 
                 // Decrement pivot warehouse stock
                 if ($return->warehouse_id) {
@@ -94,7 +98,7 @@ class SupplierReturnService
                     supplierReturn: $return,
                     qty: $item->qty_returned,
                     stockBefore: $stockBefore,
-                    stockAfter: (int) $product->stock,
+                    stockAfter: max(0, $stockBefore - $item->qty_returned),
                     notes: $item->reason ?? 'Retur barang ke supplier',
                     userId: $return->created_by,
                 );
