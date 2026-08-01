@@ -32,7 +32,7 @@ class ProductController extends Controller
             $products = $products->where('title', 'like', '%'.$search.'%');
         })->when($request->warehouse_id, function ($products, $warehouseId) {
             $products = $products->whereHas('warehouses', fn ($query) => $query->where('warehouse_id', $warehouseId));
-        })->with('category')->latest()->paginate(15);
+        })->with(['category', 'warehouses' => fn ($query) => $query->orderBy('code')])->latest()->paginate(15);
 
         $warehouses = Warehouse::active()->orderBy('code')->get(['id', 'code', 'name']);
 

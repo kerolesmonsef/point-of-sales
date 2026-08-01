@@ -43,6 +43,7 @@
     "Initial stock recorded.": "تم تسجيل المخزون الأولي",
     "Adjustment from stock opname.": "التعديل من اسم المخزون.",
     "Stock adjusted via stock opname.": "تم تعديل المخزون عبر اسم المخزون.",
+    "Stock by warehouse": "المخزون حسب المستودع",
     "Restock from sales return.": "إعادة تخزين من عائدات المبيعات.",
     "Stock increased from sales return restock.": "زاد المخزون من إعادة تخزين عائد المبيعات.",
     "Stock inbound from goods receiving.": "المخزون الوارد من استلام البضائع.",

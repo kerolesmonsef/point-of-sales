@@ -66,6 +66,9 @@ export default function Index({
 
         return category ? Number(category) : null;
     });
+    const [showZeroStock, setShowZeroStock] = useState(
+        () => getUrlParams().get("show_zero_stock") === "1"
+    );
     const [isSearching, setIsSearching] = useState(false);
     const [addingProductId, setAddingProductId] = useState(null);
     const [removingItemId, setRemovingItemId] = useState(null);
@@ -141,6 +144,7 @@ export default function Index({
                 {
                     search: searchQuery || undefined,
                     category: selectedCategory ?? undefined,
+                    show_zero_stock: showZeroStock ? 1 : undefined,
                     page: 1,
                 },
                 {
@@ -154,7 +158,7 @@ export default function Index({
         }, 300);
 
         return () => clearTimeout(timer);
-    }, [searchQuery, selectedCategory]);
+    }, [searchQuery, selectedCategory, showZeroStock]);
 
     const LowStockAlerts = () => null;
 
@@ -706,6 +710,8 @@ export default function Index({
                         searchInputRef={searchInputRef}
                         viewMode={viewMode}
                         onViewModeChange={setViewMode}
+                        showZeroStock={showZeroStock}
+                        onShowZeroStockChange={setShowZeroStock}
                     />
 
                     {products?.last_page > 1 && (
@@ -824,7 +830,13 @@ export default function Index({
                                                 )}
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <p className="text-xs font-medium text-slate-700 dark:text-slate-300 truncate">
+                                                <p
+                                                    className="text-xs font-medium text-slate-700 dark:text-slate-300 truncate"
+                                                    title={
+                                                        item.product?.title ||
+                                                        __("Product")
+                                                    }
+                                                >
                                                     {item.product?.title ||
                                                         __("Product")}
                                                 </p>

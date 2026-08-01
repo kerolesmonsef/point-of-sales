@@ -20,6 +20,7 @@ Menyediakan alur kasir cepat untuk pencarian produk, pengelolaan cart, checkout,
 ## Fitur Saat Ini
 
 - cari produk via pencarian teks (title/barcode) dengan hasil dipaginasi di sisi server (default 50/halaman, overridable via `?limit=`), filter `?search=` (title/barcode, `whereLike`) dan `?category=` di query SQL
+- filter `?show_zero_stock=1` untuk menyertakan produk stok 0 (default: hanya produk dengan stok > 0); toggle tersedia lewat ikon filter di toolbar produk POS
 - scan barcode: ketik barcode di kolom pencarian lalu Enter, sistem mencari ke database (`POST transactions.searchProduct`, stok per-gudang shift) dan langsung menambah ke cart
 - cart multi-item
 - update qty cart

@@ -79,14 +79,16 @@ class TransactionController extends Controller
         // get all customers
         $customers = Customer::latest()->get();
 
-        // get products with stock > 0 in active warehouse
-        $products = Product::with('category:id,name')
+        // get products with stock > 0 in active warehouse (skip stock filter when show_zero_stock=true)
+        $products = Product::with(['category:id,name', 'warehouses' => fn ($query) => $query->orderBy('code')])
             ->select('id', 'barcode', 'title', 'description', 'image', 'buy_price', 'sell_price', 'category_id')
-            ->when($warehouseId, function ($q) use ($warehouseId) {
-                $q->whereHas('warehouses', fn ($w) => $w->where('product_warehouse.warehouse_id', $warehouseId)
-                    ->where('product_warehouse.stock', '>', 0));
-            }, function ($q) {
-                $q->whereHasStock();
+            ->when(! $request->boolean('show_zero_stock'), function ($q) use ($warehouseId) {
+                if ($warehouseId) {
+                    $q->whereHas('warehouses', fn ($w) => $w->where('product_warehouse.warehouse_id', $warehouseId)
+                        ->where('product_warehouse.stock', '>', 0));
+                } else {
+                    $q->whereHasStock();
+                }
             })
             ->when($request->search, fn ($q, $search) => $q->whereLike(['title', 'barcode'], "%{$search}%"))
             ->when($request->category, fn ($q, $category) => $q->where('category_id', $category))

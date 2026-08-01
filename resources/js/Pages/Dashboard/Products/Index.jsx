@@ -24,6 +24,7 @@ import BarcodePrintModal from "@/Components/Barcode/BarcodePrintModal";
 import { useAuthorization } from "@/Utils/authorization";
 import { router } from "@inertiajs/react";
 import { formatCurrency } from '@/Utils/formatCurrency';
+import WarehouseStockMenu from "@/Components/WarehouseStockMenu";
 
 // Product Card for Grid View
 function ProductCard({
@@ -124,6 +125,7 @@ function ProductCard({
                     <span className="px-2 py-0.5 text-xs font-medium bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-400 rounded-md truncate">
                         {product.category?.name || __("Category")}
                     </span>
+                    <WarehouseStockMenu product={product} />
                 </div>
                 <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 line-clamp-2 mb-1">
                     {product.title}
@@ -154,6 +156,31 @@ function ProductCard({
                                 )}
                             </span>
                         )}
+                    </div>
+                    {/* Stock Info */}
+                    <div className="flex items-center gap-1.5 mt-1.5">
+                        <IconPackage
+                            size={14}
+                            strokeWidth={1.5}
+                            className={
+                                outOfStock
+                                    ? "text-danger-500"
+                                    : lowStock
+                                    ? "text-warning-500"
+                                    : "text-success-500"
+                            }
+                        />
+                        <span
+                            className={`text-xs font-medium ${
+                                outOfStock
+                                    ? "text-danger-600 dark:text-danger-400"
+                                    : lowStock
+                                    ? "text-warning-600 dark:text-warning-400"
+                                    : "text-slate-500 dark:text-slate-400"
+                            }`}
+                        >
+                            {outOfStock ? __("Out of Stock") : `${product.stock} ${__("in stock")}`}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -383,7 +410,7 @@ export default function Index({ products, warehouses = [], filters }) {
             {products.data.length > 0 ? (
                 viewMode === "grid" ? (
                     /* Grid View */
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-4">
                         {products.data.map((product, i) => (
                             <ProductCard
                                 key={product.id}
@@ -482,6 +509,10 @@ export default function Index({ products, warehouses = [], filters }) {
                                         </Table.Td>
                                         <Table.Td>
                                             <div className="flex gap-2">
+                                                <WarehouseStockMenu
+                                                    product={product}
+                                                    className="bg-white dark:bg-slate-900"
+                                                />
                                                 {canEditProducts && (
                                                     <Button
                                                         type={"edit"}

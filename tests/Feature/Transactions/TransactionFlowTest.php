@@ -199,6 +199,35 @@ class TransactionFlowTest extends TestCase
         return $user;
     }
 
+    public function test_transaction_page_serializes_product_warehouses_with_stock(): void
+    {
+        $cashier = $this->createCashier();
+        $this->openShiftFor($cashier);
+        $product = $this->createProduct();
+        $warehouse = Warehouse::create([
+            'code' => 'WH-02',
+            'name' => 'Gudang Cabang',
+            'is_active' => true,
+        ]);
+        $product->warehouses()->attach($warehouse->id, ['stock' => 7]);
+
+        $response = $this
+            ->actingAs($cashier)
+            ->get(route('transactions.index'));
+
+        $response
+            ->assertOk()
+            ->assertInertia(function (Assert $page) use ($product) {
+                $products = $page->toArray()['props']['products']['data'];
+                $serialized = collect($products)->firstWhere('id', $product->id);
+
+                $this->assertIsArray($serialized['warehouses']);
+                $this->assertCount(2, $serialized['warehouses']);
+                $this->assertArrayHasKey('pivot', $serialized['warehouses'][0]);
+                $this->assertIsInt($serialized['warehouses'][0]['pivot']['stock']);
+            });
+    }
+
     public function test_transaction_page_paginates_products_with_limit(): void
     {
         $cashier = $this->createCashier();
@@ -264,6 +293,49 @@ class TransactionFlowTest extends TestCase
                 $data = $page->toArray()['props']['products']['data'];
                 $this->assertCount(1, $data);
                 $this->assertSame($product->id, $data[0]['id']);
+            });
+    }
+
+    public function test_transaction_page_hides_zero_stock_products_unless_show_zero_stock_requested(): void
+    {
+        $cashier = $this->createCashier();
+        $this->openShiftFor($cashier);
+
+        $inStock = $this->createProduct();
+        $outOfStock = Product::create([
+            'category_id' => Category::create([
+                'name' => 'Minuman',
+                'description' => 'Kategori pengujian',
+                'image' => 'category.png',
+            ])->id,
+            'image' => 'product.png',
+            'barcode' => 'BRCD-'.Str::upper(Str::random(10)),
+            'title' => 'Produk Habis',
+            'description' => 'Deskripsi produk habis.',
+            'buy_price' => 3000,
+            'sell_price' => 5000,
+            'tax_rate' => 0,
+        ]);
+        $outOfStock->warehouses()->attach($this->defaultWarehouse()->id, ['stock' => 0]);
+
+        $this
+            ->actingAs($cashier)
+            ->get(route('transactions.index'))
+            ->assertOk()
+            ->assertInertia(function (Assert $page) use ($inStock, $outOfStock) {
+                $ids = collect($page->toArray()['props']['products']['data'])->pluck('id');
+                $this->assertContains($inStock->id, $ids);
+                $this->assertNotContains($outOfStock->id, $ids);
+            });
+
+        $this
+            ->actingAs($cashier)
+            ->get(route('transactions.index', ['show_zero_stock' => 1]))
+            ->assertOk()
+            ->assertInertia(function (Assert $page) use ($inStock, $outOfStock) {
+                $ids = collect($page->toArray()['props']['products']['data'])->pluck('id');
+                $this->assertContains($inStock->id, $ids);
+                $this->assertContains($outOfStock->id, $ids);
             });
     }
 
