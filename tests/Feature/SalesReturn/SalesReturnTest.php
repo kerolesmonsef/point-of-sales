@@ -313,7 +313,7 @@ class SalesReturnTest extends TestCase
             'qty_return' => 1,
             'unit_price' => 60000,
             'subtotal' => 60000,
-            'return_reason' => 'Tidak jadi beli',
+            'return_reason' => 'Decided not to buy',
             'restock_to_inventory' => true,
         ]);
 
@@ -326,7 +326,7 @@ class SalesReturnTest extends TestCase
                     [
                         'transaction_detail_id' => $detail->id,
                         'qty_return' => 1,
-                        'return_reason' => 'Ubah alasan',
+                        'return_reason' => 'Change reason',
                         'restock_to_inventory' => true,
                     ],
                 ],
@@ -353,8 +353,8 @@ class SalesReturnTest extends TestCase
         bool $withReceivable = false
     ): array {
         $category = Category::create([
-            'name' => 'Kategori '.Str::upper(Str::random(5)),
-            'description' => 'Kategori pengujian',
+            'name' => 'Category '.Str::upper(Str::random(5)),
+            'description' => 'Test category',
             'image' => 'category.png',
         ]);
 
@@ -362,8 +362,8 @@ class SalesReturnTest extends TestCase
             'category_id' => $category->id,
             'image' => 'product.png',
             'barcode' => 'BRCD-'.Str::upper(Str::random(10)),
-            'title' => 'Produk Uji '.Str::upper(Str::random(4)),
-            'description' => 'Deskripsi product uji.',
+            'title' => 'Test Product '.Str::upper(Str::random(4)),
+            'description' => 'Test product description.',
             'buy_price' => 45000,
             'sell_price' => 60000,
             'tax_rate' => 0,
@@ -382,7 +382,7 @@ class SalesReturnTest extends TestCase
             ? Customer::create([
                 'name' => 'Customer Test',
                 'no_telp' => '08123456789',
-                'address' => 'Jalan Test',
+                'address' => 'Test St.',
             ])
             : null;
 

@@ -49,7 +49,7 @@ class TransactionFlowTest extends TestCase
         $customer = Customer::create([
             'name' => 'John Doe',
             'no_telp' => 62812345,
-            'address' => 'Jl. Pengujian No. 1',
+            'address' => 'Testing St. No. 1',
         ]);
         $product = $this->createProduct();
         $originalStock = $product->stock;
@@ -115,7 +115,7 @@ class TransactionFlowTest extends TestCase
         $customer = Customer::create([
             'name' => 'Jane Customer',
             'no_telp' => 62856789,
-            'address' => 'Jl. Inertia No. 2',
+            'address' => 'St. Inertia No. 2',
         ]);
         $product = $this->createProduct();
 
@@ -206,7 +206,7 @@ class TransactionFlowTest extends TestCase
         $product = $this->createProduct();
         $warehouse = Warehouse::create([
             'code' => 'WH-02',
-            'name' => 'Gudang Cabang',
+            'name' => 'Branch Warehouse',
             'is_active' => true,
         ]);
         $product->warehouses()->attach($warehouse->id, ['stock' => 7]);
@@ -258,16 +258,16 @@ class TransactionFlowTest extends TestCase
         $this->openShiftFor($cashier);
 
         $category = Category::create([
-            'name' => 'Makanan',
-            'description' => 'Kategori makanan',
+            'name' => 'Food',
+            'description' => 'Food category',
             'image' => 'food.png',
         ]);
         $product = Product::create([
             'category_id' => $category->id,
             'image' => 'product.png',
             'barcode' => 'BRCD-'.Str::upper(Str::random(10)),
-            'title' => 'Indomie Goreng',
-            'description' => 'Mie instan.',
+            'title' => 'Indomie Fried Noodles',
+            'description' => 'Instant noodles.',
             'buy_price' => 2000,
             'sell_price' => 3500,
             'tax_rate' => 0,
@@ -304,14 +304,14 @@ class TransactionFlowTest extends TestCase
         $inStock = $this->createProduct();
         $outOfStock = Product::create([
             'category_id' => Category::create([
-                'name' => 'Minuman',
-                'description' => 'Kategori pengujian',
+                'name' => 'Beverages',
+                'description' => 'Test category',
                 'image' => 'category.png',
             ])->id,
             'image' => 'product.png',
             'barcode' => 'BRCD-'.Str::upper(Str::random(10)),
-            'title' => 'Produk Habis',
-            'description' => 'Deskripsi product habis.',
+            'title' => 'Out of Stock Product',
+            'description' => 'Out of stock product description.',
             'buy_price' => 3000,
             'sell_price' => 5000,
             'tax_rate' => 0,
@@ -345,7 +345,7 @@ class TransactionFlowTest extends TestCase
         $customer = Customer::create([
             'name' => 'No Shift',
             'no_telp' => 62812345,
-            'address' => 'Jl. Tanpa Shift',
+            'address' => 'No Shift St.',
         ]);
         $product = $this->createProduct();
 
@@ -368,7 +368,7 @@ class TransactionFlowTest extends TestCase
             ]);
 
         $response->assertRedirect(route('transactions.index'));
-        $response->assertSessionHas('error', 'Shift kasir belum dibuka.');
+        $response->assertSessionHas('error', 'Cashier shift is not open yet.');
         $this->assertDatabaseCount('transactions', 0);
     }
 
@@ -399,8 +399,8 @@ class TransactionFlowTest extends TestCase
     protected function createProduct(): Product
     {
         $category = Category::create([
-            'name' => 'Sembako',
-            'description' => 'Kategori pengujian',
+            'name' => 'Groceries',
+            'description' => 'Test category',
             'image' => 'category.png',
         ]);
 
@@ -408,8 +408,8 @@ class TransactionFlowTest extends TestCase
             'category_id' => $category->id,
             'image' => 'product.png',
             'barcode' => 'BRCD-'.Str::upper(Str::random(10)),
-            'title' => 'Produk Uji',
-            'description' => 'Deskripsi product uji.',
+            'title' => 'Test Product',
+            'description' => 'Test product description.',
             'buy_price' => 45000,
             'sell_price' => 60000,
             'tax_rate' => 0,
@@ -425,7 +425,7 @@ class TransactionFlowTest extends TestCase
         $cashier = $this->createCashier();
         $warehouse = Warehouse::create([
             'code' => 'WH-01',
-            'name' => 'Gudang Utama',
+            'name' => 'Main Warehouse',
             'is_active' => true,
         ]);
         $this->openShiftFor($cashier, $warehouse->id);

@@ -48,7 +48,7 @@ class StockOpnameTest extends TestCase
         $response = $this
             ->actingAs($user)
             ->post(route('stock-opnames.store'), [
-                'notes' => 'Opname bulanan gudang depan',
+                'notes' => 'Monthly front warehouse stocktake',
             ]);
 
         $stockOpname = StockOpname::first();
@@ -56,7 +56,7 @@ class StockOpnameTest extends TestCase
         $response->assertRedirect(route('stock-opnames.show', $stockOpname));
         $this->assertNotNull($stockOpname);
         $this->assertSame('draft', $stockOpname->status);
-        $this->assertSame('Opname bulanan gudang depan', $stockOpname->notes);
+        $this->assertSame('Monthly front warehouse stocktake', $stockOpname->notes);
         $this->assertSame($user->id, $stockOpname->created_by);
         $this->assertStringStartsWith('SO-', $stockOpname->code);
     }
@@ -111,7 +111,7 @@ class StockOpnameTest extends TestCase
             ->actingAs($user)
             ->patch(route('stock-opnames.items.update', [$stockOpname, $item]), [
                 'physical_stock' => 7,
-                'adjustment_reason' => 'Barang rusak',
+                'adjustment_reason' => 'Damaged item',
             ]);
 
         $response->assertSessionDoesntHaveErrors();
@@ -119,7 +119,7 @@ class StockOpnameTest extends TestCase
 
         $this->assertSame(7, $item->physical_stock);
         $this->assertSame(-3, $item->difference);
-        $this->assertSame('Barang rusak', $item->adjustment_reason);
+        $this->assertSame('Damaged item', $item->adjustment_reason);
     }
 
     public function test_finalize_updates_product_stock_and_creates_mutation(): void
@@ -142,7 +142,7 @@ class StockOpnameTest extends TestCase
             'system_stock' => $product->stock,
             'physical_stock' => 8,
             'difference' => -4,
-            'adjustment_reason' => 'Selisih hitung fisik',
+            'adjustment_reason' => 'Physical count discrepancy',
         ]);
 
         $response = $this
@@ -245,7 +245,7 @@ class StockOpnameTest extends TestCase
             ->actingAs($user)
             ->put(route('products.update', $product), [
                 'barcode' => $product->barcode,
-                'title' => 'Produk Revisi',
+                'title' => 'Revised Product',
                 'description' => $product->description,
                 'category_id' => $product->category_id,
                 'buy_price' => $product->buy_price,
@@ -256,7 +256,7 @@ class StockOpnameTest extends TestCase
         $response->assertRedirect(route('products.index'));
         $product->refresh();
 
-        $this->assertSame('Produk Revisi', $product->title);
+        $this->assertSame('Revised Product', $product->title);
         $this->assertSame(20, $product->stock);
     }
 
@@ -266,9 +266,9 @@ class StockOpnameTest extends TestCase
 
         $user = $this->createUserWithPermissions(['products-create']);
         $category = Category::create([
-            'name' => 'Minuman',
-            'description' => 'Kategori minuman',
-            'image' => 'minuman.png',
+            'name' => 'Beverages',
+            'description' => 'Beverage category',
+            'image' => 'beverages.png',
         ]);
 
         $warehouse = Warehouse::default() ?? Warehouse::create([
@@ -284,8 +284,8 @@ class StockOpnameTest extends TestCase
             ->post(route('products.store'), [
                 'image' => UploadedFile::fake()->image('product.png'),
                 'barcode' => 'BRCD-'.Str::upper(Str::random(8)),
-                'title' => 'Produk Baru',
-                'description' => 'Deskripsi product baru',
+                'title' => 'New Product',
+                'description' => 'New product description',
                 'category_id' => $category->id,
                 'buy_price' => 10000,
                 'sell_price' => 15000,
@@ -320,8 +320,8 @@ class StockOpnameTest extends TestCase
     private function createProduct(int $stock = 10): Product
     {
         $category = Category::create([
-            'name' => 'Kategori '.Str::upper(Str::random(5)),
-            'description' => 'Kategori pengujian',
+            'name' => 'Category '.Str::upper(Str::random(5)),
+            'description' => 'Test category',
             'image' => 'category.png',
         ]);
 
@@ -329,8 +329,8 @@ class StockOpnameTest extends TestCase
             'category_id' => $category->id,
             'image' => 'product.png',
             'barcode' => 'BRCD-'.Str::upper(Str::random(10)),
-            'title' => 'Produk Uji '.Str::upper(Str::random(4)),
-            'description' => 'Deskripsi product uji.',
+            'title' => 'Test Product '.Str::upper(Str::random(4)),
+            'description' => 'Test product description.',
             'buy_price' => 45000,
             'sell_price' => 60000,
             'tax_rate' => 0,

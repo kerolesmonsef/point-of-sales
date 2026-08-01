@@ -39,7 +39,7 @@ class ProductCrudTest extends TestCase
         $this->admin = User::factory()->create();
         $this->admin->givePermissionTo(['products-access', 'products-create', 'products-edit', 'products-delete']);
         $this->userWithoutAccess = User::factory()->create();
-        $this->category = Category::create(['name' => 'Elektronik', 'description' => 'Kategori', 'image' => 'default.png']);
+        $this->category = Category::create(['name' => 'Electronics', 'description' => 'Category', 'image' => 'default.png']);
 
         $warehouse = Warehouse::create([
             'code' => 'MAIN',
@@ -51,8 +51,8 @@ class ProductCrudTest extends TestCase
 
         $this->productPayload = [
             'barcode' => 'BRC-TEST-001',
-            'title' => 'Produk Test',
-            'description' => 'Deskripsi product test',
+            'title' => 'Test Product',
+            'description' => 'Test product description',
             'category_id' => $this->category->id,
             'buy_price' => 50000,
             'sell_price' => 75000,
@@ -129,13 +129,13 @@ class ProductCrudTest extends TestCase
     public function test_index_search_filters_by_title(): void
     {
         $this->createDefaultProduct();
-        $this->createProductWithBarcode('BRC-OTHER', 'Produk Lain');
+        $this->createProductWithBarcode('BRC-OTHER', 'Other Product');
         $this->actingAs($this->admin)
-            ->get(route('products.index', ['search' => 'Produk Test']))
+            ->get(route('products.index', ['search' => 'Test Product']))
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
                 ->has('products.data', 1)
-                ->where('products.data.0.title', 'Produk Test')
+                ->where('products.data.0.title', 'Test Product')
             );
     }
 
@@ -161,7 +161,7 @@ class ProductCrudTest extends TestCase
             'is_active' => true,
             'sort_order' => 1,
         ]);
-        $branchProduct = $this->createProductWithBarcode('BRC-BRANCH', 'Produk Cabang');
+        $branchProduct = $this->createProductWithBarcode('BRC-BRANCH', 'Branch Product');
         $branchProduct->warehouses()->attach($branch->id, ['stock' => 5]);
 
         $this->actingAs($this->admin)
@@ -169,7 +169,7 @@ class ProductCrudTest extends TestCase
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
                 ->has('products.data', 1)
-                ->where('products.data.0.title', 'Produk Cabang')
+                ->where('products.data.0.title', 'Branch Product')
                 ->where('filters.warehouse_id', (string) $branch->id)
             );
     }
@@ -192,7 +192,7 @@ class ProductCrudTest extends TestCase
             ->post(route('products.store'), $this->productPayload + ['image' => UploadedFile::fake()->image('product.jpg')])
             ->assertRedirect(route('products.index'));
         $this->assertDatabaseHas('products', [
-            'barcode' => 'BRC-TEST-001', 'title' => 'Produk Test',
+            'barcode' => 'BRC-TEST-001', 'title' => 'Test Product',
             'buy_price' => 50000, 'sell_price' => 75000,
         ]);
         $product = Product::where('barcode', 'BRC-TEST-001')->first();
@@ -516,7 +516,7 @@ class ProductCrudTest extends TestCase
             ->get(route('products.index'))
             ->assertInertia(fn (Assert $page) => $page
                 ->has('products.data', 1)
-                ->where('products.data.0.title', 'Produk Test')
+                ->where('products.data.0.title', 'Test Product')
                 ->where('products.data.0.sell_price', 75000)
             );
     }
@@ -553,7 +553,7 @@ class ProductCrudTest extends TestCase
         $this->actingAs($this->userWithoutAccess)
             ->getJson(route('products.index'))
             ->assertForbidden()
-            ->assertJson(['message' => 'Anda tidak memiliki izin untuk mengakses halaman tersebut.']);
+            ->assertJson(['message' => 'You do not have permission to access this page.']);
     }
 
     private function createDefaultProduct(): Product

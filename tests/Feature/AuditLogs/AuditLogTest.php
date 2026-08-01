@@ -73,8 +73,8 @@ class AuditLogTest extends TestCase
             'user_id' => $user->id,
             'event' => 'product.created',
             'module' => 'products',
-            'target_label' => 'Produk A',
-            'description' => 'Produk dibuat.',
+            'target_label' => 'Product A',
+            'description' => 'Product created.',
             'created_at' => now(),
         ]);
 
@@ -84,7 +84,7 @@ class AuditLogTest extends TestCase
             ->assertInertia(fn (Assert $page) => $page
                 ->component('Dashboard/AuditLogs/Index')
                 ->where('auditLogs.data.0.event', 'product.created')
-                ->where('auditLogs.data.0.target_label', 'Produk A'));
+                ->where('auditLogs.data.0.target_label', 'Product A'));
     }
 
     public function test_product_crud_and_price_change_create_audit_logs(): void
@@ -114,8 +114,8 @@ class AuditLogTest extends TestCase
         $this->actingAs($user)->post(route('products.store'), [
             'image' => UploadedFile::fake()->image('product.png'),
             'barcode' => 'BRCD-'.Str::upper(Str::random(6)),
-            'title' => 'Produk Audit',
-            'description' => 'Produk Audit',
+            'title' => 'Audit Product',
+            'description' => 'Audit Product',
             'category_id' => $category->id,
             'buy_price' => 10000,
             'sell_price' => 15000,
@@ -127,8 +127,8 @@ class AuditLogTest extends TestCase
 
         $this->actingAs($user)->put(route('products.update', $product), [
             'barcode' => $product->barcode,
-            'title' => 'Produk Audit Final',
-            'description' => 'Produk Audit Baru',
+            'title' => 'Audit Product Final',
+            'description' => 'New Audit Product',
             'category_id' => $category->id,
             'buy_price' => 12000,
             'sell_price' => 18000,
@@ -199,14 +199,14 @@ class AuditLogTest extends TestCase
 
         $this->actingAs($user)->post(route('cashier-shifts.store'), [
             'opening_cash' => 120000,
-            'notes' => 'Shift audit',
+            'notes' => 'Audit shift',
         ]);
 
         $shift = CashierShift::firstOrFail();
 
         $this->actingAs($user)->post(route('cashier-shifts.close', $shift), [
             'actual_cash' => 120000,
-            'close_notes' => 'Tutup normal',
+            'close_notes' => 'Normal close',
         ]);
 
         $this->assertDatabaseHas('audit_logs', [
@@ -240,7 +240,7 @@ class AuditLogTest extends TestCase
             'system_stock' => 10,
             'physical_stock' => 8,
             'difference' => -2,
-            'adjustment_reason' => 'Selisih audit',
+            'adjustment_reason' => 'Audit discrepancy',
         ]);
 
         $this->from(route('stock-opnames.show', $stockOpname))
@@ -278,9 +278,9 @@ class AuditLogTest extends TestCase
         ]);
 
         $customer = Customer::create([
-            'name' => 'Customer Audit',
+            'name' => 'Audit Customer',
             'no_telp' => '0812345678',
-            'address' => 'Jl. Audit',
+            'address' => 'Audit St.',
         ]);
 
         $product = $this->createProduct(stock: 5, buyPrice: 20000, sellPrice: 30000);
@@ -315,7 +315,7 @@ class AuditLogTest extends TestCase
             'refund_amount' => 30000,
             'credited_amount' => 0,
             'total_return_amount' => 30000,
-            'notes' => 'Retur audit',
+            'notes' => 'Audit return',
         ]);
 
         $salesReturn->items()->create([
@@ -326,7 +326,7 @@ class AuditLogTest extends TestCase
             'unit_price' => 30000,
             'subtotal' => 30000,
             'subtotal_return' => 30000,
-            'return_reason' => 'Barang cacat',
+            'return_reason' => 'Defective item',
             'restock_to_inventory' => true,
         ]);
 
@@ -351,8 +351,8 @@ class AuditLogTest extends TestCase
     private function createProduct(int $stock = 10, int $buyPrice = 10000, int $sellPrice = 15000): Product
     {
         $category = Category::create([
-            'name' => 'Kategori Audit '.Str::random(4),
-            'description' => 'Kategori Audit',
+            'name' => 'Audit Category '.Str::random(4),
+            'description' => 'Audit Category',
             'image' => 'audit-category.png',
         ]);
 
@@ -360,8 +360,8 @@ class AuditLogTest extends TestCase
             'category_id' => $category->id,
             'image' => 'audit-product.png',
             'barcode' => 'BRCD-'.Str::upper(Str::random(8)),
-            'title' => 'Produk Audit '.Str::random(4),
-            'description' => 'Produk Audit',
+            'title' => 'Audit Product '.Str::random(4),
+            'description' => 'Audit Product',
             'buy_price' => $buyPrice,
             'sell_price' => $sellPrice,
             'tax_rate' => 0,

@@ -51,9 +51,9 @@ class LoyaltyFlowTest extends TestCase
         $this->openShiftFor($cashier);
         $product = $this->createProduct();
         $customer = Customer::create([
-            'name' => 'Member Preview',
+            'name' => 'Preview Member',
             'no_telp' => '628777000111',
-            'address' => 'Jl. Preview',
+            'address' => 'Preview St.',
             'is_loyalty_member' => true,
             'member_code' => 'MEM-PREVIEW',
             'loyalty_tier' => LoyaltyService::TIER_GOLD,
@@ -111,9 +111,9 @@ class LoyaltyFlowTest extends TestCase
         $this->openShiftFor($cashier);
         $product = $this->createProduct();
         $customer = Customer::create([
-            'name' => 'Member Checkout',
+            'name' => 'Checkout Member',
             'no_telp' => '628777000222',
-            'address' => 'Jl. Checkout',
+            'address' => 'Checkout St.',
             'is_loyalty_member' => true,
             'member_code' => 'MEM-CHECKOUT',
             'loyalty_tier' => LoyaltyService::TIER_SILVER,
@@ -192,9 +192,9 @@ class LoyaltyFlowTest extends TestCase
         $this->openShiftFor($cashier);
         $product = $this->createProduct();
         $customer = Customer::create([
-            'name' => 'Member Settings',
+            'name' => 'Settings Member',
             'no_telp' => '628777000333',
-            'address' => 'Jl. Settings',
+            'address' => 'Settings St.',
             'is_loyalty_member' => true,
             'member_code' => 'MEM-SETTINGS',
             'loyalty_tier' => LoyaltyService::TIER_REGULAR,
@@ -263,7 +263,7 @@ class LoyaltyFlowTest extends TestCase
     {
         $category = Category::create([
             'name' => 'Loyalty Category',
-            'description' => 'Kategori loyalty',
+            'description' => 'Loyalty category',
             'image' => 'category.png',
         ]);
 
@@ -271,8 +271,8 @@ class LoyaltyFlowTest extends TestCase
             'category_id' => $category->id,
             'image' => 'product.png',
             'barcode' => 'BRCD-'.Str::upper(Str::random(10)),
-            'title' => 'Produk Loyalty',
-            'description' => 'Produk untuk pengujian loyalty.',
+            'title' => 'Loyalty Product',
+            'description' => 'Product for loyalty testing.',
             'buy_price' => 40000,
             'sell_price' => 60000,
             'tax_rate' => 0,

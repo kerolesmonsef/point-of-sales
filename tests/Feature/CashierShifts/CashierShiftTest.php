@@ -49,7 +49,7 @@ class CashierShiftTest extends TestCase
             ->actingAs($cashier)
             ->post(route('cashier-shifts.store'), [
                 'opening_cash' => 150000,
-                'notes' => 'Modal pagi',
+                'notes' => 'Morning cash float',
             ]);
 
         $shift = CashierShift::first();
@@ -133,7 +133,7 @@ class CashierShiftTest extends TestCase
         $customer = Customer::create([
             'name' => 'Customer Shift',
             'no_telp' => '0812000000',
-            'address' => 'Alamat Shift',
+            'address' => 'Shift Address',
         ]);
 
         $category = Category::create([
@@ -146,8 +146,8 @@ class CashierShiftTest extends TestCase
             'category_id' => $category->id,
             'image' => 'shift-product.png',
             'barcode' => 'BRCD-'.Str::upper(Str::random(8)),
-            'title' => 'Produk Shift',
-            'description' => 'Produk Shift',
+            'title' => 'Shift Product',
+            'description' => 'Shift Product',
             'buy_price' => 40000,
             'sell_price' => 60000,
         ]);

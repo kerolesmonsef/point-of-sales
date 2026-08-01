@@ -67,7 +67,7 @@ class AdvancedSalesInsightsTest extends TestCase
         $customer = Customer::create([
             'name' => 'Insight Customer',
             'no_telp' => '62811111111',
-            'address' => 'Jl. Insight',
+            'address' => 'Insight St.',
         ]);
         $cashier = User::factory()->create();
 
@@ -102,7 +102,7 @@ class AdvancedSalesInsightsTest extends TestCase
         $customer = Customer::create([
             'name' => 'Insight Customer',
             'no_telp' => '62812222222',
-            'address' => 'Jl. Insight 2',
+            'address' => 'Insight St. 2',
         ]);
         $cashierA = User::factory()->create(['name' => 'Cashier A']);
         $cashierB = User::factory()->create(['name' => 'Cashier B']);
@@ -144,7 +144,7 @@ class AdvancedSalesInsightsTest extends TestCase
         $customer = Customer::create([
             'name' => 'Insight Customer',
             'no_telp' => '62813333333',
-            'address' => 'Jl. Insight 3',
+            'address' => 'Insight St. 3',
         ]);
         $cashier = User::factory()->create();
         $product = $this->createProduct($category, 'Hourly Product', 8_000, 15_000, 9);
@@ -178,14 +178,14 @@ class AdvancedSalesInsightsTest extends TestCase
         $repeatMember = Customer::create([
             'name' => 'Repeat Member',
             'no_telp' => '62814444444',
-            'address' => 'Jl. Repeat 1',
+            'address' => 'Repeat St. 1',
             'is_loyalty_member' => true,
             'loyalty_tier' => 'gold',
         ]);
         $singleCustomer = Customer::create([
             'name' => 'Single Customer',
             'no_telp' => '62815555555',
-            'address' => 'Jl. Repeat 2',
+            'address' => 'Repeat St. 2',
         ]);
         $cashier = User::factory()->create();
         $product = $this->createProduct($category, 'Repeat Product', 10_000, 20_000, 12);
@@ -224,7 +224,7 @@ class AdvancedSalesInsightsTest extends TestCase
         $customer = Customer::create([
             'name' => 'Coverage Customer',
             'no_telp' => '62816666666',
-            'address' => 'Jl. Coverage',
+            'address' => 'Coverage St.',
         ]);
         $cashier = User::factory()->create();
         $fastProduct = $this->createProduct($category, 'Fast Product', 10_000, 20_000, 4);
@@ -268,7 +268,7 @@ class AdvancedSalesInsightsTest extends TestCase
         $member = Customer::create([
             'name' => 'Loyal Member',
             'no_telp' => '62817777777',
-            'address' => 'Jl. Loyalty',
+            'address' => 'Loyalty St.',
             'is_loyalty_member' => true,
             'loyalty_tier' => 'gold',
             'loyalty_points' => 120,
@@ -305,7 +305,7 @@ class AdvancedSalesInsightsTest extends TestCase
         AuditLog::create([
             'event' => 'pricing_rule.created',
             'module' => 'pricing_rules',
-            'description' => 'Rule promo dibuat.',
+            'description' => 'Promo rule created.',
             'created_at' => now(),
         ]);
 
@@ -328,7 +328,7 @@ class AdvancedSalesInsightsTest extends TestCase
         CustomerVoucher::create([
             'customer_id' => $member->id,
             'code' => 'VC-ACTIVE',
-            'name' => 'Voucher Aktif',
+            'name' => 'Active Voucher',
             'discount_type' => CustomerVoucher::TYPE_FIXED_AMOUNT,
             'discount_value' => 10_000,
             'minimum_order' => 50_000,
@@ -374,11 +374,11 @@ class AdvancedSalesInsightsTest extends TestCase
         ]);
 
         $campaign = CustomerCampaign::create([
-            'name' => 'Promo CRM',
+            'name' => 'CRM Promo',
             'type' => CustomerCampaign::TYPE_PROMO_BROADCAST,
             'status' => CustomerCampaign::STATUS_READY,
             'channel' => CustomerCampaign::CHANNEL_WHATSAPP_LINK,
-            'message_template' => 'Halo',
+            'message_template' => 'Hello',
             'created_by' => $user->id,
         ]);
 

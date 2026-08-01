@@ -56,7 +56,7 @@ class CrmCoreTest extends TestCase
                 'name' => 'VIP Offline',
                 'type' => CustomerSegment::TYPE_MANUAL,
                 'is_active' => true,
-                'description' => 'Tag manual untuk pelanggan prioritas.',
+                'description' => 'Manual tag for priority customers.',
             ])
             ->assertRedirect(route('customer-segments.index'));
 
@@ -242,7 +242,7 @@ class CrmCoreTest extends TestCase
         return Customer::create([
             'name' => 'Customer CRM',
             'no_telp' => '628111999999',
-            'address' => 'Jl. CRM Test',
+            'address' => 'CRM Test St.',
             'loyalty_total_spent' => 0,
             'loyalty_transaction_count' => 0,
             ...$attributes,

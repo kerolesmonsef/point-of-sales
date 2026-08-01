@@ -75,7 +75,7 @@ class AuthorizationConsistencyTest extends TestCase
         $response
             ->assertForbidden()
             ->assertJson([
-                'message' => 'Anda tidak memiliki izin untuk mengakses halaman tersebut.',
+                'message' => 'You do not have permission to access this page.',
             ]);
     }
 

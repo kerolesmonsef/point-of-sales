@@ -74,17 +74,17 @@ class WarehouseTest extends TestCase
     {
         $response = $this->from(route('settings.warehouses.index'))
             ->post(route('settings.warehouses.store'), [
-                'code' => 'CABANG-A',
-                'name' => 'Cabang A',
+                'code' => 'BRANCH-A',
+                'name' => 'Branch A',
                 'type' => 'branch',
-                'address' => 'Jl. Merdeka No. 1',
+                'address' => 'Merdeka St. No. 1',
                 'phone' => '021-123456',
                 'is_active' => true,
                 'sort_order' => 1,
             ]);
 
         $response->assertSessionHas('success');
-        $this->assertDatabaseHas('warehouses', ['code' => 'CABANG-A']);
+        $this->assertDatabaseHas('warehouses', ['code' => 'BRANCH-A']);
     }
 
     public function test_create_warehouse_syncs_all_products()
@@ -93,31 +93,31 @@ class WarehouseTest extends TestCase
 
         $this->from(route('settings.warehouses.index'))
             ->post(route('settings.warehouses.store'), [
-                'code' => 'CABANG-B',
-                'name' => 'Cabang B',
+                'code' => 'BRANCH-B',
+                'name' => 'Branch B',
                 'type' => 'branch',
                 'sort_order' => 2,
             ]);
 
-        $warehouse = Warehouse::where('code', 'CABANG-B')->first();
+        $warehouse = Warehouse::where('code', 'BRANCH-B')->first();
         $this->assertNotNull($warehouse);
         $this->assertEquals($productCount, $warehouse->products()->count());
     }
 
     public function test_admin_can_update_warehouse()
     {
-        $warehouse = Warehouse::factory()->create(['code' => 'GUDANG-1', 'name' => 'Gudang 1']);
+        $warehouse = Warehouse::factory()->create(['code' => 'WH-1', 'name' => 'Warehouse 1']);
 
         $this->from(route('settings.warehouses.index'))
             ->put(route('settings.warehouses.update', $warehouse->id), [
-                'code' => 'GUDANG-1',
-                'name' => 'Gudang 1 Updated',
+                'code' => 'WH-1',
+                'name' => 'Warehouse 1 Updated',
                 'type' => 'warehouse',
                 'sort_order' => 0,
                 'is_active' => true,
             ])->assertSessionHas('success');
 
-        $this->assertDatabaseHas('warehouses', ['name' => 'Gudang 1 Updated']);
+        $this->assertDatabaseHas('warehouses', ['name' => 'Warehouse 1 Updated']);
     }
 
     public function test_cannot_delete_main_warehouse()
@@ -131,7 +131,7 @@ class WarehouseTest extends TestCase
 
     public function test_cannot_delete_warehouse_with_stock()
     {
-        $warehouse = Warehouse::factory()->create(['code' => 'HAS-STOK', 'type' => 'branch']);
+        $warehouse = Warehouse::factory()->create(['code' => 'HAS-STOCK', 'type' => 'branch']);
         $product = Product::first();
         $warehouse->products()->attach($product->id, ['stock' => 10]);
 
@@ -142,7 +142,7 @@ class WarehouseTest extends TestCase
 
     public function test_can_delete_empty_warehouse()
     {
-        $warehouse = Warehouse::factory()->create(['code' => 'KOSONG', 'type' => 'branch']);
+        $warehouse = Warehouse::factory()->create(['code' => 'EMPTY', 'type' => 'branch']);
 
         $this->from(route('settings.warehouses.index'))
             ->delete(route('settings.warehouses.destroy', $warehouse->id))

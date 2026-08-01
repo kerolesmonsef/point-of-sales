@@ -37,7 +37,7 @@ class CashierShiftService
 
         if (! $shift) {
             throw ValidationException::withMessages([
-                'shift' => 'Shift kasir belum dibuka.',
+                'shift' => 'Cashier shift is not open yet.',
             ]);
         }
 
