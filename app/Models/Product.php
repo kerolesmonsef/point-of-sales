@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $appends = ['stock'];
 
@@ -75,12 +77,14 @@ class Product extends Model
     {
         return $this->belongsToMany(Product::class, 'composite_product_items', 'composite_product_id', 'component_product_id')
             ->withPivot('qty')
-            ->withTimestamps();
+            ->withTimestamps()
+            ->withTrashed();
     }
 
     public function compositeOf(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'composite_product_items', 'component_product_id', 'composite_product_id');
+        return $this->belongsToMany(Product::class, 'composite_product_items', 'component_product_id', 'composite_product_id')
+            ->withTrashed();
     }
 
     public function compositeStock(): int

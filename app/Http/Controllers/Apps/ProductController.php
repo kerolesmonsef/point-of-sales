@@ -12,6 +12,7 @@ use App\Services\StockMutationService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class ProductController extends Controller
@@ -71,7 +72,7 @@ class ProductController extends Controller
          * validate
          */
         $request->validate([
-            'barcode' => 'required|unique:products,barcode',
+            'barcode' => ['required', Rule::unique('products', 'barcode')->withoutTrashed()],
             'title' => 'required',
             'description' => 'required',
             'category_id' => 'required',
@@ -174,7 +175,7 @@ class ProductController extends Controller
          * validate
          */
         $request->validate([
-            'barcode' => 'required|unique:products,barcode,'.$product->id,
+            'barcode' => ['required', Rule::unique('products', 'barcode')->ignore($product->id)->withoutTrashed()],
             'title' => 'required',
             'description' => 'required',
             'category_id' => 'required',
@@ -272,10 +273,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $before = $this->productAuditPayload($product);
 
-        // remove image
-        Storage::disk('local')->delete('public/products/'.basename($product->image));
-
-        // delete
+        // soft delete
         $product->delete();
 
         $this->auditLogService->log(

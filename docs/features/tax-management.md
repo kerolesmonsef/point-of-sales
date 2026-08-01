@@ -4,20 +4,20 @@ Kembali ke indeks dokumentasi: `docs/README.md`
 
 ## Tujuan
 
-Dukungan PPN (Pajak Pertambahan Nilai) pada transaksi, dengan mode exclusive/inclusive per produk, NPWP/NIB toko, dan tarif default yang bisa dikonfigurasi.
+Dukungan PPN (Pajak Pertambahan Nilai) pada transaksi, dengan mode exclusive/inclusive per product, NPWP/NIB toko, dan tarif default yang bisa dikonfigurasi.
 
 ## Definisi
 
 | Istilah | Arti |
 |---------|------|
-| Tax Exclusive | Harga produk **belum** termasuk PPN. PPN ditambahkan ke grand total |
-| Tax Inclusive | Harga produk **sudah** termasuk PPN. PPN dipisah untuk reporting |
+| Tax Exclusive | Harga product **belum** termasuk PPN. PPN ditambahkan ke grand total |
+| Tax Inclusive | Harga product **sudah** termasuk PPN. PPN dipisah untuk reporting |
 | NPWP | Nomor Pokok Wajib Pajak — identitas pajak toko |
 | PPN | Pajak Pertambahan Nilai (default 11%) |
 
 ## Fitur Saat Ini
 
-- PPN per produk (exclusive/inclusive), tarif bisa berbeda per produk
+- PPN per product (exclusive/inclusive), tarif bisa berbeda per product
 - Default tarif PPN bisa diatur di Settings → Profil Toko (default 11.00%)
 - Tax calculation di checkout: otomatis menambah PPN ke grand total
 - Baris PPN tampil di: checkout preview, print invoice, PDF invoice, PDF receipt 80mm & 58mm, thermal receipt
@@ -39,7 +39,7 @@ Dukungan PPN (Pajak Pertambahan Nilai) pada transaksi, dengan mode exclusive/inc
 ### Settings
 - `store_npwp` — NPWP toko
 - `store_nib` — NIB toko
-- `tax_default_rate` — tarif default untuk produk baru
+- `tax_default_rate` — tarif default untuk product baru
 
 ## Halaman dan Route
 
@@ -51,14 +51,14 @@ Dukungan PPN (Pajak Pertambahan Nilai) pada transaksi, dengan mode exclusive/inc
 
 ### Exclusive (default)
 ```
-Harga produk: Rp 10.000
+Harga product: Rp 10.000
 PPN 11%:      Rp  1.100
 Total:        Rp 11.100
 ```
 
 ### Inclusive
 ```
-Harga produk: Rp 11.100 (sudah include PPN)
+Harga product: Rp 11.100 (sudah include PPN)
 PPN 11%:      Rp  1.100 (dihitung: 11100 - (11100 / 1.11))
 Total:        Rp 10.000 + Rp 1.100
 ```

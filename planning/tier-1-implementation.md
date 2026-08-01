@@ -17,8 +17,8 @@ Wajib untuk UMKM dengan omzet > 4,8M/thn. Invoice tanpa PPN tidak sah secara per
 | Term | Meaning |
 |------|---------|
 | PPN | Pajak Pertambahan Nilai (11% standar Indonesia) |
-| Tax Exclusive | Harga produk belum termasuk PPN. PPN ditambahkan di grand total |
-| Tax Inclusive | Harga produk sudah termasuk PPN. PPN dipisah untuk reporting |
+| Tax Exclusive | Harga product belum termasuk PPN. PPN ditambahkan di grand total |
+| Tax Inclusive | Harga product sudah termasuk PPN. PPN dipisah untuk reporting |
 | NPWP | Nomor Pokok Wajib Pajak — identitas pajak toko |
 | Faktur Pajak | Dokumen resmi yang mencatat PPN |
 
@@ -278,7 +278,7 @@ None — semua user bisa lihat/mengisi.
 Import master data dari spreadsheet. Export laporan ke Excel.
 
 ### Why
-Dealbreaker adopsi. UMKM punya 500-2000+ produk dari supplier, input 1/1 tidak feasible.
+Dealbreaker adopsi. UMKM punya 500-2000+ product dari supplier, input 1/1 tidak feasible.
 
 ---
 
@@ -327,7 +327,7 @@ class ProductsExport implements FromCollection, WithHeadings, WithMapping
 #### Export classes lain:
 - `CustomersExport.php` — nama, telepon, alamat, wilayah
 - `TransactionsExport.php` — invoice, tanggal, customer, grand_total, status
-- `StockMutationExport.php` — produk, tipe, qty, before/after, warehouse, tanggal
+- `StockMutationExport.php` — product, tipe, qty, before/after, warehouse, tanggal
 
 ### Phase 2.3 — Import Classes
 
@@ -461,10 +461,10 @@ Release bersamaan semua — fitur saling terkait.
 ## 3. Unit Conversion (Multi-Satuan)
 
 ### Objective
-Satu produk dalam multiple satuan dengan konversi stok otomatis.
+Satu product dalam multiple satuan dengan konversi stok otomatis.
 
 ### Why
-Standar POS Indonesia. Tanpa ini, produk seperti beras (kg/karung), sabun (pcs/karton), atau minyak (liter/gallon) tidak bisa di-handle secara akurat.
+Standar POS Indonesia. Tanpa ini, product seperti beras (kg/karung), sabun (pcs/karton), atau minyak (liter/gallon) tidak bisa di-handle secara akurat.
 
 ---
 
@@ -717,7 +717,7 @@ Validation: total faktor konversi harus >= 1.
 
 #### POS Product Grid
 
-Di `ProductGrid.jsx` — untuk produk dengan multiple units, tambah dropdown unit:
+Di `ProductGrid.jsx` — untuk product dengan multiple units, tambah dropdown unit:
 ```
 [Produk A]           Rp 6.000
 Satuan: [PCS ▼] 
@@ -767,7 +767,7 @@ Bisa dirilis sendiri. Produk existing dianggap unit PCS dengan faktor 1.
 ## 4. Reorder Point + Auto-PO Suggestion
 
 ### Objective
-Minimum stock configurable per produk, notifikasi, dan auto-suggestion untuk restock.
+Minimum stock configurable per product, notifikasi, dan auto-suggestion untuk restock.
 
 ### Why
 Mencegah stock-out. Dashboard + notifikasi yang proaktif.
@@ -914,7 +914,7 @@ $request->validate([
 
 #### Product Form
 
-Tambah 2 field di form produk:
+Tambah 2 field di form product:
 - Min Stok (number, 0 = tidak ada alert)
 - Max Stok (number, 0 = tidak auto-suggest)
 
@@ -939,7 +939,7 @@ Card baru "Produk Perlu Restock":
 
 #### Sidebar Badge
 
-Badge di menu "Produk" untuk jumlah produk yang perlu di-restock.
+Badge di menu "Produk" untuk jumlah product yang perlu di-restock.
 
 #### Auto-PO Button
 

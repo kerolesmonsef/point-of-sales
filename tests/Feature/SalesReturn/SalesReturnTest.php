@@ -54,12 +54,12 @@ class SalesReturnTest extends TestCase
             ->actingAs($user)
             ->post(route('sales-returns.store', $transaction), [
                 'return_type' => 'refund_cash',
-                'notes' => 'Retur karena salah ukuran',
+                'notes' => 'Return due to wrong size',
                 'items' => [
                     [
                         'transaction_detail_id' => $detail->id,
                         'qty_return' => 1,
-                        'return_reason' => 'Salah ukuran',
+                        'return_reason' => 'Wrong size',
                         'restock_to_inventory' => true,
                     ],
                 ],
@@ -107,7 +107,7 @@ class SalesReturnTest extends TestCase
             'qty_return' => 1,
             'unit_price' => 60000,
             'subtotal' => 60000,
-            'return_reason' => 'Retur pertama',
+            'return_reason' => 'First return',
             'restock_to_inventory' => true,
         ]);
 
@@ -120,7 +120,7 @@ class SalesReturnTest extends TestCase
                     [
                         'transaction_detail_id' => $detail->id,
                         'qty_return' => 2,
-                        'return_reason' => 'Melebihi sisa',
+                        'return_reason' => 'Exceeds remaining',
                         'restock_to_inventory' => true,
                     ],
                 ],
@@ -162,7 +162,7 @@ class SalesReturnTest extends TestCase
             'qty_return' => 1,
             'unit_price' => 60000,
             'subtotal' => 60000,
-            'return_reason' => 'Barang dikembalikan',
+            'return_reason' => 'Item returned',
             'restock_to_inventory' => true,
         ]);
 
@@ -232,7 +232,7 @@ class SalesReturnTest extends TestCase
             'qty_return' => 1,
             'unit_price' => 60000,
             'subtotal' => 60000,
-            'return_reason' => 'Salah kirim',
+            'return_reason' => 'Wrong delivery',
             'restock_to_inventory' => true,
         ]);
 
@@ -271,7 +271,7 @@ class SalesReturnTest extends TestCase
                 [
                     'transaction_detail_id' => $detail->id,
                     'qty_return' => 1,
-                    'return_reason' => 'Barang dibatalkan',
+                    'return_reason' => 'Item canceled',
                     'restock_to_inventory' => true,
                 ],
             ],
@@ -363,7 +363,7 @@ class SalesReturnTest extends TestCase
             'image' => 'product.png',
             'barcode' => 'BRCD-'.Str::upper(Str::random(10)),
             'title' => 'Produk Uji '.Str::upper(Str::random(4)),
-            'description' => 'Deskripsi produk uji.',
+            'description' => 'Deskripsi product uji.',
             'buy_price' => 45000,
             'sell_price' => 60000,
             'tax_rate' => 0,

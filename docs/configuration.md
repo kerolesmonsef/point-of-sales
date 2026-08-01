@@ -51,8 +51,8 @@ Konfigurasi di `dashboard/settings/store` — bagian "Informasi Pajak & Legal":
 
 - **NPWP Toko** — Nomor Pokok Wajib Pajak (format: `XX.XXX.XXX.X-XXX.XXX`)
 - **NIB** — Nomor Induk Berusaha
-- **Tarif PPN Default** — Persentase PPN untuk produk baru (default: 11.00%)
-- Tarif PPN bisa diubah per produk di halaman edit produk
+- **Tarif PPN Default** — Persentase PPN untuk product baru (default: 11.00%)
+- Tarif PPN bisa diubah per product di halaman edit product
 
 ## Printer Settings
 
@@ -95,7 +95,7 @@ Konfigurasi di `dashboard/settings/warehouses`:
 - **Main Warehouse** — gudang pusat, dibuat otomatis saat seeding
 - **Branch Warehouse** — cabang toko yang juga menjual langsung
 - **Stock Warehouse** — gudang penyangga (tidak menjual langsung)
-- Stok produk dipisah per warehouse di tabel `product_warehouse`
+- Stok product dipisah per warehouse di tabel `product_warehouse`
 
 ## Catatan Dependency Eksternal
 

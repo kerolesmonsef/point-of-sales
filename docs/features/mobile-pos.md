@@ -11,7 +11,7 @@ Akses POS dari tablet/handphone dengan barcode scanner via kamera, install ke ho
 ### Camera Barcode Scanner
 - Library: `html5-qrcode`
 - Scan barcode via kamera belakang (environment-facing)
-- Auto-search produk setelah scan
+- Auto-search product setelah scan
 - Modal fullscreen scanner — buka kamera, scan, tutup otomatis
 - Tombol kamera di search bar POS
 
@@ -48,8 +48,8 @@ Akses POS dari tablet/handphone dengan barcode scanner via kamera, install ke ho
 ### Barcode Scanner
 1. Klik ikon kamera di search bar POS
 2. Izinkan akses kamera
-3. Arahkan kamera ke barcode produk
-4. Scanner otomatis mencari produk dan menutup
+3. Arahkan kamera ke barcode product
+4. Scanner otomatis mencari product dan menutup
 
 ### PWA Install
 1. Buka aplikasi di Chrome Android

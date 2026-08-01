@@ -4,7 +4,7 @@ Kembali ke indeks dokumentasi: `docs/README.md`
 
 ## Tujuan
 
-Memisahkan stok produk per lokasi fisik (gudang pusat, cabang toko, gudang penyangga). Memungkinkan bisnis dengan >1 lokasi operasional.
+Memisahkan stok product per lokasi fisik (gudang pusat, cabang toko, gudang penyangga). Memungkinkan bisnis dengan >1 lokasi operasional.
 
 ## Definisi
 
@@ -25,9 +25,9 @@ Memisahkan stok produk per lokasi fisik (gudang pusat, cabang toko, gudang penya
 - Guard: tidak bisa hapus warehouse utama
 
 ### Product-Warehouse Pivot
-- Stok disimpan per produk per warehouse di `product_warehouse`
-- Saat warehouse baru dibuat, semua produk otomatis ter-sync dengan stok 0
-- Saat seeder, semua stok produk existing dipindah ke warehouse MAIN
+- Stok disimpan per product per warehouse di `product_warehouse`
+- Saat warehouse baru dibuat, semua product otomatis ter-sync dengan stok 0
+- Saat seeder, semua stok product existing dipindah ke warehouse MAIN
 
 ### Warehouse di Shift
 - Kasir memilih warehouse saat buka shift
@@ -39,7 +39,7 @@ Memisahkan stok produk per lokasi fisik (gudang pusat, cabang toko, gudang penya
 - Cart menyimpan `warehouse_id`
 - Checkout decrement stok di pivot warehouse
 - Transaksi tercatat dengan `warehouse_id`
-- Search product by barcode — hanya produk yang ada di warehouse shift aktif
+- Search product by barcode — hanya product yang ada di warehouse shift aktif
 
 ### Warehouse di Purchasing
 - PO punya `warehouse_id` (tujuan gudang)
@@ -82,7 +82,7 @@ Memisahkan stok produk per lokasi fisik (gudang pusat, cabang toko, gudang penya
 
 1. Admin: setup warehouse di Settings → Gudang
 2. Cashier: buka shift → pilih warehouse
-3. POS: hanya produk dengan stok di warehouse shift yang tampil
+3. POS: hanya product dengan stok di warehouse shift yang tampil
 4. Checkout: stok decrement dari warehouse shift
 5. PO: tentukan warehouse tujuan
 6. GR: barang masuk ke warehouse PO

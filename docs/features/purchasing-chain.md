@@ -9,7 +9,7 @@ Modul pembelian formal dari supplier: Purchase Order, Goods Receiving, dan Suppl
 ## Fitur Saat Ini
 
 ### Purchase Order (PO)
-- Buat PO dengan pilih supplier + item produk
+- Buat PO dengan pilih supplier + item product
 - Qty dan harga beli per item
 - Auto-generate nomor dokumen (`PO-YYYYmmdd-XXXX`)
 - Status lifecycle: `draft` → `ordered` → `partial_received` / `completed` → `cancelled`

@@ -4,7 +4,7 @@ Kembali ke indeks dokumentasi: `docs/README.md`
 
 ## Tujuan
 
-Import master data (produk, customer) dari spreadsheet. Export data ke Excel untuk backup atau analisis lanjutan.
+Import master data (product, customer) dari spreadsheet. Export data ke Excel untuk backup atau analisis lanjutan.
 
 ## Fitur Saat Ini
 
@@ -24,10 +24,10 @@ Import master data (produk, customer) dari spreadsheet. Export data ke Excel unt
 
 | Route | Method | Fungsi |
 |-------|--------|--------|
-| `export.products` | GET | Download Excel produk |
+| `export.products` | GET | Download Excel product |
 | `export.customers` | GET | Download Excel customer |
 | `export.transactions` | GET | Download Excel transaksi (dengan filter) |
-| `import.products` | POST | Upload file import produk |
+| `import.products` | POST | Upload file import product |
 | `import.customers` | POST | Upload file import customer |
 | `import.template/{type}` | GET | Download template (products/customers) |
 
@@ -35,8 +35,8 @@ Import master data (produk, customer) dari spreadsheet. Export data ke Excel unt
 
 | Permission | Untuk apa |
 |-----------|-----------|
-| `products-export` | Download Excel produk |
-| `products-import` | Upload import produk |
+| `products-export` | Download Excel product |
+| `products-import` | Upload import product |
 | `customers-export` | Download Excel customer |
 | `customers-import` | Upload import customer |
 
@@ -52,7 +52,7 @@ Import master data (produk, customer) dari spreadsheet. Export data ke Excel unt
 
 ## Catatan
 
-- Import produk menggunakan `updateOrCreate` berdasarkan barcode — aman untuk re-import
+- Import product menggunakan `updateOrCreate` berdasarkan barcode — aman untuk re-import
 - Kategori otomatis dibuat jika belum ada
 - Format file: `.xlsx`, `.xls`, `.csv` (max 5MB)
 - Import diproses dalam batch (100 per batch) untuk performa

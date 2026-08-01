@@ -34,9 +34,11 @@ class Customer extends Model
         'district_name',
         'village_id',
         'village_name',
+        'is_default',
     ];
 
     protected $casts = [
+        'is_default' => 'boolean',
         'is_loyalty_member' => 'boolean',
         'loyalty_points' => 'integer',
         'loyalty_total_spent' => 'integer',

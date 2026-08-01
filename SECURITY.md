@@ -23,7 +23,7 @@ Kami menerima laporan untuk:
 
 Sertakan dalam laporan:
 - Versi aplikasi (commit hash atau tag)
-- Langkah-langkah untuk mereproduksi
+- Langkah-langkah untuk mereproductsi
 - Dampak potensial
 - (Opsional) Saran mitigasi
 

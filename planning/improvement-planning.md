@@ -19,7 +19,7 @@ Dokumen ini merangkum arah pengembangan fitur berikutnya untuk sistem Point of S
 Saat ini sistem sudah memiliki fondasi yang cukup baik untuk kebutuhan inti:
 
 - transaksi kasir,
-- manajemen produk dan kategori,
+- manajemen product dan kategori,
 - manajemen pelanggan,
 - supplier,
 - piutang,
@@ -126,7 +126,7 @@ Module utama:
 
 ### Problem
 
-Saat ini sistem sudah memiliki stok produk, tetapi belum ada proses audit stok fisik terhadap stok sistem. Tanpa stock opname, selisih stok akan sulit dilacak.
+Saat ini sistem sudah memiliki stok product, tetapi belum ada proses audit stok fisik terhadap stok sistem. Tanpa stock opname, selisih stok akan sulit dilacak.
 
 ### Goals
 
@@ -138,7 +138,7 @@ Saat ini sistem sudah memiliki stok produk, tetapi belum ada proses audit stok f
 ### Key Features
 
 - buat sesi stock opname,
-- filter per kategori / supplier / produk,
+- filter per kategori / supplier / product,
 - input hasil hitung fisik,
 - tampilkan selisih,
 - posting adjustment ke stok,
@@ -162,7 +162,7 @@ Saat ini sistem sudah memiliki stok produk, tetapi belum ada proses audit stok f
 
 - halaman daftar opname,
 - halaman detail opname,
-- tabel per produk,
+- tabel per product,
 - indicator selisih plus/minus,
 - summary total item sesuai / tidak sesuai.
 
@@ -188,7 +188,7 @@ Stok perlu punya histori perubahan yang bisa diaudit. Saat ini stok berubah akib
 
 - mencatat semua perubahan stok,
 - membedakan sumber mutasi,
-- memudahkan audit per produk.
+- memudahkan audit per product.
 
 ### Key Features
 
@@ -198,7 +198,7 @@ Stok perlu punya histori perubahan yang bisa diaudit. Saat ini stok berubah akib
 - stok hilang,
 - stok expired,
 - adjustment manual,
-- histori mutasi per produk.
+- histori mutasi per product.
 
 ### Mutation Sources
 
@@ -212,7 +212,7 @@ Stok perlu punya histori perubahan yang bisa diaudit. Saat ini stok berubah akib
 ### UI/UX Scope
 
 - halaman histori mutasi stok,
-- filter produk / tanggal / jenis mutasi,
+- filter product / tanggal / jenis mutasi,
 - detail asal transaksi atau dokumen.
 
 ### Business Rules
@@ -629,7 +629,7 @@ Toko sering butuh promo fleksibel yang tidak cukup hanya dengan diskon level tra
 
 - rule builder promo,
 - preview promo impact,
-- badge promo pada produk,
+- badge promo pada product,
 - audit promo aktif.
 
 ### Priority
@@ -723,13 +723,13 @@ Laporan penjualan dan profit sudah ada, tetapi owner biasanya butuh analisa yang
 ### Goals
 
 - membantu owner membuat keputusan cepat,
-- menemukan produk unggulan dan masalah bisnis.
+- menemukan product unggulan dan masalah bisnis.
 
 ### Key Features
 
 - top selling products,
 - low performing products,
-- margin per produk / kategori,
+- margin per product / kategori,
 - sales by hour/day,
 - cashier performance,
 - repeat customer metrics,
@@ -823,7 +823,7 @@ Menengah.
 
 ### Problem
 
-Onboarding data manual akan lambat jika user punya banyak produk/customer/supplier.
+Onboarding data manual akan lambat jika user punya banyak product/customer/supplier.
 
 ### Goals
 
@@ -832,7 +832,7 @@ Onboarding data manual akan lambat jika user punya banyak produk/customer/suppli
 
 ### Key Features
 
-- import produk,
+- import product,
 - import customer,
 - import supplier,
 - export laporan,

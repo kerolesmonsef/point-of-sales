@@ -73,7 +73,7 @@ class OperationalCoreSeeder extends Seeder
                 'opened_at' => $twoDaysAgoOpen,
                 'opening_cash' => 175000,
                 'expected_cash' => 175000,
-                'notes' => 'Shift pagi weekday untuk sample histori.',
+                'notes' => 'Weekday morning shift for sample history.',
                 'status' => CashierShift::STATUS_OPEN,
             ]);
 
@@ -83,7 +83,7 @@ class OperationalCoreSeeder extends Seeder
                 'opened_at' => $yesterdayOpen,
                 'opening_cash' => 200000,
                 'expected_cash' => 200000,
-                'notes' => 'Shift sore yang nanti ditutup supervisor.',
+                'notes' => 'Afternoon shift to be closed later by the supervisor.',
                 'status' => CashierShift::STATUS_OPEN,
             ]);
 
@@ -93,7 +93,7 @@ class OperationalCoreSeeder extends Seeder
                 'opened_at' => $todayOpen,
                 'opening_cash' => 250000,
                 'expected_cash' => 250000,
-                'notes' => 'Shift aktif hari ini.',
+                'notes' => 'Active shift today.',
                 'status' => CashierShift::STATUS_OPEN,
             ]);
 
@@ -117,7 +117,7 @@ class OperationalCoreSeeder extends Seeder
                 $cashier,
                 $twoDaysAgoClose,
                 -5000,
-                'Closing normal dengan selisih kurang kecil.',
+                'Normal closing with a small cash shortage.',
                 false,
             );
 
@@ -126,7 +126,7 @@ class OperationalCoreSeeder extends Seeder
                 $supervisor,
                 $yesterdayClose,
                 7000,
-                'Supervisor menutup shift terlambat dengan selisih lebih.',
+                'Supervisor closes the late shift with a cash overage.',
                 true,
             );
         });
@@ -175,8 +175,8 @@ class OperationalCoreSeeder extends Seeder
                     cashier: $cashier,
                     shift: $historicalShift,
                     type: 'store_credit',
-                    returnReason: 'Pelanggan menerima credit note untuk item yang tidak sesuai.',
-                    notes: 'Retur sample untuk module 3 dengan store credit.',
+                    returnReason: 'Customer received a credit note for a mismatched item.',
+                    notes: 'Sample return for module 3 with store credit.',
                     stockMutationService: $stockMutationService,
                 );
             }
@@ -194,8 +194,8 @@ class OperationalCoreSeeder extends Seeder
                     cashier: $cashier,
                     shift: $activeShift,
                     type: 'refund_cash',
-                    returnReason: 'Barang dikembalikan dan dana dikembalikan tunai.',
-                    notes: 'Retur sample untuk cash refund.',
+                    returnReason: 'Item returned and refunded in cash.',
+                    notes: 'Sample return for cash refund.',
                     stockMutationService: $stockMutationService,
                 );
             }
@@ -219,7 +219,7 @@ class OperationalCoreSeeder extends Seeder
                     'refund_amount' => $unitPrice,
                     'credited_amount' => 0,
                     'total_return_amount' => $unitPrice,
-                    'notes' => 'Draft retur sample yang belum difinalisasi.',
+                    'notes' => 'Sample return draft not yet finalized.',
                 ]);
 
                 $draftReturn->items()->create([
@@ -230,7 +230,7 @@ class OperationalCoreSeeder extends Seeder
                     'qty_return' => 1,
                     'unit_price' => $unitPrice,
                     'subtotal' => $unitPrice,
-                    'return_reason' => 'Menunggu konfirmasi retur dari admin.',
+                    'return_reason' => 'Waiting for return confirmation from the admin.',
                     'restock_to_inventory' => true,
                 ]);
             }
@@ -324,7 +324,7 @@ class OperationalCoreSeeder extends Seeder
                 'sales_return_id' => $salesReturn->id,
                 'amount' => $subtotal,
                 'balance' => $subtotal,
-                'notes' => 'Saldo toko sample dari retur '.$salesReturn->code,
+                'notes' => 'Sample store credit from return '.$salesReturn->code,
                 'created_at' => $completedAt,
                 'updated_at' => $completedAt,
             ]);

@@ -52,7 +52,7 @@ class ProductCrudTest extends TestCase
         $this->productPayload = [
             'barcode' => 'BRC-TEST-001',
             'title' => 'Produk Test',
-            'description' => 'Deskripsi produk test',
+            'description' => 'Deskripsi product test',
             'category_id' => $this->category->id,
             'buy_price' => 50000,
             'sell_price' => 75000,
@@ -464,7 +464,7 @@ class ProductCrudTest extends TestCase
         $this->actingAs($this->admin)
             ->delete(route('products.destroy', $product))
             ->assertRedirect();
-        $this->assertDatabaseMissing('products', ['id' => $product->id]);
+        $this->assertSoftDeleted('products', ['id' => $product->id]);
     }
 
     public function test_delete_creates_audit_log(): void

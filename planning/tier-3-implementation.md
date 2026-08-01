@@ -117,7 +117,7 @@ None — route publik dengan token validation.
 ### Security Notes
 - Token UUID v4 — tidak bisa ditebak
 - Token hanya bisa dipakai untuk 1 invoice (kecuali multi-invoice per customer via email)
-- Tidak ada data sensitif (hanya nama produk, harga, status)
+- Tidak ada data sensitif (hanya nama product, harga, status)
 - Rate limit per IP
 
 ### Files Affected
@@ -203,7 +203,7 @@ Integrasi ke POS: ganti input barcode biasa dengan kamera scanner toggle.
 
 `public/sw.js` — cache strategy:
 - Cache-first untuk assets (JS, CSS, fonts)
-- Network-first untuk API calls (produk, customer)
+- Network-first untuk API calls (product, customer)
 - Fallback ke cached data saat offline
 
 Register di `resources/js/app.jsx`:
@@ -553,7 +553,7 @@ Auto-print:   [✓] Cetak otomatis setelah transaksi
 ## 13. Marketplace Integration
 
 ### Objective
-Sinkronisasi stok produk ke Tokopedia/Shopee. Import order dari marketplace.
+Sinkronisasi stok product ke Tokopedia/Shopee. Import order dari marketplace.
 
 ### Why
 Ekosistem. Toko offline + online stok sama.
@@ -691,7 +691,7 @@ Schema::table('transactions', function (Blueprint $table) {
 ### Phase 14.2 — POS Checkout
 
 Dropdown currency di POS. Saat ganti currency:
-- Harga produk dikonversi via exchange_rate
+- Harga product dikonversi via exchange_rate
 - Pembayaran di currency tersebut
 - Laporan tetap dalam base currency (IDR)
 

@@ -4,11 +4,12 @@ Kembali ke indeks dokumentasi: `docs/README.md`
 
 ## Tujuan
 
-Menjaga akurasi stok melalui master produk, stock opname, dan histori mutasi stok.
+Menjaga akurasi stok melalui master product, stock opname, dan histori mutasi stok.
 
 ## Fitur Saat Ini
 
-- CRUD produk
+- CRUD product
+- **soft delete product**: `products.deleted_at`; product yang pernah dipakai di transaksi/PO/GR tetap bisa dihapus (history tetap tampil via relasi `withTrashed()`), barcode bisa dipakai ulang
 - initial stock saat create product
 - stock tidak bisa diubah langsung dari edit product
 - stock opname draft → finalized
@@ -29,12 +30,12 @@ Menjaga akurasi stok melalui master produk, stock opname, dan histori mutasi sto
 
 ## Alur User
 
-1. produk dibuat dengan initial stock
+1. product dibuat dengan initial stock
 2. initial stock menghasilkan stock mutation awal
 3. stock opname dibuat sebagai draft
-4. produk ditambahkan ke sesi opname
+4. product ditambahkan ke sesi opname
 5. stok fisik diisi per item
-6. finalize mengubah stok produk dan membuat stock mutation adjustment
+6. finalize mengubah stok product dan membuat stock mutation adjustment
 
 ## Integrasi Data
 

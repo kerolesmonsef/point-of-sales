@@ -46,7 +46,7 @@ class StockMutationService
                 'stock_before' => 0,
                 'stock_after' => 0,
                 'difference' => 0,
-                'reason' => 'Initial stock saat produk dibuat.',
+                'reason' => 'Initial stock saat product dibuat.',
                 'reference' => 'product:'.$product->id,
             ],
             after: [
@@ -54,7 +54,7 @@ class StockMutationService
                 'stock_before' => 0,
                 'stock_after' => $initialStock,
                 'difference' => $initialStock,
-                'reason' => 'Initial stock saat produk dibuat.',
+                'reason' => 'Initial stock saat product dibuat.',
                 'reference' => 'product:'.$product->id,
             ],
             meta: [

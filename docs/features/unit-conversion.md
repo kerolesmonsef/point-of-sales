@@ -4,7 +4,7 @@ Kembali ke indeks dokumentasi: `docs/README.md`
 
 ## Tujuan
 
-Satu produk dalam multiple satuan — pcs, box, karton, kg — dengan konversi stok otomatis dan harga berbeda per satuan.
+Satu product dalam multiple satuan — pcs, box, karton, kg — dengan konversi stok otomatis dan harga berbeda per satuan.
 
 ## Definisi
 
@@ -26,7 +26,7 @@ Satu produk dalam multiple satuan — pcs, box, karton, kg — dengan konversi s
 
 - **Selesai**: skema (`carts`/`transaction_details`.`unit_id`+`conversion_factor`), `UnitConversionService`, dan `TransactionController::addToCart`/`store` sudah resolve unit, convert qty ke base unit, dan cek stok berbasis base qty (`app/Http/Controllers/Apps/TransactionController.php`).
 - **Belum ada**: dropdown pilih satuan di layar POS. `resources/js/Pages/Dashboard/Transactions/Index.jsx` selalu kirim `qty: 1` tanpa `unit_id` — kasir belum bisa pilih satuan lain saat checkout, jadi backend selalu jatuh ke base unit.
-- **Bug diketahui**: menambah produk yang sama dengan `unit_id` berbeda ke cart yang sudah ada baris-nya tidak update `unit_id`/`conversion_factor` (tetap pakai punya baris pertama). `TransactionController::updateCart` juga cek stok pakai raw qty, bukan qty terkonversi.
+- **Bug diketahui**: menambah product yang sama dengan `unit_id` berbeda ke cart yang sudah ada baris-nya tidak update `unit_id`/`conversion_factor` (tetap pakai punya baris pertama). `TransactionController::updateCart` juga cek stok pakai raw qty, bukan qty terkonversi.
 
 ## Database
 
@@ -48,7 +48,7 @@ Satu produk dalam multiple satuan — pcs, box, karton, kg — dengan konversi s
 
 ## Alur
 
-1. Admin: setup base unit + additional units per produk (via DB seeder atau langsung insert)
+1. Admin: setup base unit + additional units per product (via DB seeder atau langsung insert)
 2. POS: backend siap terima `unit_id` per baris cart (lihat Status Implementasi) — tinggal tunggu dropdown pilih satuan di UI
 3. Checkout: qty dikonversi ke base unit untuk cek stok dan decrement
 4. Stok mutation selalu dalam base unit
@@ -56,5 +56,5 @@ Satu produk dalam multiple satuan — pcs, box, karton, kg — dengan konversi s
 ## Catatan
 
 - Produk existing dianggap punya base unit PCS dengan conversion factor 1
-- Unit tidak bisa dihapus jika masih dipakai produk
+- Unit tidak bisa dihapus jika masih dipakai product
 - Harga per unit disimpan di pivot, bukan hitungan dari base price * factor

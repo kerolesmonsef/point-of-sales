@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->bigInteger('no_telp');
             $table->text('address');
+            $table->boolean('is_default')->default(false);
             $table->timestamps();
         });
     }

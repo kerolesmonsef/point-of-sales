@@ -38,9 +38,9 @@ class MemberManagementTest extends TestCase
         $user = $this->createUserWithPermissions(['customers-access']);
 
         $activeMember = Customer::create([
-            'name' => 'Member Aktif',
+            'name' => 'Active Member',
             'no_telp' => '62811001',
-            'address' => 'Jl. Aktif',
+            'address' => 'Active St.',
             'is_loyalty_member' => true,
             'member_code' => 'MEM-1001',
             'loyalty_tier' => LoyaltyService::TIER_GOLD,
@@ -51,9 +51,9 @@ class MemberManagementTest extends TestCase
         ]);
 
         Customer::create([
-            'name' => 'Mantan Member',
+            'name' => 'Former Member',
             'no_telp' => '62811002',
-            'address' => 'Jl. Nonaktif',
+            'address' => 'Inactive St.',
             'is_loyalty_member' => false,
             'member_code' => 'MEM-1002',
             'loyalty_tier' => LoyaltyService::TIER_SILVER,
@@ -78,9 +78,9 @@ class MemberManagementTest extends TestCase
         $this->seedRegionHierarchy();
 
         $response = $this->actingAs($user)->post(route('members.store'), [
-            'name' => 'Member Baru',
+            'name' => 'New Member',
             'no_telp' => '62812001',
-            'address' => 'Jl. Member Baru',
+            'address' => 'New Member St.',
             'is_loyalty_member' => true,
             'loyalty_tier' => LoyaltyService::TIER_SILVER,
             'province_id' => '11',
@@ -106,7 +106,7 @@ class MemberManagementTest extends TestCase
         $response = $this->actingAs($user)->postJson(route('customers.storeAjax'), [
             'name' => 'POS Member',
             'no_telp' => '62813001',
-            'address' => 'Jl. POS Member',
+            'address' => 'POS Member St.',
             'is_loyalty_member' => true,
             'loyalty_tier' => LoyaltyService::TIER_GOLD,
         ]);
@@ -129,17 +129,17 @@ class MemberManagementTest extends TestCase
         $this->seedRegionHierarchy();
 
         $customer = Customer::create([
-            'name' => 'Calon Member',
+            'name' => 'Prospective Member',
             'no_telp' => '62814001',
-            'address' => 'Jl. Calon',
+            'address' => 'Prospective St.',
             'province_id' => '11',
             'province_name' => 'Aceh',
             'regency_id' => '11.01',
-            'regency_name' => 'Kabupaten Test',
+            'regency_name' => 'Test Regency',
             'district_id' => '11.01.01',
-            'district_name' => 'Kecamatan Test',
+            'district_name' => 'Test District',
             'village_id' => '11.01.01.1001',
-            'village_name' => 'Kelurahan Test',
+            'village_name' => 'Test Village',
         ]);
 
         $upgradeResponse = $this->actingAs($user)->postJson(
@@ -229,19 +229,19 @@ class MemberManagementTest extends TestCase
 
         DB::table('cities')->insert([
             'code' => '11.01',
-            'name' => 'Kabupaten Test',
+            'name' => 'Test Regency',
             'province_code' => '11',
         ]);
 
         DB::table('districts')->insert([
             'code' => '11.01.01',
-            'name' => 'Kecamatan Test',
+            'name' => 'Test District',
             'city_code' => '11.01',
         ]);
 
         DB::table('villages')->insert([
             'code' => '11.01.01.1001',
-            'name' => 'Kelurahan Test',
+            'name' => 'Test Village',
             'district_code' => '11.01.01',
         ]);
     }

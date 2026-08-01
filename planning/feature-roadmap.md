@@ -17,7 +17,7 @@ Mendukung PPN 11% (dan tarif lainnya) untuk transaksi, faktur pajak sederhana, s
 Wajib untuk UMKM dengan omzet > 4,8M/thn. Invoice tanpa PPN tidak sah secara perpajakan.
 
 #### Key Features
-- Tax setting per produk (exclusive/inclusive, tax rate)
+- Tax setting per product (exclusive/inclusive, tax rate)
 - PPN otomatis di grand_total (inclusive: tax-in-price, exclusive: add tax)
 - Baris PPN pada invoice, receipt, thermal print
 - NPWP dan NIB di profil toko
@@ -29,7 +29,7 @@ Wajib untuk UMKM dengan omzet > 4,8M/thn. Invoice tanpa PPN tidak sah secara per
 - `settings`: tambah `store_npwp`, `store_nib`
 
 #### Permission Impact
-- None — semua user bisa lihat, tax adalah properti produk
+- None — semua user bisa lihat, tax adalah properti product
 
 #### Files Affected
 ~20: 2 migrations, 1 service (TaxService), 2 controller modif, 4 frontend modif, 2 PDF blade modif
@@ -42,15 +42,15 @@ Wajib untuk UMKM dengan omzet > 4,8M/thn. Invoice tanpa PPN tidak sah secara per
 ### 2. Import/Export CSV + Excel
 
 #### Objective
-Import master data (produk, customer, supplier) dari CSV/Excel. Export laporan ke spreadsheet.
+Import master data (product, customer, supplier) dari CSV/Excel. Export laporan ke spreadsheet.
 
 #### Why
-Dealbreaker untuk adopsi. Input 1000 produk manual 1 per 1 tidak feasible.
+Dealbreaker untuk adopsi. Input 1000 product manual 1 per 1 tidak feasible.
 
 #### Key Features
-- Import produk (dengan template contoh)
+- Import product (dengan template contoh)
 - Import customer
-- Export produk, customer, supplier ke Excel
+- Export product, customer, supplier ke Excel
 - Export laporan (sales, profit, stock mutation)
 - Validasi error per baris + preview
 
@@ -76,7 +76,7 @@ Dealbreaker untuk adopsi. Input 1000 produk manual 1 per 1 tidak feasible.
 ### 3. Unit Conversion (Multi-Satuan)
 
 #### Objective
-Satu produk dengan multiple satuan — pcs, box, karton, kg — dengan harga dan konversi stok otomatis.
+Satu product dengan multiple satuan — pcs, box, karton, kg — dengan harga dan konversi stok otomatis.
 
 #### Why
 Standar POS Indonesia. Beras dijual per kg dan per karung, sabun per pcs dan per karton. Ini ekspektasi dasar.
@@ -106,13 +106,13 @@ Standar POS Indonesia. Beras dijual per kg dan per karung, sabun per pcs dan per
 ### 4. Reorder Point + Auto-PO Suggestion
 
 #### Objective
-Configurable minimum stock per produk + auto-suggestion untuk restock.
+Configurable minimum stock per product + auto-suggestion untuk restock.
 
 #### Why
 Mencegah stock-out. Fitur yang bedain dari POS kalkulator.
 
 #### Key Features
-- `min_stock` dan `max_stock` per produk (dan per warehouse)
+- `min_stock` dan `max_stock` per product (dan per warehouse)
 - Dashboard widget "Produk Perlu Restock"
 - Dashboard notifikasi berubah dari `stock <= 0` jadi `stock <= min_stock`
 - Tombol "Buat Draft PO" dari list — pre-populate items
@@ -167,7 +167,7 @@ Simple price list yang tidak memerlukan pricing rules engine yang kompleks.
 
 #### Key Features
 - Price list CRUD (nama, kelompok pelanggan)
-- Harga spesifik per produk dalam price list
+- Harga spesifik per product dalam price list
 - POS checkout: pilih price list customer → auto-apply harga
 - Integrasi dengan customer segment
 - Fallback ke sell_price jika tidak ada di price list
@@ -292,8 +292,8 @@ Transaksi tetap berjalan saat internet putus. Queue transaksi offline, sync saat
 Kills competitors. Banyak lokasi UMKM dengan internet tidak stabil.
 
 #### Key Features
-- Service worker cache API responses (produk, customer, pricing)
-- IndexedDB — cache produk, customer, pricing rules
+- Service worker cache API responses (product, customer, pricing)
+- IndexedDB — cache product, customer, pricing rules
 - Queue transaksi offline
 - Background sync saat online
 - Conflict resolution (sync timestamps)
@@ -338,13 +338,13 @@ UMKM pakai thermal printer murah (80mm/58mm). Ini ekspektasi, bukan fitur tambah
 ### 13. Marketplace Integration
 
 #### Objective
-Sinkronisasi produk dan stok ke marketplace (Tokopedia, Shopee, Lazada).
+Sinkronisasi product dan stok ke marketplace (Tokopedia, Shopee, Lazada).
 
 #### Why
 Ekosistem. Toko offline + online pakai stok yang sama.
 
 #### Key Features
-- Export produk ke marketplace via API
+- Export product ke marketplace via API
 - Import order dari marketplace
 - Sinkronisasi stok otomatis (cron job)
 - Mapping kategori marketplace ↔ kategori lokal

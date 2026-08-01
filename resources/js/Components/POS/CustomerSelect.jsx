@@ -148,19 +148,18 @@ export default function CustomerSelect({
                                     <p className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">
                                         {selected.name}
                                     </p>
-                                    {selected.no_telp && (
-                                        <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
-                                            {selected.no_telp}
-                                        </p>
-                                    )}
-                                    {selected.member_code ? (
-                                        <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
-                                            {selected.member_code}
-                                        </p>
-                                    ) : null}
+                                    {/*{selected.no_telp && (*/}
+                                    {/*    <p className="text-xs text-slate-500 dark:text-slate-400 truncate">*/}
+                                    {/*        {selected.no_telp}*/}
+                                    {/*    </p>*/}
+                                    {/*)}*/}
+                                    {/*{selected.member_code ? (*/}
+                                    {/*    <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">*/}
+                                    {/*        {selected.member_code}*/}
+                                    {/*    </p>*/}
+                                    {/*) : null}*/}
                                     <p className="text-[11px] text-primary-500 dark:text-primary-300 truncate">
-                                        {selected.is_loyalty_member
-                                            ? `${selected.loyalty_tier} • ${selected.loyalty_points || 0} ${__("points")}`
+                                        {selected.is_loyalty_member ? `${selected.loyalty_tier} • ${selected.loyalty_points || 0} ${__("points")}`
                                             : __("Non-member")}
                                     </p>
                                 </>

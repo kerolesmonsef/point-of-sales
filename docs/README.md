@@ -19,7 +19,7 @@ Dokumentasi ini ditujukan untuk developer yang ingin setup, memahami alur modul,
 - `docs/features/customer-portal.md` — invoice publik, bayar piutang online 🆕
 
 ### Inventory & Warehouse
-- `docs/features/inventory-stock.md` — produk, stock opname, mutation
+- `docs/features/inventory-stock.md` — product, stock opname, mutation
 - `docs/features/multi-warehouse.md` — multi-gudang, stock transfer 🆕
 - `docs/features/unit-conversion.md` — multi-satuan (pcs, box, kg) 🆕
 

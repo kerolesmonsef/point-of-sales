@@ -9,10 +9,10 @@ Engine promo dan loyalty untuk meningkatkan penjualan dan retensi pelanggan.
 ## Fitur Saat Ini
 
 ### Pricing Rules (Promo Engine)
-- **Standard Discount** — diskon persentase/nominal per produk atau kategori
+- **Standard Discount** — diskon persentase/nominal per product atau kategori
 - **Qty Break** — harga khusus untuk pembelian dalam jumlah tertentu (tiered pricing)
-- **Bundle Price** — harga spesial untuk paket produk
-- **Buy X Get Y** — beli produk tertentu, dapat produk lain dengan harga khusus
+- **Bundle Price** — harga spesial untuk paket product
+- **Buy X Get Y** — beli product tertentu, dapat product lain dengan harga khusus
 - **Customer Scope** — promo bisa dibatasi untuk: semua, walk-in, registered, member, atau tier tertentu
 - **Schedule** — promo bisa dijadwalkan dengan start/end date
 - **Preview** — lihat dampak promo sebelum checkout
@@ -31,7 +31,7 @@ Engine promo dan loyalty untuk meningkatkan penjualan dan retensi pelanggan.
 ### Multi-Price List
 - Harga khusus per kelompok pelanggan (all, walk-in, registered, member)
 - Prioritas: price list dengan prioritas tertinggi yang cocok akan dipakai
-- Harga per produk dalam price list
+- Harga per product dalam price list
 
 ## Database
 
@@ -62,6 +62,6 @@ Engine promo dan loyalty untuk meningkatkan penjualan dan retensi pelanggan.
 ## Catatan
 
 - Pricing rules bisa tumpang tindih — rule dengan priority lebih tinggi diutamakan
-- Qty break: tier price berdasarkan quantity pembelian produk tertentu
-- Bundle: harga spesial untuk set produk yang sudah ditentukan
+- Qty break: tier price berdasarkan quantity pembelian product tertentu
+- Bundle: harga spesial untuk set product yang sudah ditentukan
 - Buy X Get Y: buy item A → dapat diskon untuk item B

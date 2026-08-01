@@ -21,8 +21,8 @@ Berikut adalah seluruh screenshot fitur Point of Sales.
 
 | Screenshot | Deskripsi |
 |------------|-----------|
-| ![Produk](screenshots/04-products.png) | Manajemen produk — grid view dengan kategori |
-| ![Mutasi Stok](screenshots/05-stock-mutations.png) | Histori mutasi stok per produk |
+| ![Produk](screenshots/04-products.png) | Manajemen product — grid view dengan kategori |
+| ![Mutasi Stok](screenshots/05-stock-mutations.png) | Histori mutasi stok per product |
 | ![Stock Opname](screenshots/06-stock-opnames.png) | Sesi stock opname — bandingkan stok sistem vs fisik |
 | ![Warehouse](screenshots/07-warehouses.png) | Multi-warehouse — kelola gudang dan cabang |
 | ![Transfer Stok](screenshots/08-stock-transfers.png) | Transfer stok antar warehouse |

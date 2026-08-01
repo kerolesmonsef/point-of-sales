@@ -538,7 +538,7 @@ Card baru "Produk Mendekati Expired":
 Produk bundle dari komponen. Contoh: "Paket Sembako" terdiri dari beras 5kg + minyak 2L + gula 1kg.
 
 ### Why
-Kebutuhan riil toko. Memisahkan pricing rule bundle (diskon) dari composite product (produk fisik baru).
+Kebutuhan riil toko. Memisahkan pricing rule bundle (diskon) dari composite product (product fisik baru).
 
 ---
 
@@ -631,7 +631,7 @@ Checkbox "Produk Gabungan (Composite)" → tampil tabel komponen:
 │ Beras 5kg            | 1                 │
 │ Minyak Goreng 2L     | 1                 │
 │ Gula Pasir 1kg       | 1                 │
-│ [Cari produk...]                         │
+│ [Cari product...]                         │
 └──────────────────────────────────────────┘
 Harga: Otomatis dari jumlah harga komponen
 Stok: Min(beras.stok, minyak.stok, gula.stok)

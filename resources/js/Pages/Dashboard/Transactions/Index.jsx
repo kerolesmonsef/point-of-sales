@@ -72,7 +72,9 @@ export default function Index({
     const [isSearching, setIsSearching] = useState(false);
     const [addingProductId, setAddingProductId] = useState(null);
     const [removingItemId, setRemovingItemId] = useState(null);
-    const [selectedCustomer, setSelectedCustomer] = useState(null);
+    const [selectedCustomer, setSelectedCustomer] = useState(
+        () => customers.find((c) => c.is_default) ?? null
+    );
     const [pricingPreview, setPricingPreview] = useState(initialPricingPreview);
     const [isLoadingPricing, setIsLoadingPricing] = useState(false);
     const [discountInput, setDiscountInput] = useState("");

@@ -15,12 +15,12 @@ Kembali ke indeks dokumentasi: `docs/README.md`
 
 ## Tujuan
 
-Menyediakan alur kasir cepat untuk pencarian produk, pengelolaan cart, checkout, hold/resume, dan distribusi dokumen transaksi.
+Menyediakan alur kasir cepat untuk pencarian product, pengelolaan cart, checkout, hold/resume, dan distribusi dokumen transaksi.
 
 ## Fitur Saat Ini
 
-- cari produk via pencarian teks (title/barcode) dengan hasil dipaginasi di sisi server (default 50/halaman, overridable via `?limit=`), filter `?search=` (title/barcode, `whereLike`) dan `?category=` di query SQL
-- filter `?show_zero_stock=1` untuk menyertakan produk stok 0 (default: hanya produk dengan stok > 0); toggle tersedia lewat ikon filter di toolbar produk POS
+- cari product via pencarian teks (title/barcode) dengan hasil dipaginasi di sisi server (default 50/halaman, overridable via `?limit=`), filter `?search=` (title/barcode, `whereLike`) dan `?category=` di query SQL
+- filter `?show_zero_stock=1` untuk menyertakan product stok 0 (default: hanya product dengan stok > 0); toggle tersedia lewat ikon filter di toolbar product POS
 - scan barcode: ketik barcode di kolom pencarian lalu Enter, sistem mencari ke database (`POST transactions.searchProduct`, stok per-gudang shift) dan langsung menambah ke cart
 - cart multi-item
 - update qty cart
@@ -57,7 +57,7 @@ Operasi transaksional tertentu juga mewajibkan middleware `active_shift`.
 ## Alur User
 
 1. kasir membuka halaman transaksi
-2. jika shift aktif, kasir dapat cari produk dan membangun cart
+2. jika shift aktif, kasir dapat cari product dan membangun cart
 3. cart dapat di-hold lalu di-resume
 4. checkout membuat transaksi, detail, profit, dan pengurangan stok
 5. jika `pay_later`, sistem membuat receivable

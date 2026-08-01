@@ -92,8 +92,8 @@
             margin-top: 5px
         }
 
-        th.produk,
-        td.produk {
+        th.product,
+        td.product {
             text-align: left
         }
 
@@ -233,7 +233,7 @@
     <table>
         <thead>
             <tr>
-                <th class="produk">Nama Produk</th>
+                <th class="product">Nama Produk</th>
                 <th class="qty">Qty</th>
                 <th class="right">Harga</th>
                 <th class="right">Subtotal</th>

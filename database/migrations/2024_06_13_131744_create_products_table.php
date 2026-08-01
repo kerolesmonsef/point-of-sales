@@ -23,6 +23,7 @@ return new class extends Migration
             $table->bigInteger('buy_price');
             $table->bigInteger('sell_price');
             $table->timestamps();
+            $table->softDeletes();
 
             // relationship categories
             $table->foreign('category_id')->references('id')->on('categories');

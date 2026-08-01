@@ -58,7 +58,7 @@ Secara arsitektur, routing dashboard dipusatkan di Laravel dengan middleware `au
 Modul utama dalam sistem ini meliputi:
 
 - POS dan transaksi kasir dengan cart, hold/resume, checkout, cetak receipt, dan histori transaksi.
-- Inventory dan katalog produk yang mencakup kategori, produk, pricing rules, mutasi stok, dan stock opname.
+- Inventory dan katalog product yang mencakup kategori, product, pricing rules, mutasi stok, dan stock opname.
 - Customer management, member management, segmentasi pelanggan, voucher pelanggan, dan automasi CRM dasar.
 - Pembelian dan supplier workflow melalui purchase order, goods receiving, hutang supplier, dan supplier return.
 - Pengelolaan receivable, payable, sales return, cashier shift, audit log, serta dokumen PDF operasional.
@@ -78,7 +78,7 @@ Dokumen PDF untuk invoice, receipt, shipping, receivable, dan payable dihasilkan
 
 ### Frontend
 
-Frontend dashboard dibangun menggunakan Inertia.js 2 dan React 18, sehingga pengalaman pengguna tetap terasa seperti SPA tetapi tetap mengikuti pola routing dan response dari Laravel. Struktur halaman dipisahkan per modul di `resources/js/Pages/Dashboard/`, misalnya untuk transaksi, produk, stock opname, receivables, payables, audit logs, cashier shifts, CRM, purchase order, goods receiving, supplier return, dan laporan.
+Frontend dashboard dibangun menggunakan Inertia.js 2 dan React 18, sehingga pengalaman pengguna tetap terasa seperti SPA tetapi tetap mengikuti pola routing dan response dari Laravel. Struktur halaman dipisahkan per modul di `resources/js/Pages/Dashboard/`, misalnya untuk transaksi, product, stock opname, receivables, payables, audit logs, cashier shifts, CRM, purchase order, goods receiving, supplier return, dan laporan.
 
 Untuk pengalaman penggunaan, aplikasi memanfaatkan Tailwind CSS 3 dengan semantic color token, Ziggy untuk helper routing di sisi React, `react-hot-toast` dan `sweetalert2` untuk feedback interaksi, serta `chart.js` untuk visualisasi laporan. Pendekatan ini membuat dashboard cukup konsisten untuk alur operasional yang padat, terutama pada POS, histori transaksi, monitoring stok, pengelolaan pelanggan, dan halaman laporan.
 
@@ -86,7 +86,7 @@ Untuk pengalaman penggunaan, aplikasi memanfaatkan Tailwind CSS 3 dengan semanti
 
 Project ini memiliki integrasi pembayaran dengan Midtrans dan Xendit melalui webhook API di `routes/api.php`. Sistem menyediakan `PaymentGatewayManager` beserta adapter gateway terpisah agar implementasi pembayaran tetap modular dan mudah dikembangkan untuk skenario callback maupun konfirmasi pembayaran.
 
-Selain payment gateway, aplikasi juga mengintegrasikan data wilayah Indonesia menggunakan `laravolt/indonesia`, barcode generator untuk kebutuhan identifikasi produk atau dokumen, Ziggy untuk sinkronisasi route Laravel ke React, serta storage publik Laravel untuk file seperti gambar produk.
+Selain payment gateway, aplikasi juga mengintegrasikan data wilayah Indonesia menggunakan `laravolt/indonesia`, barcode generator untuk kebutuhan identifikasi product atau dokumen, Ziggy untuk sinkronisasi route Laravel ke React, serta storage publik Laravel untuk file seperti gambar product.
 
 Integrasi penting lainnya ada pada dokumen publik dan internal: invoice publik, receipt cetak, shipping label, serta PDF finansial untuk piutang maupun hutang. Konfigurasi `APP_URL` menjadi elemen penting karena webhook pembayaran membutuhkan endpoint publik agar callback provider dapat bekerja dengan benar.
 

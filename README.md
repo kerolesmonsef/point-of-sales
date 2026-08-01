@@ -21,11 +21,11 @@ Sistem kasir berbasis Laravel + Inertia + React untuk transaksi penjualan, inven
 ## Fitur Utama
 
 ### POS & Transaksi
-- Pencarian produk via barcode / keyword
+- Pencarian product via barcode / keyword
 - Barcode scanner via kamera (PWA)
 - Cart multi-item dengan hold/resume
 - Checkout multi-metode: tunai, transfer bank, Midtrans, Xendit, pay later
-- Multi-satuan produk (pcs, box, kg, karton) dengan konversi stok otomatis
+- Multi-satuan product (pcs, box, kg, karton) dengan konversi stok otomatis
 - Multi-price list: harga berbeda per kelompok pelanggan
 - Promo engine: diskon, qty break, bundle, buy-x-get-y
 - Diskon dengan approval workflow
@@ -34,7 +34,7 @@ Sistem kasir berbasis Laravel + Inertia + React untuk transaksi penjualan, inven
 - Offline mode (queue transaksi saat offline, sync saat online)
 
 ### Inventory & Multi-Warehouse
-- Manajemen produk + kategori + barcode
+- Manajemen product + kategori + barcode
 - Stok terpisah per gudang/cabang
 - Transfer stok antar warehouse (draft → send → receive)
 - Stock opname per warehouse
@@ -71,12 +71,12 @@ Sistem kasir berbasis Laravel + Inertia + React untuk transaksi penjualan, inven
 - Advanced sales insights (hourly, cashier performance, repeat customer)
 - PDF invoice, receipt (80mm/58mm), shipping label
 - PDF receivable/payable
-- Export ke Excel (produk, customer, transaksi)
+- Export ke Excel (product, customer, transaksi)
 
 ### Admin
 - Full RBAC (users, roles, permissions)
 - Audit log (before/after snapshot)
-- Import produk & customer dari Excel
+- Import product & customer dari Excel
 - **App Versioning** — versi aplikasi terpusat (`APP_VERSION`), tampil di sidebar + POS navbar
 
 ### Integrasi
@@ -122,7 +122,7 @@ npm install && npm start
 ### Per Modul
 
 - POS & Transaksi, Sales Return, Cashier Shift
-- Inventory: produk, stock opname, mutation, warehouse, stock transfer, batch, composite
+- Inventory: product, stock opname, mutation, warehouse, stock transfer, batch, composite
 - Purchasing: PO, goods receiving, supplier return, payables
 - Finance: receivables, PPN
 - Pricing: pricing rules, price list, loyalty, vouchers
@@ -134,7 +134,7 @@ npm install && npm start
 
 1. **Permission cache stale setelah seeding** — logout lalu login lagi
 2. **Webhook Midtrans/Xendit tidak bekerja** — pastikan `APP_URL` public, bukan `localhost`
-3. **Gambar produk tidak tampil** — jalankan `php artisan storage:link`
+3. **Gambar product tidak tampil** — jalankan `php artisan storage:link`
 4. **Route error 500** — jalankan `php artisan migrate` untuk modul baru
 5. **Test gagal karena PPN** — pastikan `tax_rate=0` di test Product::create
 6. **Vite tidak jalan** — pastikan `npm run dev` berjalan, jangan hanya `php artisan serve`

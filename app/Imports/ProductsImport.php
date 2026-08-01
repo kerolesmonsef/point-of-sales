@@ -67,7 +67,7 @@ class ProductsImport implements ToModel, WithBatchInserts, WithChunkReading, Wit
         return [
             'barcode.required' => 'Barcode wajib diisi.',
             'barcode.unique' => 'Barcode sudah terdaftar.',
-            'nama.required' => 'Nama produk wajib diisi.',
+            'nama.required' => 'Nama product wajib diisi.',
         ];
     }
 

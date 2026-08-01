@@ -2,7 +2,7 @@
 
 ## Objective
 
-Memisahkan stok produk per lokasi fisik (gudang pusat, cabang toko, gudang penyangga). Saat ini `products.stock` adalah integer tunggal — semua produk punya satu stok global. Modul ini memungkinkan bisnis dengan >1 lokasi operasional.
+Memisahkan stok product per lokasi fisik (gudang pusat, cabang toko, gudang penyangga). Saat ini `products.stock` adalah integer tunggal — semua product punya satu stok global. Modul ini memungkinkan bisnis dengan >1 lokasi operasional.
 
 ## Why Now
 
@@ -150,7 +150,7 @@ Route::resource('settings/warehouses', WarehouseController::class)
 
 - CRUD warehouse (permission test per action)
 - Default warehouse dibuat saat seeding
-- Pivot terisi untuk produk existing
+- Pivot terisi untuk product existing
 - Soft guard: tidak bisa hapus warehouse yang masih punya stok
 
 ---
@@ -458,7 +458,7 @@ Buat reusable `WarehouseFilter.jsx` — dropdown yang muncul di:
 
 ## Rollout Strategy
 
-1. **Phase 1 (Foundation):** Bisa di-release sendiri. Semua produk existing otomatis masuk warehouse MAIN. Admin bisa manage warehouse. Tidak ada perubahan UX untuk kasir.
+1. **Phase 1 (Foundation):** Bisa di-release sendiri. Semua product existing otomatis masuk warehouse MAIN. Admin bisa manage warehouse. Tidak ada perubahan UX untuk kasir.
 2. **Phase 2 (Shift):** Setelah ini, kasir harus pilih warehouse saat buka shift. Backward compat: warehouse_id nullable, default ke MAIN.
 3. **Phase 3 (Transactions):** Transaksi mulai tercatat per warehouse. Stok dikurangi dari warehouse shift aktif.
 4. **Phase 4 (Purchasing):** PO, GR, supplier return, stock opname, sales return jadi warehouse-aware.

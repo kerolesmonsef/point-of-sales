@@ -126,14 +126,7 @@ class SampleDataSeeder extends Seeder
     private function seedCustomers(): Collection
     {
         $customers = collect([
-            ['name' => 'Andi Nugraha', 'no_telp' => '6281211111111', 'address' => 'Jl. Melati No. 21, Bandung', 'is_loyalty_member' => true, 'member_code' => 'MEM-ANDI001', 'loyalty_tier' => 'gold', 'loyalty_points' => 180, 'loyalty_total_spent' => 1800000, 'loyalty_transaction_count' => 12, 'loyalty_member_since' => now()->subMonths(8)],
-            ['name' => 'Bunga Maharani', 'no_telp' => '6281312345678', 'address' => 'Jl. Mawar No. 5, Jakarta', 'is_loyalty_member' => true, 'member_code' => 'MEM-BUNGA01', 'loyalty_tier' => 'silver', 'loyalty_points' => 60, 'loyalty_total_spent' => 780000, 'loyalty_transaction_count' => 6, 'loyalty_member_since' => now()->subMonths(4)],
-            ['name' => 'Cici Amelia', 'no_telp' => '6281512340000', 'address' => 'Jl. Anggrek No. 17, Surabaya'],
-            ['name' => 'Davin Pradipta', 'no_telp' => '6285612349911', 'address' => 'Jl. Kenanga No. 2, Yogyakarta'],
-            ['name' => 'Eko Saputra', 'no_telp' => '6287712348822', 'address' => 'Jl. Cemara No. 45, Semarang', 'is_loyalty_member' => true, 'member_code' => 'MEM-EKO0001', 'loyalty_tier' => 'platinum', 'loyalty_points' => 420, 'loyalty_total_spent' => 3600000, 'loyalty_transaction_count' => 21, 'loyalty_member_since' => now()->subYear()],
-            ['name' => 'Fitri Lestari', 'no_telp' => '6282213345566', 'address' => 'Jl. Sakura No. 7, Medan'],
-            ['name' => 'Gina Putri', 'no_telp' => '6281399887766', 'address' => 'Jl. Dahlia No. 12, Malang'],
-            ['name' => 'Hendra Wijaya', 'no_telp' => '6285544332211', 'address' => 'Jl. Flamboyan No. 8, Denpasar'],
+            ['name' => 'Daily Customer', 'no_telp' => '6280000000000', 'address' => '-', 'is_default' => true],
         ]);
 
         return $customers
@@ -197,10 +190,10 @@ class SampleDataSeeder extends Seeder
     private function seedSuppliers(): Collection
     {
         $suppliers = collect([
-            ['name' => 'PT Sumber Pangan Nusantara', 'phone' => '0215551001', 'email' => 'sales@sumberpangan.test', 'address' => 'Jl. Industri Pangan No. 10, Jakarta'],
-            ['name' => 'CV Makmur Jaya Distribusi', 'phone' => '0225551002', 'email' => 'order@makmurjaya.test', 'address' => 'Jl. Soekarno Hatta No. 88, Bandung'],
-            ['name' => 'PT Segar Sentosa Abadi', 'phone' => '0315551003', 'email' => 'hello@segarsentosa.test', 'address' => 'Jl. Raya Darmo No. 21, Surabaya'],
-            ['name' => 'UD Berkah Retail Grosir', 'phone' => '0245551004', 'email' => 'admin@berkahretail.test', 'address' => 'Jl. Pandanaran No. 45, Semarang'],
+            ['name' => 'PT Nusantara Food Source', 'phone' => '0215551001', 'email' => 'sales@foodsource.test', 'address' => 'Food Industry St. No. 10, Jakarta'],
+            ['name' => 'CV Prosperous Jaya Distribution', 'phone' => '0225551002', 'email' => 'order@prosperousjaya.test', 'address' => 'Soekarno Hatta St. No. 88, Bandung'],
+            ['name' => 'PT Fresh Prosperous Eternal', 'phone' => '0315551003', 'email' => 'hello@freshprosperous.test', 'address' => 'Darmo Road No. 21, Surabaya'],
+            ['name' => 'UD Blessed Retail Wholesale', 'phone' => '0245551004', 'email' => 'admin@blessedretail.test', 'address' => 'Pandanaran St. No. 45, Semarang'],
         ]);
 
         return $suppliers
@@ -216,43 +209,43 @@ class SampleDataSeeder extends Seeder
         // Categories with Unsplash image URLs (direct download links)
         $categories = collect([
             [
-                'name' => 'Minuman',
-                'description' => 'Aneka minuman segar dan kemasan',
+                'name' => 'Beverages',
+                'description' => 'Assorted fresh and packaged drinks',
                 'image_url' => 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&h=400&fit=crop',
             ],
             [
-                'name' => 'Makanan Ringan',
-                'description' => 'Camilan dan snack kemasan',
+                'name' => 'Snacks',
+                'description' => 'Packaged chips and snacks',
                 'image_url' => 'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=400&h=400&fit=crop',
             ],
             [
-                'name' => 'Makanan Berat',
-                'description' => 'Makanan siap saji dan frozen food',
+                'name' => 'Main Meals',
+                'description' => 'Ready meals and frozen food',
                 'image_url' => 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=400&fit=crop',
             ],
             [
-                'name' => 'Produk Susu',
-                'description' => 'Susu, yogurt, dan produk olahan susu',
+                'name' => 'Dairy Products',
+                'description' => 'Milk, yogurt, and dairy products',
                 'image_url' => 'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=400&h=400&fit=crop',
             ],
             [
-                'name' => 'Roti & Kue',
-                'description' => 'Roti segar dan aneka kue',
+                'name' => 'Bread & Pastries',
+                'description' => 'Fresh bread and assorted pastries',
                 'image_url' => 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=400&fit=crop',
             ],
             [
-                'name' => 'Bumbu & Rempah',
-                'description' => 'Bumbu masak dan rempah-rempah',
+                'name' => 'Spices & Seasonings',
+                'description' => 'Cooking spices and seasonings',
                 'image_url' => 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400&h=400&fit=crop',
             ],
             [
-                'name' => 'Perawatan Tubuh',
-                'description' => 'Sabun, shampoo, dan perawatan diri',
+                'name' => 'Body Care',
+                'description' => 'Soap, shampoo, and personal care',
                 'image_url' => 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=400&fit=crop',
             ],
             [
-                'name' => 'Kebutuhan Rumah',
-                'description' => 'Perlengkapan rumah tangga',
+                'name' => 'Household Needs',
+                'description' => 'Household supplies',
                 'image_url' => 'https://images.unsplash.com/photo-1583947215259-38e31be8751f?w=400&h=400&fit=crop',
             ],
         ]);
@@ -281,47 +274,47 @@ class SampleDataSeeder extends Seeder
         $warehouse = Warehouse::default();
         // Products with Unsplash image URLs
         $products = collect([
-            // Minuman
-            ['category' => 'Minuman', 'barcode' => 'MNM-0001', 'title' => 'Aqua Botol 600ml', 'description' => 'Air mineral murni dalam kemasan botol praktis', 'buy_price' => 3000, 'sell_price' => 5000, 'stock' => 200, 'image_url' => 'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=300&h=300&fit=crop'],
-            ['category' => 'Minuman', 'barcode' => 'MNM-0002', 'title' => 'Teh Botol Sosro 450ml', 'description' => 'Teh manis segar dalam kemasan botol', 'buy_price' => 4000, 'sell_price' => 6000, 'stock' => 150, 'image_url' => 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=300&h=300&fit=crop'],
-            ['category' => 'Minuman', 'barcode' => 'MNM-0003', 'title' => 'Kopi Susu Gula Aren', 'description' => 'Kopi susu dengan gula aren asli', 'buy_price' => 12000, 'sell_price' => 18000, 'stock' => 80, 'image_url' => 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=300&h=300&fit=crop'],
-            ['category' => 'Minuman', 'barcode' => 'MNM-0004', 'title' => 'Jus Jeruk Segar 500ml', 'description' => 'Jus jeruk murni tanpa pengawet', 'buy_price' => 8000, 'sell_price' => 12000, 'stock' => 60, 'image_url' => 'https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=300&h=300&fit=crop'],
+            // Beverages
+            ['category' => 'Beverages', 'barcode' => 'MNM-0001', 'title' => 'Aqua Bottled Water 600ml', 'description' => 'Pure mineral water in a convenient bottle', 'buy_price' => 3000, 'sell_price' => 5000, 'stock' => 200, 'image_url' => 'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=300&h=300&fit=crop'],
+            ['category' => 'Beverages', 'barcode' => 'MNM-0002', 'title' => 'Teh Botol Sosro 450ml', 'description' => 'Fresh sweet tea in a bottle', 'buy_price' => 4000, 'sell_price' => 6000, 'stock' => 150, 'image_url' => 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=300&h=300&fit=crop'],
+            ['category' => 'Beverages', 'barcode' => 'MNM-0003', 'title' => 'Palm Sugar Milk Coffee', 'description' => 'Coffee milk with authentic palm sugar', 'buy_price' => 12000, 'sell_price' => 18000, 'stock' => 80, 'image_url' => 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=300&h=300&fit=crop'],
+            ['category' => 'Beverages', 'barcode' => 'MNM-0004', 'title' => 'Fresh Orange Juice 500ml', 'description' => 'Pure orange juice with no preservatives', 'buy_price' => 8000, 'sell_price' => 12000, 'stock' => 60, 'image_url' => 'https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=300&h=300&fit=crop'],
 
-            // Makanan Ringan
-            ['category' => 'Makanan Ringan', 'barcode' => 'SNK-0001', 'title' => 'Chitato Original 68g', 'description' => 'Keripik kentang renyah rasa original', 'buy_price' => 8000, 'sell_price' => 12000, 'stock' => 120, 'image_url' => 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=300&h=300&fit=crop'],
-            ['category' => 'Makanan Ringan', 'barcode' => 'SNK-0002', 'title' => 'Oreo Vanilla 133g', 'description' => 'Biskuit sandwich dengan krim vanilla', 'buy_price' => 10000, 'sell_price' => 15000, 'stock' => 100, 'image_url' => 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=300&h=300&fit=crop'],
-            ['category' => 'Makanan Ringan', 'barcode' => 'SNK-0003', 'title' => 'Indomie Goreng', 'description' => 'Mie instant goreng favorit Indonesia', 'buy_price' => 2500, 'sell_price' => 3500, 'stock' => 300, 'image_url' => 'https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=300&h=300&fit=crop'],
-            ['category' => 'Makanan Ringan', 'barcode' => 'SNK-0004', 'title' => 'Pringles Sour Cream', 'description' => 'Keripik kentang premium rasa sour cream', 'buy_price' => 25000, 'sell_price' => 35000, 'stock' => 50, 'image_url' => 'https://images.unsplash.com/photo-1613919113640-25732ec5e61f?w=300&h=300&fit=crop'],
+            // Snacks
+            ['category' => 'Snacks', 'barcode' => 'SNK-0001', 'title' => 'Chitato Original 68g', 'description' => 'Crispy potato chips, original flavor', 'buy_price' => 8000, 'sell_price' => 12000, 'stock' => 120, 'image_url' => 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=300&h=300&fit=crop'],
+            ['category' => 'Snacks', 'barcode' => 'SNK-0002', 'title' => 'Oreo Vanilla 133g', 'description' => 'Sandwich cookies with vanilla cream', 'buy_price' => 10000, 'sell_price' => 15000, 'stock' => 100, 'image_url' => 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=300&h=300&fit=crop'],
+            ['category' => 'Snacks', 'barcode' => 'SNK-0003', 'title' => 'Indomie Fried Noodles', 'description' => "Indonesia's favorite fried instant noodles", 'buy_price' => 2500, 'sell_price' => 3500, 'stock' => 300, 'image_url' => 'https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=300&h=300&fit=crop'],
+            ['category' => 'Snacks', 'barcode' => 'SNK-0004', 'title' => 'Pringles Sour Cream', 'description' => 'Premium potato chips, sour cream flavor', 'buy_price' => 25000, 'sell_price' => 35000, 'stock' => 50, 'image_url' => 'https://images.unsplash.com/photo-1613919113640-25732ec5e61f?w=300&h=300&fit=crop'],
 
-            // Makanan Berat
-            ['category' => 'Makanan Berat', 'barcode' => 'MKN-0001', 'title' => 'Nasi Goreng Frozen', 'description' => 'Nasi goreng siap saji tinggal panaskan', 'buy_price' => 15000, 'sell_price' => 22000, 'stock' => 40, 'image_url' => 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=300&h=300&fit=crop'],
-            ['category' => 'Makanan Berat', 'barcode' => 'MKN-0002', 'title' => 'Ayam Goreng Frozen', 'description' => 'Ayam goreng krispy siap goreng', 'buy_price' => 25000, 'sell_price' => 38000, 'stock' => 35, 'image_url' => 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=300&h=300&fit=crop'],
-            ['category' => 'Makanan Berat', 'barcode' => 'MKN-0003', 'title' => 'Sosis Sapi 500g', 'description' => 'Sosis sapi premium isi 12 pcs', 'buy_price' => 35000, 'sell_price' => 48000, 'stock' => 45, 'image_url' => 'https://images.unsplash.com/photo-1587735243615-c03f25aaff15?w=300&h=300&fit=crop'],
+            // Main Meals
+            ['category' => 'Main Meals', 'barcode' => 'MKN-0001', 'title' => 'Frozen Fried Rice', 'description' => 'Ready-to-heat fried rice', 'buy_price' => 15000, 'sell_price' => 22000, 'stock' => 40, 'image_url' => 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=300&h=300&fit=crop'],
+            ['category' => 'Main Meals', 'barcode' => 'MKN-0002', 'title' => 'Frozen Fried Chicken', 'description' => 'Ready-to-fry crispy fried chicken', 'buy_price' => 25000, 'sell_price' => 38000, 'stock' => 35, 'image_url' => 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=300&h=300&fit=crop'],
+            ['category' => 'Main Meals', 'barcode' => 'MKN-0003', 'title' => 'Beef Sausage 500g', 'description' => 'Premium beef sausages, 12 pieces', 'buy_price' => 35000, 'sell_price' => 48000, 'stock' => 45, 'image_url' => 'https://images.unsplash.com/photo-1587735243615-c03f25aaff15?w=300&h=300&fit=crop'],
 
-            // Produk Susu
-            ['category' => 'Produk Susu', 'barcode' => 'SSU-0001', 'title' => 'Ultra Milk 1L', 'description' => 'Susu UHT full cream', 'buy_price' => 16000, 'sell_price' => 21000, 'stock' => 80, 'image_url' => 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=300&h=300&fit=crop'],
-            ['category' => 'Produk Susu', 'barcode' => 'SSU-0002', 'title' => 'Yogurt Cimory 250ml', 'description' => 'Yogurt drink rasa strawberry', 'buy_price' => 8000, 'sell_price' => 12000, 'stock' => 60, 'image_url' => 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=300&h=300&fit=crop'],
-            ['category' => 'Produk Susu', 'barcode' => 'SSU-0003', 'title' => 'Keju Cheddar 165g', 'description' => 'Keju cheddar slice praktis', 'buy_price' => 22000, 'sell_price' => 30000, 'stock' => 40, 'image_url' => 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=300&h=300&fit=crop'],
+            // Dairy Products
+            ['category' => 'Dairy Products', 'barcode' => 'SSU-0001', 'title' => 'Ultra Milk 1L', 'description' => 'UHT full cream milk', 'buy_price' => 16000, 'sell_price' => 21000, 'stock' => 80, 'image_url' => 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=300&h=300&fit=crop'],
+            ['category' => 'Dairy Products', 'barcode' => 'SSU-0002', 'title' => 'Cimory Yogurt Drink 250ml', 'description' => 'Strawberry yogurt drink', 'buy_price' => 8000, 'sell_price' => 12000, 'stock' => 60, 'image_url' => 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=300&h=300&fit=crop'],
+            ['category' => 'Dairy Products', 'barcode' => 'SSU-0003', 'title' => 'Cheddar Cheese 165g', 'description' => 'Convenient cheddar cheese slices', 'buy_price' => 22000, 'sell_price' => 30000, 'stock' => 40, 'image_url' => 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=300&h=300&fit=crop'],
 
-            // Roti & Kue
-            ['category' => 'Roti & Kue', 'barcode' => 'RTI-0001', 'title' => 'Roti Tawar Sari Roti', 'description' => 'Roti tawar lembut tanpa kulit', 'buy_price' => 12000, 'sell_price' => 16000, 'stock' => 50, 'image_url' => 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=300&h=300&fit=crop'],
-            ['category' => 'Roti & Kue', 'barcode' => 'RTI-0002', 'title' => 'Donat Coklat', 'description' => 'Donat lembut dengan topping coklat', 'buy_price' => 5000, 'sell_price' => 8000, 'stock' => 30, 'image_url' => 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=300&h=300&fit=crop'],
-            ['category' => 'Roti & Kue', 'barcode' => 'RTI-0003', 'title' => 'Croissant Butter', 'description' => 'Croissant dengan butter premium', 'buy_price' => 10000, 'sell_price' => 15000, 'stock' => 25, 'image_url' => 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=300&h=300&fit=crop'],
+            // Bread & Pastries
+            ['category' => 'Bread & Pastries', 'barcode' => 'RTI-0001', 'title' => 'Sari Roti Sandwich Bread', 'description' => 'Soft crustless sandwich bread', 'buy_price' => 12000, 'sell_price' => 16000, 'stock' => 50, 'image_url' => 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=300&h=300&fit=crop'],
+            ['category' => 'Bread & Pastries', 'barcode' => 'RTI-0002', 'title' => 'Chocolate Donut', 'description' => 'Soft donut with chocolate topping', 'buy_price' => 5000, 'sell_price' => 8000, 'stock' => 30, 'image_url' => 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=300&h=300&fit=crop'],
+            ['category' => 'Bread & Pastries', 'barcode' => 'RTI-0003', 'title' => 'Butter Croissant', 'description' => 'Croissant with premium butter', 'buy_price' => 10000, 'sell_price' => 15000, 'stock' => 25, 'image_url' => 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=300&h=300&fit=crop'],
 
-            // Bumbu & Rempah
-            ['category' => 'Bumbu & Rempah', 'barcode' => 'BMB-0001', 'title' => 'Kecap Manis ABC 600ml', 'description' => 'Kecap manis kualitas premium', 'buy_price' => 18000, 'sell_price' => 25000, 'stock' => 70, 'image_url' => 'https://images.unsplash.com/photo-1472476443507-c7a5948772fc?w=300&h=300&fit=crop'],
-            ['category' => 'Bumbu & Rempah', 'barcode' => 'BMB-0002', 'title' => 'Minyak Goreng 2L', 'description' => 'Minyak goreng sawit berkualitas', 'buy_price' => 28000, 'sell_price' => 38000, 'stock' => 90, 'image_url' => 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=300&h=300&fit=crop'],
-            ['category' => 'Bumbu & Rempah', 'barcode' => 'BMB-0003', 'title' => 'Gula Pasir 1kg', 'description' => 'Gula pasir putih premium', 'buy_price' => 14000, 'sell_price' => 18000, 'stock' => 100, 'image_url' => 'https://images.unsplash.com/photo-1581622558663-b2e33377dfb2?w=300&h=300&fit=crop'],
+            // Spices & Seasonings
+            ['category' => 'Spices & Seasonings', 'barcode' => 'BMB-0001', 'title' => 'ABC Sweet Soy Sauce 600ml', 'description' => 'Premium sweet soy sauce', 'buy_price' => 18000, 'sell_price' => 25000, 'stock' => 70, 'image_url' => 'https://images.unsplash.com/photo-1472476443507-c7a5948772fc?w=300&h=300&fit=crop'],
+            ['category' => 'Spices & Seasonings', 'barcode' => 'BMB-0002', 'title' => 'Cooking Oil 2L', 'description' => 'Quality palm cooking oil', 'buy_price' => 28000, 'sell_price' => 38000, 'stock' => 90, 'image_url' => 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=300&h=300&fit=crop'],
+            ['category' => 'Spices & Seasonings', 'barcode' => 'BMB-0003', 'title' => 'White Sugar 1kg', 'description' => 'Premium white sugar', 'buy_price' => 14000, 'sell_price' => 18000, 'stock' => 100, 'image_url' => 'https://images.unsplash.com/photo-1581622558663-b2e33377dfb2?w=300&h=300&fit=crop'],
 
-            // Perawatan Tubuh
-            ['category' => 'Perawatan Tubuh', 'barcode' => 'PRW-0001', 'title' => 'Sabun Lifebuoy 85g', 'description' => 'Sabun mandi antibakteri', 'buy_price' => 4000, 'sell_price' => 6500, 'stock' => 150, 'image_url' => 'https://images.unsplash.com/photo-1600857062241-98e5dba7f214?w=300&h=300&fit=crop'],
-            ['category' => 'Perawatan Tubuh', 'barcode' => 'PRW-0002', 'title' => 'Shampoo Pantene 170ml', 'description' => 'Shampoo anti rontok', 'buy_price' => 22000, 'sell_price' => 32000, 'stock' => 60, 'image_url' => 'https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?w=300&h=300&fit=crop'],
-            ['category' => 'Perawatan Tubuh', 'barcode' => 'PRW-0003', 'title' => 'Pasta Gigi Pepsodent 190g', 'description' => 'Pasta gigi pencegah gigi berlubang', 'buy_price' => 12000, 'sell_price' => 18000, 'stock' => 100, 'image_url' => 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=300&h=300&fit=crop'],
+            // Body Care
+            ['category' => 'Body Care', 'barcode' => 'PRW-0001', 'title' => 'Lifebuoy Soap 85g', 'description' => 'Antibacterial bath soap', 'buy_price' => 4000, 'sell_price' => 6500, 'stock' => 150, 'image_url' => 'https://images.unsplash.com/photo-1600857062241-98e5dba7f214?w=300&h=300&fit=crop'],
+            ['category' => 'Body Care', 'barcode' => 'PRW-0002', 'title' => 'Pantene Shampoo 170ml', 'description' => 'Anti-hair-loss shampoo', 'buy_price' => 22000, 'sell_price' => 32000, 'stock' => 60, 'image_url' => 'https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?w=300&h=300&fit=crop'],
+            ['category' => 'Body Care', 'barcode' => 'PRW-0003', 'title' => 'Pepsodent Toothpaste 190g', 'description' => 'Cavity-prevention toothpaste', 'buy_price' => 12000, 'sell_price' => 18000, 'stock' => 100, 'image_url' => 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=300&h=300&fit=crop'],
 
-            // Kebutuhan Rumah
-            ['category' => 'Kebutuhan Rumah', 'barcode' => 'RMH-0001', 'title' => 'Tisu Paseo 250 Sheet', 'description' => 'Tisu wajah lembut dan kuat', 'buy_price' => 15000, 'sell_price' => 22000, 'stock' => 80, 'image_url' => 'https://images.unsplash.com/photo-1584556812952-905ffd0c611a?w=300&h=300&fit=crop'],
-            ['category' => 'Kebutuhan Rumah', 'barcode' => 'RMH-0002', 'title' => 'Sabun Cuci Piring 800ml', 'description' => 'Sabun cuci piring anti lemak', 'buy_price' => 12000, 'sell_price' => 18000, 'stock' => 90, 'image_url' => 'https://images.unsplash.com/photo-1585441695325-21557ab93f7e?w=300&h=300&fit=crop'],
-            ['category' => 'Kebutuhan Rumah', 'barcode' => 'RMH-0003', 'title' => 'Pewangi Pakaian 900ml', 'description' => 'Pelembut dan pewangi pakaian', 'buy_price' => 18000, 'sell_price' => 26000, 'stock' => 70, 'image_url' => 'https://images.unsplash.com/photo-1626806819282-2c1dc01a5e0c?w=300&h=300&fit=crop'],
+            // Household Needs
+            ['category' => 'Household Needs', 'barcode' => 'RMH-0001', 'title' => 'Paseo Tissue 250 Sheets', 'description' => 'Soft and strong facial tissue', 'buy_price' => 15000, 'sell_price' => 22000, 'stock' => 80, 'image_url' => 'https://images.unsplash.com/photo-1584556812952-905ffd0c611a?w=300&h=300&fit=crop'],
+            ['category' => 'Household Needs', 'barcode' => 'RMH-0002', 'title' => 'Dish Soap 800ml', 'description' => 'Anti-grease dish soap', 'buy_price' => 12000, 'sell_price' => 18000, 'stock' => 90, 'image_url' => 'https://images.unsplash.com/photo-1585441695325-21557ab93f7e?w=300&h=300&fit=crop'],
+            ['category' => 'Household Needs', 'barcode' => 'RMH-0003', 'title' => 'Fabric Freshener 900ml', 'description' => 'Fabric softener and freshener', 'buy_price' => 18000, 'sell_price' => 26000, 'stock' => 70, 'image_url' => 'https://images.unsplash.com/photo-1626806819282-2c1dc01a5e0c?w=300&h=300&fit=crop'],
         ]);
 
         return $products->map(function ($product) use ($warehouse, $categories) {
@@ -526,7 +519,7 @@ class SampleDataSeeder extends Seeder
                 'paid' => $paid,
                 'due_date' => now()->addDays(($index + 1) * 7)->toDateString(),
                 'status' => $status,
-                'note' => 'Piutang dari transaksi penjualan '.$transaction->invoice,
+                'note' => 'Receivable from sales transaction '.$transaction->invoice,
             ]);
 
             if ($paid > 0) {
@@ -536,7 +529,7 @@ class SampleDataSeeder extends Seeder
                     'amount' => $paid,
                     'method' => 'cash',
                     'user_id' => $cashier?->id,
-                    'note' => 'Pembayaran awal piutang',
+                    'note' => 'Initial receivable payment',
                 ]);
             }
 
@@ -556,7 +549,7 @@ class SampleDataSeeder extends Seeder
                 'paid' => 50000,
                 'due_date' => now()->addDays(10)->toDateString(),
                 'status' => 'partial',
-                'note' => 'Piutang manual untuk pembelian grosir bulanan',
+                'note' => 'Manual receivable for monthly wholesale purchase',
             ],
             [
                 'customer' => 'Hendra Wijaya',
@@ -565,7 +558,7 @@ class SampleDataSeeder extends Seeder
                 'paid' => 0,
                 'due_date' => now()->subDays(3)->toDateString(),
                 'status' => 'overdue',
-                'note' => 'Piutang manual yang sudah melewati jatuh tempo',
+                'note' => 'Manual receivable past its due date',
             ],
         ];
 
@@ -593,7 +586,7 @@ class SampleDataSeeder extends Seeder
                     'amount' => $item['paid'],
                     'method' => 'bank_transfer',
                     'user_id' => $cashier?->id,
-                    'note' => 'Pembayaran sebagian piutang manual',
+                    'note' => 'Partial payment for manual receivable',
                 ]);
             }
         }
@@ -608,40 +601,40 @@ class SampleDataSeeder extends Seeder
 
         $blueprints = [
             [
-                'supplier' => 'PT Sumber Pangan Nusantara',
+                'supplier' => 'PT Nusantara Food Source',
                 'document_number' => 'PYB-0001',
                 'total' => 450000,
                 'paid' => 150000,
                 'due_date' => now()->addDays(14)->toDateString(),
                 'status' => 'partial',
-                'note' => 'Pengadaan stok minuman dan snack',
+                'note' => 'Procurement of beverages and snacks',
             ],
             [
-                'supplier' => 'CV Makmur Jaya Distribusi',
+                'supplier' => 'CV Prosperous Jaya Distribution',
                 'document_number' => 'PYB-0002',
                 'total' => 720000,
                 'paid' => 0,
                 'due_date' => now()->addDays(21)->toDateString(),
                 'status' => 'unpaid',
-                'note' => 'Pengadaan produk rumah tangga',
+                'note' => 'Procurement of household products',
             ],
             [
-                'supplier' => 'PT Segar Sentosa Abadi',
+                'supplier' => 'PT Fresh Prosperous Eternal',
                 'document_number' => 'PYB-0003',
                 'total' => 390000,
                 'paid' => 390000,
                 'due_date' => now()->subDays(2)->toDateString(),
                 'status' => 'paid',
-                'note' => 'Pembelian produk susu dan frozen food',
+                'note' => 'Purchase of dairy products and frozen food',
             ],
             [
-                'supplier' => 'UD Berkah Retail Grosir',
+                'supplier' => 'UD Blessed Retail Wholesale',
                 'document_number' => 'PYB-0004',
                 'total' => 510000,
                 'paid' => 100000,
                 'due_date' => now()->subDays(5)->toDateString(),
                 'status' => 'overdue',
-                'note' => 'Pengadaan barang campuran jatuh tempo',
+                'note' => 'Mixed goods procurement due',
             ],
         ];
 
@@ -669,7 +662,7 @@ class SampleDataSeeder extends Seeder
                     'amount' => $item['paid'],
                     'method' => 'bank_transfer',
                     'user_id' => $cashier?->id,
-                    'note' => 'Pembayaran hutang supplier',
+                    'note' => 'Supplier debt payment',
                 ]);
             }
         }

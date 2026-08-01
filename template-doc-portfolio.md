@@ -118,13 +118,13 @@ Backend dibangun dengan Laravel 12 dan memanfaatkan pola controller + service un
 
 Aplikasi memakai RBAC berbasis Spatie Laravel Permission. Hampir seluruh route dashboard dilindungi permission spesifik seperti akses dashboard, transaksi, laporan, settings, role, dan permission management. Untuk operasi transaksi POS, middleware `active_shift` memastikan kasir hanya bisa melakukan aksi penting ketika memiliki shift aktif. Beberapa aksi sensitif juga sudah dipisahkan untuk kebutuhan step-up authentication.
 
-Dari sisi data, project ini mencakup model operasional yang cukup lengkap: transaksi dan detail transaksi, produk, customer, supplier, receivable, payable, sales return, stock opname, stock mutation, cashier shift, bank account, payment setting, audit log, sampai modul CRM seperti segment, voucher, dan campaign. Untuk testing, project dikonfigurasi menggunakan SQLite in-memory agar pengujian lebih cepat dan terisolasi.
+Dari sisi data, project ini mencakup model operasional yang cukup lengkap: transaksi dan detail transaksi, product, customer, supplier, receivable, payable, sales return, stock opname, stock mutation, cashier shift, bank account, payment setting, audit log, sampai modul CRM seperti segment, voucher, dan campaign. Untuk testing, project dikonfigurasi menggunakan SQLite in-memory agar pengujian lebih cepat dan terisolasi.
 
 ### Frontend
 
 Frontend menggunakan Inertia.js 2 dan React 18 dengan struktur halaman di `resources/js/Pages/Dashboard`. Pendekatan ini membuat developer bisa membangun pengalaman dashboard yang responsif sambil tetap memanfaatkan routing, validation, dan server-side flow dari Laravel.
 
-UI dibangun dengan Tailwind CSS 3 dan komponen dashboard reusable seperti table, modal, widget, pagination, input, listbox, dan sidebar. Pada modul POS, alur kasir dipecah ke komponen yang jelas seperti pencarian produk, grid produk, cart panel, payment panel, held transactions, customer select, dan dukungan barcode scanner. Pendekatan ini membantu menjaga pengalaman transaksi tetap cepat walaupun fitur operasionalnya cukup banyak.
+UI dibangun dengan Tailwind CSS 3 dan komponen dashboard reusable seperti table, modal, widget, pagination, input, listbox, dan sidebar. Pada modul POS, alur kasir dipecah ke komponen yang jelas seperti pencarian product, grid product, cart panel, payment panel, held transactions, customer select, dan dukungan barcode scanner. Pendekatan ini membantu menjaga pengalaman transaksi tetap cepat walaupun fitur operasionalnya cukup banyak.
 
 ### Integrasi
 
@@ -147,7 +147,7 @@ Dampak utamanya bersifat struktural dan operasional:
 
 Project ini juga menunjukkan perhatian pada area keamanan dan maintainability. Repo sudah memiliki dokumentasi arsitektur, dokumentasi fitur per modul, serta roadmap peningkatan keamanan yang mencakup hardening auth, throttling, webhook hygiene, session policy, security headers, dan audit trail yang lebih kuat.
 
-Di level operasional, ada beberapa perhatian penting yang sudah terdokumentasi, seperti kebutuhan `APP_URL` publik untuk webhook, `storage:link` untuk gambar produk, migrasi tambahan untuk modul baru, dan refresh permission cache setelah seeding. Kombinasi dokumentasi, service layer, dan pembagian modul ini membuat project cukup siap untuk dikembangkan lebih lanjut.
+Di level operasional, ada beberapa perhatian penting yang sudah terdokumentasi, seperti kebutuhan `APP_URL` publik untuk webhook, `storage:link` untuk gambar product, migrasi tambahan untuk modul baru, dan refresh permission cache setelah seeding. Kombinasi dokumentasi, service layer, dan pembagian modul ini membuat project cukup siap untuk dikembangkan lebih lanjut.
 
 ---
 

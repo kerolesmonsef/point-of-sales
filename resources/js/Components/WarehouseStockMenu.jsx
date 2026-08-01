@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import {
     IconBuildingWarehouse,
     IconChevronDown,
+    IconPackage,
 } from "@tabler/icons-react";
 
 const POPOVER_WIDTH = 236;
@@ -23,12 +24,14 @@ export default function WarehouseStockMenu({
     product,
     label = __("Stock"),
     className = "",
+    allWarehouses = [],
 }) {
     const [open, setOpen] = useState(false);
     const [pos, setPos] = useState({ top: 0, left: 0 });
     const triggerRef = useRef(null);
 
-    const warehouses = product?.warehouses ?? [];
+    const warehouses =
+        product?.warehouses?.length > 0 ? product.warehouses : allWarehouses;
     const total = warehouses.reduce(
         (sum, w) => sum + Number(w.pivot?.stock ?? 0),
         0
@@ -104,6 +107,17 @@ export default function WarehouseStockMenu({
                     label ? "px-2" : "px-1"
                 } ${className}`}
             >
+                <IconPackage
+                    size={14}
+                    strokeWidth={1.5}
+                    className={
+                        total === 0
+                            ? "text-danger-500"
+                            : total <= 5
+                            ? "text-warning-500"
+                            : "text-success-500"
+                    }
+                />
                 {label && (
                     <span className="text-[11px] font-medium whitespace-nowrap">
                         {label}
