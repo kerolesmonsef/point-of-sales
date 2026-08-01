@@ -933,12 +933,16 @@ export default function Index({
                         {/* Payment Details - Scrollable */}
                         <div className="p-3 space-y-4">
                             {/* Pay later toggle */}
-                            <div className="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800">
+                            <div className={`flex items-center justify-between p-3 rounded-xl border transition-colors ${
+                                payLater
+                                    ? "border-primary-300 dark:border-primary-700 bg-primary-50 dark:bg-primary-950/30"
+                                    : "border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800"
+                            }`}>
                                 <div>
-                                    <p className="text-sm font-semibold text-slate-800 dark:text-white">
+                                    <p className={`text-sm font-semibold ${payLater ? "text-primary-700 dark:text-primary-300" : "text-slate-800 dark:text-white"}`}>
                                         {__("Pay Later")}
                                     </p>
-                                    <p className="text-xs text-slate-500">
+                                    <p className={`text-xs ${payLater ? "text-primary-600/80 dark:text-primary-400/80" : "text-slate-500"}`}>
                                         {__("No need to pay now, record as receivable.")}
                                     </p>
                                 </div>

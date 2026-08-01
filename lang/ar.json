@@ -1707,5 +1707,16 @@
     "User Management": "إدارة المستخدم",
     "Roles": "الأدوار",
     "Settings": "إعدادات",
-    "Payment Gateway": "بوابة الدفع"
+    "Payment Gateway": "بوابة الدفع",
+    "Purchase Price": "سعر الشراء",
+    "Selling Price": "سعر البيع",
+    "Min Stock": "مين ستوك",
+    "Max Stock": "ماكس ستوك",
+    "Tax Type": "نوع الضريبة",
+    "Tax Rate": "معدل الضريبة",
+    "Grid": "شبكة",
+    "Filters": "المرشحات",
+    "Product Filters": "مرشحات المنتج",
+    "Show zero-stock products": "عرض المنتجات الخالية من المخزون",
+    "Include products with no stock available.": "قم بتضمين المنتجات التي لا يوجد بها مخزون متاح."
 }
