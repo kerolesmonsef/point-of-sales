@@ -2,8 +2,8 @@ import React from "react";
 import {
     IconShoppingBag,
     IconPhoto,
-    IconMinus,
-    IconPlus,
+    IconLayoutGrid,
+    IconList,
 } from "@tabler/icons-react";
 import { getProductImageUrl } from "@/Utils/imageUrl";
 import { formatCurrency } from '@/Utils/formatCurrency';
@@ -39,13 +39,13 @@ function ProductCard({ product, onAddToCart, isAdding }) {
                     <img
                         src={getProductImageUrl(product.image)}
                         alt={product.title}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="w-full h-full object-cover"
                         loading="lazy"
                     />
                 ) : (
                     <div className="w-full h-full flex items-center justify-center">
                         <IconPhoto
-                            size={32}
+                            size={20}
                             className="text-slate-300 dark:text-slate-600"
                         />
                     </div>
@@ -53,13 +53,13 @@ function ProductCard({ product, onAddToCart, isAdding }) {
 
                 {/* Stock Badge */}
                 {lowStock && (
-                    <span className="absolute top-2 right-2 px-2 py-0.5 text-xs font-medium bg-warning-100 text-warning-700 dark:bg-warning-900/50 dark:text-warning-400 rounded-full">
+                    <span className="absolute top-1 right-1 px-1.5 py-px text-[10px] font-medium bg-warning-100 text-warning-700 dark:bg-warning-900/50 dark:text-warning-400 rounded-full">
                         {__("Remaining")} {product.stock}
                     </span>
                 )}
 
                 {showBadge && (
-                    <span className="absolute left-2 top-2 max-w-[70%] truncate rounded-full bg-rose-500 px-2 py-0.5 text-[11px] font-semibold text-white shadow-lg">
+                    <span className="absolute left-1 top-1 max-w-[60%] truncate rounded-full bg-rose-500 px-1.5 py-px text-[10px] font-semibold text-white shadow">
                         {promoBadge.label}
                     </span>
                 )}
@@ -67,7 +67,7 @@ function ProductCard({ product, onAddToCart, isAdding }) {
                 {/* Out of Stock Overlay */}
                 {!hasStock && (
                     <div className="absolute inset-0 bg-slate-900/60 flex items-center justify-center">
-                        <span className="px-3 py-1 bg-danger-500 text-white text-xs font-semibold rounded-full">
+                        <span className="px-2 py-0.5 bg-danger-500 text-white text-[10px] font-semibold rounded-full">
                             {__("Out of stock")}
                         </span>
                     </div>
@@ -76,32 +76,27 @@ function ProductCard({ product, onAddToCart, isAdding }) {
                 {/* Hover Add Indicator (centered on image) */}
                 {hasStock && (
                     <div className="absolute inset-0 bg-primary-500/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center justify-center">
-                        <div className="bg-primary-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                            + {__("Add")}
+                        <div className="bg-primary-500 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg">
+                            <IconShoppingBag size={15} />
                         </div>
                     </div>
                 )}
             </div>
 
             {/* Product Info */}
-            <div className="flex-1 p-3 flex flex-col justify-between min-h-[80px]">
-                <h3 className="text-sm font-medium text-slate-800 dark:text-slate-200 line-clamp-2 leading-tight">
+            <div className="flex-1 p-2 flex flex-col justify-between min-h-[56px] gap-1">
+                <h3 className="text-xs font-medium text-slate-800 dark:text-slate-200 line-clamp-1 leading-tight">
                     {product.title}
                 </h3>
-                <div className="mt-2">
+                <div>
                     {showPromo && (
-                        <p className="text-xs text-slate-400 line-through">
+                        <p className="text-[10px] text-slate-400 line-through">
                             {formatCurrency(basePrice)}
                         </p>
                     )}
-                    <p className="text-base font-bold text-primary-600 dark:text-primary-400">
+                    <p className="text-sm font-bold text-primary-600 dark:text-primary-400">
                         {formatCurrency(showPromo ? promoPrice : product.sell_price)}
                     </p>
-                    {showBadge && !showPromo && (
-                        <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
-                            {__("Promo available")}
-                        </p>
-                    )}
                 </div>
             </div>
 
@@ -167,6 +162,35 @@ function SearchInput({
     );
 }
 
+// View Toggle (Grid / List)
+function ViewToggle({ viewMode, onViewModeChange }) {
+    const options = [
+        { value: "grid", icon: IconLayoutGrid, label: __("Grid") },
+        { value: "list", icon: IconList, label: __("List") },
+    ];
+
+    return (
+        <div className="flex items-center gap-1 rounded-xl bg-slate-100 dark:bg-slate-800 p-1">
+            {options.map(({ value, icon: Icon, label }) => (
+                <button
+                    key={value}
+                    type="button"
+                    onClick={() => onViewModeChange(value)}
+                    title={label}
+                    aria-label={label}
+                    className={`w-9 h-8 rounded-lg flex items-center justify-center transition-all ${
+                        viewMode === value
+                            ? "bg-white dark:bg-slate-700 text-primary-600 dark:text-primary-400 shadow-sm"
+                            : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                    }`}
+                >
+                    <Icon size={18} />
+                </button>
+            ))}
+        </div>
+    );
+}
+
 // Main ProductGrid Component
 export default function ProductGrid({
     products = [],
@@ -180,6 +204,8 @@ export default function ProductGrid({
     onAddToCart,
     addingProductId,
     searchInputRef,
+    viewMode = "grid",
+    onViewModeChange,
 }) {
     const normalizedSelectedCategory =
         selectedCategory === null ? null : Number(selectedCategory);
@@ -188,14 +214,22 @@ export default function ProductGrid({
         <div className="h-full flex flex-col">
             {/* Search Bar */}
             <div className="p-4 border-b border-slate-200 dark:border-slate-800">
-                <SearchInput
-                    value={searchQuery}
-                    onChange={onSearchChange}
-                    onSearch={onSearchEnter}
-                    isSearching={isSearching}
-                    placeholder={__("Search products or scan barcode... (press / to focus)")}
-                    inputRef={searchInputRef}
-                />
+                <div className="flex items-center gap-2">
+                    <div className="flex-1 min-w-0">
+                        <SearchInput
+                            value={searchQuery}
+                            onChange={onSearchChange}
+                            onSearch={onSearchEnter}
+                            isSearching={isSearching}
+                            placeholder={__("Search products or scan barcode... (press / to focus)")}
+                            inputRef={searchInputRef}
+                        />
+                    </div>
+                    <ViewToggle
+                        viewMode={viewMode}
+                        onViewModeChange={onViewModeChange}
+                    />
+                </div>
             </div>
 
             {/* Category Tabs */}
@@ -221,9 +255,9 @@ export default function ProductGrid({
             </div>
 
             {/* Products Grid */}
-            <div className="flex-1 overflow-y-auto p-4 scrollbar-thin">
+            <div className="flex-1 overflow-y-auto p-3 scrollbar-thin">
                 {products.length > 0 ? (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+                    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8 gap-2.5">
                         {products.map((product) => (
                             <ProductCard
                                 key={product.id}
@@ -256,3 +290,4 @@ export default function ProductGrid({
 ProductGrid.Card = ProductCard;
 ProductGrid.CategoryTab = CategoryTab;
 ProductGrid.SearchInput = SearchInput;
+ProductGrid.ViewToggle = ViewToggle;

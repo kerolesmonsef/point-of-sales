@@ -117,6 +117,7 @@ PermissionSeeder → RoleSeeder → UserSeeder → PaymentSettingSeeder → Samp
 ## Workflow
 
 - **Before implementing any new feature, search online for best UI/UX patterns** — look for how established apps (Shopify, WooCommerce, modern admin dashboards) handle the same pattern. Don't guess, learn from proven designs.
+- **Do NOT run browser/manual testing (Playwright, manual-tester skill) of implemented features unless the user explicitly asks.** Backend changes are verified via `php artisan test`; frontend changes via build/lint. Browser testing is only done on explicit request.
 
 ## Frontend
 

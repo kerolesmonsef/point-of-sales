@@ -150,6 +150,30 @@ class ProductCrudTest extends TestCase
             );
     }
 
+    public function test_index_filters_products_by_warehouse(): void
+    {
+        $this->createDefaultProduct();
+
+        $branch = Warehouse::create([
+            'code' => 'BRANCH',
+            'name' => 'Branch warehouse',
+            'type' => 'branch',
+            'is_active' => true,
+            'sort_order' => 1,
+        ]);
+        $branchProduct = $this->createProductWithBarcode('BRC-BRANCH', 'Produk Cabang');
+        $branchProduct->warehouses()->attach($branch->id, ['stock' => 5]);
+
+        $this->actingAs($this->admin)
+            ->get(route('products.index', ['warehouse_id' => $branch->id]))
+            ->assertOk()
+            ->assertInertia(fn (Assert $page) => $page
+                ->has('products.data', 1)
+                ->where('products.data.0.title', 'Produk Cabang')
+                ->where('filters.warehouse_id', (string) $branch->id)
+            );
+    }
+
     public function test_create_page_renders(): void
     {
         $this->actingAs($this->admin)

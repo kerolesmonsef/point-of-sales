@@ -17,7 +17,6 @@ import {
     IconUpload,
     IconDownload,
 } from "@tabler/icons-react";
-import Search from "@/Components/Dashboard/Search";
 import Table from "@/Components/Dashboard/Table";
 import Pagination from "@/Components/Dashboard/Pagination";
 import { getProductImageUrl } from "@/Utils/imageUrl";
@@ -162,7 +161,7 @@ function ProductCard({
     );
 }
 
-export default function Index({ products }) {
+export default function Index({ products, warehouses = [], filters }) {
     const { can } = useAuthorization();
     const [viewMode, setViewMode] = useState("list"); // 'grid' | 'list'
     const [showBarcodeModal, setShowBarcodeModal] = useState(false);
@@ -171,6 +170,20 @@ export default function Index({ products }) {
     const canCreateProducts = can("products-create");
     const canEditProducts = can("products-edit");
     const canDeleteProducts = can("products-delete");
+
+    const handleFilterChange = (key, value) => {
+        router.get(
+            route("products.index"),
+            {
+                ...filters,
+                [key]: value,
+            },
+            {
+                preserveState: true,
+                replace: true,
+            }
+        );
+    };
 
     const handlePrintSingleBarcode = (product) => {
         setSingleProductBarcode(product);
@@ -286,13 +299,33 @@ export default function Index({ products }) {
 
             {/* Toolbar */}
             <div className="mb-4 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
-                <div className="flex items-center gap-3">
-                    <div className="w-full sm:w-80">
-                        <Search
-                            url={route("products.index")}
+                <div className="flex flex-wrap items-center gap-3">
+                    <div className="relative w-full sm:w-64">
+                        <input
+                            type="text"
+                            value={filters.search || ""}
+                            onChange={(event) =>
+                                handleFilterChange("search", event.target.value)
+                            }
                             placeholder={__("Search products...")}
+                            className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 pr-11 pl-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                         />
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
+                            <IconSearch size={18} />
+                        </div>
                     </div>
+                    <select
+                        value={filters.warehouse_id || ""}
+                        onChange={(event) =>
+                            handleFilterChange("warehouse_id", event.target.value)
+                        }
+                        className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                    >
+                        <option value="">{__("All Warehouses")}</option>
+                        {warehouses.map((w) => (
+                            <option key={w.id} value={w.id}>{w.code} — {w.name}</option>
+                        ))}
+                    </select>
                     {/* Select All Checkbox */}
                     <label className="flex items-center gap-2 cursor-pointer">
                         <input

@@ -82,6 +82,7 @@ export default function Index({
     const [dueDate, setDueDate] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [mobileView, setMobileView] = useState("products"); // 'products' | 'cart'
+    const [viewMode, setViewMode] = useState("grid"); // 'grid' | 'list'
     const [numpadOpen, setNumpadOpen] = useState(false);
     const [showShortcuts, setShowShortcuts] = useState(false);
     const [selectedVoucherId, setSelectedVoucherId] = useState("");
@@ -703,6 +704,8 @@ export default function Index({
                         onAddToCart={handleAddToCart}
                         addingProductId={addingProductId}
                         searchInputRef={searchInputRef}
+                        viewMode={viewMode}
+                        onViewModeChange={setViewMode}
                     />
 
                     {products?.last_page > 1 && (

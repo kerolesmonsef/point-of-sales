@@ -30,6 +30,8 @@ class ProductController extends Controller
     {
         $products = Product::when($request->search, function ($products, $search) {
             $products = $products->where('title', 'like', '%'.$search.'%');
+        })->when($request->warehouse_id, function ($products, $warehouseId) {
+            $products = $products->whereHas('warehouses', fn ($query) => $query->where('warehouse_id', $warehouseId));
         })->with('category')->latest()->paginate(15);
 
         $warehouses = Warehouse::active()->orderBy('code')->get(['id', 'code', 'name']);
@@ -37,6 +39,10 @@ class ProductController extends Controller
         return Inertia::render('Dashboard/Products/Index', [
             'products' => $products,
             'warehouses' => $warehouses,
+            'filters' => [
+                'search' => $request->search,
+                'warehouse_id' => $request->warehouse_id,
+            ],
         ]);
     }
 
