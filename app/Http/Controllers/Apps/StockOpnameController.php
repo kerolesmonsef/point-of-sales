@@ -230,18 +230,21 @@ class StockOpnameController extends Controller
                     continue;
                 }
 
-                $stockBefore = (int) $product->stock;
+                $warehouseId = $stockOpname->warehouse_id ?? Warehouse::default()?->id;
+
+                $stockBefore = $warehouseId
+                    ? (int) (ProductWarehouse::where([
+                        'product_id' => $product->id,
+                        'warehouse_id' => $warehouseId,
+                    ])->value('stock') ?? 0)
+                    : (int) $product->stock;
                 $stockAfter = (int) $item->physical_stock;
 
-                $product->update([
-                    'stock' => $stockAfter,
-                ]);
-
                 // Update pivot stock for warehouse
-                if ($stockOpname->warehouse_id) {
+                if ($warehouseId) {
                     ProductWarehouse::where([
                         'product_id' => $product->id,
-                        'warehouse_id' => $stockOpname->warehouse_id,
+                        'warehouse_id' => $warehouseId,
                     ])->update(['stock' => $stockAfter]);
                 }
 
