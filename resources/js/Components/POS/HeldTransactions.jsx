@@ -197,7 +197,7 @@ export function HoldButton({ hasItems = false, onHold, isHolding = false }) {
                     value={label}
                     onChange={(e) => setLabel(e.target.value)}
                     placeholder={__("Label (optional)")}
-                    className="flex-1 h-8 px-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm"
+                    className="flex-1 h-8 px-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-900 text-sm"
                     autoFocus
                     onKeyDown={(e) => {
                         if (e.key === "Enter") handleHold();

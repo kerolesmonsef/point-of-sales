@@ -174,7 +174,7 @@ export default function Create() {
                                                 e.target.value
                                             )
                                         }
-                                        className="mt-2 w-full h-11 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 text-sm"
+                                        className="mt-2 w-full h-11 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-900 px-3 text-sm"
                                     >
                                         {tierOptions.map((tier) => (
                                             <option
@@ -197,7 +197,7 @@ export default function Create() {
                                 <select
                                     value={data.province_id}
                                     onChange={(e) => setData("province_id", e.target.value)}
-                                    className="w-full h-11 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 text-sm"
+                                    className="w-full h-11 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 px-3 text-sm"
                                 >
                                     <option value="">{__("Select Province")}</option>
                                     {provinces.map((prov) => (
@@ -219,7 +219,7 @@ export default function Create() {
                                 <select
                                     value={data.regency_id}
                                     onChange={(e) => setData("regency_id", e.target.value)}
-                                    className="w-full h-11 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 text-sm"
+                                    className="w-full h-11 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 px-3 text-sm"
                                     disabled={!data.province_id}
                                 >
                                     <option value="">{__("Select City/Regency")}</option>
@@ -245,7 +245,7 @@ export default function Create() {
                                 <select
                                     value={data.district_id}
                                     onChange={(e) => setData("district_id", e.target.value)}
-                                    className="w-full h-11 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 text-sm"
+                                    className="w-full h-11 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 px-3 text-sm"
                                     disabled={!data.regency_id}
                                 >
                                     <option value="">{__("Select District")}</option>
@@ -271,7 +271,7 @@ export default function Create() {
                                         const val = e.target.value;
                                         setData("village_id", val);
                                     }}
-                                    className="w-full h-11 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 text-sm"
+                                    className="w-full h-11 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 px-3 text-sm"
                                     disabled={!data.district_id}
                                 >
                                     <option value="">{__("Select Village")}</option>

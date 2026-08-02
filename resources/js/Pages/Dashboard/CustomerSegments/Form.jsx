@@ -91,7 +91,7 @@ export default function Form({ mode = "create", segment = null }) {
                                     type="text"
                                     value={data.name}
                                     onChange={(event) => setData("name", event.target.value)}
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 />
                                 <InputError message={errors.name} />
                             </div>
@@ -102,7 +102,7 @@ export default function Form({ mode = "create", segment = null }) {
                                 <select
                                     value={data.type}
                                     onChange={(event) => setData("type", event.target.value)}
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
                                     <option value="manual">{__("Manual Tag")}</option>
                                     <option value="auto">{__("Auto Segment")}</option>
@@ -145,7 +145,7 @@ export default function Form({ mode = "create", segment = null }) {
                                     <select
                                         value={data.auto_rule_type}
                                         onChange={(event) => setData("auto_rule_type", event.target.value)}
-                                        className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                        className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                     >
                                         <option value="spending">{__("Spending")}</option>
                                         <option value="purchase_frequency">{__("Purchase Frequency")}</option>
@@ -163,7 +163,7 @@ export default function Form({ mode = "create", segment = null }) {
                                             min="0"
                                             value={data.rule_config.min_total_spent}
                                             onChange={(event) => setRuleConfig("min_total_spent", event.target.value)}
-                                            className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                            className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                         />
                                     </div>
                                 )}
@@ -179,7 +179,7 @@ export default function Form({ mode = "create", segment = null }) {
                                                 min="0"
                                                 value={data.rule_config.min_transaction_count}
                                                 onChange={(event) => setRuleConfig("min_transaction_count", event.target.value)}
-                                                className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                                className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                             />
                                         </div>
                                         <div>
@@ -202,7 +202,7 @@ export default function Form({ mode = "create", segment = null }) {
                                                         event.target.value
                                                     )
                                                 }
-                                                className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                                className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                             />
                                         </div>
                                     </>

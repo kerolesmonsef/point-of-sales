@@ -383,7 +383,7 @@ export default function Show({
                                                                 event.target.value
                                                             )
                                                         }
-                                                        className="h-10 w-24 rounded-lg border border-slate-200 bg-slate-50 px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                                        className="h-10 w-24 rounded-lg border border-slate-300 bg-white shadow-sm px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                                     />
                                                 </Table.Td>
                                                 <Table.Td>
@@ -420,7 +420,7 @@ export default function Show({
                                                                 ? __("Reason required")
                                                                 : __("Not needed")
                                                         }
-                                                        className="h-10 w-full min-w-48 rounded-lg border border-slate-200 bg-slate-50 px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                                        className="h-10 w-full min-w-48 rounded-lg border border-slate-300 bg-white shadow-sm px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                                     />
                                                 </Table.Td>
                                                 <Table.Td className="text-center">
@@ -474,7 +474,7 @@ export default function Show({
                                 notesForm.setData("notes", event.target.value)
                             }
                             rows={4}
-                            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                            className="w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                             placeholder={__("Stock opname session notes")}
                         />
                         {canManageDraft && (
@@ -531,7 +531,7 @@ export default function Show({
                                 setProductSearchInput(event.target.value)
                             }
                             placeholder={__("Search product name or barcode...")}
-                            className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 pr-11 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                            className="h-12 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 pr-11 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                         />
                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
                             <IconSearch size={18} />

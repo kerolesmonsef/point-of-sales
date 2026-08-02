@@ -90,7 +90,7 @@ export default function SuppliersIndex({ suppliers = [] }) {
                             {__("Name")}
                         </label>
                         <input
-                            className="w-full h-11 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm"
+                            className="w-full h-11 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-sm"
                             value={data.name}
                             onChange={(e) => setData("name", e.target.value)}
                             required
@@ -101,7 +101,7 @@ export default function SuppliersIndex({ suppliers = [] }) {
                             {__("Phone")}
                         </label>
                         <input
-                            className="w-full h-11 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm"
+                            className="w-full h-11 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-sm"
                             value={data.phone}
                             onChange={(e) => setData("phone", e.target.value)}
                         />
@@ -111,7 +111,7 @@ export default function SuppliersIndex({ suppliers = [] }) {
                             {__("Email")}
                         </label>
                         <input
-                            className="w-full h-11 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm"
+                            className="w-full h-11 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-sm"
                             value={data.email}
                             onChange={(e) => setData("email", e.target.value)}
                             type="email"

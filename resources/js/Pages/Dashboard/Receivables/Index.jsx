@@ -232,7 +232,7 @@ export default function ReceivablesIndex({ receivables, filters = {} }) {
                                     value={search}
                                     onChange={(e) => setSearch(e.target.value)}
                                     placeholder={__("Search invoice / note number")}
-                                    className="w-full h-11 pl-10 pr-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                                    className="w-full h-11 pl-10 pr-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                                 />
                             </div>
                             <div className="relative w-full">
@@ -240,7 +240,7 @@ export default function ReceivablesIndex({ receivables, filters = {} }) {
                                 <select
                                     value={status}
                                     onChange={(e) => setStatus(e.target.value)}
-                                    className="w-full h-11 pl-10 pr-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                                    className="w-full h-11 pl-10 pr-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                                 >
                                     <option value="">{__("All Status")}</option>
                                     <option value="unpaid">{__("Unpaid")}</option>

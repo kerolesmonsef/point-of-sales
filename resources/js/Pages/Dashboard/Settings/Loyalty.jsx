@@ -105,7 +105,7 @@ export default function Loyalty({ settings }) {
                                                 event.target.value
                                             )
                                         }
-                                        className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                        className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                     />
                                     {errors.earn_rate_amount && (
                                         <p className="mt-1 text-xs text-rose-500">
@@ -128,7 +128,7 @@ export default function Loyalty({ settings }) {
                                                 event.target.value
                                             )
                                         }
-                                        className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                        className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                     />
                                     {errors.redeem_point_value && (
                                         <p className="mt-1 text-xs text-rose-500">
@@ -170,7 +170,7 @@ export default function Loyalty({ settings }) {
                                                     [tier.key]: event.target.value,
                                                 })
                                             }
-                                            className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                            className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                         />
                                     </div>
                                 ))}

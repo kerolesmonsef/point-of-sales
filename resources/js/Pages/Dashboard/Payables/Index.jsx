@@ -100,7 +100,7 @@ export default function PayablesIndex({ payables, filters = {}, suppliers = [] }
                         <select
                             value={data.supplier_id}
                             onChange={(e) => setData("supplier_id", e.target.value)}
-                            className="w-full h-11 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm"
+                            className="w-full h-11 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-sm"
                         >
                             <option value="">{__("General")}</option>
                             {suppliers.map((s) => (
@@ -117,7 +117,7 @@ export default function PayablesIndex({ payables, filters = {}, suppliers = [] }
                         <input
                             value={data.document_number}
                             onChange={(e) => setData("document_number", e.target.value)}
-                            className="w-full h-11 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm"
+                            className="w-full h-11 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-sm"
                             placeholder={__("Optional")}
                         />
                     </div>
@@ -130,7 +130,7 @@ export default function PayablesIndex({ payables, filters = {}, suppliers = [] }
                             min="1"
                             value={data.total}
                             onChange={(e) => setData("total", e.target.value)}
-                            className="w-full h-11 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm"
+                            className="w-full h-11 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-sm"
                             required
                         />
                         {errors.total && <p className="text-xs text-danger-500">{errors.total}</p>}
@@ -143,7 +143,7 @@ export default function PayablesIndex({ payables, filters = {}, suppliers = [] }
                             type="date"
                             value={data.due_date}
                             onChange={(e) => setData("due_date", e.target.value)}
-                            className="w-full h-11 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm"
+                            className="w-full h-11 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-sm"
                         />
                     </div>
                     <div className="flex items-end">
@@ -184,14 +184,14 @@ export default function PayablesIndex({ payables, filters = {}, suppliers = [] }
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             placeholder={__("Search document number")}
-                            className="w-full h-11 pl-10 pr-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm"
+                            className="w-full h-11 pl-10 pr-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-sm"
                         />
                     </div>
                     <div className="w-full">
                         <select
                             value={supplierId}
                             onChange={(e) => setSupplierId(e.target.value)}
-                            className="w-full h-11 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm"
+                            className="w-full h-11 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-sm"
                         >
                             <option value="">{__("All Suppliers")}</option>
                             {suppliers.map((s) => (
@@ -209,7 +209,7 @@ export default function PayablesIndex({ payables, filters = {}, suppliers = [] }
                         <select
                             value={status}
                             onChange={(e) => setStatus(e.target.value)}
-                            className="w-full h-11 pl-10 pr-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm"
+                            className="w-full h-11 pl-10 pr-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-sm"
                         >
                             <option value="">{__("All Status")}</option>
                             <option value="unpaid">{__("Unpaid")}</option>

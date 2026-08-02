@@ -62,7 +62,7 @@ export default function Index({
                             user_id: event.target.value,
                         })
                     }
-                    className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                    className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                 >
                     <option value="">{__("All Actors")}</option>
                     {users.map((user) => (
@@ -80,7 +80,7 @@ export default function Index({
                             module: event.target.value,
                         })
                     }
-                    className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                    className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                 >
                     <option value="">{__("All Modules")}</option>
                     {modules.map((module) => (
@@ -98,7 +98,7 @@ export default function Index({
                             event: event.target.value,
                         })
                     }
-                    className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                    className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                 >
                     <option value="">{__("All Events")}</option>
                     {events.map((eventName) => (
@@ -117,7 +117,7 @@ export default function Index({
                             date_from: event.target.value,
                         })
                     }
-                    className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                    className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                 />
 
                 <input
@@ -129,7 +129,7 @@ export default function Index({
                             date_to: event.target.value,
                         })
                     }
-                    className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                    className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                 />
 
                 <input
@@ -142,7 +142,7 @@ export default function Index({
                         })
                     }
                     placeholder={__("Search target or description")}
-                    className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                    className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                 />
             </div>
 

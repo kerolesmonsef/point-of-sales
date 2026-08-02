@@ -50,16 +50,16 @@ export default function Show({ order }) {
     const placeOrder = () => {
         router.post(route("purchase-orders.place", order.id), {}, {
             preserveScroll: true,
-            onSuccess: () => toast.success(__("PO successfully ordered")),
-            onError: () => toast.error(__("Failed to place PO order")),
+            onSuccess: () => toast.success(__("Purchase Order successfully ordered")),
+            onError: () => toast.error(__("Failed to place purchase order")),
         });
     };
 
     const cancelOrder = () => {
         router.post(route("purchase-orders.cancel", order.id), {}, {
             preserveScroll: true,
-            onSuccess: () => toast.success(__("PO cancelled")),
-            onError: () => toast.error(__("Failed to cancel PO")),
+            onSuccess: () => toast.success(__("Purchase Order cancelled")),
+            onError: () => toast.error(__("Failed to cancel purchase order")),
         });
     };
 
@@ -75,7 +75,7 @@ export default function Show({ order }) {
                     className="mb-3 inline-flex items-center gap-2 text-sm text-slate-500 hover:text-primary-600"
                 >
                     <IconArrowLeft size={16} />
-                    {__("Back to PO list")}
+                    {__("Back to Purchase Order list")}
                 </Link>
                 <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                     <div>
@@ -107,7 +107,7 @@ export default function Show({ order }) {
                                 type="button"
                                 icon={<IconCircleX size={18} />}
                                 className="bg-rose-500 hover:bg-rose-600 text-white"
-                                label={__("Cancel PO")}
+                                label={__("Cancel Purchase Order")}
                                 onClick={cancelOrder}
                             />
                         )}
@@ -167,7 +167,7 @@ export default function Show({ order }) {
                                     })
                                 ) : (
                                     <Table.Empty colSpan={6} message={
-                                        <div className="text-slate-500 dark:text-slate-400">{__("No items on this PO.")}</div>
+                                        <div className="text-slate-500 dark:text-slate-400">{__("No items on this purchase order.")}</div>
                                     }>
                                         <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800">
                                             <IconPackage size={28} className="text-slate-400" />
@@ -252,9 +252,9 @@ export default function Show({ order }) {
                         <h2 className="mb-4 text-lg font-semibold text-slate-900 dark:text-white">{__("Information")}</h2>
                         <div className="space-y-3 text-sm text-slate-500 dark:text-slate-400">
                             <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800">
-                                <p className="font-medium text-slate-700 dark:text-slate-200">{__("PO Flow")}</p>
+                                <p className="font-medium text-slate-700 dark:text-slate-200">{__("Purchase Order Flow")}</p>
                                 <ul className="mt-2 space-y-2">
-                                    <li>{__("1. Create PO with Draft status.")}</li>
+                                    <li>{__("1. Create Purchase Order with Draft status.")}</li>
                                     <li>{__("2. Order to supplier to change status to Ordered.")}</li>
                                     <li>{__("3. Receive goods via the Receive Goods menu.")}</li>
                                     <li>{__("4. Supplier payable will be recorded automatically.")}</li>

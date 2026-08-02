@@ -72,7 +72,7 @@ export default function Form({ mode = "create", campaign = null, audienceOptions
                                     type="text"
                                     value={data.name}
                                     onChange={(event) => setData("name", event.target.value)}
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 />
                             </div>
                             <div>
@@ -80,7 +80,7 @@ export default function Form({ mode = "create", campaign = null, audienceOptions
                                 <select
                                     value={data.type}
                                     onChange={(event) => setData("type", event.target.value)}
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
                                     <option value="promo_broadcast">{__("Promo Broadcast")}</option>
                                     <option value="due_date_reminder">{__("Due Date Reminder")}</option>
@@ -92,7 +92,7 @@ export default function Form({ mode = "create", campaign = null, audienceOptions
                                 <select
                                     value={data.channel}
                                     onChange={(event) => setData("channel", event.target.value)}
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
                                     <option value="internal">{__("Internal")}</option>
                                     <option value="whatsapp_link">{__("WhatsApp Link")}</option>
@@ -141,7 +141,7 @@ export default function Form({ mode = "create", campaign = null, audienceOptions
                                 <select
                                     value={data.audience_filters.customer_type}
                                     onChange={(event) => setAudienceFilter("customer_type", event.target.value)}
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
                                     {audienceOptions.customer_types.map((option) => (
                                         <option key={option.value} value={option.value}>{option.label}</option>
@@ -153,7 +153,7 @@ export default function Form({ mode = "create", campaign = null, audienceOptions
                                 <select
                                     value={data.audience_filters.receivable_status}
                                     onChange={(event) => setAudienceFilter("receivable_status", event.target.value)}
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
                                     {audienceOptions.receivable_statuses.map((option) => (
                                         <option key={option.value} value={option.value}>{option.label}</option>
@@ -165,7 +165,7 @@ export default function Form({ mode = "create", campaign = null, audienceOptions
                                 <select
                                     value={data.audience_filters.voucher_filter}
                                     onChange={(event) => setAudienceFilter("voucher_filter", event.target.value)}
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
                                     {audienceOptions.voucher_filters.map((option) => (
                                         <option key={option.value} value={option.value}>{option.label}</option>

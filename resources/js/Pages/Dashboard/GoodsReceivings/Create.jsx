@@ -94,7 +94,7 @@ export default function Create({ orders }) {
                         <select
                             value={selectedPoId}
                             onChange={(e) => selectPO(e.target.value)}
-                            className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                            className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                         >
                             <option value="">{__("Select an ordered PO...")}</option>
                             {orders.map((order) => (
@@ -139,7 +139,7 @@ export default function Create({ orders }) {
                                                         max={item.outstanding}
                                                         value={item.qty_received}
                                                         onChange={(e) => updateItem(index, e.target.value)}
-                                                        className="h-10 w-24 rounded-lg border border-slate-200 bg-slate-50 px-3 text-right text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                                        className="h-10 w-24 rounded-lg border border-slate-300 bg-white shadow-sm px-3 text-right text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                                     />
                                                 </td>
                                                 <td className="px-3 py-3 text-right">
@@ -152,7 +152,7 @@ export default function Create({ orders }) {
                                                             setData("items", items);
                                                         }}
                                                         placeholder="-"
-                                                        className="h-10 w-32 rounded-lg border border-slate-200 bg-slate-50 px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                                        className="h-10 w-32 rounded-lg border border-slate-300 bg-white shadow-sm px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                                     />
                                                 </td>
                                             </tr>
@@ -170,7 +170,7 @@ export default function Create({ orders }) {
                                 value={data.notes}
                                 onChange={(e) => setData("notes", e.target.value)}
                                 rows={3}
-                                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                className="w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 placeholder={__("Receiving notes (optional)")}
                             />
                         </div>

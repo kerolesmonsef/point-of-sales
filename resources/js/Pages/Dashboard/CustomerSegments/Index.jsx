@@ -44,7 +44,7 @@ export default function Index({ segments, filters }) {
                                 value={filters.search || ""}
                                 onChange={(event) => handleFilterChange("search", event.target.value)}
                                 placeholder={__("Search segment name...")}
-                                className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 pr-11 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 pr-11 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                             />
                             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
                                 <IconSearch size={18} />
@@ -53,7 +53,7 @@ export default function Index({ segments, filters }) {
                         <select
                             value={filters.type || ""}
                             onChange={(event) => handleFilterChange("type", event.target.value)}
-                            className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                            className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                         >
                             <option value="">{__("All Types")}</option>
                             <option value="manual">{__("Manual")}</option>

@@ -20,4 +20,27 @@ class Supplier extends Model
     {
         return $this->hasMany(Payable::class);
     }
+
+    public function purchaseOrders()
+    {
+        return $this->hasMany(PurchaseOrder::class);
+    }
+
+    public function goodsReceivings()
+    {
+        return $this->hasMany(GoodsReceiving::class);
+    }
+
+    public function supplierReturns()
+    {
+        return $this->hasMany(SupplierReturn::class);
+    }
+
+    public function isInUse(): bool
+    {
+        return $this->payables()->exists()
+            || $this->purchaseOrders()->exists()
+            || $this->goodsReceivings()->exists()
+            || $this->supplierReturns()->exists();
+    }
 }

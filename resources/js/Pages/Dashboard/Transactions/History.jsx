@@ -142,7 +142,7 @@ const History = ({ transactions, filters, warehouses = [] }) => {
                                                 e.target.value
                                             )
                                         }
-                                        className="w-full h-11 px-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all"
+                                        className="w-full h-11 px-4 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all"
                                     />
                                 </div>
                                 <div>
@@ -158,7 +158,7 @@ const History = ({ transactions, filters, warehouses = [] }) => {
                                                 e.target.value
                                             )
                                         }
-                                        className="w-full h-11 px-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all"
+                                        className="w-full h-11 px-4 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all"
                                     />
                                 </div>
                                 <div>
@@ -174,7 +174,7 @@ const History = ({ transactions, filters, warehouses = [] }) => {
                                                 e.target.value
                                             )
                                         }
-                                        className="w-full h-11 px-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all"
+                                        className="w-full h-11 px-4 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all"
                                     />
                                 </div>
                                 <div>
@@ -184,7 +184,7 @@ const History = ({ transactions, filters, warehouses = [] }) => {
                                     <select
                                         value={filterData.warehouse_id}
                                         onChange={(e) => handleChange("warehouse_id", e.target.value)}
-                                        className="w-full h-11 px-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all"
+                                        className="w-full h-11 px-4 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all"
                                     >
                                         <option value="">{__("All Warehouses")}</option>
                                         {warehouses.map((w) => (

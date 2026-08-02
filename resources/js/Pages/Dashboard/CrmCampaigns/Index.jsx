@@ -51,7 +51,7 @@ export default function Index({ campaigns, filters }) {
                         <select
                             value={filters.type || ""}
                             onChange={(event) => handleFilterChange("type", event.target.value)}
-                            className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                            className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                         >
                             <option value="">{__("All Types")}</option>
                             <option value="promo_broadcast">{__("Promo Broadcast")}</option>
@@ -62,7 +62,7 @@ export default function Index({ campaigns, filters }) {
                         <select
                             value={filters.status || ""}
                             onChange={(event) => handleFilterChange("status", event.target.value)}
-                            className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                            className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                         >
                             <option value="">{__("All Status")}</option>
                             <option value="draft">{__("Draft")}</option>

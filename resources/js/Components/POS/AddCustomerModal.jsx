@@ -253,7 +253,7 @@ export default function AddCustomerModal({
                                             loyalty_tier: event.target.value,
                                         }))
                                     }
-                                    className="w-full h-11 px-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200"
+                                    className="w-full h-11 px-4 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-slate-800 dark:text-slate-200"
                                 >
                                     {tierOptions.map((tier) => (
                                         <option

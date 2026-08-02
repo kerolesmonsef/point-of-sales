@@ -125,7 +125,7 @@ export default function Index({ rules, filters, summary = {}, recentAudits = [] 
                                     handleFilterChange("search", event.target.value)
                                 }
                                 placeholder={__("Search rule name...")}
-                                className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 pr-11 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 pr-11 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                             />
                             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
                                 <IconSearch size={18} />
@@ -136,7 +136,7 @@ export default function Index({ rules, filters, summary = {}, recentAudits = [] 
                             onChange={(event) =>
                                 handleFilterChange("status", event.target.value)
                             }
-                            className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                            className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                         >
                             <option value="">{__("All Statuses")}</option>
                             <option value="active">{__("Active")}</option>
@@ -147,7 +147,7 @@ export default function Index({ rules, filters, summary = {}, recentAudits = [] 
                             onChange={(event) =>
                                 handleFilterChange("target_type", event.target.value)
                             }
-                            className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                            className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                         >
                             <option value="">{__("All Targets")}</option>
                             <option value="all">{__("All Products")}</option>
@@ -159,7 +159,7 @@ export default function Index({ rules, filters, summary = {}, recentAudits = [] 
                             onChange={(event) =>
                                 handleFilterChange("kind", event.target.value)
                             }
-                            className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                            className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                         >
                             <option value="">{__("All Types")}</option>
                             <option value="standard_discount">{__("Standard")}</option>

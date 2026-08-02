@@ -8,6 +8,7 @@ use App\Models\PurchaseOrder;
 use App\Models\Supplier;
 use App\Models\Warehouse;
 use App\Services\PurchaseOrderService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -49,13 +50,48 @@ class PurchaseOrderController extends Controller
     public function create()
     {
         $suppliers = Supplier::orderBy('name')->get(['id', 'name']);
-        $products = Product::orderBy('title')->get(['id', 'title', 'buy_price']);
         $warehouses = Warehouse::active()->orderBy('sort_order')->orderBy('code')->get(['id', 'code', 'name']);
 
         return Inertia::render('Dashboard/PurchaseOrders/Create', [
             'suppliers' => $suppliers,
-            'products' => $products,
             'warehouses' => $warehouses,
+        ]);
+    }
+
+    /**
+     * searchProducts
+     *
+     * Server-side product search for the purchase order line items.
+     * Reuses the Product model's query layer (whereLike, stockSql) instead of
+     * shipping the whole product catalog to the browser.
+     */
+    public function searchProducts(Request $request): JsonResponse
+    {
+        $search = $request->string('search')->trim()->toString();
+        $warehouseId = $request->integer('warehouse_id') ?: null;
+
+        $products = Product::query()
+            ->select('id', 'title', 'barcode', 'buy_price')
+            ->withSum(
+                ['warehouses as stock_qty' => fn ($q) => $q->when($warehouseId, fn ($q) => $q->where('warehouse_id', $warehouseId))],
+                'product_warehouse.stock'
+            )
+            ->when($search !== '', fn ($q) => $q->whereLike(['title', 'barcode'], "%{$search}%"))
+            ->orderBy('title')
+            ->limit(50)
+            ->get();
+
+        $data = $products->map(fn (Product $product) => [
+            'id' => $product->id,
+            'title' => $product->title,
+            'barcode' => $product->barcode,
+            'buy_price' => $product->buy_price,
+            'stock' => (int) $product->stock_qty,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'data' => $data,
         ]);
     }
 

@@ -131,7 +131,7 @@ export default function Whatsapp({ settings, waStatus }) {
                     <div>
                         <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">{__("WhatsApp Service URL")}</label>
                         <input type="text" value={data.wa_service_url} onChange={(e) => setData("wa_service_url", e.target.value)}
-                            className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm"
+                            className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm"
                             placeholder="http://localhost:3001" />
                         <p className="text-xs text-slate-400 mt-1">{__("Node.js whatsapp-web.js service address")}</p>
                     </div>
@@ -171,7 +171,7 @@ export default function Whatsapp({ settings, waStatus }) {
                         <div className="flex gap-2">
                             <input type="text" value={testNumber} onChange={(e) => setTestNumber(e.target.value)}
                                 placeholder="0812xxxxxxx"
-                                className="flex-1 h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm" />
+                                className="flex-1 h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm" />
                             <button onClick={handleTest} disabled={processing}
                                 className="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-medium transition-colors disabled:opacity-50">
                                 {__("Send")}

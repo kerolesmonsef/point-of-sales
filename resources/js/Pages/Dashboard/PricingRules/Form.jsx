@@ -197,7 +197,7 @@ export default function Form({
                                     onChange={(event) =>
                                         setData("name", event.target.value)
                                     }
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 />
                                 <InputError message={errors.name} />
                             </div>
@@ -210,7 +210,7 @@ export default function Form({
                                     onChange={(event) =>
                                         setData("kind", event.target.value)
                                     }
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
                                     {kindOptions.map((option) => (
                                         <option key={option.value} value={option.value}>
@@ -231,7 +231,7 @@ export default function Form({
                                     onChange={(event) =>
                                         setData("priority", event.target.value)
                                     }
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 />
                             </div>
                             <div>
@@ -248,7 +248,7 @@ export default function Form({
                                             event.target.value
                                         )
                                     }
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 />
                             </div>
                         </div>
@@ -268,7 +268,7 @@ export default function Form({
                                     onChange={(event) =>
                                         setData("target_type", event.target.value)
                                     }
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
                                     {targetOptions.map((option) => (
                                         <option key={option.value} value={option.value}>
@@ -286,7 +286,7 @@ export default function Form({
                                     onChange={(event) =>
                                         setData("customer_scope", event.target.value)
                                     }
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
                                     {customerScopeOptions.map((option) => (
                                         <option key={option.value} value={option.value}>
@@ -305,7 +305,7 @@ export default function Form({
                                         onChange={(event) =>
                                             setData("product_id", event.target.value)
                                         }
-                                        className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                        className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                     >
                                         <option value="">{__("Select product")}</option>
                                         {products.map((product) => (
@@ -327,7 +327,7 @@ export default function Form({
                                         onChange={(event) =>
                                             setData("category_id", event.target.value)
                                         }
-                                        className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                        className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                     >
                                         <option value="">{__("Select category")}</option>
                                         {categories.map((category) => (
@@ -401,7 +401,7 @@ export default function Form({
                                         onChange={(event) =>
                                             setData("discount_type", event.target.value)
                                         }
-                                        className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                        className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                     >
                                         {discountTypeOptions.map((option) => (
                                             <option key={option.value} value={option.value}>
@@ -422,7 +422,7 @@ export default function Form({
                                         onChange={(event) =>
                                             setData("discount_value", event.target.value)
                                         }
-                                        className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                        className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                     />
                                     <InputError message={errors.discount_value} />
                                 </div>
@@ -453,7 +453,7 @@ export default function Form({
                                                     event.target.value
                                                 )
                                             }
-                                            className="h-11 rounded-xl border border-slate-200 bg-white px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                                            className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
                                             placeholder={__("Min qty")}
                                         />
                                         <select
@@ -466,7 +466,7 @@ export default function Form({
                                                     event.target.value
                                                 )
                                             }
-                                            className="h-11 rounded-xl border border-slate-200 bg-white px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                                            className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
                                         >
                                             {discountTypeOptions.map((option) => (
                                                 <option key={option.value} value={option.value}>
@@ -487,7 +487,7 @@ export default function Form({
                                                     event.target.value
                                                 )
                                             }
-                                            className="h-11 rounded-xl border border-slate-200 bg-white px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                                            className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
                                             placeholder={__("Value")}
                                         />
                                         <button
@@ -535,7 +535,7 @@ export default function Form({
                                     onChange={(event) =>
                                         setData("discount_value", event.target.value)
                                     }
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 />
                             </div>
                             <div className="space-y-3">
@@ -554,7 +554,7 @@ export default function Form({
                                                     event.target.value
                                                 )
                                             }
-                                            className="h-11 rounded-xl border border-slate-200 bg-white px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                                            className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
                                         >
                                             <option value="">{__("Select product")}</option>
                                             {products.map((product) => (
@@ -575,7 +575,7 @@ export default function Form({
                                                     event.target.value
                                                 )
                                             }
-                                            className="h-11 rounded-xl border border-slate-200 bg-white px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                                            className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
                                             placeholder={__("Qty")}
                                         />
                                         <button
@@ -626,7 +626,7 @@ export default function Form({
                                                     event.target.value
                                                 )
                                             }
-                                            className="h-11 rounded-xl border border-slate-200 bg-white px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                                            className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
                                         >
                                             <option value="buy">{__("Buy")}</option>
                                             <option value="get">{__("Get")}</option>
@@ -641,7 +641,7 @@ export default function Form({
                                                     event.target.value
                                                 )
                                             }
-                                            className="h-11 rounded-xl border border-slate-200 bg-white px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                                            className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
                                         >
                                             <option value="">{__("Select product")}</option>
                                             {products.map((product) => (
@@ -662,7 +662,7 @@ export default function Form({
                                                     event.target.value
                                                 )
                                             }
-                                            className="h-11 rounded-xl border border-slate-200 bg-white px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                                            className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
                                         />
                                         <button
                                             type="button"
@@ -707,7 +707,7 @@ export default function Form({
                                     onChange={(event) =>
                                         setData("starts_at", event.target.value)
                                     }
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 />
                             </div>
                             <div>
@@ -720,7 +720,7 @@ export default function Form({
                                     onChange={(event) =>
                                         setData("ends_at", event.target.value)
                                     }
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 />
                             </div>
                             <div className="md:col-span-2">

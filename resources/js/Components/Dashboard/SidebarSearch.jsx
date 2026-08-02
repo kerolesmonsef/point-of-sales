@@ -71,7 +71,7 @@ export default function SidebarSearch({ sidebarOpen, navigation }) {
                         setOpen(true);
                     }}
                     onFocus={() => query.trim() && setOpen(true)}
-                    className="w-full h-9 pl-9 pr-3 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all"
+                    className="w-full h-9 pl-9 pr-3 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all"
                 />
             </div>
 

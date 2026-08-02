@@ -131,7 +131,7 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                                         setData({ supplier_id: e.target.value, goods_receiving_id: "", payable_id: "", items: [] });
                                         setSelectedGrId("");
                                     }}
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
                                     <option value="">{__("Select supplier")}</option>
                                     {suppliers.map((s) => (
@@ -150,7 +150,7 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                                         setData("goods_receiving_id", e.target.value);
                                     }}
                                     disabled={!data.supplier_id}
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 disabled:opacity-50"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 disabled:opacity-50"
                                 >
                                     <option value="">{__("Not related to GR")}</option>
                                     {goodsReceivings.map((gr) => (
@@ -167,7 +167,7 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                                     value={data.notes}
                                     onChange={(e) => setData("notes", e.target.value)}
                                     placeholder={__("Return notes")}
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 />
                             </div>
                         </div>
@@ -213,7 +213,7 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                                 value={searchProduct}
                                 onChange={(e) => setSearchProduct(e.target.value)}
                                 placeholder={__("Search products to add...")}
-                                className="h-11 flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                className="h-11 flex-1 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                             />
                         </div>
                         {searchProduct && filteredProducts.length > 0 && (
@@ -260,17 +260,17 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                                                         min="1"
                                                         value={item.qty_returned}
                                                         onChange={(e) => updateItem(index, "qty_returned", e.target.value)}
-                                                        className="h-10 w-20 rounded-lg border border-slate-200 bg-slate-50 px-3 text-right text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                                        className="h-10 w-20 rounded-lg border border-slate-300 bg-white shadow-sm px-3 text-right text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                                     />
                                                 </td>
                                                 <td className="px-3 py-3 text-right">
                                                     <input
                                                         type="number"
                                                         min="0"
-                                                        step="100"
+                                                        step="0.01"
                                                         value={item.unit_price}
                                                         onChange={(e) => updateItem(index, "unit_price", e.target.value)}
-                                                        className="h-10 w-28 rounded-lg border border-slate-200 bg-slate-50 px-3 text-right text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                                        className="h-10 w-28 rounded-lg border border-slate-300 bg-white shadow-sm px-3 text-right text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                                     />
                                                 </td>
                                                 <td className="px-3 py-3 text-right font-semibold text-slate-800 dark:text-slate-200">
@@ -282,7 +282,7 @@ export default function Create({ suppliers, goodsReceivings, products }) {
                                                         value={item.reason || ""}
                                                         onChange={(e) => updateItem(index, "reason", e.target.value)}
                                                         placeholder={__("Return reason")}
-                                                        className="h-10 w-full rounded-lg border border-slate-200 bg-slate-50 px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                                        className="h-10 w-full rounded-lg border border-slate-300 bg-white shadow-sm px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                                     />
                                                 </td>
                                                 <td className="px-3 py-3 text-center">

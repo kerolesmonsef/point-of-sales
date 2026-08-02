@@ -267,7 +267,7 @@ export default function Form({ mode = "create", member = null }) {
                                     onChange={(event) =>
                                         setData("loyalty_tier", event.target.value)
                                     }
-                                    className="mt-2 h-11 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                                    className="mt-2 h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-3 text-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
                                 >
                                     {tierOptions.map((tier) => (
                                         <option
@@ -302,7 +302,7 @@ export default function Form({ mode = "create", member = null }) {
                                     onChange={(event) =>
                                         setData("province_id", event.target.value)
                                     }
-                                    className="mt-2 h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="mt-2 h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-3 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
                                     <option value="">{__("Select Province")}</option>
                                     {provinces.map((province) => (
@@ -331,7 +331,7 @@ export default function Form({ mode = "create", member = null }) {
                                         setData("regency_id", event.target.value)
                                     }
                                     disabled={!data.province_id}
-                                    className="mt-2 h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="mt-2 h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-3 text-sm disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
                                     <option value="">{__("Select City / Regency")}</option>
                                     {regencyList.map((regency) => (
@@ -359,7 +359,7 @@ export default function Form({ mode = "create", member = null }) {
                                         setData("district_id", event.target.value)
                                     }
                                     disabled={!data.regency_id}
-                                    className="mt-2 h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="mt-2 h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-3 text-sm disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
                                     <option value="">{__("Select District")}</option>
                                     {districtList.map((district) => (
@@ -385,7 +385,7 @@ export default function Form({ mode = "create", member = null }) {
                                         setData("village_id", event.target.value)
                                     }
                                     disabled={!data.district_id}
-                                    className="mt-2 h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="mt-2 h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-3 text-sm disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
                                     <option value="">{__("Select Village")}</option>
                                     {villageList.map((village) => (

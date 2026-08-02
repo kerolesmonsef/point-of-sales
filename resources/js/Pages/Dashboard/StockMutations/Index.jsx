@@ -47,7 +47,7 @@ export default function Index({ stockMutations, products, warehouses = [], filte
                     onChange={(event) =>
                         updateFilter("product_id", event.target.value)
                     }
-                    className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                    className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                 >
                     <option value="">{__("All Products")}</option>
                     {products.map((product) => (
@@ -62,7 +62,7 @@ export default function Index({ stockMutations, products, warehouses = [], filte
                     onChange={(event) =>
                         updateFilter("mutation_type", event.target.value)
                     }
-                    className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                    className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                 >
                     <option value="">{__("All Types")}</option>
                     <option value="in">{__("In")}</option>
@@ -73,7 +73,7 @@ export default function Index({ stockMutations, products, warehouses = [], filte
                 <select
                     value={filters.warehouse_id || ""}
                     onChange={(event) => updateFilter("warehouse_id", event.target.value)}
-                    className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                    className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                 >
                     <option value="">{__("All Warehouses")}</option>
                     {warehouses.map((w) => (
@@ -87,7 +87,7 @@ export default function Index({ stockMutations, products, warehouses = [], filte
                     onChange={(event) =>
                         updateFilter("date_from", event.target.value)
                     }
-                    className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                    className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                 />
 
                 <input
@@ -96,7 +96,7 @@ export default function Index({ stockMutations, products, warehouses = [], filte
                     onChange={(event) =>
                         updateFilter("date_to", event.target.value)
                     }
-                    className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                    className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                 />
             </div>
 

@@ -88,7 +88,7 @@ export default function UnitsSection({ units = [], onChange, unitOptions = [] })
                   <select
                     value={unit.unit_id}
                     onChange={(e) => updateRow(i, "unit_id", e.target.value)}
-                    className="w-full h-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 text-sm text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                    className="w-full h-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-900 px-3 text-sm text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                   >
                     <option value="">{__("Select unit")}</option>
                     {unitOptions.map((u) => (
@@ -119,7 +119,7 @@ export default function UnitsSection({ units = [], onChange, unitOptions = [] })
                     value={unit.conversion_factor}
                     onChange={(e) => updateRow(i, "conversion_factor", e.target.value)}
                     placeholder="1"
-                    className="w-full h-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 text-sm text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                    className="w-full h-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-900 px-3 text-sm text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                   />
                 </div>
 
@@ -131,7 +131,7 @@ export default function UnitsSection({ units = [], onChange, unitOptions = [] })
                     value={unit.buy_price}
                     onChange={(e) => updateRow(i, "buy_price", e.target.value)}
                     placeholder="0"
-                    className="w-full h-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 text-sm text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                    className="w-full h-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-900 px-3 text-sm text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                   />
                 </div>
 
@@ -143,7 +143,7 @@ export default function UnitsSection({ units = [], onChange, unitOptions = [] })
                     value={unit.sell_price}
                     onChange={(e) => updateRow(i, "sell_price", e.target.value)}
                     placeholder="0"
-                    className="w-full h-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 text-sm text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                    className="w-full h-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-900 px-3 text-sm text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                   />
                 </div>
 
@@ -154,7 +154,7 @@ export default function UnitsSection({ units = [], onChange, unitOptions = [] })
                     value={unit.barcode}
                     onChange={(e) => updateRow(i, "barcode", e.target.value)}
                     placeholder={__("Optional")}
-                    className="w-full h-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 text-sm text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                    className="w-full h-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-900 px-3 text-sm text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                   />
                 </div>
 

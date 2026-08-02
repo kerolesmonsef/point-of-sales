@@ -76,7 +76,7 @@ export default function Index({ returns, filters, suppliers }) {
                         value={filters.search || ""}
                         onChange={(e) => handleFilterChange("search", e.target.value)}
                         placeholder={__("Search document number...")}
-                        className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 pr-11 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                        className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 pr-11 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                     />
                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
                         <IconSearch size={18} />
@@ -85,7 +85,7 @@ export default function Index({ returns, filters, suppliers }) {
                 <select
                     value={filters.status || ""}
                     onChange={(e) => handleFilterChange("status", e.target.value)}
-                    className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                    className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                 >
                     <option value="">{__("All Status")}</option>
                     <option value="draft">{__("Draft")}</option>
@@ -95,7 +95,7 @@ export default function Index({ returns, filters, suppliers }) {
                 <select
                     value={filters.supplier || ""}
                     onChange={(e) => handleFilterChange("supplier", e.target.value)}
-                    className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                    className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                 >
                     <option value="">{__("All Suppliers")}</option>
                     {suppliers.map((s) => (

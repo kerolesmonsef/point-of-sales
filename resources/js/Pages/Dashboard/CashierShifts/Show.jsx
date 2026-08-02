@@ -216,7 +216,7 @@ export default function Show({ cashierShift, canForceClose = false }) {
                                             min="0"
                                             value={actualCash}
                                             onChange={(event) => setActualCash(event.target.value)}
-                                            className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                            className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                         />
                                         {errors?.actual_cash && (
                                             <p className="mt-2 text-xs text-rose-500">{errors.actual_cash}</p>
@@ -228,7 +228,7 @@ export default function Show({ cashierShift, canForceClose = false }) {
                                             rows={4}
                                             value={closeNotes}
                                             onChange={(event) => setCloseNotes(event.target.value)}
-                                            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                            className="w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                             placeholder={__("Optional")}
                                         />
                                     </div>

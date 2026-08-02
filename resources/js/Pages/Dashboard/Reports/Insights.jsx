@@ -413,7 +413,7 @@ export default function Insights({
                                         onChange={(event) =>
                                             handleChange("start_date", event.target.value)
                                         }
-                                        className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                        className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                     />
                                 </div>
                                 <div>
@@ -426,7 +426,7 @@ export default function Insights({
                                         onChange={(event) =>
                                             handleChange("end_date", event.target.value)
                                         }
-                                        className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                        className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                     />
                                 </div>
                                 <InputSelect

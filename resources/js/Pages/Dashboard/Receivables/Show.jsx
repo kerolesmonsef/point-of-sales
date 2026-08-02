@@ -291,7 +291,7 @@ export default function ReceivableShow({ receivable, bankAccounts = [] }) {
                                 onChange={(e) =>
                                     collectionNotesForm.setData("collection_notes", e.target.value)
                                 }
-                                className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-sm text-slate-800 dark:text-slate-200 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20"
+                                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 px-3 py-2 text-sm text-slate-800 dark:text-slate-200 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20"
                                 placeholder={__("Collection process notes...")}
                             />
                             {collectionNotesForm.errors.collection_notes && (
@@ -322,7 +322,7 @@ export default function ReceivableShow({ receivable, bankAccounts = [] }) {
                                         min="1"
                                         value={data.amount}
                                         onChange={(e) => setData("amount", e.target.value)}
-                                        className="w-full h-11 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                                        className="w-full h-11 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                                         required
                                     />
                                     {errors.amount && (
@@ -339,7 +339,7 @@ export default function ReceivableShow({ receivable, bankAccounts = [] }) {
                                         type="date"
                                         value={data.paid_at}
                                         onChange={(e) => setData("paid_at", e.target.value)}
-                                        className="w-full h-11 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                                        className="w-full h-11 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                                         required
                                     />
                                 </div>
@@ -379,7 +379,7 @@ export default function ReceivableShow({ receivable, bankAccounts = [] }) {
                                             onChange={(e) =>
                                                 setData("bank_account_id", e.target.value)
                                             }
-                                            className="w-full h-11 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                                            className="w-full h-11 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                                         >
                                             <option value="">{__("Select account")}</option>
                                             {bankAccounts.map((bank) => (
@@ -398,7 +398,7 @@ export default function ReceivableShow({ receivable, bankAccounts = [] }) {
                                         rows={2}
                                         value={data.note}
                                         onChange={(e) => setData("note", e.target.value)}
-                                        className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                                        className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                                         placeholder={__("Payment notes")}
                                     />
                                 </div>

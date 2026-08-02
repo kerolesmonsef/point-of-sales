@@ -68,7 +68,7 @@ export default function Index({ salesReturns, filters }) {
                             }))
                         }
                         placeholder={__("Return code")}
-                        className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800"
+                        className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800"
                     />
                     <input
                         type="text"
@@ -80,7 +80,7 @@ export default function Index({ salesReturns, filters }) {
                             }))
                         }
                         placeholder={__("Transaction invoice")}
-                        className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800"
+                        className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800"
                     />
                     <input
                         type="date"
@@ -91,7 +91,7 @@ export default function Index({ salesReturns, filters }) {
                                 date_from: event.target.value,
                             }))
                         }
-                        className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800"
+                        className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800"
                     />
                     <input
                         type="date"
@@ -102,7 +102,7 @@ export default function Index({ salesReturns, filters }) {
                                 date_to: event.target.value,
                             }))
                         }
-                        className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800"
+                        className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800"
                     />
                     <div className="flex gap-2">
                         <select
@@ -113,7 +113,7 @@ export default function Index({ salesReturns, filters }) {
                                     return_type: event.target.value,
                                 }))
                             }
-                            className="h-11 flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm dark:border-slate-700 dark:bg-slate-800"
+                            className="h-11 flex-1 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm dark:border-slate-700 dark:bg-slate-800"
                         >
                             <option value="">{__("All methods")}</option>
                             <option value="refund_cash">{__("Cash Refund")}</option>

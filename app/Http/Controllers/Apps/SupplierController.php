@@ -48,8 +48,8 @@ class SupplierController extends Controller
 
     public function destroy(Supplier $supplier)
     {
-        if ($supplier->payables()->exists()) {
-            return back()->with('error', __('Supplier has outstanding debts and cannot be deleted.'));
+        if ($supplier->isInUse()) {
+            return back()->with('error', __('Supplier is used in transactions and cannot be deleted.'));
         }
         $supplier->delete();
 

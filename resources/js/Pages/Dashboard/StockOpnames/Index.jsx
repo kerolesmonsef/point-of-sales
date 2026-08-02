@@ -72,7 +72,7 @@ export default function Index({ stockOpnames, filters, warehouses = [] }) {
                             handleFilterChange("search", event.target.value)
                         }
                         placeholder={__("Search session code...")}
-                        className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 pr-11 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                        className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 pr-11 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                     />
                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
                         <IconSearch size={18} />
@@ -84,7 +84,7 @@ export default function Index({ stockOpnames, filters, warehouses = [] }) {
                     onChange={(event) =>
                         handleFilterChange("status", event.target.value)
                     }
-                    className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                    className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                 >
                     <option value="">{__("All Statuses")}</option>
                     <option value="draft">{__("Draft")}</option>
@@ -94,7 +94,7 @@ export default function Index({ stockOpnames, filters, warehouses = [] }) {
                 <select
                     value={filters.warehouse_id || ""}
                     onChange={(event) => handleFilterChange("warehouse_id", event.target.value)}
-                    className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                    className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                 >
                     <option value="">{__("All Warehouses")}</option>
                     {warehouses.map((w) => (
@@ -109,7 +109,7 @@ export default function Index({ stockOpnames, filters, warehouses = [] }) {
                         onChange={(event) =>
                             handleFilterChange("date_from", event.target.value)
                         }
-                        className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                        className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                     />
                     <input
                         type="date"
@@ -117,7 +117,7 @@ export default function Index({ stockOpnames, filters, warehouses = [] }) {
                         onChange={(event) =>
                             handleFilterChange("date_to", event.target.value)
                         }
-                        className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                        className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                     />
                 </div>
             </div>

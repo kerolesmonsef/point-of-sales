@@ -35,7 +35,7 @@ export default function Printer({ settings }) {
                     <div>
                         <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">{__("Paper Size")}</label>
                         <select value={data.printer_paper_size} onChange={(e) => setData("printer_paper_size", e.target.value)}
-                            className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm">
+                            className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm">
                             <option value="80mm">80 mm</option>
                             <option value="58mm">58 mm</option>
                         </select>

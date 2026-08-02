@@ -74,7 +74,7 @@ export default function Create({ warehouses, products }) {
                                 <select
                                     value={data.source_warehouse_id}
                                     onChange={(e) => setData({ ...data, source_warehouse_id: e.target.value })}
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
                                     <option value="">{__("Select Warehouse")}</option>
                                     {warehouses.map((w) => (<option key={w.id} value={w.id}>{w.code} — {w.name}</option>))}
@@ -86,7 +86,7 @@ export default function Create({ warehouses, products }) {
                                 <select
                                     value={data.destination_warehouse_id}
                                     onChange={(e) => setData({ ...data, destination_warehouse_id: e.target.value })}
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
                                     <option value="">{__("Select Warehouse")}</option>
                                     {warehousesExcept(data.source_warehouse_id).map((w) => (<option key={w.id} value={w.id}>{w.code} — {w.name}</option>))}
@@ -95,11 +95,11 @@ export default function Create({ warehouses, products }) {
                             </div>
                             <div>
                                 <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{__("Document Number")}</label>
-                                <input type="text" value={data.document_number} onChange={(e) => setData("document_number", e.target.value)} placeholder={__("Leave blank to auto-generate")} className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200" />
+                                <input type="text" value={data.document_number} onChange={(e) => setData("document_number", e.target.value)} placeholder={__("Leave blank to auto-generate")} className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200" />
                             </div>
                             <div>
                                 <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{__("Notes")}</label>
-                                <input type="text" value={data.notes} onChange={(e) => setData("notes", e.target.value)} placeholder={__("Optional")} className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200" />
+                                <input type="text" value={data.notes} onChange={(e) => setData("notes", e.target.value)} placeholder={__("Optional")} className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200" />
                             </div>
                         </div>
                     </div>
@@ -107,7 +107,7 @@ export default function Create({ warehouses, products }) {
                     <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
                         <h2 className="mb-4 text-lg font-semibold text-slate-900 dark:text-white">{__("Transfer Items")}</h2>
                         <div className="mb-4">
-                            <input type="text" value={searchProduct} onChange={(e) => setSearchProduct(e.target.value)} placeholder={__("Search products to add...")} className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200" />
+                            <input type="text" value={searchProduct} onChange={(e) => setSearchProduct(e.target.value)} placeholder={__("Search products to add...")} className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200" />
                         </div>
                         {searchProduct && filteredProducts.length > 0 && (
                             <div className="mb-4 max-h-48 space-y-2 overflow-y-auto rounded-xl border border-slate-200 p-3 dark:border-slate-700">
@@ -138,7 +138,7 @@ export default function Create({ warehouses, products }) {
                                                     <p className="font-medium text-slate-800 dark:text-slate-200">{item.product_title}</p>
                                                 </td>
                                                 <td className="px-3 py-3 text-right">
-                                                    <input type="number" min="1" value={item.qty} onChange={(e) => updateItem(index, e.target.value)} className="h-10 w-20 rounded-lg border border-slate-200 bg-slate-50 px-3 text-right text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200" />
+                                                    <input type="number" min="1" value={item.qty} onChange={(e) => updateItem(index, e.target.value)} className="h-10 w-20 rounded-lg border border-slate-300 bg-white shadow-sm px-3 text-right text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200" />
                                                 </td>
                                                 <td className="px-3 py-3 text-center">
                                                     <button type="button" onClick={() => removeItem(index)} className="rounded-lg p-1.5 text-slate-400 transition hover:bg-danger-50 hover:text-danger-500"><IconTrash size={16} /></button>

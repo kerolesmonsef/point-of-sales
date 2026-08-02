@@ -121,7 +121,7 @@ export default function Index({
                                     min="0"
                                     value={openingCash}
                                     onChange={(event) => setOpeningCash(event.target.value)}
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                     placeholder="0"
                                 />
                                 {errors?.opening_cash && (
@@ -135,7 +135,7 @@ export default function Index({
                                 <select
                                     value={warehouseId}
                                     onChange={(event) => setWarehouseId(event.target.value)}
-                                    className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 >
                                     {warehouses.map((w) => (
                                         <option key={w.id} value={w.id}>
@@ -152,7 +152,7 @@ export default function Index({
                                 type="text"
                                 value={notes}
                                 onChange={(event) => setNotes(event.target.value)}
-                                className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                 placeholder={__("Optional")}
                             />
                             </div>
@@ -219,7 +219,7 @@ export default function Index({
                         <select
                             value={currentFilters.cashier_id}
                             onChange={(event) => handleFilterChange("cashier_id", event.target.value)}
-                            className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                            className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                         >
                             <option value="">{__("All Cashiers")}</option>
                             {cashiers.map((cashier) => (
@@ -229,7 +229,7 @@ export default function Index({
                             ))}
                         </select>
                     ) : (
-                        <div className="flex h-11 items-center rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                        <div className="flex h-11 items-center rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">
                             <IconUser size={18} className="mr-2" />
                             {cashiers[0]?.name || auth?.user?.name}
                         </div>
@@ -237,7 +237,7 @@ export default function Index({
                     <select
                         value={currentFilters.status}
                         onChange={(event) => handleFilterChange("status", event.target.value)}
-                        className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                        className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                     >
                         <option value="">{__("All Status")}</option>
                         <option value="open">{__("Open")}</option>
@@ -248,13 +248,13 @@ export default function Index({
                         type="date"
                         value={currentFilters.opened_from}
                         onChange={(event) => handleFilterChange("opened_from", event.target.value)}
-                        className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                        className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                     />
                     <input
                         type="date"
                         value={currentFilters.opened_to}
                         onChange={(event) => handleFilterChange("opened_to", event.target.value)}
-                        className="h-11 rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                        className="h-11 rounded-xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                     />
                 </div>
 

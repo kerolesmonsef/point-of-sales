@@ -11,6 +11,7 @@ Modul pembelian formal dari supplier: Purchase Order, Goods Receiving, dan Suppl
 ### Purchase Order (PO)
 - Buat PO dengan pilih supplier + item product
 - Qty dan harga beli per item
+- Pencarian produk AJAX server-side by `title`/`barcode` — katalog tidak dimuat seluruhnya ke browser, hasil dibatasi 50 item, stok ditampilkan per warehouse tujuan
 - Auto-generate nomor dokumen (`PO-YYYYmmdd-XXXX`)
 - Status lifecycle: `draft` → `ordered` → `partial_received` / `completed` → `cancelled`
 - Filter by status, supplier, nomor dokumen
@@ -37,6 +38,7 @@ Modul pembelian formal dari supplier: Purchase Order, Goods Receiving, dan Suppl
 | Daftar PO | `purchase-orders.index` | GET |
 | Buat PO | `purchase-orders.create` | GET |
 | Simpan PO | `purchase-orders.store` | POST |
+| Cari produk (AJAX) | `purchase-orders.products.search` | GET |
 | Detail PO | `purchase-orders.show` | GET |
 | Place PO | `purchase-orders.place` | POST |
 | Cancel PO | `purchase-orders.cancel` | POST |

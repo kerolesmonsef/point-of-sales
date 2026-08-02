@@ -63,7 +63,7 @@ export default function Target({ settings }) {
                                             )
                                         }
                                         placeholder={__("Example: 50000000")}
-                                        className="w-full h-12 pl-12 pr-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:border-primary-500 focus:ring-4 focus:ring-primary-500/20 transition-all"
+                                        className="w-full h-12 pl-12 pr-4 rounded-xl border-2 border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:border-primary-500 focus:ring-4 focus:ring-primary-500/20 transition-all"
                                     />
                                 </div>
                                 {data.monthly_sales_target > 0 && (

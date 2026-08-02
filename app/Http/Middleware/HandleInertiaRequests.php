@@ -176,6 +176,10 @@ class HandleInertiaRequests extends Middleware
             'storeCurrency' => Schema::hasTable('settings') ? Setting::get('store_currency', 'IDR') : 'IDR',
             'pendingApprovalCount' => $pendingApprovalCount,
             'appVersion' => config('app.version'),
+            'flash' => [
+                'success' => $request->session()->get('success'),
+                'error' => $request->session()->get('error'),
+            ],
             'security' => [
                 'warnings' => $securityWarnings,
                 'publicRegistrationEnabled' => config('security.auth.public_registration'),

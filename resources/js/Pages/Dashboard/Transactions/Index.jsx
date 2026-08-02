@@ -602,7 +602,7 @@ export default function Index({
                                     min="0"
                                     value={openingCashInput}
                                     onChange={(event) => setOpeningCashInput(event.target.value)}
-                                    className="h-12 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-12 w-full rounded-2xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                     placeholder="0"
                                 />
                                 {errors?.opening_cash && (
@@ -617,7 +617,7 @@ export default function Index({
                                     type="text"
                                     value={shiftNotesInput}
                                     onChange={(event) => setShiftNotesInput(event.target.value)}
-                                    className="h-12 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                                    className="h-12 w-full rounded-2xl border border-slate-300 bg-white shadow-sm px-4 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                                     placeholder={__("Optional")}
                                 />
                             </div>
@@ -981,7 +981,7 @@ export default function Index({
                                         type="date"
                                         value={dueDate}
                                         onChange={(e) => setDueDate(e.target.value)}
-                                        className="w-full h-11 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                                        className="w-full h-11 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-900 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                                     />
                                 </div>
                             )}
@@ -1128,7 +1128,7 @@ export default function Index({
                                             pricingPreview?.summary
                                                 ?.available_loyalty_points ?? 0
                                         } ${__("points")}`}
-                                        className="w-full h-10 px-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                                        className="w-full h-10 px-4 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-900 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                                     />
                                 </div>
                             )}
@@ -1147,7 +1147,7 @@ export default function Index({
                                                     e.target.value
                                                 )
                                             }
-                                            className="w-full h-10 px-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                                            className="w-full h-10 px-4 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-900 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                                         >
                                             <option value="">
                                                 {__("No voucher")}
@@ -1189,7 +1189,7 @@ export default function Index({
                                             )
                                         }
                                         placeholder="0"
-                                        className="w-full h-10 pl-10 pr-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                                        className="w-full h-10 pl-10 pr-4 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-900 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                                     />
                                 </div>
                             </div>
@@ -1217,7 +1217,7 @@ export default function Index({
                                                 )
                                             }
                                             placeholder="0"
-                                            className="w-full h-10 pl-10 pr-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-base font-semibold focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                                            className="w-full h-10 pl-10 pr-4 rounded-xl border border-slate-300 dark:border-slate-700 bg-white shadow-sm dark:bg-slate-900 text-base font-semibold focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                                         />
                                     </div>
                                 </div>

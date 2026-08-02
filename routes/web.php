@@ -223,6 +223,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
     // route purchase orders
     Route::get('/purchase-orders', [PurchaseOrderController::class, 'index'])->middleware('permission:purchase-orders-access')->name('purchase-orders.index');
     Route::get('/purchase-orders/create', [PurchaseOrderController::class, 'create'])->middleware('permission:purchase-orders-create')->name('purchase-orders.create');
+    Route::get('/purchase-orders/products/search', [PurchaseOrderController::class, 'searchProducts'])->middleware('permission:purchase-orders-create')->name('purchase-orders.products.search');
     Route::post('/purchase-orders', [PurchaseOrderController::class, 'store'])->middleware('permission:purchase-orders-create')->name('purchase-orders.store');
     Route::get('/purchase-orders/{purchaseOrder}', [PurchaseOrderController::class, 'show'])->middleware('permission:purchase-orders-access')->name('purchase-orders.show');
     Route::post('/purchase-orders/{purchaseOrder}/place', [PurchaseOrderController::class, 'placeOrder'])->middleware('permission:purchase-orders-update')->name('purchase-orders.place');
