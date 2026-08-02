@@ -35,7 +35,7 @@ export default function Show({ receiving }) {
                     </h1>
                 </div>
                 <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                    {__("PO Reference:")}{" "}
+                    {__("Purchase Order Reference:")}{" "}
                     <Link
                         href={route("purchase-orders.show", receiving.purchase_order_id)}
                         className="font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400"
@@ -110,7 +110,7 @@ export default function Show({ receiving }) {
                                 <span className="font-medium text-slate-800 dark:text-slate-200">{receiving.document_number}</span>
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-slate-500">{__("PO Reference")}</span>
+                                <span className="text-slate-500">{__("Purchase Order Reference")}</span>
                                 <Link
                                     href={route("purchase-orders.show", receiving.purchase_order_id)}
                                     className="font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400"

@@ -96,7 +96,7 @@ export default function Create({ orders }) {
                             onChange={(e) => selectPO(e.target.value)}
                             className="h-11 w-full rounded-xl border border-slate-300 bg-white shadow-sm px-3 text-sm text-slate-800 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                         >
-                            <option value="">{__("Select an ordered PO...")}</option>
+                            <option value="">{__("Select an ordered Purchase Order...")}</option>
                             {orders.map((order) => (
                                 <option key={order.id} value={order.id}>
                                     {order.document_number} - {order.supplier?.name || __("No Supplier")}
@@ -116,7 +116,7 @@ export default function Create({ orders }) {
                                     <thead>
                                         <tr className="border-b border-slate-200 dark:border-slate-700">
                                             <th className="px-3 py-2 text-left font-semibold text-slate-700 dark:text-slate-200">{__("Product")}</th>
-                                            <th className="px-3 py-2 text-right font-semibold text-slate-700 dark:text-slate-200">{__("PO Qty")}</th>
+                                            <th className="px-3 py-2 text-right font-semibold text-slate-700 dark:text-slate-200">{__("Purchase Order Qty")}</th>
                                             <th className="px-3 py-2 text-right font-semibold text-slate-700 dark:text-slate-200">{__("Already Received")}</th>
                                             <th className="px-3 py-2 text-right font-semibold text-slate-700 dark:text-slate-200">{__("Remaining")}</th>
                                             <th className="px-3 py-2 text-right font-semibold text-slate-700 dark:text-slate-200">{__("Qty Received")}</th>

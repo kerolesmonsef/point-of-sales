@@ -74,7 +74,7 @@ export default function Index({ receivings, filters }) {
                     <Table.Thead>
                         <tr>
                             <Table.Th>{__("Document")}</Table.Th>
-                            <Table.Th>{__("PO Reference")}</Table.Th>
+                            <Table.Th>{__("Purchase Order Reference")}</Table.Th>
                             <Table.Th>{__("Supplier")}</Table.Th>
                             <Table.Th>{__("Received Date")}</Table.Th>
                             <Table.Th>{__("Received By")}</Table.Th>
