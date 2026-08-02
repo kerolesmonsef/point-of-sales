@@ -173,29 +173,13 @@ class AuditLogTest extends TestCase
         ]);
     }
 
-    public function test_bank_account_and_cashier_shift_actions_are_audited(): void
+    public function test_cashier_shift_actions_are_audited(): void
     {
         $user = $this->createUserWithPermissions([
-            'payment-settings-access',
-            'payment-settings-update',
             'cashier-shifts-access',
             'cashier-shifts-open',
             'cashier-shifts-close',
         ]);
-
-        $this->withSession($this->recentlyConfirmedSession())->actingAs($user)->post(route('settings.bank-accounts.store'), [
-            'bank_name' => 'BCA',
-            'account_number' => '1234567890',
-            'account_name' => 'PT Audit',
-            'is_active' => true,
-        ])->assertRedirect(route('settings.bank-accounts.index'));
-
-        $bankAudit = AuditLog::query()
-            ->where('event', 'bank_account.created')
-            ->latest('id')
-            ->first();
-
-        $this->assertSame('******7890', $bankAudit->after['account_number_masked']);
 
         $this->actingAs($user)->post(route('cashier-shifts.store'), [
             'opening_cash' => 120000,

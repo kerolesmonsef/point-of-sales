@@ -63,8 +63,7 @@ Cek minimal:
 
 1. `dashboard/settings/store`
 2. `dashboard/settings/payments`
-3. `dashboard/settings/bank-accounts`
-4. `dashboard/settings/target`
+3. `dashboard/settings/target`
 
 ## Tips Validasi Cepat
 

@@ -39,11 +39,7 @@ Detail setup: `docs/features/settings-payments.md`
 
 ## Bank Accounts
 
-Konfigurasi di `dashboard/settings/bank-accounts`:
-
-- Digunakan untuk pembayaran transfer manual
-- Bisa diatur urutan tampilan
-- Bisa dinonaktifkan tanpa dihapus
+Data rekening bank (digunakan pembayaran receivable/payable) diisi lewat seeder, tanpa halaman pengelolaan UI.
 
 ## Tax Settings
 

@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Apps\AgingController;
 use App\Http\Controllers\Apps\AuditLogController;
-use App\Http\Controllers\Apps\BankAccountController;
 use App\Http\Controllers\Apps\CashierShiftController;
 use App\Http\Controllers\Apps\CategoryController;
 use App\Http\Controllers\Apps\CrmCampaignController;
@@ -299,16 +298,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
     Route::post('/settings/whatsapp/start', [SettingController::class, 'startWhatsapp'])->middleware('permission:whatsapp-settings-update')->name('settings.whatsapp.start');
     Route::get('/settings/whatsapp/status', [SettingController::class, 'whatsappStatus'])->middleware('permission:whatsapp-settings-access')->name('settings.whatsapp.status');
     Route::post('/settings/whatsapp/disconnect', [SettingController::class, 'disconnectWhatsapp'])->middleware('permission:whatsapp-settings-update')->name('settings.whatsapp.disconnect');
-
-    // settings bank accounts
-    Route::get('/settings/bank-accounts', [BankAccountController::class, 'index'])->middleware('permission:payment-settings-access')->name('settings.bank-accounts.index');
-    Route::get('/settings/bank-accounts/create', [BankAccountController::class, 'create'])->middleware('permission:payment-settings-update')->name('settings.bank-accounts.create');
-    Route::post('/settings/bank-accounts', [BankAccountController::class, 'store'])->middleware(['permission:payment-settings-update', 'step_up'])->name('settings.bank-accounts.store');
-    Route::get('/settings/bank-accounts/{bankAccount}/edit', [BankAccountController::class, 'edit'])->middleware('permission:payment-settings-update')->name('settings.bank-accounts.edit');
-    Route::put('/settings/bank-accounts/{bankAccount}', [BankAccountController::class, 'update'])->middleware(['permission:payment-settings-update', 'step_up'])->name('settings.bank-accounts.update');
-    Route::delete('/settings/bank-accounts/{bankAccount}', [BankAccountController::class, 'destroy'])->middleware(['permission:payment-settings-update', 'step_up'])->name('settings.bank-accounts.destroy');
-    Route::patch('/settings/bank-accounts/{bankAccount}/toggle', [BankAccountController::class, 'toggleActive'])->middleware(['permission:payment-settings-update', 'step_up'])->name('settings.bank-accounts.toggle');
-    Route::post('/settings/bank-accounts/order', [BankAccountController::class, 'updateOrder'])->middleware(['permission:payment-settings-update', 'step_up'])->name('settings.bank-accounts.order');
 
     // settings price lists
     Route::resource('/settings/price-lists', PriceListController::class)

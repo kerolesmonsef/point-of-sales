@@ -56,7 +56,6 @@
 | Modul | File | Status |
 |-------|------|--------|
 | Payment Gateways | `docs/features/settings-payments.md` | ✅ |
-| Bank Accounts | `docs/features/settings-payments.md` | ✅ |
 | Store Profile | `docs/features/settings-payments.md` | ✅ |
 | Sales Target | `docs/features/settings-payments.md` | ✅ |
 | Tax Settings (PPN, NPWP, NIB) | `docs/features/tax-management.md` | ✅ |

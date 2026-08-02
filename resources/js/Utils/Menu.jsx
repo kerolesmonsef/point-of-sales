@@ -365,13 +365,6 @@ export default function Menu() {
                     permissions: hasAnyPermission(["dashboard-access"]),
                 },
                 {
-                    title: __("Bank Accounts"),
-                    href: route("settings.bank-accounts.index"),
-                    active: url === "/dashboard/settings/bank-accounts",
-                    icon: <IconCreditCard size={20} strokeWidth={1.5} />,
-                    permissions: hasAnyPermission(["payment-settings-access"]),
-                },
-                {
                     title: __("Loyalty"),
                     href: route("settings.loyalty"),
                     active: url === "/dashboard/settings/loyalty",

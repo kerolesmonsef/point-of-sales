@@ -9,14 +9,12 @@ Mengelola konfigurasi bisnis dan pembayaran yang dipakai aplikasi secara operasi
 ## Fitur Saat Ini
 
 - payment gateway settings
-- bank account management
 - store profile settings
 - target penjualan
 
 ## Halaman dan Route
 
 - `dashboard/settings/payments`
-- `dashboard/settings/bank-accounts`
 - `dashboard/settings/store`
 - `dashboard/settings/target`
 
@@ -28,29 +26,28 @@ Mengelola konfigurasi bisnis dan pembayaran yang dipakai aplikasi secara operasi
 ## Alur User
 
 1. admin mengatur gateway pembayaran (default: cash / card)
-2. admin menambah rekening bank aktif (untuk pembayaran receivable/payable)
-3. admin mengatur profil toko
-4. admin mengisi target penjualan
+2. admin mengatur profil toko
+3. admin mengisi target penjualan
 
 ## Integrasi Data
 
 - `payment_settings`
-- `bank_accounts`
+- `bank_accounts` (data rekening di-seed, tidak ada UI pengelolaan)
 - `settings`
 - transaksi dan receivable/payable payment yang memakai bank account
 
 ## Efek Bisnis Penting
 
 - `default_gateway` menentukan metode pembayaran yang terpilih saat membuka halaman kasir
-- bank account aktif hanya dipakai pembayaran receivable/payable — checkout POS kini memakai cash/card tanpa alur transfer manual
+- bank account (hasil seed) dipakai pembayaran receivable/payable — checkout POS kini memakai cash/card tanpa alur transfer manual
 
 ## Batasan Saat Ini
 
 - hanya dua metode di checkout: `cash` dan `card` (card langsung `paid`)
 - `bank_transfer_enabled` masih ada di kolom DB lama, tapi tidak lagi dipakai di UI
+- pengelolaan bank account (CRUD UI) telah dihapus; rekening hanya diisi lewat seeder
 
 ## File Sentral
 
 - `app/Http/Controllers/Apps/PaymentSettingController.php`
-- `app/Http/Controllers/Apps/BankAccountController.php`
 - `app/Http/Controllers/Apps/SettingController.php`

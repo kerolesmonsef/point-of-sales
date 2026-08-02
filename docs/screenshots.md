@@ -72,7 +72,6 @@ Berikut adalah seluruh screenshot fitur Point of Sales.
 |------------|-----------|
 | ![Store Profile](screenshots/23-store-profile.png) | Profil toko — NPWP, NIB, tarif PPN |
 | ![Payment Settings](screenshots/24-payment-settings.png) | Konfigurasi payment gateway |
-| ![Bank Accounts](screenshots/25-bank-accounts.png) | Rekening bank untuk transfer |
 | ![Loyalty Settings](screenshots/26-loyalty-settings.png) | Pengaturan loyalty — tiers, points |
 | ![Printer Settings](screenshots/27-printer-settings.png) | Pengaturan printer thermal |
 
